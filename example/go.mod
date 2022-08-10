@@ -6,4 +6,4 @@ require (
 
 go 1.19
 
-replace github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk => ../
+replace github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/sdk => ../sdk
