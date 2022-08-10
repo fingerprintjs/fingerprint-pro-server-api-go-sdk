@@ -1,3 +1,3 @@
-module github.com/fingerprint/fingerprint-pro-server-api-go-sdk
+module github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk
 
 go 1.19
