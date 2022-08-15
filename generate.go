@@ -7,7 +7,7 @@ import (
 	"os/exec"
 )
 
-var files = []string{"README.md", "docs", "api", ".swagger-codegen"}
+var files = []string{"README.md", "docs", ".swagger-codegen"}
 var pathPrefix = "sdk"
 
 func main() {
