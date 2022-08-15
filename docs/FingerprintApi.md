@@ -1,4 +1,4 @@
-# {{classname}}
+# FingerprintApi
 
 All URIs are relative to *https://api.fpjs.io*
 
