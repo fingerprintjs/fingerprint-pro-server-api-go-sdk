@@ -10,10 +10,11 @@ import (
 
 func main() {
 	cfg := sdk.NewConfiguration()
-	// You can also configure different path here, like "https://api-eu.fpjs.io"
-	cfg.BasePath = "https://api.fpjs.io"
-
+	// You can also use sdk.RegionEU or sdk.RegionAsia. Default one is RegionUS
+	cfg.Region = sdk.RegionUS
 	client := sdk.NewAPIClient(cfg)
+
+	// Configure authorization, in our case with API Key
 	auth := context.WithValue(context.Background(), sdk.ContextAPIKey, sdk.APIKey{
 		Key: "F6gQ8H8vQLc7mVsVKaFx",
 	})
