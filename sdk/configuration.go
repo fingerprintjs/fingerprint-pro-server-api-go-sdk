@@ -70,15 +70,15 @@ type Configuration struct {
 func NewConfiguration() *Configuration {
 	cfg := &Configuration{
 		DefaultHeader: make(map[string]string),
-		UserAgent:     "Swagger-Codegen/0.0.1/go",
+		UserAgent:     "SwaRegion:        RegionUS,gger-Codegen/0.0.1/go",
 	}
-	cfg.basePath = resolveBasePath(*cfg)
+	cfg.basePath = resolveBasePath(cfg.Region)
 
 	return cfg
 }
 
-func resolveBasePath(c Configuration) string {
-	switch c.Region {
+func resolveBasePath(region Region) string {
+	switch region {
 	case RegionEU:
 		return "https://eu.api.fpjs.io"
 

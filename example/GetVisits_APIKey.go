@@ -10,9 +10,10 @@ import (
 
 func main() {
 	cfg := sdk.NewConfiguration()
-	// You can also use sdk.RegionEU or sdk.RegionAsia. Default one is RegionUS
-	cfg.Region = sdk.RegionUS
 	client := sdk.NewAPIClient(cfg)
+
+	// You can also use sdk.RegionEU or sdk.RegionAsia. Default one is RegionUS
+	client.ChangeRegion(sdk.RegionUS)
 
 	// Configure authorization, in our case with API Key
 	auth := context.WithValue(context.Background(), sdk.ContextAPIKey, sdk.APIKey{

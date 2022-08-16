@@ -157,6 +157,15 @@ func (c *APIClient) ChangeBasePath(path string) {
 	c.cfg.basePath = path
 }
 
+func (c *APIClient) ChangeRegion(region Region) {
+	c.cfg.Region = region
+	c.cfg.basePath = resolveBasePath(region)
+}
+
+func (c *APIClient) GetBasePath() string {
+	return c.cfg.basePath
+}
+
 // prepareRequest build the request
 func (c *APIClient) prepareRequest(
 	ctx context.Context,
