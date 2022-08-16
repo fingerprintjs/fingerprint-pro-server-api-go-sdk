@@ -70,7 +70,8 @@ type Configuration struct {
 func NewConfiguration() *Configuration {
 	cfg := &Configuration{
 		DefaultHeader: make(map[string]string),
-		UserAgent:     "SwaRegion:        RegionUS,gger-Codegen/0.0.1/go",
+		UserAgent:     "Swagger-Codegen/0.0.1/go",
+		Region:        RegionUS,
 	}
 	cfg.basePath = resolveBasePath(cfg.Region)
 

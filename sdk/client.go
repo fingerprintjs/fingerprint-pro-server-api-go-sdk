@@ -148,14 +148,14 @@ func (c *APIClient) callAPI(request *http.Request) (*http.Response, error) {
 	return c.cfg.HTTPClient.Do(request)
 }
 
-func (c *APIClient) ChangeRegion(region Region) {
-	c.cfg.Region = region
-	c.cfg.basePath = resolveBasePath(region)
-}
-
 // Change base path to allow switching to mocks
 func (c *APIClient) ChangeBasePath(path string) {
 	c.cfg.basePath = path
+}
+
+func (c *APIClient) ChangeRegion(region Region) {
+	c.cfg.Region = region
+	c.cfg.basePath = resolveBasePath(region)
 }
 
 func (c *APIClient) GetBasePath() string {
