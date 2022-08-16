@@ -14,10 +14,8 @@ func TestUsesCorrectEndpointForRegion(t *testing.T) {
 
 	for region, endpoint := range regionsMap {
 		cfg := sdk.NewConfiguration()
-		client := sdk.NewAPIClient(cfg)
+		cfg.ChangeRegion(region)
 
-		client.ChangeRegion(region)
-
-		assert.Equal(t, client.GetBasePath(), endpoint)
+		assert.Equal(t, cfg.GetBasePath(), endpoint)
 	}
 }

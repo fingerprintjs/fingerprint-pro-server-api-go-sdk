@@ -54,9 +54,9 @@ func TestReturnsVisits(t *testing.T) {
 	defer ts.Close()
 
 	cfg := sdk.NewConfiguration()
+	cfg.ChangeBasePath(ts.URL)
 
 	client := sdk.NewAPIClient(cfg)
-	client.ChangeBasePath(ts.URL)
 
 	ctx := context.WithValue(context.Background(), sdk.ContextAPIKey, sdk.APIKey{
 		Key: "api_key",
@@ -107,9 +107,9 @@ func TestReturnsVisitsWithPagination(t *testing.T) {
 	defer ts.Close()
 
 	cfg := sdk.NewConfiguration()
+	cfg.ChangeBasePath(ts.URL)
 
 	client := sdk.NewAPIClient(cfg)
-	client.ChangeBasePath(ts.URL)
 
 	ctx := context.WithValue(context.Background(), sdk.ContextAPIKey, sdk.APIKey{
 		Key: "api_key",

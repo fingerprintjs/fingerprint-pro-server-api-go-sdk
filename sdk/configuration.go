@@ -58,22 +58,45 @@ type APIKey struct {
 }
 
 type Configuration struct {
+	region        Region
 	basePath      string
 	Host          string            `json:"host,omitempty"`
 	Scheme        string            `json:"scheme,omitempty"`
 	DefaultHeader map[string]string `json:"defaultHeader,omitempty"`
 	UserAgent     string            `json:"userAgent,omitempty"`
 	HTTPClient    *http.Client
-	Region        Region
+}
+
+// ChangeBasePath Change base path to allow switching to mocks
+func (c *Configuration) ChangeBasePath(path string) {
+	c.basePath = path
+}
+
+// ChangeRegion Changes region and sets basePath for it
+func (c *Configuration) ChangeRegion(region Region) {
+	c.region = region
+	c.basePath = resolveBasePath(region)
+}
+
+func (c *Configuration) GetBasePath() string {
+	return c.basePath
+}
+
+func (c *Configuration) GetRegion() Region {
+	return c.region
+}
+
+func (c *Configuration) AddDefaultHeader(key string, value string) {
+	c.DefaultHeader[key] = value
 }
 
 func NewConfiguration() *Configuration {
 	cfg := &Configuration{
 		DefaultHeader: make(map[string]string),
 		UserAgent:     "Swagger-Codegen/0.0.1/go",
-		Region:        RegionUS,
+		region:        RegionUS,
 	}
-	cfg.basePath = resolveBasePath(cfg.Region)
+	cfg.basePath = resolveBasePath(cfg.region)
 
 	return cfg
 }
@@ -89,8 +112,4 @@ func resolveBasePath(region Region) string {
 	default:
 		return "https://api.fpjs.io"
 	}
-}
-
-func (c *Configuration) AddDefaultHeader(key string, value string) {
-	c.DefaultHeader[key] = value
 }
