@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"os"
@@ -11,8 +12,53 @@ var files = []string{"README.md", "docs", ".swagger-codegen"}
 var pathPrefix = "sdk"
 
 func main() {
+	bumpConfigVersion()
 	generateSwagger()
 	moveFiles()
+}
+
+func getVersion() string {
+	var version string
+
+	envVersion := os.Getenv("VERSION")
+
+	if envVersion != "" {
+		version = envVersion
+	} else {
+		version = "1.0.0"
+	}
+
+	return version
+}
+
+func bumpConfigVersion() {
+	version := getVersion()
+	fileName := "./config.json"
+	configContents, err := os.ReadFile(fileName)
+
+	var config map[string]interface{}
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	if err := json.Unmarshal(configContents, &config); err != nil {
+		log.Fatal(err)
+	}
+
+	config["version"] = version
+
+	configContents, err = json.MarshalIndent(config, "", "  ")
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	err = os.WriteFile(fileName, configContents, 0644)
+
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 
 func removeFileOrDirIfExists(path string) {
