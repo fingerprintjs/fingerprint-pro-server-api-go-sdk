@@ -6,6 +6,7 @@ import (
 	"github.com/antihax/optional"
 	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/sdk"
 	"log"
+	"os"
 )
 
 func main() {
@@ -17,13 +18,13 @@ func main() {
 
 	// Configure authorization, in our case with API Key
 	auth := context.WithValue(context.Background(), sdk.ContextAPIKey, sdk.APIKey{
-		Key: "F6gQ8H8vQLc7mVsVKaFx",
+		Key: os.Getenv("FINGERPRINT_API_KEY"),
 	})
 
 	// Usually this data will come from your frontend app
-	visitorId := "un01pJ7BKgQgqO6omZCw"
+	visitorId := os.Getenv("VISITOR_ID")
 	opts := sdk.FingerprintApiGetVisitsOpts{
-		RequestId: optional.NewString("1660296228280.hBBze5"),
+		RequestId: optional.NewString(os.Getenv("REQUEST_ID")),
 	}
 
 	response, _, err := client.FingerprintApi.GetVisits(auth, visitorId, &opts)

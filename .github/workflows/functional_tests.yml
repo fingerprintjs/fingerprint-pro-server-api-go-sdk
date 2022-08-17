@@ -25,3 +25,7 @@ jobs:
       - run: go version
       - name: Run functional tests
         run: cd example && go run GetVisits_APIKey.go
+        env:
+          FINGERPRINT_API_KEY: ${{ secrets.FINGERPRINT_API_KEY }}
+          VISITOR_ID: ${{ secrets.VISITOR_ID }}
+          REQUEST_ID: ${{ secrets.REQUEST_ID }}
