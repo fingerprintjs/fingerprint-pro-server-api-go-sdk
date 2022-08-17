@@ -13,8 +13,8 @@ func main() {
 	cfg := sdk.NewConfiguration()
 	client := sdk.NewAPIClient(cfg)
 
-	// You can also use sdk.RegionEU or sdk.RegionAsia. Default one is RegionUS
-	cfg.ChangeRegion(sdk.RegionUS)
+	// You can also use sdk.RegionUS or sdk.RegionAsia. Default one is sdk.RegionUS
+	cfg.ChangeRegion(sdk.RegionEU)
 
 	// Configure authorization, in our case with API Key
 	auth := context.WithValue(context.Background(), sdk.ContextAPIKey, sdk.APIKey{
@@ -27,7 +27,9 @@ func main() {
 		RequestId: optional.NewString(os.Getenv("REQUEST_ID")),
 	}
 
-	response, _, err := client.FingerprintApi.GetVisits(auth, visitorId, &opts)
+	response, httpRes, err := client.FingerprintApi.GetVisits(auth, visitorId, &opts)
+
+	fmt.Printf("%+v\n", httpRes)
 
 	if err != nil {
 		log.Fatal(err)
