@@ -1,0 +1,31 @@
+name: Functional tests
+
+on:
+  pull_request:
+    branches:
+      - '*'
+  workflow_dispatch:
+  schedule:
+    - cron: '0 5 * * *'
+
+jobs:
+  tests:
+    name: Functional tests (GO ${{ matrix.go-version }})
+    runs-on: "ubuntu-latest"
+
+    strategy:
+      matrix:
+        go-version: [1.17, 1.18, 1.19]
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-go@v3
+        with:
+          go-version: ${{ matrix.go-version }}
+      - run: go version
+      - name: Run functional tests
+        run: cd example && go run GetVisits_APIKey.go
+        env:
+          FINGERPRINT_API_KEY: ${{ secrets.FINGERPRINT_API_KEY }}
+          VISITOR_ID: ${{ secrets.VISITOR_ID }}
+          REQUEST_ID: ${{ secrets.REQUEST_ID }}
