@@ -1,0 +1,36 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - test
+  # TODO After publishing repository change this to trigger on push to main and test
+  workflow_dispatch:
+
+jobs:
+  release:
+    # Don't forget to configure production environment after repository is made public to require approval before triggering!
+    environment: production
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-go@v3
+        with:
+          go-version: 1.19
+
+      - name: Install dependencies
+        run: yarn install --cwd=release
+
+      - name: Build library
+        run: go build
+
+      - name: Release
+        run: yarn release
+        working-directory: release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_RELEASE_TOKEN }}
+          HUSKY: 0
