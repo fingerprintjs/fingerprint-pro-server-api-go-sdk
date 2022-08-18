@@ -49,7 +49,7 @@ func bumpConfigVersion() {
 		log.Fatal(err)
 	}
 
-	config["version"] = version
+	config["packageVersion"] = version
 
 	configContents, err = json.MarshalIndent(config, "", "  ")
 
