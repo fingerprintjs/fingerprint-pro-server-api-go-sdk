@@ -101,6 +101,12 @@
     ],
     "@semantic-release/changelog",
     [
+      "@semantic-release/exec",
+      {
+        "publishCmd": "VERSION=${nextRelease.version} go run generate.go"
+      }
+    ],
+    [
       "@semantic-release/git",
       {
         "assets": [
@@ -111,12 +117,6 @@
         ]
       }
     ],
-    "@semantic-release/github",
-    [
-      "@semantic-release/exec",
-      {
-        "publishCmd": "VERSION=${nextRelease.version} go run generate.go"
-      }
-    ]
+    "@semantic-release/github"
   ]
 }
