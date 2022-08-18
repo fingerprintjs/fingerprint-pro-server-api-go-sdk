@@ -1,25 +1,15 @@
 {
   "name": "@fingerprintjs/fingerprint-pro-server-api-go-sdk",
   "scripts": {
-    "prepare": "husky install",
     "release": "semantic-release"
   },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
-    }
-  },
   "devDependencies": {
-    "@commitlint/cli": "^17.0.2",
-    "@commitlint/config-conventional": "^17.0.2",
     "@semantic-release/changelog": "6.0.1",
     "@semantic-release/exec": "6.0.3",
     "@semantic-release/git": "10.0.1",
     "@semantic-release/github": "8.0.4",
-    "commitizen": "^4.2.4",
     "conventional-changelog-conventionalcommits": "^5.0.0",
     "cz-conventional-changelog": "^3.3.0",
-    "husky": "^8.0.1",
     "semantic-release": "19.0.3"
   }
 }

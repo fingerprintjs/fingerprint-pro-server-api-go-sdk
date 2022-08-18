@@ -25,4 +25,4 @@ _testmain.go
 *.exe
 *.test
 *.prof
-node_modules
+release/node_modules

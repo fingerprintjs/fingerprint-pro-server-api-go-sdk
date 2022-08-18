@@ -20,13 +20,13 @@ jobs:
           go-version: 1.19
 
       - name: Install dependencies
-        run: yarn install
+        run: yarn install --cwd=release
 
       - name: Build library
         run: go build
 
       - name: Release
-        run: yarn release
+        run: cd release && yarn release
         env:
           GITHUB_TOKEN: ${{ secrets.GH_RELEASE_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
