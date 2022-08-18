@@ -32,6 +32,29 @@ func getMockResponse(path string) sdk.Response {
 	return mockResponse
 }
 
+func readConfig() map[string]interface{} {
+	fileName := "../config.json"
+	configContents, err := os.ReadFile(fileName)
+
+	var config map[string]interface{}
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	if err := json.Unmarshal(configContents, &config); err != nil {
+		log.Fatal(err)
+	}
+
+	configContents, err = json.MarshalIndent(config, "", "  ")
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return config
+}
+
 func TestReturnsVisits(t *testing.T) {
 	mockResponse := getMockResponse("../test/mocks/visits_limit_1.json")
 
@@ -39,8 +62,11 @@ func TestReturnsVisits(t *testing.T) {
 		w http.ResponseWriter,
 		r *http.Request,
 	) {
-		apiKey := r.Header.Get("Auth-Api-Key")
+		config := readConfig()
+		integrationInfo := r.URL.Query().Get("ii")
+		assert.Equal(t, integrationInfo, fmt.Sprintf("fingerprint-pro-server-go-sdk/%s", config["packageVersion"]))
 
+		apiKey := r.Header.Get("Auth-Api-Key")
 		assert.Equal(t, apiKey, "api_key")
 
 		w.Header().Set("Content-Type", "application/json")
@@ -93,7 +119,6 @@ func TestReturnsVisitsWithPagination(t *testing.T) {
 		assert.Equal(t, r.Form.Get("linked_id"), config.LinkedId.Value())
 
 		apiKey := r.Header.Get("Auth-Api-Key")
-
 		assert.Equal(t, apiKey, "api_key")
 
 		w.Header().Set("Content-Type", "application/json")
