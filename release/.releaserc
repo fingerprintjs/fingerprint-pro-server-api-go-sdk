@@ -108,7 +108,7 @@
     [
       "@semantic-release/exec",
       {
-        "publishCmd": "cd .. && VERSION=${nextRelease.version} go run generate.go"
+        "publishCmd": "cd .. && VERSION=\"${nextRelease.version}\" go run generate.go"
       }
     ],
     [
