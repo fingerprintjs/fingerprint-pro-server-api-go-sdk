@@ -15,6 +15,7 @@ func main() {
 	bumpConfigVersion()
 	generateSwagger()
 	moveFiles()
+	formatCode()
 }
 
 func getVersion() string {
@@ -111,4 +112,15 @@ func generateSwagger() {
 	}
 
 	fmt.Println(string(out))
+}
+
+func formatCode() {
+	cmd := exec.Command("go", "fmt")
+	cmd.Dir = "./sdk"
+
+	_, err := cmd.Output()
+
+	if err != nil {
+		log.Fatal(err)
+	}
 }
