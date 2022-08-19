@@ -34,7 +34,7 @@ jobs:
         run: go build
 
       - name: Release
-        run: sh generate.sh
+        run: go run generate.go
         #working-directory: release
         env:
           GITHUB_TOKEN: ${{ secrets.GH_RELEASE_TOKEN }}
