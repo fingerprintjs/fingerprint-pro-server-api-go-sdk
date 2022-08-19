@@ -34,8 +34,8 @@ jobs:
         run: go build
 
       - name: Release
-        run: go run generate.go
-        #working-directory: release
+        run: yarn release
+        working-directory: release
         env:
           GITHUB_TOKEN: ${{ secrets.GH_RELEASE_TOKEN }}
           HUSKY: 0
