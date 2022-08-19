@@ -104,7 +104,21 @@ func moveFiles() {
 }
 
 func generateSwagger() {
-	cmd := exec.Command("sh", "generate.sh")
+	cmd := exec.Command(
+		"java",
+		"-jar",
+		"./bin/swagger-codegen-cli.jar",
+		"generate",
+		"-t",
+		"./template",
+		"-l",
+		"go",
+		"-i",
+		"https://fingerprintjs.github.io/fingerprint-pro-server-api-openapi/schemes/fingerprint-server-api.yaml",
+		"-o",
+		"./sdk",
+		"-c",
+		"config.json")
 
 	out, cmdErr := cmd.Output()
 
