@@ -16,6 +16,7 @@ func main() {
 	bumpConfigVersion()
 	generateSwagger()
 	moveFiles()
+	getExamples()
 	fixFingerPrintApiMdFile()
 	formatCode()
 }
@@ -112,6 +113,20 @@ func generateSwagger() {
 	}
 
 	fmt.Println(string(out))
+}
+
+func getExamples() {
+	list := []string{"visits_limit_1.json", "visits_limit_500.json", "webhook.json"}
+
+	for _, file := range list {
+		cmd := exec.Command("curl", "-o", fmt.Sprintf("./test/mocks/%s", file), fmt.Sprintf("https://fingerprintjs.github.io/fingerprint-pro-server-api-openapi/examples/%s", file))
+		_, err := cmd.Output()
+
+		if err != nil {
+			log.Fatal(err)
+		}
+	}
+
 }
 
 /**
