@@ -1,3 +1,10 @@
+## [1.0.0-test.2](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/compare/v1.0.0-test.1...v1.0.0-test.2) (2022-08-19)
+
+
+### Features
+
+* add "integrationsInfo" query param ([b326815](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/b326815f69b92c3c1d2d691a99c8483753ec6e49))
+
 ## 1.0.0-test.1 (2022-08-19)
 
 
