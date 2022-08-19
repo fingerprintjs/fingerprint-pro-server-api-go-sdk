@@ -28,13 +28,13 @@ jobs:
           go-version: 1.19
 
       - name: Install dependencies
-        run: yarn install
+        run: yarn install --cwd=release
 
       - name: Build library
         run: go build
 
       - name: Release
-        run: yarn release
+        run: ./release/node_modules/.bin/semantic-release --extends ./release/.releaserc.js
         env:
           GITHUB_TOKEN: ${{ secrets.GH_RELEASE_TOKEN }}
           HUSKY: 0
