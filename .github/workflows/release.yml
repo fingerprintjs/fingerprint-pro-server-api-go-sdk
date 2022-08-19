@@ -28,14 +28,13 @@ jobs:
           go-version: 1.19
 
       - name: Install dependencies
-        run: yarn install --cwd=release
+        run: yarn install
 
       - name: Build library
         run: go build
 
       - name: Release
         run: yarn release
-        working-directory: release
         env:
           GITHUB_TOKEN: ${{ secrets.GH_RELEASE_TOKEN }}
           HUSKY: 0
