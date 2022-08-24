@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/config"
 	"log"
 	"os"
 	"os/exec"
@@ -29,7 +30,9 @@ func getVersion() string {
 	if envVersion != "" {
 		version = envVersion
 	} else {
-		version = "1.0.0"
+		configFile := config.ReadConfig("./config.json")
+
+		version = configFile["packageVersion"].(string)
 	}
 
 	return version
@@ -37,28 +40,23 @@ func getVersion() string {
 
 func bumpConfigVersion() {
 	version := getVersion()
-	fileName := "./config.json"
-	configContents, err := os.ReadFile(fileName)
 
-	var config map[string]interface{}
+	configFile := config.ReadConfig("./config.json")
+
+	if configFile["packageVersion"].(string) == version {
+		log.Println("Version is up to date")
+		return
+	}
+
+	configFile["packageVersion"] = version
+
+	configContents, err := json.MarshalIndent(configFile, "", "  ")
 
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	if err := json.Unmarshal(configContents, &config); err != nil {
-		log.Fatal(err)
-	}
-
-	config["packageVersion"] = version
-
-	configContents, err = json.MarshalIndent(config, "", "  ")
-
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	err = os.WriteFile(fileName, configContents, 0644)
+	err = os.WriteFile("./config.json", configContents, 0644)
 
 	if err != nil {
 		log.Fatal(err)
