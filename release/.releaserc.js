@@ -116,6 +116,7 @@ module.exports = {
       {
         "assets": [
           "CHANGELOG.md",
+          "README.md",
           "config.json",
           "docs/**/*",
           "sdk/**/*"
