@@ -1,3 +1,10 @@
+## [1.0.0-test.3](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/compare/v1.0.0-test.2...v1.0.0-test.3) (2022-08-24)
+
+
+### Bug Fixes
+
+* use config.json as single source of truth ([519f0d7](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/519f0d7b0c7c84fc164c4cf71440a83c87ab6239))
+
 ## [1.0.0-test.2](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/compare/v1.0.0-test.1...v1.0.0-test.2) (2022-08-19)
 
 
