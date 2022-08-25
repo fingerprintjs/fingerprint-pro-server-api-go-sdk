@@ -18,6 +18,8 @@ const (
     // {{{description}}}{{/description}}
 type {{classname}} struct {
 {{#vars}}
+    {{^@first}}
+    {{/@first}}
     {{#description}}
         // {{{description}}}
     {{/description}}
