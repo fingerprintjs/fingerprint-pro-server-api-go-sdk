@@ -16,6 +16,7 @@ import (
 	"encoding/xml"
 	"errors"
 	"fmt"
+	"golang.org/x/oauth2"
 	"io"
 	"mime/multipart"
 	"net/http"
@@ -24,12 +25,7 @@ import (
 	"path/filepath"
 	"reflect"
 	"regexp"
-	"strconv"
 	"strings"
-	"time"
-	"unicode/utf8"
-
-	"golang.org/x/oauth2"
 )
 
 var (
@@ -69,8 +65,16 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	return c
 }
 
-func atoi(in string) (int, error) {
-	return strconv.Atoi(in)
+func selectHeaderAccept(accepts []string) string {
+	if len(accepts) == 0 {
+		return ""
+	}
+
+	if contains(accepts, "application/json") {
+		return "application/json"
+	}
+
+	return strings.Join(accepts, ",")
 }
 
 // selectHeaderContentType select a content type from the available list.
@@ -84,19 +88,6 @@ func selectHeaderContentType(contentTypes []string) string {
 	return contentTypes[0] // use the first content type specified in 'consumes'
 }
 
-// selectHeaderAccept join all accept types and return
-func selectHeaderAccept(accepts []string) string {
-	if len(accepts) == 0 {
-		return ""
-	}
-
-	if contains(accepts, "application/json") {
-		return "application/json"
-	}
-
-	return strings.Join(accepts, ",")
-}
-
 // contains is a case insenstive match, finding needle in a haystack
 func contains(haystack []string, needle string) bool {
 	for _, a := range haystack {
@@ -105,20 +96,6 @@ func contains(haystack []string, needle string) bool {
 		}
 	}
 	return false
-}
-
-// Verify optional parameters are of the correct type.
-func typeCheckParameter(obj interface{}, expected string, name string) error {
-	// Make sure there is an object.
-	if obj == nil {
-		return nil
-	}
-
-	// Check the type is as expected.
-	if reflect.TypeOf(obj).String() != expected {
-		return fmt.Errorf("Expected %s to be of type %s but received %s.", name, expected, reflect.TypeOf(obj).String())
-	}
-	return nil
 }
 
 // parameterToString convert interface{} parameters to string, using a delimiter if format is provided.
@@ -336,11 +313,6 @@ func addFile(w *multipart.Writer, fieldName, path string) error {
 	return err
 }
 
-// Prevent trying to import "fmt"
-func reportError(format string, a ...interface{}) error {
-	return fmt.Errorf(format, a...)
-}
-
 // Set request body from an interface{}
 func setBody(body interface{}, contentType string) (bodyBuf *bytes.Buffer, err error) {
 	if bodyBuf == nil {
@@ -412,38 +384,6 @@ func parseCacheControl(headers http.Header) cacheControl {
 		}
 	}
 	return cc
-}
-
-// CacheExpires helper function to determine remaining time before repeating a request.
-func CacheExpires(r *http.Response) time.Time {
-	// Figure out when the cache expires.
-	var expires time.Time
-	now, err := time.Parse(time.RFC1123, r.Header.Get("date"))
-	if err != nil {
-		return time.Now()
-	}
-	respCacheControl := parseCacheControl(r.Header)
-
-	if maxAge, ok := respCacheControl["max-age"]; ok {
-		lifetime, err := time.ParseDuration(maxAge + "s")
-		if err != nil {
-			expires = now
-		}
-		expires = now.Add(lifetime)
-	} else {
-		expiresHeader := r.Header.Get("Expires")
-		if expiresHeader != "" {
-			expires, err = time.Parse(time.RFC1123, expiresHeader)
-			if err != nil {
-				expires = now
-			}
-		}
-	}
-	return expires
-}
-
-func strlen(s string) int {
-	return utf8.RuneCountInString(s)
 }
 
 // GenericSwaggerError Provides access to the body, error and model on returned errors.
