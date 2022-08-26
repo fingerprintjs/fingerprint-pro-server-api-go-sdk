@@ -6,24 +6,20 @@ import (
 	"os"
 )
 
-func ReadConfig(fileName string) map[string]interface{} {
-	configContents, err := os.ReadFile(fileName)
+type Config struct {
+	PackageVersion string `json:"packageVersion"`
+}
 
-	var config map[string]interface{}
-
+func ReadConfig(fileName string) Config {
+	file, err := os.Open(fileName)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	if err := json.Unmarshal(configContents, &config); err != nil {
+	var conf Config
+	if err := json.NewDecoder(file).Decode(&conf); err != nil {
 		log.Fatal(err)
 	}
 
-	configContents, err = json.MarshalIndent(config, "", "  ")
-
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	return config
+	return conf
 }

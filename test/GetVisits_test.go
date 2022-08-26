@@ -42,7 +42,7 @@ func TestReturnsVisits(t *testing.T) {
 	) {
 		configFile := config.ReadConfig("../config.json")
 		integrationInfo := r.URL.Query().Get("ii")
-		assert.Equal(t, integrationInfo, fmt.Sprintf("fingerprint-pro-server-go-sdk/%s", configFile["packageVersion"]))
+		assert.Equal(t, integrationInfo, fmt.Sprintf("fingerprint-pro-server-go-sdk/%s", configFile.PackageVersion))
 
 		apiKey := r.Header.Get("Auth-Api-Key")
 		assert.Equal(t, apiKey, "api_key")
