@@ -64,7 +64,6 @@ import (
 	"github.com/antihax/optional"
 	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/sdk"
 	"log"
-	"os"
 )
 
 func main() {
