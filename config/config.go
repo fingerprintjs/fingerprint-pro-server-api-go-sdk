@@ -8,6 +8,10 @@ import (
 
 type Config struct {
 	PackageVersion string `json:"packageVersion"`
+	GitRepoId      string `json:"gitRepoId"`
+	GitUserId      string `json:"gitUserId"`
+	PackageName    string `json:"packageName"`
+	PackageUrl     string `json:"packageUrl"`
 }
 
 func ReadConfig(fileName string) Config {
