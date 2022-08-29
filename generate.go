@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/config"
 	"log"
 	"os"
 	"os/exec"
@@ -29,7 +30,8 @@ func getVersion() string {
 	if envVersion != "" {
 		version = envVersion
 	} else {
-		version = "1.0.0"
+		configFile := config.ReadConfig("./config.json")
+		version = configFile.PackageVersion
 	}
 
 	return version
@@ -37,30 +39,22 @@ func getVersion() string {
 
 func bumpConfigVersion() {
 	version := getVersion()
-	fileName := "./config.json"
-	configContents, err := os.ReadFile(fileName)
 
-	var config map[string]interface{}
+	configFile := config.ReadConfig("./config.json")
 
+	if configFile.PackageVersion == version {
+		log.Println("Version is up to date")
+		return
+	}
+
+	configFile.PackageVersion = version
+
+	configContents, err := json.MarshalIndent(configFile, "", "  ")
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	if err := json.Unmarshal(configContents, &config); err != nil {
-		log.Fatal(err)
-	}
-
-	config["packageVersion"] = version
-
-	configContents, err = json.MarshalIndent(config, "", "  ")
-
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	err = os.WriteFile(fileName, configContents, 0644)
-
-	if err != nil {
+	if err = os.WriteFile("./config.json", configContents, 0644); err != nil {
 		log.Fatal(err)
 	}
 }
@@ -149,6 +143,7 @@ func getExamples() {
 func fixFingerPrintApiMdFile() {
 	token := "{{classname}}"
 	target := "FingerprintApi"
+	targetsToRemove := []string{"**optional** | ***FingerprintApiGetVisitsOpts** | optional parameters | nil if no parameters"}
 	filePath := "docs/FingerprintApi.md"
 
 	fileContents, err := os.ReadFile(filePath)
@@ -158,8 +153,19 @@ func fixFingerPrintApiMdFile() {
 	}
 
 	fileContents = []byte(strings.Replace(string(fileContents), token, target, -1))
+	fileContentsArray := strings.Split(string(fileContents), "\n")
+	var fileContentsArrayResult []string
 
-	err = os.WriteFile(filePath, fileContents, 0644)
+	// Fixes markdown table for optional parameters, by default swagger-codegen applies new line there which breaks the table.
+	for _, line := range fileContentsArray {
+		for _, targetToRemove := range targetsToRemove {
+			if line != targetToRemove {
+				fileContentsArrayResult = append(fileContentsArrayResult, strings.Replace(line, targetToRemove, "", -1))
+			}
+		}
+	}
+
+	err = os.WriteFile(filePath, []byte(strings.Join(fileContentsArrayResult, "\n")), 0644)
 
 	if err != nil {
 		log.Fatal(err)

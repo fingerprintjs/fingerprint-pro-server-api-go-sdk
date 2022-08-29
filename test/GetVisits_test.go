@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/antihax/optional"
+	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/config"
 	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/sdk"
 	"github.com/stretchr/testify/assert"
 	"log"
@@ -32,29 +33,6 @@ func getMockResponse(path string) sdk.Response {
 	return mockResponse
 }
 
-func readConfig() map[string]interface{} {
-	fileName := "../config.json"
-	configContents, err := os.ReadFile(fileName)
-
-	var config map[string]interface{}
-
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	if err := json.Unmarshal(configContents, &config); err != nil {
-		log.Fatal(err)
-	}
-
-	configContents, err = json.MarshalIndent(config, "", "  ")
-
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	return config
-}
-
 func TestReturnsVisits(t *testing.T) {
 	mockResponse := getMockResponse("../test/mocks/visits_limit_1.json")
 
@@ -62,9 +40,9 @@ func TestReturnsVisits(t *testing.T) {
 		w http.ResponseWriter,
 		r *http.Request,
 	) {
-		config := readConfig()
+		configFile := config.ReadConfig("../config.json")
 		integrationInfo := r.URL.Query().Get("ii")
-		assert.Equal(t, integrationInfo, fmt.Sprintf("fingerprint-pro-server-go-sdk/%s", config["packageVersion"]))
+		assert.Equal(t, integrationInfo, fmt.Sprintf("fingerprint-pro-server-go-sdk/%s", configFile.PackageVersion))
 
 		apiKey := r.Header.Get("Auth-Api-Key")
 		assert.Equal(t, apiKey, "api_key")
@@ -96,7 +74,7 @@ func TestReturnsVisits(t *testing.T) {
 }
 
 func TestReturnsVisitsWithPagination(t *testing.T) {
-	config := sdk.FingerprintApiGetVisitsOpts{
+	opts := sdk.FingerprintApiGetVisitsOpts{
 		RequestId: optional.NewString("request_id"),
 		Before:    optional.NewInt32(10),
 		Limit:     optional.NewInt32(500),
@@ -113,10 +91,10 @@ func TestReturnsVisitsWithPagination(t *testing.T) {
 
 		assert.NoError(t, parseErr)
 
-		assert.Equal(t, r.Form.Get("request_id"), config.RequestId.Value())
-		assert.Equal(t, r.Form.Get("before"), fmt.Sprint(config.Before.Value()))
-		assert.Equal(t, r.Form.Get("limit"), fmt.Sprint(config.Limit.Value()))
-		assert.Equal(t, r.Form.Get("linked_id"), config.LinkedId.Value())
+		assert.Equal(t, r.Form.Get("request_id"), opts.RequestId.Value())
+		assert.Equal(t, r.Form.Get("before"), fmt.Sprint(opts.Before.Value()))
+		assert.Equal(t, r.Form.Get("limit"), fmt.Sprint(opts.Limit.Value()))
+		assert.Equal(t, r.Form.Get("linked_id"), opts.LinkedId.Value())
 
 		apiKey := r.Header.Get("Auth-Api-Key")
 		assert.Equal(t, apiKey, "api_key")
@@ -140,7 +118,7 @@ func TestReturnsVisitsWithPagination(t *testing.T) {
 		Key: "api_key",
 	})
 
-	res, _, err := client.FingerprintApi.GetVisits(ctx, "visitor_id", &config)
+	res, _, err := client.FingerprintApi.GetVisits(ctx, "visitor_id", &opts)
 
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
