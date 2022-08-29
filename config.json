@@ -1,7 +1,7 @@
 {
+  "packageVersion": "1.0.0-test.5",
   "gitRepoId": "fingerprint-pro-server-api-go-sdk",
   "gitUserId": "fingerprintjs",
   "packageName": "sdk",
-  "packageUrl": "https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk",
-  "packageVersion": "1.0.0-test.4"
+  "packageUrl": "https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk"
 }
