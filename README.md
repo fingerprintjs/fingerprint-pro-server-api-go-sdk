@@ -44,7 +44,7 @@ Go Lang 1.17 or higher
 
 You can get the package directly from GitHub:
 ```shell
-go github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk
+go get github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk
 ```
 
 Then import it:
@@ -64,7 +64,6 @@ import (
 	"github.com/antihax/optional"
 	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/sdk"
 	"log"
-	"os"
 )
 
 func main() {

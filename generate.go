@@ -31,8 +31,7 @@ func getVersion() string {
 		version = envVersion
 	} else {
 		configFile := config.ReadConfig("./config.json")
-
-		version = configFile["packageVersion"].(string)
+		version = configFile.PackageVersion
 	}
 
 	return version
@@ -43,22 +42,19 @@ func bumpConfigVersion() {
 
 	configFile := config.ReadConfig("./config.json")
 
-	if configFile["packageVersion"].(string) == version {
+	if configFile.PackageVersion == version {
 		log.Println("Version is up to date")
 		return
 	}
 
-	configFile["packageVersion"] = version
+	configFile.PackageVersion = version
 
 	configContents, err := json.MarshalIndent(configFile, "", "  ")
-
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	err = os.WriteFile("./config.json", configContents, 0644)
-
-	if err != nil {
+	if err = os.WriteFile("./config.json", configContents, 0644); err != nil {
 		log.Fatal(err)
 	}
 }

@@ -19,11 +19,6 @@ import (
 	"strings"
 )
 
-// Linger please
-var (
-	_ context.Context
-)
-
 type FingerprintApiService service
 
 /*
@@ -48,7 +43,7 @@ type FingerprintApiGetVisitsOpts struct {
 
 func (a *FingerprintApiService) GetVisits(ctx context.Context, visitorId string, localVarOptionals *FingerprintApiGetVisitsOpts) (Response, *http.Response, error) {
 	var (
-		localVarHttpMethod  = strings.ToUpper("Get")
+		localVarHttpMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		localVarFileName    string
 		localVarFileBytes   []byte
@@ -65,17 +60,20 @@ func (a *FingerprintApiService) GetVisits(ctx context.Context, visitorId string,
 
 	localVarQueryParams.Add("ii", "fingerprint-pro-server-go-sdk/1.0.0-test.4")
 
-	if localVarOptionals != nil && localVarOptionals.RequestId.IsSet() {
-		localVarQueryParams.Add("request_id", parameterToString(localVarOptionals.RequestId.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.LinkedId.IsSet() {
-		localVarQueryParams.Add("linked_id", parameterToString(localVarOptionals.LinkedId.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Limit.IsSet() {
-		localVarQueryParams.Add("limit", parameterToString(localVarOptionals.Limit.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Before.IsSet() {
-		localVarQueryParams.Add("before", parameterToString(localVarOptionals.Before.Value(), ""))
+	if localVarOptionals != nil {
+
+		if localVarOptionals.RequestId.IsSet() {
+			localVarQueryParams.Add("request_id", parameterToString(localVarOptionals.RequestId.Value(), ""))
+		}
+		if localVarOptionals.LinkedId.IsSet() {
+			localVarQueryParams.Add("linked_id", parameterToString(localVarOptionals.LinkedId.Value(), ""))
+		}
+		if localVarOptionals.Limit.IsSet() {
+			localVarQueryParams.Add("limit", parameterToString(localVarOptionals.Limit.Value(), ""))
+		}
+		if localVarOptionals.Before.IsSet() {
+			localVarQueryParams.Add("before", parameterToString(localVarOptionals.Before.Value(), ""))
+		}
 	}
 	// to determine the Content-Type header
 	localVarHttpContentTypes := []string{}
@@ -104,20 +102,6 @@ func (a *FingerprintApiService) GetVisits(ctx context.Context, visitorId string,
 				key = auth.Key
 			}
 			localVarHeaderParams["Auth-API-Key"] = key
-
-		}
-	}
-	if ctx != nil {
-		// API Key Authentication
-		if auth, ok := ctx.Value(ContextAPIKey).(APIKey); ok {
-			var key string
-			if auth.Prefix != "" {
-				key = auth.Prefix + " " + auth.Key
-			} else {
-				key = auth.Key
-			}
-
-			localVarQueryParams.Add("api_key", key)
 		}
 	}
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)

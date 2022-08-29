@@ -24,7 +24,7 @@ type WebhookVisit struct {
 	// Timestamp of the event with millisecond precision in Unix time.
 	Timestamp int64 `json:"timestamp"`
 	// Time expressed according to ISO 8601 in UTC format.
-	Time time.Time `json:"time"`
+	Time *time.Time `json:"time"`
 	// Page URL from which identification request was sent.
 	Url string `json:"url"`
 	// A customer-provided value or an object that was sent with identification request.

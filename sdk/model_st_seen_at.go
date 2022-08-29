@@ -14,6 +14,6 @@ import (
 )
 
 type StSeenAt struct {
-	Global       time.Time `json:"global"`
-	Subscription time.Time `json:"subscription"`
+	Global       *time.Time `json:"global"`
+	Subscription *time.Time `json:"subscription"`
 }
