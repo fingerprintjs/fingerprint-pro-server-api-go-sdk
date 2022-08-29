@@ -18,13 +18,13 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **visitorId** | **string**|  | 
- **optional** | ***FingerprintApiGetVisitsOpts** | optional parameters | nil if no parameters
+ 
 
 ### Optional Parameters
 Optional parameters are passed through a pointer to a FingerprintApiGetVisitsOpts struct
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
  **requestId** | **optional.String**| Filter events by requestId | 
  **linkedId** | **optional.String**| Filter events by custom identifier | 
  **limit** | **optional.Int32**| Limit scanned results | 

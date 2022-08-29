@@ -143,6 +143,7 @@ func getExamples() {
 func fixFingerPrintApiMdFile() {
 	token := "{{classname}}"
 	target := "FingerprintApi"
+	targetsToRemove := []string{"**optional** | ***FingerprintApiGetVisitsOpts** | optional parameters | nil if no parameters"}
 	filePath := "docs/FingerprintApi.md"
 
 	fileContents, err := os.ReadFile(filePath)
@@ -152,8 +153,19 @@ func fixFingerPrintApiMdFile() {
 	}
 
 	fileContents = []byte(strings.Replace(string(fileContents), token, target, -1))
+	fileContentsArray := strings.Split(string(fileContents), "\n")
+	var fileContentsArrayResult []string
 
-	err = os.WriteFile(filePath, fileContents, 0644)
+	// Fixes markdown table for optional parameters, by default swagger-codegen applies new line there which breaks the table.
+	for _, line := range fileContentsArray {
+		for _, targetToRemove := range targetsToRemove {
+			if line != targetToRemove {
+				fileContentsArrayResult = append(fileContentsArrayResult, strings.Replace(line, targetToRemove, "", -1))
+			}
+		}
+	}
+
+	err = os.WriteFile(filePath, []byte(strings.Join(fileContentsArrayResult, "\n")), 0644)
 
 	if err != nil {
 		log.Fatal(err)
