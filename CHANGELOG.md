@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/compare/v1.0.1...v1.0.2) (2022-09-01)
+
+
+### Documentation
+
+* **README:** update template ([0bb3917](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/0bb391711ec3625af7c8ffb2de6bdc525758fbf1))
+
 ## [1.0.1](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/compare/v1.0.0...v1.0.1) (2022-09-01)
 
 
