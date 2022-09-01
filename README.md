@@ -25,8 +25,6 @@
   </a>
 </p>
 
-> :warning: **Work in progress**: This is a beta version of the library
-
 # Fingerprint Pro Server Go SDK
 Fingerprint Pro Server API provides a way for validating visitors’ data issued by Fingerprint Pro.
 
