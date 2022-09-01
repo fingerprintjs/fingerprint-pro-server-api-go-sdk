@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/compare/v1.0.0...v1.0.1) (2022-09-01)
+
+
+### Documentation
+
+* **README:** remove WIP label ([5d910ae](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/5d910ae9a0d43e19647d5982eefec536502f616f))
+
 ## 1.0.0 (2022-09-01)
 
 

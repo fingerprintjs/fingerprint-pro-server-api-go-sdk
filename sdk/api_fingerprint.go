@@ -58,7 +58,7 @@ func (a *FingerprintApiService) GetVisits(ctx context.Context, visitorId string,
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	localVarQueryParams.Add("ii", "fingerprint-pro-server-go-sdk/1.0.0")
+	localVarQueryParams.Add("ii", "fingerprint-pro-server-go-sdk/1.0.1")
 
 	if localVarOptionals != nil {
 
