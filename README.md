@@ -42,19 +42,13 @@ Go Lang 1.17 or higher
 
 ## Installation & Usage
 
-Get the package directly from GitHub:
+1. Get the package from GitHub:
 ```shell
 go get github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk
 ```
 
-Import it:
-```go
-import "github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/sdk"
-```
+2. Import and use the library:
 
-## Getting started
-
-Please follow the [installation procedure](#installation--usage) and then run the following:
 ```go
 package main
 
@@ -94,12 +88,12 @@ func main() {
 
 ```
 
-You can also check examples located in [example](./example) directory.
-
-To run the example:
-```shell
-cd example && FINGERPRINT_API_KEY=SECRET_API_KEY VISITOR_ID=VISITOR_ID_EXAMPLE go run GetVisits_APIKey.go
-```
+> **Note**
+> You can also check examples located in [example](./example) directory.
+> To run the examples:
+> ```shell
+> cd example && FINGERPRINT_API_KEY=SECRET_API_KEY VISITOR_ID=VISITOR_ID_EXAMPLE go run GetVisits_APIKey.go
+> ```
 
 ## Documentation for API Endpoints
 
