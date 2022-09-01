@@ -25,8 +25,6 @@
   </a>
 </p>
 
-> :warning: **Work in progress**: This is a beta version of the library
-
 # Fingerprint Pro Server Go SDK
 Fingerprint Pro Server API provides a way for validating visitors’ data issued by Fingerprint Pro.
 
@@ -42,19 +40,13 @@ Go Lang 1.17 or higher
 
 ## Installation & Usage
 
-You can get the package directly from GitHub:
+1. Get the package from GitHub:
 ```shell
 go get github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk
 ```
 
-Then import it:
-```go
-import "github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/sdk"
-```
+2. Import and use the library:
 
-## Getting started
-
-Please follow the [installation procedure](#installation--usage) and then run the following:
 ```go
 package main
 
@@ -69,37 +61,30 @@ import (
 func main() {
 	cfg := sdk.NewConfiguration()
 	client := sdk.NewAPIClient(cfg)
-
 	// Configure authorization, in our case with API Key
 	auth := context.WithValue(context.Background(), sdk.ContextAPIKey, sdk.APIKey{
 		Key: "SECRET_API_KEY",
 	})
-
 	// Usually this data will come from your frontend app
 	visitorId := "VISITOR_ID"
 	opts := sdk.FingerprintApiGetVisitsOpts{
 		RequestId: optional.NewString("REQUEST_ID"),
 	}
-
 	response, httpRes, err := client.FingerprintApi.GetVisits(auth, visitorId, &opts)
-
 	fmt.Printf("%+v\n", httpRes)
-
 	if err != nil {
 		log.Fatal(err)
 	}
-
 	fmt.Printf("Got response with visitorId: %s", response.VisitorId)
 }
-
 ```
 
-You can also check examples located in [example](./example) directory.
-
-To run the example:
-```shell
-cd example && FINGERPRINT_API_KEY=SECRET_API_KEY VISITOR_ID=VISITOR_ID_EXAMPLE go run GetVisits_APIKey.go
-```
+> **Note**
+> You can also check examples located in [example](./example) directory.
+> To run the examples:
+> ```shell
+> cd example && FINGERPRINT_API_KEY=SECRET_API_KEY VISITOR_ID=VISITOR_ID_EXAMPLE go run GetVisits_APIKey.go
+> ```
 
 ## Documentation for API Endpoints
 
