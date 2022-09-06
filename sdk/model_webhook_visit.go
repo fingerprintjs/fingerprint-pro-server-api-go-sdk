@@ -28,7 +28,7 @@ type WebhookVisit struct {
 	// Page URL from which identification request was sent.
 	Url string `json:"url"`
 	// A customer-provided value or an object that was sent with identification request.
-	Tag ModelMap `json:"tag"`
+	Tag ModelMap `json:"tag,omitempty"`
 	// A customer-provided id that was sent with identification request.
 	LinkedId   string      `json:"linkedId,omitempty"`
 	Confidence *Confidence `json:"confidence"`

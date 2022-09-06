@@ -11,30 +11,11 @@ import (
 	"log"
 	"net/http"
 	"net/http/httptest"
-	"os"
 	"testing"
 )
 
-func getMockResponse(path string) sdk.Response {
-	var mockResponse sdk.Response
-
-	data, err := os.ReadFile(path)
-
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	err = json.Unmarshal(data, &mockResponse)
-
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	return mockResponse
-}
-
 func TestReturnsVisits(t *testing.T) {
-	mockResponse := getMockResponse("../test/mocks/visits_limit_1.json")
+	mockResponse := GetMockResponse("../test/mocks/visits_limit_1.json")
 
 	ts := httptest.NewServer(http.HandlerFunc(func(
 		w http.ResponseWriter,
@@ -81,7 +62,7 @@ func TestReturnsVisitsWithPagination(t *testing.T) {
 		LinkedId:  optional.NewString("request_id"),
 	}
 
-	mockResponse := getMockResponse("../test/mocks/visits_limit_500.json")
+	mockResponse := GetMockResponse("../test/mocks/visits_limit_500.json")
 
 	ts := httptest.NewServer(http.HandlerFunc(func(
 		w http.ResponseWriter,

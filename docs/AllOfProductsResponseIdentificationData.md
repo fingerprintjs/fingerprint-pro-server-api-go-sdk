@@ -1,4 +1,4 @@
-# WebhookVisit
+# AllOfProductsResponseIdentificationData
 
 ## Properties
 Name | Type | Description | Notes
@@ -17,6 +17,7 @@ Name | Type | Description | Notes
 **VisitorFound** | **bool** | Attribute represents if a visitor had been identified before. | [default to null]
 **FirstSeenAt** | [***StSeenAt**](StSeenAt.md) |  | [default to null]
 **LastSeenAt** | [***StSeenAt**](StSeenAt.md) |  | [default to null]
+**VisitorId** | **string** |  | [default to null]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

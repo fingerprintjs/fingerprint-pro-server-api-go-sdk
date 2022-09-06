@@ -83,7 +83,7 @@ func main() {
 > You can also check examples located in [example](./example) directory.
 > To run the examples:
 > ```shell
-> cd example && FINGERPRINT_API_KEY=SECRET_API_KEY VISITOR_ID=VISITOR_ID_EXAMPLE go run GetVisits_APIKey.go
+> cd example && FINGERPRINT_API_KEY=SECRET_API_KEY VISITOR_ID=VISITOR_ID_EXAMPLE go run visits/GetVisits_APIKey.go
 > ```
 
 ## Documentation for API Endpoints
@@ -92,16 +92,27 @@ All URIs are relative to *https://api.fpjs.io*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*FingerprintApi* | [**GetEvent**](docs/FingerprintApi.md#getevent) | **Get** /events/{request_id} | Get event by request ID
 *FingerprintApi* | [**GetVisits**](docs/FingerprintApi.md#getvisits) | **Get** /visitors/{visitor_id} | 
 
 ## Documentation For Models
 
+ - [AllOfProductsResponseIdentificationData](docs/AllOfProductsResponseIdentificationData.md)
+ - [AllOfResponseVisitsItems](docs/AllOfResponseVisitsItems.md)
+ - [BotdDetectionResult](docs/BotdDetectionResult.md)
+ - [BotdResult](docs/BotdResult.md)
  - [BrowserDetails](docs/BrowserDetails.md)
  - [Confidence](docs/Confidence.md)
+ - [ErrorResponse](docs/ErrorResponse.md)
+ - [ErrorResponseError](docs/ErrorResponseError.md)
+ - [EventResponse](docs/EventResponse.md)
  - [IpLocation](docs/IpLocation.md)
  - [IpLocationCity](docs/IpLocationCity.md)
  - [Location](docs/Location.md)
  - [ManyRequestsResponse](docs/ManyRequestsResponse.md)
+ - [ProductsResponse](docs/ProductsResponse.md)
+ - [ProductsResponseBotd](docs/ProductsResponseBotd.md)
+ - [ProductsResponseIdentification](docs/ProductsResponseIdentification.md)
  - [Response](docs/Response.md)
  - [StSeenAt](docs/StSeenAt.md)
  - [Subdivision](docs/Subdivision.md)
