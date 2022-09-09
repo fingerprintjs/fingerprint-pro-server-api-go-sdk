@@ -13,7 +13,7 @@ import (
 	"time"
 )
 
-type AllOfResponseVisitsItems struct {
+type ResponseVisits struct {
 	// Unique identifier of the user's identification request.
 	RequestId      string          `json:"requestId"`
 	BrowserDetails *BrowserDetails `json:"browserDetails"`

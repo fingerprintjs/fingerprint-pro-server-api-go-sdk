@@ -97,8 +97,6 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
- - [AllOfProductsResponseIdentificationData](docs/AllOfProductsResponseIdentificationData.md)
- - [AllOfResponseVisitsItems](docs/AllOfResponseVisitsItems.md)
  - [BotdDetectionResult](docs/BotdDetectionResult.md)
  - [BotdResult](docs/BotdResult.md)
  - [BrowserDetails](docs/BrowserDetails.md)
@@ -113,7 +111,9 @@ Class | Method | HTTP request | Description
  - [ProductsResponse](docs/ProductsResponse.md)
  - [ProductsResponseBotd](docs/ProductsResponseBotd.md)
  - [ProductsResponseIdentification](docs/ProductsResponseIdentification.md)
+ - [ProductsResponseIdentificationData](docs/ProductsResponseIdentificationData.md)
  - [Response](docs/Response.md)
+ - [ResponseVisits](docs/ResponseVisits.md)
  - [StSeenAt](docs/StSeenAt.md)
  - [Subdivision](docs/Subdivision.md)
  - [Visit](docs/Visit.md)

@@ -3,6 +3,8 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**VisitorId** | **string** |  | [default to null]
+**ClientReferrer** | **string** |  | [optional] [default to null]
 **RequestId** | **string** | Unique identifier of the user&#x27;s identification request. | [default to null]
 **BrowserDetails** | [***BrowserDetails**](BrowserDetails.md) |  | [default to null]
 **Incognito** | **bool** | Flag if user used incognito session. | [default to null]

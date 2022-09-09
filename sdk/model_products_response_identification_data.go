@@ -13,7 +13,7 @@ import (
 	"time"
 )
 
-type AllOfProductsResponseIdentificationData struct {
+type ProductsResponseIdentificationData struct {
 	// Unique identifier of the user's identification request.
 	RequestId      string          `json:"requestId"`
 	BrowserDetails *BrowserDetails `json:"browserDetails"`

@@ -10,5 +10,5 @@
 package sdk
 
 type ProductsResponseIdentification struct {
-	Data *AllOfProductsResponseIdentificationData `json:"data,omitempty"`
+	Data *ProductsResponseIdentificationData `json:"data,omitempty"`
 }
