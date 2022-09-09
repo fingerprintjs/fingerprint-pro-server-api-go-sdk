@@ -108,7 +108,7 @@ func generateSwagger() {
 		"-l",
 		"go",
 		"-i",
-		"https://fingerprintjs.github.io/fingerprint-pro-server-api-openapi/schemes/fingerprint-server-api.yaml",
+		"res/fingerprint-server-api.yaml",
 		"-o",
 		"./sdk",
 		"-c",
