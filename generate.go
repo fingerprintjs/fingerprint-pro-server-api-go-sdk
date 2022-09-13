@@ -3,11 +3,12 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/config"
 	"log"
 	"os"
 	"os/exec"
 	"strings"
+
+	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/config"
 )
 
 var files = []string{"README.md", "docs", ".swagger-codegen"}
@@ -120,6 +121,7 @@ func generateSwagger() {
 		log.Fatal(cmdErr)
 	}
 
+	os.WriteFile("./swagger-codegen.log", out, 0644)
 	fmt.Println(string(out))
 }
 
