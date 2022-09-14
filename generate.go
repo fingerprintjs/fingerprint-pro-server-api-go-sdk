@@ -121,7 +121,6 @@ func generateSwagger() {
 		log.Fatal(cmdErr)
 	}
 
-	os.WriteFile("./swagger-codegen.log", out, 0644)
 	fmt.Println(string(out))
 }
 
