@@ -32,6 +32,12 @@ func main() {
 		log.Fatal(err)
 	}
 
-	stringResponse, _ := json.Marshal(response)
-	fmt.Printf("Got response: %+v", string(stringResponse))
+	if response.Products.Botd != nil {
+		fmt.Printf("Got response with Botd: %s", response.Products.Botd)
+	}
+
+	if response.Products.Identification != nil {
+		stringResponse, _ := json.Marshal(response.Products.Identification)
+		fmt.Printf("Got response with Identification: %s", string(stringResponse))
+	}
 }
