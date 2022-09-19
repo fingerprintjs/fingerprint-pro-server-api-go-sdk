@@ -14,6 +14,8 @@ import (
 )
 
 type WebhookVisit struct {
+	VisitorId      string `json:"visitorId"`
+	ClientReferrer string `json:"clientReferrer,omitempty"`
 	// Unique identifier of the user's identification request.
 	RequestId      string          `json:"requestId"`
 	BrowserDetails *BrowserDetails `json:"browserDetails"`
@@ -28,7 +30,7 @@ type WebhookVisit struct {
 	// Page URL from which identification request was sent.
 	Url string `json:"url"`
 	// A customer-provided value or an object that was sent with identification request.
-	Tag ModelMap `json:"tag"`
+	Tag ModelMap `json:"tag,omitempty"`
 	// A customer-provided id that was sent with identification request.
 	LinkedId   string      `json:"linkedId,omitempty"`
 	Confidence *Confidence `json:"confidence"`

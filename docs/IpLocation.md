@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **Longitude** | **float64** |  | [default to null]
 **PostalCode** | **string** |  | [optional] [default to null]
 **Timezone** | **string** |  | [default to null]
-**City** | [***IpLocationCity**](IPLocation_city.md) |  | [optional] [default to null]
+**City** | [***IpLocationCity**](IPLocationCity.md) |  | [optional] [default to null]
 **Country** | [***Location**](Location.md) |  | [default to null]
 **Continent** | [***Location**](Location.md) |  | [default to null]
 **Subdivisions** | [**[]Subdivision**](Subdivision.md) |  | [optional] [default to null]

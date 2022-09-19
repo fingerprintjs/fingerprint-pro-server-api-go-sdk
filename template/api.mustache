@@ -51,7 +51,7 @@ func (a *{{{classname}}}Service) {{{nickname}}}(ctx context.Context{{#hasParams}
 	localVarFormParams := url.Values{}
 
 	localVarQueryParams.Add("ii", "fingerprint-pro-server-go-sdk/{{packageVersion}}")
-
+{{#hasOptionalParams}}
     if localVarOptionals != nil {
         {{#allParams}}
         {{#required}}
@@ -113,6 +113,7 @@ func (a *{{{classname}}}Service) {{{nickname}}}(ctx context.Context{{#hasParams}
         {{/queryParams}}
         {{/hasQueryParams}}
     }
+    {{/hasOptionalParams}}
 	// to determine the Content-Type header
 {{=<% %>=}}
 	localVarHttpContentTypes := []string{}

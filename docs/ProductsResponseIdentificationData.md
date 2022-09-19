@@ -1,10 +1,8 @@
-# WebhookVisit
+# ProductsResponseIdentificationData
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**VisitorId** | **string** |  | [default to null]
-**ClientReferrer** | **string** |  | [optional] [default to null]
 **RequestId** | **string** | Unique identifier of the user&#x27;s identification request. | [default to null]
 **BrowserDetails** | [***BrowserDetails**](BrowserDetails.md) |  | [default to null]
 **Incognito** | **bool** | Flag if user used incognito session. | [default to null]
@@ -19,6 +17,7 @@ Name | Type | Description | Notes
 **VisitorFound** | **bool** | Attribute represents if a visitor had been identified before. | [default to null]
 **FirstSeenAt** | [***StSeenAt**](StSeenAt.md) |  | [default to null]
 **LastSeenAt** | [***StSeenAt**](StSeenAt.md) |  | [default to null]
+**VisitorId** | **string** |  | [default to null]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

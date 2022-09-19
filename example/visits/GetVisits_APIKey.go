@@ -14,7 +14,7 @@ func main() {
 	client := sdk.NewAPIClient(cfg)
 
 	// You can also use sdk.RegionUS or sdk.RegionAsia. Default one is sdk.RegionUS
-	cfg.ChangeRegion(sdk.RegionEU)
+	//cfg.ChangeRegion(sdk.RegionEU)
 
 	// Configure authorization, in our case with API Key
 	auth := context.WithValue(context.Background(), sdk.ContextAPIKey, sdk.APIKey{

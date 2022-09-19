@@ -13,7 +13,7 @@ import (
 	"time"
 )
 
-type Visit struct {
+type ProductsResponseIdentificationData struct {
 	// Unique identifier of the user's identification request.
 	RequestId      string          `json:"requestId"`
 	BrowserDetails *BrowserDetails `json:"browserDetails"`
@@ -36,4 +36,5 @@ type Visit struct {
 	VisitorFound bool      `json:"visitorFound"`
 	FirstSeenAt  *StSeenAt `json:"firstSeenAt"`
 	LastSeenAt   *StSeenAt `json:"lastSeenAt"`
+	VisitorId    string    `json:"visitorId"`
 }
