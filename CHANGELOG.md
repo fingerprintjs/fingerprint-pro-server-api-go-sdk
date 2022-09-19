@@ -1,3 +1,10 @@
+## [1.1.0](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/compare/v1.0.2...v1.1.0) (2022-09-19)
+
+
+### Features
+
+* introduce /event/{request_id} endpoint ([74a39b6](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/74a39b609b64ef2f9b7eae76972d7e4532b1867b))
+
 ## [1.0.2](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/compare/v1.0.1...v1.0.2) (2022-09-01)
 
 
