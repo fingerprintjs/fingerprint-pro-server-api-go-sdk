@@ -18,6 +18,8 @@ type BotdResult struct {
 	// IP address of the requesting browser or bot.
 	Ip string `json:"ip"`
 	// Time in UTC when the request from the JS agent was made. We recommend to treat requests that are older than 2 minutes as malicious. Otherwise, request replay attacks are possible
-	Time *time.Time           `json:"time"`
-	Bot  *BotdDetectionResult `json:"bot"`
+	Time *time.Time `json:"time"`
+	// Page URL from which identification request was sent.
+	Url string               `json:"url"`
+	Bot *BotdDetectionResult `json:"bot"`
 }
