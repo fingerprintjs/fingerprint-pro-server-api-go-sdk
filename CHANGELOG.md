@@ -1,3 +1,16 @@
+## [1.2.0](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/compare/v1.1.0...v1.2.0) (2022-10-24)
+
+
+### Features
+
+* update schema to support url field for botd result ([5e0ec6c](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/5e0ec6c9c65ec79e20dfbb062c6a7471215852cd))
+
+
+### Documentation
+
+* **README:** add different region to code example ([3986d6d](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/3986d6df1306666bb03812be05c408ed91ecf0d9))
+* **README:** add region section ([a2342cd](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/a2342cdc0451982ee5c33bd46704d193a263ddd1))
+
 ## [1.1.0](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/compare/v1.0.2...v1.1.0) (2022-09-19)
 
 
