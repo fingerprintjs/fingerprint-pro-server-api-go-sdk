@@ -98,6 +98,21 @@ func main() {
 > cd example && FINGERPRINT_API_KEY=SECRET_API_KEY VISITOR_ID=VISITOR_ID_EXAMPLE go run visits/GetVisits_APIKey.go
 > ```
 
+### Region
+If your subscription is in region other than US, you need to change the region in the configuration:
+```go
+
+import (
+    "github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/sdk"
+)
+
+func main() {
+    cfg := sdk.NewConfiguration()
+
+    cfg.ChangeRegion(sdk.RegionEU) // or sdk.RegionAsia
+}
+```
+
 ## Documentation for API Endpoints
 
 All URIs are relative to *{{basePath}}*
