@@ -1,7 +1,7 @@
 /*
  * Fingerprint Pro Server API
  *
- * Fingerprint Pro Server API provides a way for validating visitors’ data issued by Fingerprint Pro.
+ * Fingerprint Pro Server API allows you to get information about visitors and about individual events in a server environment. This API can be used for data exports, decision-making, and data analysis scenarios.
  *
  * API version: 3
  * Contact: support@fingerprint.com
@@ -13,7 +13,7 @@ import (
 	"time"
 )
 
-// Contains all the information from BOTD product
+// Contains all the information from Bot Detection product
 type BotdResult struct {
 	// IP address of the requesting browser or bot.
 	Ip string `json:"ip"`

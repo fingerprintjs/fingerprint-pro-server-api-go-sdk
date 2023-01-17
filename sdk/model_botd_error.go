@@ -9,7 +9,8 @@
  */
 package sdk
 
-type ProductsResponseBotd struct {
-	Data   *BotdResult `json:"data,omitempty"`
-	Error_ *BotdError  `json:"error,omitempty"`
+type BotdError struct {
+	// Error code:  * `TooManyRequests` - the limit on secret API key requests per second has been exceeded  * `Failed` - internal server error
+	Code    string `json:"code"`
+	Message string `json:"message"`
 }

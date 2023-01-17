@@ -9,7 +9,11 @@
  */
 package sdk
 
-type ProductsResponseBotd struct {
-	Data   *BotdResult `json:"data,omitempty"`
-	Error_ *BotdError  `json:"error,omitempty"`
+import (
+	"time"
+)
+
+type SeenAt struct {
+	Global       *time.Time `json:"global"`
+	Subscription *time.Time `json:"subscription"`
 }

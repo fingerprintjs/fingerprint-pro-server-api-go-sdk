@@ -9,7 +9,8 @@
  */
 package sdk
 
-type ProductsResponseBotd struct {
-	Data   *BotdResult `json:"data,omitempty"`
-	Error_ *BotdError  `json:"error,omitempty"`
+type ErrorEvent403ResponseError struct {
+	// Error code:  * `TokenRequired` - `Auth-API-Key` header is missing or empty  * `TokenNotFound` - subscription not found for specified secret key  * `SubscriptionNotActive` - subscription is not active  * `WrongRegion` - server and subscription region differ
+	Code    string `json:"code"`
+	Message string `json:"message"`
 }
