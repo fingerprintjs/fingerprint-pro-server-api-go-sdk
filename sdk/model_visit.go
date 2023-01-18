@@ -1,7 +1,7 @@
 /*
  * Fingerprint Pro Server API
  *
- * Fingerprint Pro Server API provides a way for validating visitors’ data issued by Fingerprint Pro.
+ * Fingerprint Pro Server API allows you to get information about visitors and about individual events in a server environment. This API can be used for data exports, decision-making, and data analysis scenarios.
  *
  * API version: 3
  * Contact: support@fingerprint.com
@@ -28,12 +28,12 @@ type Visit struct {
 	// Page URL from which identification request was sent.
 	Url string `json:"url"`
 	// A customer-provided value or an object that was sent with identification request.
-	Tag ModelMap `json:"tag"`
+	Tag ModelMap `json:"tag,omitempty"`
 	// A customer-provided id that was sent with identification request.
 	LinkedId   string      `json:"linkedId,omitempty"`
 	Confidence *Confidence `json:"confidence"`
 	// Attribute represents if a visitor had been identified before.
-	VisitorFound bool      `json:"visitorFound"`
-	FirstSeenAt  *StSeenAt `json:"firstSeenAt"`
-	LastSeenAt   *StSeenAt `json:"lastSeenAt"`
+	VisitorFound bool    `json:"visitorFound"`
+	FirstSeenAt  *SeenAt `json:"firstSeenAt"`
+	LastSeenAt   *SeenAt `json:"lastSeenAt"`
 }

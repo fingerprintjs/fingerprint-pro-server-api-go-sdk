@@ -1,7 +1,7 @@
 /*
  * Fingerprint Pro Server API
  *
- * Fingerprint Pro Server API provides a way for validating visitors’ data issued by Fingerprint Pro.
+ * Fingerprint Pro Server API allows you to get information about visitors and about individual events in a server environment. This API can be used for data exports, decision-making, and data analysis scenarios.
  *
  * API version: 3
  * Contact: support@fingerprint.com
@@ -93,7 +93,7 @@ func (c *Configuration) AddDefaultHeader(key string, value string) {
 func NewConfiguration() *Configuration {
 	cfg := &Configuration{
 		DefaultHeader: make(map[string]string),
-		UserAgent:     "Swagger-Codegen/1.0.0-test.5/go",
+		UserAgent:     "Swagger-Codegen/1.2.0/go",
 		region:        RegionUS,
 	}
 	cfg.basePath = resolveBasePath(cfg.region)

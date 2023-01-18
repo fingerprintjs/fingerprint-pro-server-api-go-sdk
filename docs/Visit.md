@@ -11,12 +11,12 @@ Name | Type | Description | Notes
 **Timestamp** | **int64** | Timestamp of the event with millisecond precision in Unix time. | [default to null]
 **Time** | [**time.Time**](time.Time.md) | Time expressed according to ISO 8601 in UTC format. | [default to null]
 **Url** | **string** | Page URL from which identification request was sent. | [default to null]
-**Tag** | [**ModelMap**](interface{}.md) | A customer-provided value or an object that was sent with identification request. | [default to null]
+**Tag** | [**ModelMap**](interface{}.md) | A customer-provided value or an object that was sent with identification request. | [optional] [default to null]
 **LinkedId** | **string** | A customer-provided id that was sent with identification request. | [optional] [default to null]
 **Confidence** | [***Confidence**](Confidence.md) |  | [default to null]
 **VisitorFound** | **bool** | Attribute represents if a visitor had been identified before. | [default to null]
-**FirstSeenAt** | [***StSeenAt**](StSeenAt.md) |  | [default to null]
-**LastSeenAt** | [***StSeenAt**](StSeenAt.md) |  | [default to null]
+**FirstSeenAt** | [***SeenAt**](SeenAt.md) |  | [default to null]
+**LastSeenAt** | [***SeenAt**](SeenAt.md) |  | [default to null]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

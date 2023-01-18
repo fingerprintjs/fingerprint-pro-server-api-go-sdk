@@ -3,11 +3,12 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/config"
 	"log"
 	"os"
 	"os/exec"
 	"strings"
+
+	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/config"
 )
 
 var files = []string{"README.md", "docs", ".swagger-codegen"}
@@ -108,7 +109,7 @@ func generateSwagger() {
 		"-l",
 		"go",
 		"-i",
-		"https://fingerprintjs.github.io/fingerprint-pro-server-api-openapi/schemes/fingerprint-server-api.yaml",
+		"res/fingerprint-server-api.yaml",
 		"-o",
 		"./sdk",
 		"-c",
@@ -124,7 +125,7 @@ func generateSwagger() {
 }
 
 func getExamples() {
-	list := []string{"visits_limit_1.json", "visits_limit_500.json", "webhook.json"}
+	list := []string{"visits_limit_1.json", "visits_limit_500.json", "webhook.json", "get_event.json", "get_event_403_error.json", "get_event_404_error.json", "get_event_botd_error.json"}
 
 	for _, file := range list {
 		cmd := exec.Command("curl", "-o", fmt.Sprintf("./test/mocks/%s", file), fmt.Sprintf("https://fingerprintjs.github.io/fingerprint-pro-server-api-openapi/examples/%s", file))
