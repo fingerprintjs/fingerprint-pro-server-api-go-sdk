@@ -46,7 +46,7 @@ func (a *FingerprintApiService) GetEvent(ctx context.Context, requestId string) 
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	localVarQueryParams.Add("ii", "fingerprint-pro-server-go-sdk/1.2.0")
+	localVarQueryParams.Add("ii", "fingerprint-pro-server-go-sdk/2.0.0-test.1")
 	// to determine the Content-Type header
 	localVarHttpContentTypes := []string{}
 
@@ -186,7 +186,7 @@ func (a *FingerprintApiService) GetVisits(ctx context.Context, visitorId string,
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	localVarQueryParams.Add("ii", "fingerprint-pro-server-go-sdk/1.2.0")
+	localVarQueryParams.Add("ii", "fingerprint-pro-server-go-sdk/2.0.0-test.1")
 	if localVarOptionals != nil {
 
 		if localVarOptionals.RequestId.IsSet() {
