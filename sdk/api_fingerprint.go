@@ -1,7 +1,7 @@
 /*
  * Fingerprint Pro Server API
  *
- * Fingerprint Pro Server API provides a way for validating visitors’ data issued by Fingerprint Pro.
+ * Fingerprint Pro Server API allows you to get information about visitors and about individual events in a server environment. This API can be used for data exports, decision-making, and data analysis scenarios.
  *
  * API version: 3
  * Contact: support@fingerprint.com
@@ -22,10 +22,10 @@ import (
 type FingerprintApiService service
 
 /*
-FingerprintApiService Get event by request ID
-This endpoint allows you to get events with all the information from each activated product - BOTD and Fingerprinting. Use the requestId as a URL path :request_id parameter. This API method is scoped to a request, i.e. all returned information is by requestId.
+FingerprintApiService Get event by requestId
+This endpoint allows you to get events with all the information from each activated product (Fingerprint Pro or Bot Detection). Use the requestId as a URL path :request_id parameter. This API method is scoped to a request, i.e. all returned information is by requestId.
   - @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-  - @param requestId Request ID
+  - @param requestId requestId is the unique identifier of each request
 
 @return EventResponse
 */
@@ -113,8 +113,8 @@ func (a *FingerprintApiService) GetEvent(ctx context.Context, requestId string) 
 			newErr.model = v
 			return localVarReturnValue, localVarHttpResponse, newErr
 		}
-		if localVarHttpResponse.StatusCode == 400 {
-			var v ErrorResponse
+		if localVarHttpResponse.StatusCode == 403 {
+			var v ErrorEvent403Response
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -123,8 +123,8 @@ func (a *FingerprintApiService) GetEvent(ctx context.Context, requestId string) 
 			newErr.model = v
 			return localVarReturnValue, localVarHttpResponse, newErr
 		}
-		if localVarHttpResponse.StatusCode == 403 {
-			var v ErrorResponse
+		if localVarHttpResponse.StatusCode == 404 {
+			var v ErrorEvent404Response
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -150,13 +150,13 @@ func (a *FingerprintApiService) GetEvent(ctx context.Context, requestId string) 
 }
 
 /*
-FingerprintApiService
+FingerprintApiService Get visits by visitorId
 This endpoint allows you to get a history of visits with all available information. Use the visitorId as a URL path parameter. This API method is scoped to a visitor, i.e. all returned information is by visitorId.
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param visitorId
  * @param optional nil or *FingerprintApiGetVisitsOpts - Optional Parameters:
-     * @param "RequestId" (optional.String) -  Filter events by requestId
-     * @param "LinkedId" (optional.String) -  Filter events by custom identifier
+     * @param "RequestId" (optional.String) -  Filter visits by requestId
+     * @param "LinkedId" (optional.String) -  Filter visits by custom identifier
      * @param "Limit" (optional.Int32) -  Limit scanned results
      * @param "Before" (optional.Int32) -  Used to paginate results
 @return Response
@@ -260,6 +260,16 @@ func (a *FingerprintApiService) GetVisits(ctx context.Context, visitorId string,
 		}
 		if localVarHttpResponse.StatusCode == 200 {
 			var v Response
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHttpResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHttpResponse, newErr
+		}
+		if localVarHttpResponse.StatusCode == 403 {
+			var v string
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()

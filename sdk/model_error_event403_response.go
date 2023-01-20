@@ -9,7 +9,6 @@
  */
 package sdk
 
-type ProductsResponseBotd struct {
-	Data   *BotdResult `json:"data,omitempty"`
-	Error_ *BotdError  `json:"error,omitempty"`
+type ErrorEvent403Response struct {
+	Error_ *ErrorEvent403ResponseError `json:"error,omitempty"`
 }

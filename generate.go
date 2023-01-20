@@ -125,7 +125,7 @@ func generateSwagger() {
 }
 
 func getExamples() {
-	list := []string{"visits_limit_1.json", "visits_limit_500.json", "webhook.json", "get_event.json", "get_event_400_error.json", "get_event_403_error.json"}
+	list := []string{"visits_limit_1.json", "visits_limit_500.json", "webhook.json", "get_event.json", "get_event_403_error.json", "get_event_404_error.json", "get_event_botd_error.json"}
 
 	for _, file := range list {
 		cmd := exec.Command("curl", "-o", fmt.Sprintf("./test/mocks/%s", file), fmt.Sprintf("https://fingerprintjs.github.io/fingerprint-pro-server-api-openapi/examples/%s", file))

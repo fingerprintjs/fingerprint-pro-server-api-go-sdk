@@ -1,10 +1,10 @@
-# StSeenAt
+# ErrorEvent404ResponseError
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Global** | [**time.Time**](time.Time.md) |  | [default to null]
-**Subscription** | [**time.Time**](time.Time.md) |  | [default to null]
+**Code** | **string** | Error code:  * &#x60;RequestNotFound&#x60; - request not found for specified id  | [default to null]
+**Message** | **string** |  | [default to null]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

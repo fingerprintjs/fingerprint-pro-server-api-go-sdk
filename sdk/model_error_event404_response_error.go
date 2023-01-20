@@ -9,7 +9,8 @@
  */
 package sdk
 
-type ProductsResponseBotd struct {
-	Data   *BotdResult `json:"data,omitempty"`
-	Error_ *BotdError  `json:"error,omitempty"`
+type ErrorEvent404ResponseError struct {
+	// Error code:  * `RequestNotFound` - request not found for specified id
+	Code    string `json:"code"`
+	Message string `json:"message"`
 }
