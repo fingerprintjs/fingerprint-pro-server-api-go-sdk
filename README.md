@@ -54,7 +54,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/antihax/optional"
-	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/sdk"
+	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/sdk/v2"
 	"log"
 )
 
@@ -105,7 +105,7 @@ If your subscription is in region other than US, you need to change the region i
 ```go
 
 import (
-    "github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/sdk"
+    "github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/sdk/v2"
 )
 
 func main() {
