@@ -237,6 +237,9 @@ func (a *{{{classname}}}Service) {{{nickname}}}(ctx context.Context{{#hasParams}
 	if localVarHttpResponse.StatusCode < 300 {
 		// If we succeed, return the data, otherwise pass on to decode error.
 		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+
+		ParseResponse(localVarHttpResponse, &err)
+
 		return {{#returnType}}localVarReturnValue, {{/returnType}}localVarHttpResponse, err
 	}
 	{{/returnType}}
@@ -252,12 +255,21 @@ func (a *{{{classname}}}Service) {{{nickname}}}(ctx context.Context{{#hasParams}
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
 				if err != nil {
 					newErr.error = err.Error()
+
+					ParseResponse(localVarHttpResponse, &newErr)
+
 					return {{#returnType}}localVarReturnValue, {{/returnType}}localVarHttpResponse, newErr
 				}
 				newErr.model = v
+
+				ParseResponse(localVarHttpResponse, &newErr)
+
 				return {{#returnType}}localVarReturnValue, {{/returnType}}localVarHttpResponse, newErr
 		}
 		{{/dataType}}{{/responses}}
+
+		ParseResponse(localVarHttpResponse, &newErr)
+
 		return {{#returnType}}localVarReturnValue, {{/returnType}}localVarHttpResponse, newErr
 	}
 

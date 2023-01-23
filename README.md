@@ -77,7 +77,17 @@ func main() {
 	response, httpRes, err := client.FingerprintApi.GetVisits(auth, visitorId, &opts)
 	fmt.Printf("%+v\n", httpRes)
 	if err != nil {
-		log.Fatal(err)
+		switch err.(type) {
+		case *sdk.GenericSwaggerError:
+			switch model := err.(sdk.GenericSwaggerError).Model().(type) {
+			case sdk.ManyRequestsResponse:
+				log.Printf("Too many requests, retry after %d seconds", model.RetryAfter)
+			}
+
+		default:
+			log.Fatal(err)
+		}
+
 	}
 	fmt.Printf("Got response with visitorId: %s", response.VisitorId)
 }
@@ -125,7 +135,9 @@ Class | Method | HTTP request | Description
  - [ErrorEvent403ResponseError](docs/ErrorEvent403ResponseError.md)
  - [ErrorEvent404Response](docs/ErrorEvent404Response.md)
  - [ErrorEvent404ResponseError](docs/ErrorEvent404ResponseError.md)
+ - [ErrorVisits403](docs/ErrorVisits403.md)
  - [EventResponse](docs/EventResponse.md)
+ - [IdentificationError](docs/IdentificationError.md)
  - [IpLocation](docs/IpLocation.md)
  - [IpLocationCity](docs/IpLocationCity.md)
  - [Location](docs/Location.md)
