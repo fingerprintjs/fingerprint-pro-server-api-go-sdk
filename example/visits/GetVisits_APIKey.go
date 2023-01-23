@@ -32,7 +32,17 @@ func main() {
 	fmt.Printf("%+v\n", httpRes)
 
 	if err != nil {
-		log.Fatal(err)
+		switch err.(type) {
+		case *sdk.GenericSwaggerError:
+			switch model := err.(sdk.GenericSwaggerError).Model().(type) {
+			case sdk.ManyRequestsResponse:
+				log.Printf("Too many requests, retry after %d seconds", model.RetryAfter)
+			}
+
+		default:
+			log.Fatal(err)
+		}
+
 	}
 
 	fmt.Printf("Got response with visitorId: %s", response.VisitorId)

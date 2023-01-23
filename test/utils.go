@@ -24,12 +24,12 @@ func readFromFileAndUnmarshal(path string, i interface{}) {
 
 func GetMockResponse(path string) sdk.Response {
 	var mockResponse sdk.Response
-	readFromFileAndUnmarshal(path, mockResponse)
+	readFromFileAndUnmarshal(path, &mockResponse)
 	return mockResponse
 }
 
 func GetMockEventResponse(path string) sdk.EventResponse {
 	var mockResponse sdk.EventResponse
-	readFromFileAndUnmarshal(path, mockResponse)
+	readFromFileAndUnmarshal(path, &mockResponse)
 	return mockResponse
 }
