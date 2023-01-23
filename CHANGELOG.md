@@ -1,3 +1,10 @@
+## [2.0.0-test.3](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/compare/v2.0.0-test.2...v2.0.0-test.3) (2023-01-23)
+
+
+### Features
+
+* update module name to github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v2 ([aec4af5](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/aec4af5bd7ec823dabbbf10ef77203c7881079a0))
+
 ## [2.0.0-test.2](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/compare/v2.0.0-test.1...v2.0.0-test.2) (2023-01-23)
 
 
