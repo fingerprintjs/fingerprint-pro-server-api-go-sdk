@@ -1,3 +1,11 @@
+## [2.0.0-test.2](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/compare/v2.0.0-test.1...v2.0.0-test.2) (2023-01-23)
+
+
+### Features
+
+* introduce identification error into EventsResponse ([925334e](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/925334e52b4046b97d6b814f734b81ff2086fee7))
+* store RetryAfter in ManyRequestsResponse ([8239e3c](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/8239e3cae5e6246440f4ab76fcd605fb78aa50ab))
+
 ## [2.0.0-test.1](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/compare/v1.2.0...v2.0.0-test.1) (2023-01-18)
 
 
