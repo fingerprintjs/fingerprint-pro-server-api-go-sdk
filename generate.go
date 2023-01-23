@@ -8,7 +8,7 @@ import (
 	"os/exec"
 	"strings"
 
-	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/config"
+	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v2/config"
 )
 
 var files = []string{"README.md", "docs", ".swagger-codegen"}
@@ -125,7 +125,19 @@ func generateSwagger() {
 }
 
 func getExamples() {
-	list := []string{"visits_limit_1.json", "visits_limit_500.json", "webhook.json", "get_event.json", "get_event_403_error.json", "get_event_404_error.json", "get_event_botd_error.json"}
+	list := []string{
+		"visits_limit_1.json",
+		"visits_limit_500.json",
+		"webhook.json",
+		"get_event.json",
+		"get_event_403_error.json",
+		"get_event_404_error.json",
+		"get_event_botd_failed_error.json",
+		"get_event_botd_too_many_requests_error.json",
+		"get_event_identification_failed_error.json",
+		"get_event_identification_too_many_requests_error.json",
+		"visits_too_many_requests_error.json",
+	}
 
 	for _, file := range list {
 		cmd := exec.Command("curl", "-o", fmt.Sprintf("./test/mocks/%s", file), fmt.Sprintf("https://fingerprintjs.github.io/fingerprint-pro-server-api-openapi/examples/%s", file))

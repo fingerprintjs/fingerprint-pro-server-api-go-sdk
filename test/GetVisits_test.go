@@ -5,8 +5,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/antihax/optional"
-	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/config"
-	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/sdk"
+	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v2/config"
+	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v2/sdk"
 	"github.com/stretchr/testify/assert"
 	"log"
 	"net/http"
@@ -107,4 +107,107 @@ func TestReturnsVisitsWithPagination(t *testing.T) {
 	assert.Equal(t, res.Visits, mockResponse.Visits)
 	assert.Equal(t, res.PaginationKey, mockResponse.PaginationKey)
 	assert.Equal(t, res.LastTimestamp, mockResponse.LastTimestamp)
+}
+
+func TestHandlesTooManyRequestsError(t *testing.T) {
+	opts := sdk.FingerprintApiGetVisitsOpts{
+		RequestId: optional.NewString("request_id"),
+		Before:    optional.NewInt32(10),
+		Limit:     optional.NewInt32(500),
+		LinkedId:  optional.NewString("request_id"),
+	}
+
+	mockResponse := GetMockResponse("../test/mocks/visits_too_many_requests_error.json")
+
+	ts := httptest.NewServer(http.HandlerFunc(func(
+		w http.ResponseWriter,
+		r *http.Request,
+	) {
+		parseErr := r.ParseForm()
+
+		assert.NoError(t, parseErr)
+
+		w.Header().Set("Content-Type", "application/json")
+		w.Header().Set("Retry-After", "10")
+
+		w.WriteHeader(http.StatusTooManyRequests)
+
+		err := json.NewEncoder(w).Encode(mockResponse)
+
+		if err != nil {
+			log.Fatal(err)
+		}
+	}))
+	defer ts.Close()
+
+	cfg := sdk.NewConfiguration()
+	cfg.ChangeBasePath(ts.URL)
+
+	client := sdk.NewAPIClient(cfg)
+
+	ctx := context.WithValue(context.Background(), sdk.ContextAPIKey, sdk.APIKey{
+		Key: "api_key",
+	})
+
+	res, _, err := client.FingerprintApi.GetVisits(ctx, "visitor_id", &opts)
+
+	assert.IsType(t, err, sdk.GenericSwaggerError{})
+	assert.Error(t, err)
+	assert.NotNil(t, res)
+
+	errorModel := err.(sdk.GenericSwaggerError).Model().(sdk.ManyRequestsResponse)
+
+	assert.IsType(t, errorModel, sdk.ManyRequestsResponse{})
+	assert.Equal(t, int64(10), errorModel.RetryAfter)
+}
+
+func TestHandlesTooManyRequestsErrorWithoutRetryAfterHeader(t *testing.T) {
+	opts := sdk.FingerprintApiGetVisitsOpts{
+		RequestId: optional.NewString("request_id"),
+		Before:    optional.NewInt32(10),
+		Limit:     optional.NewInt32(500),
+		LinkedId:  optional.NewString("request_id"),
+	}
+
+	mockResponse := GetMockResponse("../test/mocks/visits_too_many_requests_error.json")
+
+	ts := httptest.NewServer(http.HandlerFunc(func(
+		w http.ResponseWriter,
+		r *http.Request,
+	) {
+		parseErr := r.ParseForm()
+
+		assert.NoError(t, parseErr)
+
+		w.Header().Set("Content-Type", "application/json")
+
+		w.WriteHeader(http.StatusTooManyRequests)
+
+		err := json.NewEncoder(w).Encode(mockResponse)
+
+		if err != nil {
+			log.Fatal(err)
+		}
+	}))
+	defer ts.Close()
+
+	cfg := sdk.NewConfiguration()
+	cfg.ChangeBasePath(ts.URL)
+
+	client := sdk.NewAPIClient(cfg)
+
+	ctx := context.WithValue(context.Background(), sdk.ContextAPIKey, sdk.APIKey{
+		Key: "api_key",
+	})
+
+	res, _, err := client.FingerprintApi.GetVisits(ctx, "visitor_id", &opts)
+
+	assert.IsType(t, err, sdk.GenericSwaggerError{})
+	assert.Error(t, err)
+	assert.NotNil(t, res)
+
+	errorModel := err.(sdk.GenericSwaggerError).Model().(sdk.ManyRequestsResponse)
+
+	assert.IsType(t, errorModel, sdk.ManyRequestsResponse{})
+	assert.Equal(t, int64(0), errorModel.RetryAfter)
 }

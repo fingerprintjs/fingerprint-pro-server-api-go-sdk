@@ -46,7 +46,7 @@ func (a *FingerprintApiService) GetEvent(ctx context.Context, requestId string) 
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	localVarQueryParams.Add("ii", "fingerprint-pro-server-go-sdk/1.2.0")
+	localVarQueryParams.Add("ii", "fingerprint-pro-server-go-sdk/2.0.0-test.3")
 	// to determine the Content-Type header
 	localVarHttpContentTypes := []string{}
 
@@ -95,6 +95,9 @@ func (a *FingerprintApiService) GetEvent(ctx context.Context, requestId string) 
 	if localVarHttpResponse.StatusCode < 300 {
 		// If we succeed, return the data, otherwise pass on to decode error.
 		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+
+		ParseResponse(localVarHttpResponse, &err)
+
 		return localVarReturnValue, localVarHttpResponse, err
 	}
 
@@ -108,9 +111,15 @@ func (a *FingerprintApiService) GetEvent(ctx context.Context, requestId string) 
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
+
+				ParseResponse(localVarHttpResponse, &newErr)
+
 				return localVarReturnValue, localVarHttpResponse, newErr
 			}
 			newErr.model = v
+
+			ParseResponse(localVarHttpResponse, &newErr)
+
 			return localVarReturnValue, localVarHttpResponse, newErr
 		}
 		if localVarHttpResponse.StatusCode == 403 {
@@ -118,9 +127,15 @@ func (a *FingerprintApiService) GetEvent(ctx context.Context, requestId string) 
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
+
+				ParseResponse(localVarHttpResponse, &newErr)
+
 				return localVarReturnValue, localVarHttpResponse, newErr
 			}
 			newErr.model = v
+
+			ParseResponse(localVarHttpResponse, &newErr)
+
 			return localVarReturnValue, localVarHttpResponse, newErr
 		}
 		if localVarHttpResponse.StatusCode == 404 {
@@ -128,21 +143,20 @@ func (a *FingerprintApiService) GetEvent(ctx context.Context, requestId string) 
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
+
+				ParseResponse(localVarHttpResponse, &newErr)
+
 				return localVarReturnValue, localVarHttpResponse, newErr
 			}
 			newErr.model = v
+
+			ParseResponse(localVarHttpResponse, &newErr)
+
 			return localVarReturnValue, localVarHttpResponse, newErr
 		}
-		if localVarHttpResponse.StatusCode == 429 {
-			var v ManyRequestsResponse
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHttpResponse, newErr
-			}
-			newErr.model = v
-			return localVarReturnValue, localVarHttpResponse, newErr
-		}
+
+		ParseResponse(localVarHttpResponse, &newErr)
+
 		return localVarReturnValue, localVarHttpResponse, newErr
 	}
 
@@ -186,7 +200,7 @@ func (a *FingerprintApiService) GetVisits(ctx context.Context, visitorId string,
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	localVarQueryParams.Add("ii", "fingerprint-pro-server-go-sdk/1.2.0")
+	localVarQueryParams.Add("ii", "fingerprint-pro-server-go-sdk/2.0.0-test.3")
 	if localVarOptionals != nil {
 
 		if localVarOptionals.RequestId.IsSet() {
@@ -250,6 +264,9 @@ func (a *FingerprintApiService) GetVisits(ctx context.Context, visitorId string,
 	if localVarHttpResponse.StatusCode < 300 {
 		// If we succeed, return the data, otherwise pass on to decode error.
 		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+
+		ParseResponse(localVarHttpResponse, &err)
+
 		return localVarReturnValue, localVarHttpResponse, err
 	}
 
@@ -263,19 +280,31 @@ func (a *FingerprintApiService) GetVisits(ctx context.Context, visitorId string,
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
+
+				ParseResponse(localVarHttpResponse, &newErr)
+
 				return localVarReturnValue, localVarHttpResponse, newErr
 			}
 			newErr.model = v
+
+			ParseResponse(localVarHttpResponse, &newErr)
+
 			return localVarReturnValue, localVarHttpResponse, newErr
 		}
 		if localVarHttpResponse.StatusCode == 403 {
-			var v string
+			var v ErrorVisits403
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
+
+				ParseResponse(localVarHttpResponse, &newErr)
+
 				return localVarReturnValue, localVarHttpResponse, newErr
 			}
 			newErr.model = v
+
+			ParseResponse(localVarHttpResponse, &newErr)
+
 			return localVarReturnValue, localVarHttpResponse, newErr
 		}
 		if localVarHttpResponse.StatusCode == 429 {
@@ -283,11 +312,20 @@ func (a *FingerprintApiService) GetVisits(ctx context.Context, visitorId string,
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
+
+				ParseResponse(localVarHttpResponse, &newErr)
+
 				return localVarReturnValue, localVarHttpResponse, newErr
 			}
 			newErr.model = v
+
+			ParseResponse(localVarHttpResponse, &newErr)
+
 			return localVarReturnValue, localVarHttpResponse, newErr
 		}
+
+		ParseResponse(localVarHttpResponse, &newErr)
+
 		return localVarReturnValue, localVarHttpResponse, newErr
 	}
 

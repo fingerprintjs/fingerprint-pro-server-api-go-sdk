@@ -1,3 +1,30 @@
+## [2.0.0-test.3](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/compare/v2.0.0-test.2...v2.0.0-test.3) (2023-01-23)
+
+
+### Features
+
+* update module name to github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v2 ([aec4af5](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/aec4af5bd7ec823dabbbf10ef77203c7881079a0))
+
+## [2.0.0-test.2](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/compare/v2.0.0-test.1...v2.0.0-test.2) (2023-01-23)
+
+
+### Features
+
+* introduce identification error into EventsResponse ([925334e](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/925334e52b4046b97d6b814f734b81ff2086fee7))
+* store RetryAfter in ManyRequestsResponse ([8239e3c](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/8239e3cae5e6246440f4ab76fcd605fb78aa50ab))
+
+## [2.0.0-test.1](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/compare/v1.2.0...v2.0.0-test.1) (2023-01-18)
+
+
+### ⚠ BREAKING CHANGES
+
+* `StSeenAt` type renamed to `SeenAt`
+
+### Features
+
+* generate new source file with updated swagger ([1d94e69](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/1d94e698850a2f753b7f1398cdd667a6ae5aea10))
+* Update list of examples in generate.go (new errors) ([a328ad6](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/a328ad6defbeff6cedc6769b87595fb18f56ba9e))
+
 ## [1.2.0](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/compare/v1.1.0...v1.2.0) (2022-10-24)
 
 

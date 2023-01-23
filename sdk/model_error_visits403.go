@@ -9,8 +9,7 @@
  */
 package sdk
 
-type ManyRequestsResponse struct {
+type ErrorVisits403 struct {
 	// Error text.
-	Error_     string `json:"error"`
-	RetryAfter int64
+	Error_ string `json:"error"`
 }
