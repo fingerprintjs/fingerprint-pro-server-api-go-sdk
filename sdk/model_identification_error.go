@@ -9,8 +9,8 @@
  */
 package sdk
 
-type ManyRequestsResponse struct {
-	// Error text.
-	Error_     string `json:"error"`
-	RetryAfter int64
+type IdentificationError struct {
+	// Error code:  * `429 Too Many Requests` - the limit on secret API key requests per second has been exceeded  * `Failed` - internal server error
+	Code    string `json:"code"`
+	Message string `json:"message"`
 }
