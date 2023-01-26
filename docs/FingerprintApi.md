@@ -57,7 +57,7 @@ Name | Type | Description  | Notes
  **requestId** | **optional.String**| Filter visits by requestId | 
  **linkedId** | **optional.String**| Filter visits by custom identifier | 
  **limit** | **optional.Int32**| Limit scanned results | 
- **before** | **optional.Int32**| Used to paginate results | 
+ **before** | **optional.Int64**| Timestamp (in milliseconds since epoch) used to paginate results | 
 
 ### Return type
 

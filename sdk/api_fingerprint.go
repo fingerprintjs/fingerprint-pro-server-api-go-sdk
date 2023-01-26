@@ -172,7 +172,7 @@ This endpoint allows you to get a history of visits with all available informati
      * @param "RequestId" (optional.String) -  Filter visits by requestId
      * @param "LinkedId" (optional.String) -  Filter visits by custom identifier
      * @param "Limit" (optional.Int32) -  Limit scanned results
-     * @param "Before" (optional.Int32) -  Used to paginate results
+     * @param "Before" (optional.Int64) -  Timestamp (in milliseconds since epoch) used to paginate results
 @return Response
 */
 
@@ -180,7 +180,7 @@ type FingerprintApiGetVisitsOpts struct {
 	RequestId optional.String
 	LinkedId  optional.String
 	Limit     optional.Int32
-	Before    optional.Int32
+	Before    optional.Int64
 }
 
 func (a *FingerprintApiService) GetVisits(ctx context.Context, visitorId string, localVarOptionals *FingerprintApiGetVisitsOpts) (Response, *http.Response, error) {
