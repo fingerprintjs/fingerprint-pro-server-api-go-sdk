@@ -1,3 +1,19 @@
+## [3.0.0](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/compare/v2.0.0...v3.0.0) (2023-01-30)
+
+
+### ⚠ BREAKING CHANGES
+
+* changed `before` parameter type from `int32` to `int64`
+
+### Features
+
+* change `before` parameter type in /visits endpoint ([436f3bf](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/436f3bfa14bbd6a4f31eaecc477324b5c0023352))
+
+
+### Documentation
+
+* **README:** fix invalid install command ([fbb1769](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/fbb1769287dc83b89848455df35943fde8567b70))
+
 ## [2.0.0](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/compare/v1.2.0...v2.0.0) (2023-01-23)
 
 
