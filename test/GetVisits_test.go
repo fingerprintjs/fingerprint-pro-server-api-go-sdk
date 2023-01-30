@@ -57,7 +57,7 @@ func TestReturnsVisits(t *testing.T) {
 func TestReturnsVisitsWithPagination(t *testing.T) {
 	opts := sdk.FingerprintApiGetVisitsOpts{
 		RequestId: optional.NewString("request_id"),
-		Before:    optional.NewInt32(10),
+		Before:    optional.NewInt64(10),
 		Limit:     optional.NewInt32(500),
 		LinkedId:  optional.NewString("request_id"),
 	}
@@ -112,7 +112,7 @@ func TestReturnsVisitsWithPagination(t *testing.T) {
 func TestHandlesTooManyRequestsError(t *testing.T) {
 	opts := sdk.FingerprintApiGetVisitsOpts{
 		RequestId: optional.NewString("request_id"),
-		Before:    optional.NewInt32(10),
+		Before:    optional.NewInt64(10),
 		Limit:     optional.NewInt32(500),
 		LinkedId:  optional.NewString("request_id"),
 	}
@@ -164,7 +164,7 @@ func TestHandlesTooManyRequestsError(t *testing.T) {
 func TestHandlesTooManyRequestsErrorWithoutRetryAfterHeader(t *testing.T) {
 	opts := sdk.FingerprintApiGetVisitsOpts{
 		RequestId: optional.NewString("request_id"),
-		Before:    optional.NewInt32(10),
+		Before:    optional.NewInt64(10),
 		Limit:     optional.NewInt32(500),
 		LinkedId:  optional.NewString("request_id"),
 	}
