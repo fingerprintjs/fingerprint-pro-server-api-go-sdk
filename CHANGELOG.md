@@ -1,3 +1,10 @@
+## [3.0.1](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/compare/v3.0.0...v3.0.1) (2023-01-30)
+
+
+### Bug Fixes
+
+* bump version in module name to v3 ([3988bf6](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/3988bf62a50aaa48acaa27b58e12997a021a48d0))
+
 ## [3.0.0](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/compare/v2.0.0...v3.0.0) (2023-01-30)
 
 
