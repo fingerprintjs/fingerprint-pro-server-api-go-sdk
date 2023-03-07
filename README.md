@@ -99,6 +99,7 @@ func main() {
 > ```shell
 > cd example && FINGERPRINT_API_KEY=SECRET_API_KEY VISITOR_ID=VISITOR_ID_EXAMPLE go run visits/GetVisits_APIKey.go
 > ```
+> If your subscription region is not “Global/US” region, you need to switch the region in the `GetVisits_APIKey.go` source file first.
 
 ### Region
 If your subscription is in region other than US, you need to change the region in the configuration:
