@@ -3004,8 +3004,10 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorVisits403'
               examples:
-                forbidden:
-                  value: '{"error": "Forbidden (HTTP 403)"}'
+                example:
+                  summary: Forbidden
+                  value:
+                    error: Forbidden (HTTP 403)
         '429':
           description: Too Many Requests
           headers:
@@ -3021,12 +3023,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ManyRequestsResponse'
-          examples:
-            example:
-              summary: Example too many requests error response
-              value:
-                error:
-                  message: too many requests
+              examples:
+                example:
+                  summary: Example too many requests error response
+                  value:
+                    error: too many requests
   /webhook:
     trace:
       tags:
@@ -3035,6 +3036,9 @@ paths:
         Fake path to describe webhook format. More information about webhooks
         can be found in the
         [documentation](https://dev.fingerprint.com/docs/webhooks)
+      responses:
+        default:
+          description: Dummy for the schema
       callbacks:
         webhook:
           webhook:
@@ -3047,7 +3051,6 @@ paths:
                 content:
                   application/json:
                     schema:
-                      type: object
                       $ref: '#/components/schemas/WebhookVisit'
                     example:
                       value:
@@ -3099,6 +3102,9 @@ paths:
                         lastSeenAt:
                           global: '2022-03-16T11:28:34.023Z'
                           subscription: null
+              responses:
+                default:
+                  description: The server doesn't validate the answer.
 components:
   securitySchemes:
     ApiKeyHeader:
@@ -3174,14 +3180,8 @@ components:
                 type: boolean
               firstSeenAt:
                 $ref: '#/components/schemas/SeenAt'
-                example:
-                  global: '2022-05-05T18:28:54.535Z'
-                  subscription: '2022-06-09T22:58:05.576Z'
               lastSeenAt:
                 $ref: '#/components/schemas/SeenAt'
-                example:
-                  global: '2022-06-09T22:58:35.795Z'
-                  subscription: null
             additionalProperties: false
             required:
               - browserDetails
@@ -3345,14 +3345,8 @@ components:
           type: boolean
         firstSeenAt:
           $ref: '#/components/schemas/SeenAt'
-          example:
-            global: '2022-05-05T18:28:54.535Z'
-            subscription: '2022-06-09T22:58:05.576Z'
         lastSeenAt:
           $ref: '#/components/schemas/SeenAt'
-          example:
-            global: '2022-06-09T22:58:35.795Z'
-            subscription: null
       additionalProperties: false
       required:
         - visitorId
@@ -3419,14 +3413,8 @@ components:
           type: boolean
         firstSeenAt:
           $ref: '#/components/schemas/SeenAt'
-          example:
-            global: '2022-05-05T18:28:54.535Z'
-            subscription: '2022-06-09T22:58:05.576Z'
         lastSeenAt:
           $ref: '#/components/schemas/SeenAt'
-          example:
-            global: '2022-06-09T22:58:35.795Z'
-            subscription: null
       required:
         - browserDetails
         - confidence
@@ -3502,14 +3490,19 @@ components:
           type: string
           nullable: true
           format: date-time
+          example: '2022-05-05T18:28:54.535Z'
         subscription:
           type: string
           nullable: true
           format: date-time
+          example: '2022-06-09T22:58:05.576Z'
       required:
         - global
         - subscription
       title: SeenAt
+      example:
+        global: '2022-05-05T18:28:54.535Z'
+        subscription: null
     IPLocation:
       type: object
       additionalProperties: false
@@ -3547,14 +3540,8 @@ components:
               example: Prague
         country:
           $ref: '#/components/schemas/Location'
-          example:
-            code: US
-            name: United States
         continent:
           $ref: '#/components/schemas/Location'
-          example:
-            code: NA
-            name: North America
         subdivisions:
           type: array
           items:
@@ -3663,14 +3650,8 @@ components:
                   type: boolean
                 firstSeenAt:
                   $ref: '#/components/schemas/SeenAt'
-                  example:
-                    global: '2022-05-05T18:28:54.535Z'
-                    subscription: '2022-06-09T22:58:05.576Z'
                 lastSeenAt:
                   $ref: '#/components/schemas/SeenAt'
-                  example:
-                    global: '2022-06-09T22:58:35.795Z'
-                    subscription: null
                 visitorId:
                   type: string
               additionalProperties: false
@@ -3753,8 +3734,6 @@ components:
           example: https://example.com/login
         bot:
           $ref: '#/components/schemas/BotdDetectionResult'
-          example:
-            result: notDetected
       required:
         - bot
         - url
@@ -3776,6 +3755,8 @@ components:
             - notDetected
             - good
             - bad
+      example:
+        result: notDetected
       required:
         - result
     BotdError:
