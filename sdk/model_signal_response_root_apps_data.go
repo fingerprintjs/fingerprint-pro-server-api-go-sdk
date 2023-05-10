@@ -9,9 +9,7 @@
  */
 package sdk
 
-// Stores bot detection result
-type BotdDetectionResult struct {
-	// Bot detection result:  * `notDetected` - the visitor is not a bot  * `good` - good bot detected, such as Google bot, Baidu Spider, AlexaBot and so on  * `bad` - bad bot detected, such as Selenium, Puppeteer, Playwright, headless browsers, and so on
-	Result string `json:"result"`
-	Type_  string `json:"type,omitempty"`
+type SignalResponseRootAppsData struct {
+	// Android specific root management apps detection. There are 2 values: • `true` - Root Management Apps detected (e.g. Magisk) • `false` - No Root Management Apps detected Available only for events from Android client. The field will be empty for a browser/iOS event.
+	Result bool `json:"result,omitempty"`
 }

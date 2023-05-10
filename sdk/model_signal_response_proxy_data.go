@@ -9,8 +9,7 @@
  */
 package sdk
 
-type BotdError struct {
-	// Error code:  * `TooManyRequests` - the limit on secret API key requests per second has been exceeded  * `Failed` - internal server error
-	Code    string `json:"code"`
-	Message string `json:"message"`
+type SignalResponseProxyData struct {
+	// `true` if the request IP address is used by a public proxy provider, `false` otherwise.
+	Result bool `json:"result,omitempty"`
 }

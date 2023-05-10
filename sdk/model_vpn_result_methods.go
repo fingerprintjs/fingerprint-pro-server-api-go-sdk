@@ -9,9 +9,9 @@
  */
 package sdk
 
-// Stores bot detection result
-type BotdDetectionResult struct {
-	// Bot detection result:  * `notDetected` - the visitor is not a bot  * `good` - good bot detected, such as Google bot, Baidu Spider, AlexaBot and so on  * `bad` - bad bot detected, such as Selenium, Puppeteer, Playwright, headless browsers, and so on
-	Result string `json:"result"`
-	Type_  string `json:"type,omitempty"`
+type VpnResultMethods struct {
+	// User's browser timezone doesn't match the timezone from which the request was originally made.
+	TimezoneMismatch bool `json:"timezoneMismatch,omitempty"`
+	// Request IP address is owned and used by a public VPN service provider.
+	PublicVPN bool `json:"publicVPN,omitempty"`
 }

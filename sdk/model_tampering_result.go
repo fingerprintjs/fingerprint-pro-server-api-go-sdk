@@ -9,9 +9,9 @@
  */
 package sdk
 
-// Stores bot detection result
-type BotdDetectionResult struct {
-	// Bot detection result:  * `notDetected` - the visitor is not a bot  * `good` - good bot detected, such as Google bot, Baidu Spider, AlexaBot and so on  * `bad` - bad bot detected, such as Selenium, Puppeteer, Playwright, headless browsers, and so on
-	Result string `json:"result"`
-	Type_  string `json:"type,omitempty"`
+type TamperingResult struct {
+	// Flag indicating whether browser tampering was detected according to our internal thresholds.
+	Result bool `json:"result,omitempty"`
+	// Confidence score (`0.0 - 1.0`) for the tampering detection. Values above `0.5` suggest that we're reasonably sure there was a tampering attempt. Values below `0.5` are genuine browsers.
+	AnomalyScore float64 `json:"anomalyScore,omitempty"`
 }

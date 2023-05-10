@@ -9,9 +9,8 @@
  */
 package sdk
 
-// Stores bot detection result
-type BotdDetectionResult struct {
-	// Bot detection result:  * `notDetected` - the visitor is not a bot  * `good` - good bot detected, such as Google bot, Baidu Spider, AlexaBot and so on  * `bad` - bad bot detected, such as Selenium, Puppeteer, Playwright, headless browsers, and so on
-	Result string `json:"result"`
-	Type_  string `json:"type,omitempty"`
+type ProductError struct {
+	// Error code:  * `TooManyRequests` - the limit on secret API key requests per second has been exceeded  * `Failed` - internal server error
+	Code    string `json:"code"`
+	Message string `json:"message"`
 }

@@ -9,9 +9,8 @@
  */
 package sdk
 
-// Stores bot detection result
-type BotdDetectionResult struct {
-	// Bot detection result:  * `notDetected` - the visitor is not a bot  * `good` - good bot detected, such as Google bot, Baidu Spider, AlexaBot and so on  * `bad` - bad bot detected, such as Selenium, Puppeteer, Playwright, headless browsers, and so on
-	Result string `json:"result"`
-	Type_  string `json:"type,omitempty"`
+// Details about the request IP address. Has separate fields for v4 and v6 IP address versions.
+type IpInfoResult struct {
+	V4 *IpInfoResultV4 `json:"v4,omitempty"`
+	V6 *IpInfoResultV6 `json:"v6,omitempty"`
 }
