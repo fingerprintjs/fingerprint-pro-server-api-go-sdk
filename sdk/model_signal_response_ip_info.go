@@ -10,5 +10,6 @@
 package sdk
 
 type SignalResponseIpInfo struct {
-	Data *IpInfoResult `json:"data,omitempty"`
+	Data   *IpInfoResult `json:"data,omitempty"`
+	Error_ *ProductError `json:"error,omitempty"`
 }

@@ -1,10 +1,9 @@
-# SignalResponseEmulator1
+# WebhookSignalResponseTor
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Data** | [***SignalResponseEmulatorData**](SignalResponseEmulator_data.md) |  | [optional] [default to null]
-**Error_** | [***ProductError**](ProductError.md) |  | [optional] [default to null]
+**Result** | **bool** | &#x60;true&#x60; if the request IP address is a known tor exit node, &#x60;false&#x60; otherwise.  | [optional] [default to null]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

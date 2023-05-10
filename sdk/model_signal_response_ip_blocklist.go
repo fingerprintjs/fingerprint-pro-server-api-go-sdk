@@ -10,5 +10,6 @@
 package sdk
 
 type SignalResponseIpBlocklist struct {
-	Data *IpBlockListResult `json:"data,omitempty"`
+	Data   *IpBlockListResult `json:"data,omitempty"`
+	Error_ *ProductError      `json:"error,omitempty"`
 }

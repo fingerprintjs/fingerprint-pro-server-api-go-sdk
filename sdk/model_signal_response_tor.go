@@ -10,5 +10,6 @@
 package sdk
 
 type SignalResponseTor struct {
-	Data *SignalResponseTorData `json:"data,omitempty"`
+	Data   *SignalResponseTorData `json:"data,omitempty"`
+	Error_ *ProductError          `json:"error,omitempty"`
 }

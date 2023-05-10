@@ -9,7 +9,7 @@
  */
 package sdk
 
-type SignalResponseTampering1 struct {
-	Data   *TamperingResult `json:"data,omitempty"`
-	Error_ *ProductError    `json:"error,omitempty"`
+type WebhookSignalResponseTor struct {
+	// `true` if the request IP address is a known tor exit node, `false` otherwise.
+	Result bool `json:"result,omitempty"`
 }

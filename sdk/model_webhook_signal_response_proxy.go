@@ -9,7 +9,7 @@
  */
 package sdk
 
-type SignalResponseIpBlocklist1 struct {
-	Data   *IpBlockListResult `json:"data,omitempty"`
-	Error_ *ProductError      `json:"error,omitempty"`
+type WebhookSignalResponseProxy struct {
+	// `true` if the request IP address is used by a public proxy provider, `false` otherwise.
+	Result bool `json:"result,omitempty"`
 }

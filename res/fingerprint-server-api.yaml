@@ -3210,54 +3210,46 @@ paths:
                           (Macintosh; Intel Mac OS X 10_14_3)
                           Chrome/73.0.3683.86
                         ipInfo:
-                          data:
-                            v4:
-                              address: 94.142.239.124
-                              geolocation:
-                                accuracyRadius: 20
-                                latitude: 50.05
-                                longitude: 14.4
-                                postalCode: 150 00
-                                timezone: Europe/Prague
-                                city:
-                                  name: Prague
-                                country:
-                                  code: CZ
-                                  name: Czechia
-                                continent:
-                                  code: EU
-                                  name: Europe
-                                subdivisions:
-                                  - isoCode: '10'
-                                    name: Hlavni mesto Praha
+                          v4:
+                            address: 94.142.239.124
+                            geolocation:
+                              accuracyRadius: 20
+                              latitude: 50.05
+                              longitude: 14.4
+                              postalCode: 150 00
+                              timezone: Europe/Prague
+                              city:
+                                name: Prague
+                              country:
+                                code: CZ
+                                name: Czechia
+                              continent:
+                                code: EU
+                                name: Europe
+                              subdivisions:
+                                - isoCode: '10'
+                                  name: Hlavni mesto Praha
                         rootApps:
-                          data:
-                            result: false
+                          result: false
                         emulator:
-                          data:
-                            result: false
+                          result: false
                         ipBlocklist:
-                          data:
-                            result: false
-                            details:
-                              emailSpam: false
-                              attackSource: false
+                          result: false
+                          details:
+                            emailSpam: false
+                            attackSource: false
                         tor:
-                          data:
-                            result: false
+                          result: false
                         vpn:
-                          data:
-                            result: false
-                            methods:
-                              timezoneMismatch: false
-                              publicVPN: false
+                          result: false
+                          methods:
+                            timezoneMismatch: false
+                            publicVPN: false
                         proxy:
-                          data:
-                            result: false
+                          result: false
                         tampering:
-                          data:
-                            result: false
-                            anomalyScore: 0
+                          result: false
+                          anomalyScore: 0
               responses:
                 default:
                   description: The server doesn't validate the answer.
@@ -3463,93 +3455,64 @@ components:
         bot:
           $ref: '#/components/schemas/BotdDetectionResult'
         ipInfo:
-          title: SignalResponseIpInfo
-          type: object
-          properties:
-            data:
-              $ref: '#/components/schemas/IpInfoResult'
+          $ref: '#/components/schemas/IpInfoResult'
         incognito:
           description: Flag if user used incognito session.
           type: boolean
         rootApps:
-          title: SignalResponseRootApps
+          title: WebhookSignalResponseRootApps
           type: object
           properties:
-            data:
-              type: object
-              properties:
-                result:
-                  type: boolean
-                  description: >
-                    Android specific root management apps detection. There are 2
-                    values: • `true` - Root Management Apps detected (e.g.
-                    Magisk) • `false` - No Root Management Apps detected
+            result:
+              type: boolean
+              description: >
+                Android specific root management apps detection. There are 2
+                values: • `true` - Root Management Apps detected (e.g. Magisk) •
+                `false` - No Root Management Apps detected
 
-                    Available only for events from Android client. The field
-                    will be empty for a browser/iOS event.
-                  example: false
+                Available only for events from Android client. The field will
+                not be present for a browser or iOS event.
+              example: false
         emulator:
-          title: SignalResponseEmulator
+          title: WebhookSignalResponseEmulator
           type: object
           properties:
-            data:
-              type: object
-              properties:
-                result:
-                  type: boolean
-                  description: >
-                    Android specific emulator detection. There are 2 values: •
-                    `true` - Emulated environment detected (e.g. launch inside
-                    of AVD) • `false` - No signs of emulated environment
-                    detected
+            result:
+              type: boolean
+              description: >
+                Android specific emulator detection. There are 2 values: •
+                `true` - Emulated environment detected (e.g. launch inside of
+                AVD) • `false` - No signs of emulated environment detected
 
-                    Available only for events from Android client. The field
-                    will be empty for a browser/iOS event.
-                  example: false
+                Available only for events from Android client. The field will
+                not be present for a browser or iOS event.
+              example: false
         ipBlocklist:
-          title: SignalResponseIpBlocklist
-          type: object
-          properties:
-            data:
-              $ref: '#/components/schemas/IpBlockListResult'
+          $ref: '#/components/schemas/IpBlockListResult'
         tor:
-          title: SignalResponseTor
+          title: WebhookSignalResponseTor
           type: object
           properties:
-            data:
-              type: object
-              properties:
-                result:
-                  type: boolean
-                  description: >
-                    `true` if the request IP address is a known tor exit node,
-                    `false` otherwise.
-                  example: false
+            result:
+              type: boolean
+              description: >
+                `true` if the request IP address is a known tor exit node,
+                `false` otherwise.
+              example: false
         vpn:
-          title: SignalResponseVpn
-          type: object
-          properties:
-            data:
-              $ref: '#/components/schemas/VpnResult'
+          $ref: '#/components/schemas/VpnResult'
         proxy:
-          title: SignalResponseProxy
+          title: WebhookSignalResponseProxy
           type: object
           properties:
-            data:
-              type: object
-              properties:
-                result:
-                  type: boolean
-                  description: >
-                    `true` if the request IP address is used by a public proxy
-                    provider, `false` otherwise.
-                  example: false
+            result:
+              type: boolean
+              description: >
+                `true` if the request IP address is used by a public proxy
+                provider, `false` otherwise.
+              example: false
         tampering:
-          title: SignalResponseTampering
-          type: object
-          properties:
-            data:
-              $ref: '#/components/schemas/TamperingResult'
+          $ref: '#/components/schemas/TamperingResult'
         requestId:
           description: Unique identifier of the user's identification request.
           type: string
@@ -3968,7 +3931,7 @@ components:
                     Magisk) • `false` - No Root Management Apps detected
 
                     Available only for events from Android client. The field
-                    will be empty for a browser/iOS event.
+                    will not be present for a browser or iOS event.
                   example: false
             error:
               $ref: '#/components/schemas/ProductError'
@@ -3988,7 +3951,7 @@ components:
                     detected
 
                     Available only for events from Android client. The field
-                    will be empty for a browser/iOS event.
+                    will not be present for a browser or iOS event.
                   example: false
             error:
               $ref: '#/components/schemas/ProductError'

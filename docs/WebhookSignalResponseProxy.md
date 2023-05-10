@@ -1,10 +1,9 @@
-# SignalResponseVpn1
+# WebhookSignalResponseProxy
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Data** | [***VpnResult**](VpnResult.md) |  | [optional] [default to null]
-**Error_** | [***ProductError**](ProductError.md) |  | [optional] [default to null]
+**Result** | **bool** | &#x60;true&#x60; if the request IP address is used by a public proxy provider, &#x60;false&#x60; otherwise.  | [optional] [default to null]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

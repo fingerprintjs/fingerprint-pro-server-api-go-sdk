@@ -10,5 +10,6 @@
 package sdk
 
 type SignalResponseVpn struct {
-	Data *VpnResult `json:"data,omitempty"`
+	Data   *VpnResult    `json:"data,omitempty"`
+	Error_ *ProductError `json:"error,omitempty"`
 }

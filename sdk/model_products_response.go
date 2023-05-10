@@ -13,13 +13,13 @@ package sdk
 type ProductsResponse struct {
 	Identification *ProductsResponseIdentification `json:"identification,omitempty"`
 	Botd           *ProductsResponseBotd           `json:"botd,omitempty"`
-	IpInfo         *SignalResponseIpInfo1          `json:"ipInfo,omitempty"`
+	IpInfo         *SignalResponseIpInfo           `json:"ipInfo,omitempty"`
 	Incognito      *SignalResponseIncognito        `json:"incognito,omitempty"`
-	RootApps       *SignalResponseRootApps1        `json:"rootApps,omitempty"`
-	Emulator       *SignalResponseEmulator1        `json:"emulator,omitempty"`
-	IpBlocklist    *SignalResponseIpBlocklist1     `json:"ipBlocklist,omitempty"`
-	Tor            *SignalResponseTor1             `json:"tor,omitempty"`
-	Vpn            *SignalResponseVpn1             `json:"vpn,omitempty"`
-	Proxy          *SignalResponseProxy1           `json:"proxy,omitempty"`
-	Tampering      *SignalResponseTampering1       `json:"tampering,omitempty"`
+	RootApps       *SignalResponseRootApps         `json:"rootApps,omitempty"`
+	Emulator       *SignalResponseEmulator         `json:"emulator,omitempty"`
+	IpBlocklist    *SignalResponseIpBlocklist      `json:"ipBlocklist,omitempty"`
+	Tor            *SignalResponseTor              `json:"tor,omitempty"`
+	Vpn            *SignalResponseVpn              `json:"vpn,omitempty"`
+	Proxy          *SignalResponseProxy            `json:"proxy,omitempty"`
+	Tampering      *SignalResponseTampering        `json:"tampering,omitempty"`
 }

@@ -10,5 +10,6 @@
 package sdk
 
 type SignalResponseTampering struct {
-	Data *TamperingResult `json:"data,omitempty"`
+	Data   *TamperingResult `json:"data,omitempty"`
+	Error_ *ProductError    `json:"error,omitempty"`
 }

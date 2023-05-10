@@ -1,4 +1,4 @@
-# SignalResponseRootAppsData
+# WebhookSignalResponseRootApps
 
 ## Properties
 Name | Type | Description | Notes

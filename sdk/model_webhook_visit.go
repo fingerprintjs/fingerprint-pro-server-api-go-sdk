@@ -14,20 +14,20 @@ import (
 )
 
 type WebhookVisit struct {
-	VisitorId      string                `json:"visitorId"`
-	ClientReferrer string                `json:"clientReferrer,omitempty"`
-	UserAgent      string                `json:"userAgent,omitempty"`
-	Bot            *BotdDetectionResult  `json:"bot,omitempty"`
-	IpInfo         *SignalResponseIpInfo `json:"ipInfo,omitempty"`
+	VisitorId      string               `json:"visitorId"`
+	ClientReferrer string               `json:"clientReferrer,omitempty"`
+	UserAgent      string               `json:"userAgent,omitempty"`
+	Bot            *BotdDetectionResult `json:"bot,omitempty"`
+	IpInfo         *IpInfoResult        `json:"ipInfo,omitempty"`
 	// Flag if user used incognito session.
-	Incognito   bool                       `json:"incognito"`
-	RootApps    *SignalResponseRootApps    `json:"rootApps,omitempty"`
-	Emulator    *SignalResponseEmulator    `json:"emulator,omitempty"`
-	IpBlocklist *SignalResponseIpBlocklist `json:"ipBlocklist,omitempty"`
-	Tor         *SignalResponseTor         `json:"tor,omitempty"`
-	Vpn         *SignalResponseVpn         `json:"vpn,omitempty"`
-	Proxy       *SignalResponseProxy       `json:"proxy,omitempty"`
-	Tampering   *SignalResponseTampering   `json:"tampering,omitempty"`
+	Incognito   bool                           `json:"incognito"`
+	RootApps    *WebhookSignalResponseRootApps `json:"rootApps,omitempty"`
+	Emulator    *WebhookSignalResponseEmulator `json:"emulator,omitempty"`
+	IpBlocklist *IpBlockListResult             `json:"ipBlocklist,omitempty"`
+	Tor         *WebhookSignalResponseTor      `json:"tor,omitempty"`
+	Vpn         *VpnResult                     `json:"vpn,omitempty"`
+	Proxy       *WebhookSignalResponseProxy    `json:"proxy,omitempty"`
+	Tampering   *TamperingResult               `json:"tampering,omitempty"`
 	// Unique identifier of the user's identification request.
 	RequestId      string          `json:"requestId"`
 	BrowserDetails *BrowserDetails `json:"browserDetails"`

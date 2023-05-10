@@ -10,5 +10,6 @@
 package sdk
 
 type SignalResponseRootApps struct {
-	Data *SignalResponseRootAppsData `json:"data,omitempty"`
+	Data   *SignalResponseRootAppsData `json:"data,omitempty"`
+	Error_ *ProductError               `json:"error,omitempty"`
 }
