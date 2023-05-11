@@ -14,15 +14,25 @@ import (
 )
 
 type WebhookVisit struct {
-	VisitorId      string `json:"visitorId"`
-	ClientReferrer string `json:"clientReferrer,omitempty"`
+	VisitorId      string               `json:"visitorId"`
+	ClientReferrer string               `json:"clientReferrer,omitempty"`
+	UserAgent      string               `json:"userAgent,omitempty"`
+	Bot            *BotdDetectionResult `json:"bot,omitempty"`
+	IpInfo         *IpInfoResult        `json:"ipInfo,omitempty"`
+	// Flag if user used incognito session.
+	Incognito   bool                           `json:"incognito"`
+	RootApps    *WebhookSignalResponseRootApps `json:"rootApps,omitempty"`
+	Emulator    *WebhookSignalResponseEmulator `json:"emulator,omitempty"`
+	IpBlocklist *IpBlockListResult             `json:"ipBlocklist,omitempty"`
+	Tor         *WebhookSignalResponseTor      `json:"tor,omitempty"`
+	Vpn         *VpnResult                     `json:"vpn,omitempty"`
+	Proxy       *WebhookSignalResponseProxy    `json:"proxy,omitempty"`
+	Tampering   *TamperingResult               `json:"tampering,omitempty"`
 	// Unique identifier of the user's identification request.
 	RequestId      string          `json:"requestId"`
 	BrowserDetails *BrowserDetails `json:"browserDetails"`
-	// Flag if user used incognito session.
-	Incognito  bool        `json:"incognito"`
-	Ip         string      `json:"ip"`
-	IpLocation *IpLocation `json:"ipLocation"`
+	Ip             string          `json:"ip"`
+	IpLocation     *IpLocation     `json:"ipLocation"`
 	// Timestamp of the event with millisecond precision in Unix time.
 	Timestamp int64 `json:"timestamp"`
 	// Time expressed according to ISO 8601 in UTC format.

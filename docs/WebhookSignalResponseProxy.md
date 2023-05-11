@@ -1,10 +1,9 @@
-# BotdError
+# WebhookSignalResponseProxy
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Code** | **string** | Error code:  * &#x60;TooManyRequests&#x60; - the limit on secret API key requests per second has been exceeded  * &#x60;Failed&#x60; - internal server error  | [default to null]
-**Message** | **string** |  | [default to null]
+**Result** | **bool** | &#x60;true&#x60; if the request IP address is used by a public proxy provider, &#x60;false&#x60; otherwise.  | [optional] [default to null]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -1,10 +1,10 @@
-# ProductsResponseBotd
+# IpBlockListResultDetails
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Data** | [***BotdResult**](BotdResult.md) |  | [optional] [default to null]
-**Error_** | [***ProductError**](ProductError.md) |  | [optional] [default to null]
+**EmailSpam** | **bool** | IP address was part of a known email spam attack (SMTP). | [optional] [default to null]
+**AttackSource** | **bool** | IP address was part of a known network attack (SSH/HTTPS). | [optional] [default to null]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

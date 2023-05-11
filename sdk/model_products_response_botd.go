@@ -10,6 +10,6 @@
 package sdk
 
 type ProductsResponseBotd struct {
-	Data   *BotdResult `json:"data,omitempty"`
-	Error_ *BotdError  `json:"error,omitempty"`
+	Data   *BotdResult   `json:"data,omitempty"`
+	Error_ *ProductError `json:"error,omitempty"`
 }
