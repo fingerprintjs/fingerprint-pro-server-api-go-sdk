@@ -1,3 +1,16 @@
+## [3.1.0](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/compare/v3.0.1...v3.1.0) (2023-05-11)
+
+
+### Features
+
+* update schema and add more signals ([8a7b0c3](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/8a7b0c3705bd3ae310b2278048868699e3137b99))
+
+
+### Bug Fixes
+
+* update schema with correct Webhook Signals description ([54f2085](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/54f2085449eb172ca8db511f2ad62051640101fd))
+* update schema, add test for undescribed fields case ([2d071a9](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/2d071a9adfc46dd71381368e8f1e554e4f5e9e94))
+
 ## [3.0.1](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/compare/v3.0.0...v3.0.1) (2023-01-30)
 
 
