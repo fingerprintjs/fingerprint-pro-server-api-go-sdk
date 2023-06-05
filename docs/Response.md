@@ -5,8 +5,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **VisitorId** | **string** |  | [default to null]
 **Visits** | [**[]ResponseVisits**](ResponseVisits.md) |  | [default to null]
-**LastTimestamp** | **int64** | When more results are available (e.g., you scanned 200 results using &#x60;limit&#x60; parameter, but a total of 600 results are available), a special &#x60;lastTimestamp&#x60; top-level attribute is added to the response. If you want to paginate the results further in the past, you should use the value of this attribute. | [optional] [default to null]
-**PaginationKey** | **string** | Visit&#x27;s &#x60;requestId&#x60; of the last visit in the current page. | [optional] [default to null]
+**LastTimestamp** | **int64** | ⚠️ Deprecated paging attribute, please use &#x60;paginationKey&#x60; instead. Timestamp of the last visit in the current page of results.  | [optional] [default to null]
+**PaginationKey** | **string** | Request ID of the last visit in the current page of results. Use this value in the following request as the &#x60;paginationKey&#x60; parameter to get the next page of results. | [optional] [default to null]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

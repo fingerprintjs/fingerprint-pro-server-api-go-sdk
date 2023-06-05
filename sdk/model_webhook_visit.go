@@ -1,7 +1,7 @@
 /*
  * Fingerprint Pro Server API
  *
- * Fingerprint Pro Server API allows you to get information about visitors and about individual events in a server environment. This API can be used for data exports, decision-making, and data analysis scenarios.
+ * Fingerprint Pro Server API allows you to get information about visitors and about individual events in a server environment. It can be used for data exports, decision-making, and data analysis scenarios. Server API is intended for server-side usage, it's not intended to be used from the client side, whether it's a browser or a mobile device.
  *
  * API version: 3
  * Contact: support@fingerprint.com
@@ -32,7 +32,7 @@ type WebhookVisit struct {
 	RequestId      string          `json:"requestId"`
 	BrowserDetails *BrowserDetails `json:"browserDetails"`
 	Ip             string          `json:"ip"`
-	IpLocation     *IpLocation     `json:"ipLocation"`
+	IpLocation     *IpLocation     `json:"ipLocation,omitempty"`
 	// Timestamp of the event with millisecond precision in Unix time.
 	Timestamp int64 `json:"timestamp"`
 	// Time expressed according to ISO 8601 in UTC format.

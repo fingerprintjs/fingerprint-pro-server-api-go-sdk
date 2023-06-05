@@ -19,7 +19,7 @@ Name | Type | Description | Notes
 **RequestId** | **string** | Unique identifier of the user&#x27;s identification request. | [default to null]
 **BrowserDetails** | [***BrowserDetails**](BrowserDetails.md) |  | [default to null]
 **Ip** | **string** |  | [default to null]
-**IpLocation** | [***IpLocation**](IPLocation.md) |  | [default to null]
+**IpLocation** | [***IpLocation**](IPLocation.md) |  | [optional] [default to null]
 **Timestamp** | **int64** | Timestamp of the event with millisecond precision in Unix time. | [default to null]
 **Time** | [**time.Time**](time.Time.md) | Time expressed according to ISO 8601 in UTC format. | [default to null]
 **Url** | **string** | Page URL from which identification request was sent. | [default to null]
