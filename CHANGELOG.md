@@ -1,3 +1,15 @@
+## [3.2.0](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/compare/v3.1.0...v3.2.0) (2023-06-06)
+
+
+### Features
+
+* update schema with correct `IpLocation` format and doc updates ([e3b5f78](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/e3b5f789b85863bcc81d342878331c870b58f44d))
+
+
+### Bug Fixes
+
+* fix backtick problem in comments and documentation ([0063c75](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/0063c751b61c8d3990e2e6fbe5c27fd13d3c299f))
+
 ## [3.1.0](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/compare/v3.0.1...v3.1.0) (2023-05-11)
 
 
