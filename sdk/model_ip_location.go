@@ -1,7 +1,7 @@
 /*
  * Fingerprint Pro Server API
  *
- * Fingerprint Pro Server API allows you to get information about visitors and about individual events in a server environment. This API can be used for data exports, decision-making, and data analysis scenarios.
+ * Fingerprint Pro Server API allows you to get information about visitors and about individual events in a server environment. It can be used for data exports, decision-making, and data analysis scenarios. Server API is intended for server-side usage, it's not intended to be used from the client side, whether it's a browser or a mobile device.
  *
  * API version: 3
  * Contact: support@fingerprint.com
@@ -10,13 +10,13 @@
 package sdk
 
 type IpLocation struct {
-	AccuracyRadius int32           `json:"accuracyRadius"`
-	Latitude       float64         `json:"latitude"`
-	Longitude      float64         `json:"longitude"`
+	AccuracyRadius int32           `json:"accuracyRadius,omitempty"`
+	Latitude       float64         `json:"latitude,omitempty"`
+	Longitude      float64         `json:"longitude,omitempty"`
 	PostalCode     string          `json:"postalCode,omitempty"`
-	Timezone       string          `json:"timezone"`
+	Timezone       string          `json:"timezone,omitempty"`
 	City           *IpLocationCity `json:"city,omitempty"`
-	Country        *Location       `json:"country"`
-	Continent      *Location       `json:"continent"`
+	Country        *Location       `json:"country,omitempty"`
+	Continent      *Location       `json:"continent,omitempty"`
 	Subdivisions   []Subdivision   `json:"subdivisions,omitempty"`
 }

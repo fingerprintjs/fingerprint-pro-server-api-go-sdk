@@ -56,10 +56,10 @@ func TestReturnsVisits(t *testing.T) {
 
 func TestReturnsVisitsWithPagination(t *testing.T) {
 	opts := sdk.FingerprintApiGetVisitsOpts{
-		RequestId: optional.NewString("request_id"),
-		Before:    optional.NewInt64(10),
-		Limit:     optional.NewInt32(500),
-		LinkedId:  optional.NewString("request_id"),
+		RequestId:     optional.NewString("request_id"),
+		PaginationKey: optional.NewString("1683900801733.Ogvu1j"),
+		Limit:         optional.NewInt32(500),
+		LinkedId:      optional.NewString("request_id"),
 	}
 
 	mockResponse := GetMockResponse("../test/mocks/visits_limit_500.json")
@@ -73,7 +73,7 @@ func TestReturnsVisitsWithPagination(t *testing.T) {
 		assert.NoError(t, parseErr)
 
 		assert.Equal(t, r.Form.Get("request_id"), opts.RequestId.Value())
-		assert.Equal(t, r.Form.Get("before"), fmt.Sprint(opts.Before.Value()))
+		assert.Equal(t, r.Form.Get("paginationKey"), fmt.Sprint(opts.PaginationKey.Value()))
 		assert.Equal(t, r.Form.Get("limit"), fmt.Sprint(opts.Limit.Value()))
 		assert.Equal(t, r.Form.Get("linked_id"), opts.LinkedId.Value())
 
@@ -111,10 +111,10 @@ func TestReturnsVisitsWithPagination(t *testing.T) {
 
 func TestHandlesTooManyRequestsError(t *testing.T) {
 	opts := sdk.FingerprintApiGetVisitsOpts{
-		RequestId: optional.NewString("request_id"),
-		Before:    optional.NewInt64(10),
-		Limit:     optional.NewInt32(500),
-		LinkedId:  optional.NewString("request_id"),
+		RequestId:     optional.NewString("request_id"),
+		PaginationKey: optional.NewString("1683900801733.Ogvu1j"),
+		Limit:         optional.NewInt32(500),
+		LinkedId:      optional.NewString("request_id"),
 	}
 
 	mockResponse := GetMockResponse("../test/mocks/visits_too_many_requests_error.json")
@@ -163,10 +163,10 @@ func TestHandlesTooManyRequestsError(t *testing.T) {
 
 func TestHandlesTooManyRequestsErrorWithoutRetryAfterHeader(t *testing.T) {
 	opts := sdk.FingerprintApiGetVisitsOpts{
-		RequestId: optional.NewString("request_id"),
-		Before:    optional.NewInt64(10),
-		Limit:     optional.NewInt32(500),
-		LinkedId:  optional.NewString("request_id"),
+		RequestId:     optional.NewString("request_id"),
+		PaginationKey: optional.NewString("1683900801733.Ogvu1j"),
+		Limit:         optional.NewInt32(500),
+		LinkedId:      optional.NewString("request_id"),
 	}
 
 	mockResponse := GetMockResponse("../test/mocks/visits_too_many_requests_error.json")

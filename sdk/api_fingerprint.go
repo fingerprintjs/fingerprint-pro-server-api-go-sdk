@@ -1,7 +1,7 @@
 /*
  * Fingerprint Pro Server API
  *
- * Fingerprint Pro Server API allows you to get information about visitors and about individual events in a server environment. This API can be used for data exports, decision-making, and data analysis scenarios.
+ * Fingerprint Pro Server API allows you to get information about visitors and about individual events in a server environment. It can be used for data exports, decision-making, and data analysis scenarios. Server API is intended for server-side usage, it's not intended to be used from the client side, whether it's a browser or a mobile device.
  *
  * API version: 3
  * Contact: support@fingerprint.com
@@ -23,9 +23,9 @@ type FingerprintApiService service
 
 /*
 FingerprintApiService Get event by requestId
-This endpoint allows you to get events with all the information from each activated product (Fingerprint Pro or Bot Detection). Use the requestId as a URL path :request_id parameter. This API method is scoped to a request, i.e. all returned information is by requestId.
+This endpoint allows you to retrieve an individual analysis event with all the information from each activated product (Identification, Bot Detection, and others). Products that are not activated for your application or not relevant to the event's detected platform (web, iOS, Android) are not included in the response.   Use `requestId` as the URL path parameter. This API method is scoped to a request, i.e. all returned information is by `requestId`.
   - @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-  - @param requestId requestId is the unique identifier of each request
+  - @param requestId The unique [identifier](https://dev.fingerprint.com/docs/js-agent#requestid) of each analysis request.
 
 @return EventResponse
 */
@@ -165,22 +165,24 @@ func (a *FingerprintApiService) GetEvent(ctx context.Context, requestId string) 
 
 /*
 FingerprintApiService Get visits by visitorId
-This endpoint allows you to get a history of visits with all available information. Use the visitorId as a URL path parameter. This API method is scoped to a visitor, i.e. all returned information is by visitorId.
+This endpoint allows you to get a history of visits for a specific `visitorId`. Use the `visitorId` as a URL path parameter. Only information from the _Identification_ product is returned.  #### Headers  * `Retry-After` — Present in case of `429 Too many requests`. Indicates how long you should wait before making a follow-up request. The value is non-negative decimal integer indicating the seconds to delay after the response is received.
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param visitorId
+ * @param visitorId Unique identifier of the visitor issued by Fingerprint Pro.
  * @param optional nil or *FingerprintApiGetVisitsOpts - Optional Parameters:
-     * @param "RequestId" (optional.String) -  Filter visits by requestId
-     * @param "LinkedId" (optional.String) -  Filter visits by custom identifier
-     * @param "Limit" (optional.Int32) -  Limit scanned results
-     * @param "Before" (optional.Int64) -  Timestamp (in milliseconds since epoch) used to paginate results
+     * @param "RequestId" (optional.String) -  Filter visits by `requestId`.   Every identification request has a unique identifier associated with it called `requestId`. This identifier is returned to the client in the identification [result](https://dev.fingerprint.com/docs/js-agent#requestid). When you filter visits by `requestId`, only one visit will be returned.
+     * @param "LinkedId" (optional.String) -  Filter visits by your custom identifier.   You can use [`linkedId`](https://dev.fingerprint.com/docs/js-agent#linkedid) to associate identification requests with your own identifier, for example: session ID, purchase ID, or transaction ID. You can then use this `linked_id` parameter to retrieve all events associated with your custom identifier.
+     * @param "Limit" (optional.Int32) -  Limit scanned results.   For performance reasons, the API first scans some number of events before filtering them. Use `limit` to specify how many events are scanned before they are filtered by `requestId` or `linkedId`. Results are always returned sorted by the timestamp (most recent first). By default, the most recent 100 visits are scanned, the maximum is 500.
+     * @param "PaginationKey" (optional.String) -  Use `paginationKey` to get the next page of results.   When more results are available (e.g., you requested 200 results using `limit` parameter, but a total of 600 results are available), the `paginationKey` top-level attribute is added to the response. The key corresponds to the `requestId` of the last returned event. In the following request, use that value in the `paginationKey` parameter to get the next page of results:  1. First request, returning most recent 200 events: `GET api-base-url/visitors/:visitorId?limit=200` 2. Use `response.paginationKey` to get the next page of results: `GET api-base-url/visitors/:visitorId?limit=200&paginationKey=1683900801733.Ogvu1j`  Pagination happens during scanning and before filtering, so you can get less visits than the `limit` you specified with more available on the next page. When there are no more results available for scanning, the `paginationKey` attribute is not returned.
+     * @param "Before" (optional.Int64) -  ⚠️ Deprecated pagination method, please use `paginationKey` instead. Timestamp (in milliseconds since epoch) used to paginate results.
 @return Response
 */
 
 type FingerprintApiGetVisitsOpts struct {
-	RequestId optional.String
-	LinkedId  optional.String
-	Limit     optional.Int32
-	Before    optional.Int64
+	RequestId     optional.String
+	LinkedId      optional.String
+	Limit         optional.Int32
+	PaginationKey optional.String
+	Before        optional.Int64
 }
 
 func (a *FingerprintApiService) GetVisits(ctx context.Context, visitorId string, localVarOptionals *FingerprintApiGetVisitsOpts) (Response, *http.Response, error) {
@@ -211,6 +213,9 @@ func (a *FingerprintApiService) GetVisits(ctx context.Context, visitorId string,
 		}
 		if localVarOptionals.Limit.IsSet() {
 			localVarQueryParams.Add("limit", parameterToString(localVarOptionals.Limit.Value(), ""))
+		}
+		if localVarOptionals.PaginationKey.IsSet() {
+			localVarQueryParams.Add("paginationKey", parameterToString(localVarOptionals.PaginationKey.Value(), ""))
 		}
 		if localVarOptionals.Before.IsSet() {
 			localVarQueryParams.Add("before", parameterToString(localVarOptionals.Before.Value(), ""))

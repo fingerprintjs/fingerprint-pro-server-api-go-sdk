@@ -1,7 +1,7 @@
 /*
  * Fingerprint Pro Server API
  *
- * Fingerprint Pro Server API allows you to get information about visitors and about individual events in a server environment. This API can be used for data exports, decision-making, and data analysis scenarios.
+ * Fingerprint Pro Server API allows you to get information about visitors and about individual events in a server environment. It can be used for data exports, decision-making, and data analysis scenarios. Server API is intended for server-side usage, it's not intended to be used from the client side, whether it's a browser or a mobile device.
  *
  * API version: 3
  * Contact: support@fingerprint.com
@@ -13,8 +13,8 @@ package sdk
 type Response struct {
 	VisitorId string           `json:"visitorId"`
 	Visits    []ResponseVisits `json:"visits"`
-	// When more results are available (e.g., you scanned 200 results using `limit` parameter, but a total of 600 results are available), a special `lastTimestamp` top-level attribute is added to the response. If you want to paginate the results further in the past, you should use the value of this attribute.
+	// ⚠️ Deprecated paging attribute, please use `paginationKey` instead. Timestamp of the last visit in the current page of results.
 	LastTimestamp int64 `json:"lastTimestamp,omitempty"`
-	// Visit's `requestId` of the last visit in the current page.
+	// Request ID of the last visit in the current page of results. Use this value in the following request as the `paginationKey` parameter to get the next page of results.
 	PaginationKey string `json:"paginationKey,omitempty"`
 }
