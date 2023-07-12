@@ -20,14 +20,20 @@ type WebhookVisit struct {
 	Bot            *BotdDetectionResult `json:"bot,omitempty"`
 	IpInfo         *IpInfoResult        `json:"ipInfo,omitempty"`
 	// Flag if user used incognito session.
-	Incognito   bool                           `json:"incognito"`
-	RootApps    *WebhookSignalResponseRootApps `json:"rootApps,omitempty"`
-	Emulator    *WebhookSignalResponseEmulator `json:"emulator,omitempty"`
-	IpBlocklist *IpBlockListResult             `json:"ipBlocklist,omitempty"`
-	Tor         *WebhookSignalResponseTor      `json:"tor,omitempty"`
-	Vpn         *VpnResult                     `json:"vpn,omitempty"`
-	Proxy       *WebhookSignalResponseProxy    `json:"proxy,omitempty"`
-	Tampering   *TamperingResult               `json:"tampering,omitempty"`
+	Incognito       bool                                  `json:"incognito"`
+	RootApps        *WebhookSignalResponseRootApps        `json:"rootApps,omitempty"`
+	Emulator        *WebhookSignalResponseEmulator        `json:"emulator,omitempty"`
+	ClonedApp       *WebhookSignalResponseClonedApp       `json:"clonedApp,omitempty"`
+	FactoryReset    *WebhookSignalResponseFactoryReset    `json:"factoryReset,omitempty"`
+	Jailbroken      *WebhookSignalResponseJailbroken      `json:"jailbroken,omitempty"`
+	Frida           *WebhookSignalResponseFrida           `json:"frida,omitempty"`
+	IpBlocklist     *IpBlockListResult                    `json:"ipBlocklist,omitempty"`
+	Tor             *WebhookSignalResponseTor             `json:"tor,omitempty"`
+	PrivacySettings *WebhookSignalResponsePrivacySettings `json:"privacySettings,omitempty"`
+	VirtualMachine  *WebhookSignalResponseVirtualMachine  `json:"virtualMachine,omitempty"`
+	Vpn             *VpnResult                            `json:"vpn,omitempty"`
+	Proxy           *WebhookSignalResponseProxy           `json:"proxy,omitempty"`
+	Tampering       *TamperingResult                      `json:"tampering,omitempty"`
 	// Unique identifier of the user's identification request.
 	RequestId      string          `json:"requestId"`
 	BrowserDetails *BrowserDetails `json:"browserDetails"`
