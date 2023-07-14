@@ -39,7 +39,7 @@ cd test && go test
 
 Go inside the `example` folder to test API requests using the local version of the SDK. The [example/go.mod](./example/go.mod) file reroutes the SDK module references inside `example` to its parent folder.
 
-Create an `.env` file inside the `example` folder according to [example.env](/example/example.env). You might need to change your region inside the scripts to make them work (US/Global is the default region).
+Create an `.env` file inside the `example` folder according to [example.env](/example/example.env).
 
 Run the scripts like this:
 
