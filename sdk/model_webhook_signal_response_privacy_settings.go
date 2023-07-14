@@ -9,7 +9,7 @@
  */
 package sdk
 
-type WebhookSignalResponseRootApps struct {
-	// Android specific root management apps detection. There are 2 values: • `true` - Root Management Apps detected (e.g. Magisk) • `false` - No Root Management Apps detected or the client isn't Android.
+type WebhookSignalResponsePrivacySettings struct {
+	// `true` if the request is from a privacy aware browser (e.g. Tor) or from a browser in which fingerprinting is blocked. Otherwise `false`.
 	Result bool `json:"result,omitempty"`
 }

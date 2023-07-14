@@ -9,7 +9,7 @@
  */
 package sdk
 
-type WebhookSignalResponseRootApps struct {
-	// Android specific root management apps detection. There are 2 values: • `true` - Root Management Apps detected (e.g. Magisk) • `false` - No Root Management Apps detected or the client isn't Android.
+type SignalResponseClonedAppData struct {
+	// Android specific cloned application detection. There are 2 values: • `true` - Presence of app cloners work detected (e.g. fully cloned application found or launch of it inside of a not main working profile detected). • `false` - No signs of cloned application detected or the client is not Android.
 	Result bool `json:"result,omitempty"`
 }

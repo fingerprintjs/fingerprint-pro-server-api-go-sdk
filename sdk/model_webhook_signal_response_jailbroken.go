@@ -9,7 +9,7 @@
  */
 package sdk
 
-type WebhookSignalResponseRootApps struct {
-	// Android specific root management apps detection. There are 2 values: • `true` - Root Management Apps detected (e.g. Magisk) • `false` - No Root Management Apps detected or the client isn't Android.
+type WebhookSignalResponseJailbroken struct {
+	// iOS specific jailbreak detection. There are 2 values: • `true` - Jailbreak detected • `false` - No signs of jailbreak or the client is not iOS.
 	Result bool `json:"result,omitempty"`
 }
