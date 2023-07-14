@@ -107,7 +107,8 @@ func main() {
 > ```shell
 > cd example && FINGERPRINT_API_KEY=SECRET_API_KEY VISITOR_ID=VISITOR_ID_EXAMPLE go run getVisits.go
 > ```
-> If your subscription region is not the “Global/US” region, you need to switch the region in the `getVisits.go` and `getEvent.go` source files first.
+> Alternatively, you can define your environment variables inside `example/.env` file and run the examples without passing them as arguments. 
+> If your subscription region is not the “Global/US” region, use `REGION=eu` or `REGION=ap` in the line above or in your local `.env` file.
 
 ### Region
 If your subscription is in region other than US, you need to change the region in the configuration:
