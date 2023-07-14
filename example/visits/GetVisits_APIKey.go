@@ -2,19 +2,25 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
-	"github.com/antihax/optional"
-	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/sdk"
 	"log"
 	"os"
+
+	"github.com/antihax/optional"
+	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/sdk"
+	"github.com/joho/godotenv"
 )
 
 func main() {
 	cfg := sdk.NewConfiguration()
 	client := sdk.NewAPIClient(cfg)
 
+	// Load environment variables
+	godotenv.Load()
+
 	// You can also use sdk.RegionUS or sdk.RegionAsia. Default one is sdk.RegionUS
-	//cfg.ChangeRegion(sdk.RegionEU)
+	cfg.ChangeRegion(sdk.RegionEU)
 
 	// Configure authorization, in our case with API Key
 	auth := context.WithValue(context.Background(), sdk.ContextAPIKey, sdk.APIKey{
@@ -28,7 +34,6 @@ func main() {
 	}
 
 	response, httpRes, err := client.FingerprintApi.GetVisits(auth, visitorId, &opts)
-
 	fmt.Printf("%+v\n", httpRes)
 
 	if err != nil {
@@ -46,4 +51,12 @@ func main() {
 	}
 
 	fmt.Printf("Got response with visitorId: %s", response.VisitorId)
+
+	// Print full response as JSON
+	responseJsonData, err := json.MarshalIndent(response, "", "  ")
+	if err != nil {
+		fmt.Println("Error:", err)
+		return
+	}
+	fmt.Println(string(responseJsonData))
 }

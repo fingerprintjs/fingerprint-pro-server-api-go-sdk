@@ -10,6 +10,8 @@ fingerprint-pro-server-api-go-sdk.iml
 _obj
 _test
 
+.env
+
 # Architecture specific extensions/prefixes
 *.[568vq]
 [568vq].out

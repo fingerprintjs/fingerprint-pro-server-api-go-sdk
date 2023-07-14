@@ -25,22 +25,39 @@ Project configuration is described in `config.json` file. To read about availabl
 java -jar ./bin/swagger-codegen-cli.jar config-help -l go
 ```
 
-### How to test
+### Running tests
+
 Tests are located in tests.
 
 To run tests you can use IDE instruments or just run:
+
 ```shell
 cd test && go test
+```
+
+## How to test the local version of the SDK
+
+Go inside the `example` folder to test API requests using the local version of the SDK. The [example/go.mod](./example/go.mod) file reroutes the SDK module references inside `example` to its parent folder.
+
+Create an `.env` file inside the `example` folder according to [example.env](/example/example.env). You might need to change your region inside the scripts to make them work (US/Global is the default region).
+
+Run the scripts like this:
+
+```shell
+cd example
+go run events/GetEvent_APIKey.go
+go run visits/GetVisits_APIKey.go
 ```
 
 ### How to publish
 
 The library is automatically released on every push to the main branch if there are relevant changes using [semantic-release](https://github.com/semantic-release/semantic-release) with following plugins:
-* [@semantic-release/commit-analyzer](https://github.com/semantic-release/commit-analyzer)
-* [@semantic-release/release-notes-generator](https://github.com/semantic-release/release-notes-generator)
-* [@semantic-release/changelog](https://github.com/semantic-release/changelog)
-* [@semantic-release/npm](https://github.com/semantic-release/npm)
-* [@semantic-release/github](https://github.com/semantic-release/github)
+
+- [@semantic-release/commit-analyzer](https://github.com/semantic-release/commit-analyzer)
+- [@semantic-release/release-notes-generator](https://github.com/semantic-release/release-notes-generator)
+- [@semantic-release/changelog](https://github.com/semantic-release/changelog)
+- [@semantic-release/npm](https://github.com/semantic-release/npm)
+- [@semantic-release/github](https://github.com/semantic-release/github)
 
 The workflow must be approved by one of the maintainers, first.
 The release configuration can be found in [./release](./release) directory.
