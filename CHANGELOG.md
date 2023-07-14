@@ -1,3 +1,10 @@
+## [3.3.0](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/compare/v3.2.0...v3.3.0) (2023-07-14)
+
+
+### Features
+
+* add smart signals support ([17e5854](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/17e5854d90a40641379b0b77839f2d3f47fbc763))
+
 ## [3.2.0](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/compare/v3.1.0...v3.2.0) (2023-06-06)
 
 
