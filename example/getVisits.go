@@ -19,8 +19,13 @@ func main() {
 	// Load environment variables
 	godotenv.Load()
 
-	// You can also use sdk.RegionUS or sdk.RegionAsia. Default one is sdk.RegionUS
-	cfg.ChangeRegion(sdk.RegionEU)
+	// Default region is sdk.RegionUS
+	if os.Getenv("REGION") == "eu" {
+		cfg.ChangeRegion(sdk.RegionEU)
+	}
+	if os.Getenv("REGION") == "ap" {
+		cfg.ChangeRegion(sdk.RegionAsia)
+	}
 
 	// Configure authorization, in our case with API Key
 	auth := context.WithValue(context.Background(), sdk.ContextAPIKey, sdk.APIKey{
