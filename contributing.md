@@ -45,8 +45,8 @@ Run the scripts like this:
 
 ```shell
 cd example
-go run events/GetEvent_APIKey.go
-go run visits/GetVisits_APIKey.go
+go run getEvent.go
+go run getVisits.go
 ```
 
 ### How to publish
