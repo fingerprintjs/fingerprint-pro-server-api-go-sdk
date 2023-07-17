@@ -3,10 +3,10 @@ name: Functional tests
 on:
   pull_request:
     branches:
-      - '*'
+      - "*"
   workflow_dispatch:
   schedule:
-    - cron: '0 5 * * *'
+    - cron: "0 5 * * *"
 
 jobs:
   tests:
@@ -24,7 +24,7 @@ jobs:
           go-version: ${{ matrix.go-version }}
       - run: go version
       - name: Run functional tests
-        run: cd example && go run visits/GetVisits_APIKey.go && go run events/GetEvent_APIKey.go
+        run: cd example && go run getVisits.go && go run getEvent.go
         env:
           FINGERPRINT_API_KEY: ${{ secrets.FINGERPRINT_API_KEY }}
           VISITOR_ID: ${{ secrets.VISITOR_ID }}
@@ -34,7 +34,6 @@ jobs:
         uses: ravsamhq/notify-slack-action@0d9c6ff1de9903da88d24c0564f6e83cb28faca9
         with:
           status: ${{ job.status }}
-          notification_title: 'Go ${{ matrix.go-version }} SDK Functional Test has {status_message}'
+          notification_title: "Go ${{ matrix.go-version }} SDK Functional Test has {status_message}"
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-          

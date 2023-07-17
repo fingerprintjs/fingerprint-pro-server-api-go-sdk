@@ -4,17 +4,27 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/sdk"
 	"log"
 	"os"
+
+	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/sdk"
+	"github.com/joho/godotenv"
 )
 
 func main() {
 	cfg := sdk.NewConfiguration()
 	client := sdk.NewAPIClient(cfg)
 
-	// You can also use sdk.RegionUS or sdk.RegionAsia. Default one is sdk.RegionUS
-	//cfg.ChangeRegion(sdk.RegionEU)
+	// Load environment variables
+	godotenv.Load()
+
+	// Default region is sdk.RegionUS
+	if os.Getenv("REGION") == "eu" {
+		cfg.ChangeRegion(sdk.RegionEU)
+	}
+	if os.Getenv("REGION") == "ap" {
+		cfg.ChangeRegion(sdk.RegionAsia)
+	}
 
 	// Configure authorization, in our case with API Key
 	auth := context.WithValue(context.Background(), sdk.ContextAPIKey, sdk.APIKey{
