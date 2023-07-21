@@ -20,6 +20,7 @@ Name | Type | Description | Notes
 **Vpn** | [***SignalResponseVpn**](SignalResponseVpn.md) |  | [optional] [default to null]
 **Proxy** | [***SignalResponseProxy**](SignalResponseProxy.md) |  | [optional] [default to null]
 **Tampering** | [***SignalResponseTampering**](SignalResponseTampering.md) |  | [optional] [default to null]
+**RawDeviceAttributes** | [***SignalResponseRawDeviceAttributes**](SignalResponseRawDeviceAttributes.md) |  | [optional] [default to null]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

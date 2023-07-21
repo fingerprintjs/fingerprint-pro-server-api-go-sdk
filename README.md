@@ -174,6 +174,7 @@ Class | Method | HTTP request | Description
  - [SignalResponsePrivacySettingsData](docs/SignalResponsePrivacySettingsData.md)
  - [SignalResponseProxy](docs/SignalResponseProxy.md)
  - [SignalResponseProxyData](docs/SignalResponseProxyData.md)
+ - [SignalResponseRawDeviceAttributes](docs/SignalResponseRawDeviceAttributes.md)
  - [SignalResponseRootApps](docs/SignalResponseRootApps.md)
  - [SignalResponseRootAppsData](docs/SignalResponseRootAppsData.md)
  - [SignalResponseTampering](docs/SignalResponseTampering.md)
