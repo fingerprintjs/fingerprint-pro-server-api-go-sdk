@@ -1,11 +1,9 @@
-# EventResponse
-Contains results from all activated products - Fingerprint Pro, Bot Detection, and others.
-
+# SignalResponseRawDeviceAttributes
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Products** | [***ProductsResponse**](ProductsResponse.md) |  | [optional] [default to null]
+**Data** | [***map[string]interface{}**](map.md) |  | [optional] [default to null]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -112,4 +112,8 @@ func main() {
 		fmt.Printf("Got response with Tampering: %v \n", response.Products.Tampering.Data)
 	}
 
+	if response.Products.RawDeviceAttributes != nil {
+		fmt.Printf("Got response with RawDeviceAttributes: %v \n", response.Products.RawDeviceAttributes.Data)
+	}
+
 }
