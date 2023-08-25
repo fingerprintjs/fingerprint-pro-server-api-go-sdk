@@ -8,7 +8,7 @@ on:
 jobs:
   release:
     name: 'Publish new version'
-    uses: fingerprintjs/dx-team-toolkit/.github/workflows/release-server-sdk.yml
+    uses: fingerprintjs/dx-team-toolkit/.github/workflows/release-server-sdk.yml@1
     with:
       language: golang
       language-version: '1.19'
