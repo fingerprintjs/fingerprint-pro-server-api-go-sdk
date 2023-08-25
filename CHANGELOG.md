@@ -1,3 +1,10 @@
+## [3.4.1](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/compare/v3.4.0...v3.4.1) (2023-08-25)
+
+
+### Build System
+
+* **deps:** bump golang.org/x/net ([4b21e0b](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/4b21e0bae4ceb181310024f510463d4b4c2c0339))
+
 ## [3.4.0](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/compare/v3.3.0...v3.4.0) (2023-07-31)
 
 
