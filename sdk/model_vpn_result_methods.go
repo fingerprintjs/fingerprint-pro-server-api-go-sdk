@@ -14,4 +14,6 @@ type VpnResultMethods struct {
 	TimezoneMismatch bool `json:"timezoneMismatch,omitempty"`
 	// Request IP address is owned and used by a public VPN service provider.
 	PublicVPN bool `json:"publicVPN,omitempty"`
+	// This method applies to mobile devices only. Indicates the result of additional methods used to detect a VPN in mobile devices.
+	AuxiliaryMobile bool `json:"auxiliaryMobile,omitempty"`
 }
