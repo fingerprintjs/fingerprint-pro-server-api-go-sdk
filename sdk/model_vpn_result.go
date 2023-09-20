@@ -10,7 +10,7 @@
 package sdk
 
 type VpnResult struct {
-	// VPN or other anonymising service has been used when sending the request.
+	// VPN or other anonymizing service has been used when sending the request.
 	Result  bool              `json:"result,omitempty"`
 	Methods *VpnResultMethods `json:"methods,omitempty"`
 }

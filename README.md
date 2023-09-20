@@ -128,10 +128,12 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
+ - [Asn](docs/Asn.md)
  - [BotdDetectionResult](docs/BotdDetectionResult.md)
  - [BotdResult](docs/BotdResult.md)
  - [BrowserDetails](docs/BrowserDetails.md)
  - [Confidence](docs/Confidence.md)
+ - [DataCenter](docs/DataCenter.md)
  - [ErrorEvent403Response](docs/ErrorEvent403Response.md)
  - [ErrorEvent403ResponseError](docs/ErrorEvent403ResponseError.md)
  - [ErrorEvent404Response](docs/ErrorEvent404Response.md)
