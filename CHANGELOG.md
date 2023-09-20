@@ -1,3 +1,11 @@
+## [3.4.2](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/compare/v3.4.1...v3.4.2) (2023-09-20)
+
+
+### Bug Fixes
+
+* update OpenAPI Schema with `asn` and `dataCenter` signals ([0164fe0](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/0164fe009898afb42068fc28f4f7084a72dc27de))
+* update OpenAPI Schema with `auxiliaryMobile` method for VPN signal ([193b787](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/193b787ae6378c71bc6da82842afdd53af972894))
+
 ## [3.4.1](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/compare/v3.4.0...v3.4.1) (2023-08-25)
 
 
