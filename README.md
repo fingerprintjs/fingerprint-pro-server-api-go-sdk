@@ -99,7 +99,7 @@ func main() {
 > ```shell
 > cd example && FINGERPRINT_API_KEY=SECRET_API_KEY VISITOR_ID=VISITOR_ID_EXAMPLE go run getVisits.go
 > ```
-> Alternatively, you can define your environment variables inside `example/.env` file and run the examples without passing them as arguments. 
+> Alternatively, you can define your environment variables inside `example/.env` file and run the examples without passing them as arguments.
 > If your subscription region is not the “Global/US” region, use `REGION=eu` or `REGION=ap` in the line above or in your local `.env` file.
 
 ### Region
@@ -221,3 +221,8 @@ Class | Method | HTTP request | Description
 ## Author
 
 support@fingerprint.com
+
+## License
+
+This project is licensed under the [MIT license](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/blob/main/LICENSE).
+
