@@ -223,6 +223,10 @@ Class | Method | HTTP request | Description
 
 support@fingerprint.com
 
+## Support and feedback
+
+To report problems, ask questions or provide feedback, please use [Issues](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-go-sdk/issues). If you need private support, you can email us at [oss-support@fingerprint.com](mailto:oss-support@fingerprint.com).
+
 ## License
 
 This project is licensed under the [MIT license](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/blob/main/LICENSE).
