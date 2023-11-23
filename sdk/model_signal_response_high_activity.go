@@ -9,10 +9,7 @@
  */
 package sdk
 
-type VpnResult struct {
-	// VPN or other anonymizing service has been used when sending the request.
-	Result bool `json:"result,omitempty"`
-	// Local timezone which is used in timezoneMismatch method.
-	OriginTimezone string            `json:"originTimezone,omitempty"`
-	Methods        *VpnResultMethods `json:"methods,omitempty"`
+type SignalResponseHighActivity struct {
+	Data   *HighActivityResult `json:"data,omitempty"`
+	Error_ *ProductError       `json:"error,omitempty"`
 }

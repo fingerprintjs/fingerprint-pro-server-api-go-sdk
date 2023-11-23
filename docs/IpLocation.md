@@ -3,7 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AccuracyRadius** | **int32** |  | [optional] [default to null]
+**AccuracyRadius** | **int32** | The IP address is likely to be within this radius (in km) of the specified location. | [optional] [default to null]
 **Latitude** | **float64** |  | [optional] [default to null]
 **Longitude** | **float64** |  | [optional] [default to null]
 **PostalCode** | **string** |  | [optional] [default to null]

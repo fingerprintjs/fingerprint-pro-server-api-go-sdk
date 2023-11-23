@@ -28,5 +28,7 @@ type ProductsResponse struct {
 	Vpn                 *SignalResponseVpn                 `json:"vpn,omitempty"`
 	Proxy               *SignalResponseProxy               `json:"proxy,omitempty"`
 	Tampering           *SignalResponseTampering           `json:"tampering,omitempty"`
+	HighActivity        *SignalResponseHighActivity        `json:"highActivity,omitempty"`
+	LocationSpoofing    *SignalResponseLocationSpoofing    `json:"locationSpoofing,omitempty"`
 	RawDeviceAttributes *SignalResponseRawDeviceAttributes `json:"rawDeviceAttributes,omitempty"`
 }

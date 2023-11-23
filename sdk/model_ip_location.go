@@ -10,6 +10,7 @@
 package sdk
 
 type IpLocation struct {
+	// The IP address is likely to be within this radius (in km) of the specified location.
 	AccuracyRadius int32           `json:"accuracyRadius,omitempty"`
 	Latitude       float64         `json:"latitude,omitempty"`
 	Longitude      float64         `json:"longitude,omitempty"`
