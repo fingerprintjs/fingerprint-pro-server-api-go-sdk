@@ -35,6 +35,8 @@ type WebhookVisit struct {
 	Proxy               *WebhookSignalResponseProxy           `json:"proxy,omitempty"`
 	Tampering           *TamperingResult                      `json:"tampering,omitempty"`
 	RawDeviceAttributes *map[string]interface{}               `json:"rawDeviceAttributes,omitempty"`
+	HighActivity        *HighActivityResult                   `json:"highActivity,omitempty"`
+	LocationSpoofing    *LocationSpoofingResult               `json:"locationSpoofing,omitempty"`
 	// Unique identifier of the user's identification request.
 	RequestId      string          `json:"requestId"`
 	BrowserDetails *BrowserDetails `json:"browserDetails"`

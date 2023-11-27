@@ -36,6 +36,6 @@ type ProductsResponseIdentificationData struct {
 	VisitorFound bool    `json:"visitorFound"`
 	FirstSeenAt  *SeenAt `json:"firstSeenAt"`
 	LastSeenAt   *SeenAt `json:"lastSeenAt"`
-	// String of 20 characters that uniquely identifies the visitor's browser.  **Pro Plus:** If a bot is detected (`products.botd.bot.result != \"notDetected\"`), the `visitorId` value contains a placeholder string `BotDetected000000000`.
+	// String of 20 characters that uniquely identifies the visitor's browser.
 	VisitorId string `json:"visitorId"`
 }

@@ -9,10 +9,9 @@
  */
 package sdk
 
-type VpnResult struct {
-	// VPN or other anonymizing service has been used when sending the request.
+type HighActivityResult struct {
+	// Flag indicating whether the request came from a high activity visitor.
 	Result bool `json:"result,omitempty"`
-	// Local timezone which is used in timezoneMismatch method.
-	OriginTimezone string            `json:"originTimezone,omitempty"`
-	Methods        *VpnResultMethods `json:"methods,omitempty"`
+	// Number of requests from the same visitor in the previous day.
+	DailyRequests float64 `json:"dailyRequests,omitempty"`
 }
