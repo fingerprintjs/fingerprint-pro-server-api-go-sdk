@@ -1,3 +1,15 @@
+## [3.5.0](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/compare/v3.4.2...v3.5.0) (2023-11-27)
+
+
+### Features
+
+* add `highActivity` and `locationSpoofing` signals, support `originTimezone` for `vpn` signal ([81cc2ab](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/81cc2ab49b7910dc6752b468fa56224f0fd810ab))
+
+
+### Documentation
+
+* **README:** mention license ([61d5a6a](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/61d5a6a189d20a882acbecbcc8e20b07d39cc464))
+
 ## [3.4.2](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/compare/v3.4.1...v3.4.2) (2023-09-20)
 
 
