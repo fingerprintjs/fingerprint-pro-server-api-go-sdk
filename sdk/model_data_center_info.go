@@ -9,10 +9,7 @@
  */
 package sdk
 
-type IpInfoResultV6 struct {
-	Address     string          `json:"address,omitempty"`
-	Geolocation *IpLocation     `json:"geolocation,omitempty"`
-	Asn         *Asn            `json:"asn,omitempty"`
-	Datacenter  *DataCenterInfo `json:"datacenter,omitempty"`
-	DataCenter  *DataCenter     `json:"dataCenter,omitempty"`
+type DataCenterInfo struct {
+	Result bool   `json:"result"`
+	Name   string `json:"name,omitempty"`
 }
