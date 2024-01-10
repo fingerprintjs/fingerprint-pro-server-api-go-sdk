@@ -9,7 +9,6 @@
  */
 package sdk
 
-// `dataCenter` is deprecated in favor of `datacenter`
 type DataCenter struct {
 	Result bool   `json:"result"`
 	Name   string `json:"name,omitempty"`
