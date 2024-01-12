@@ -1,3 +1,15 @@
+## [4.0.0](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/compare/v3.5.0...v4.0.0) (2024-01-12)
+
+
+### ⚠ BREAKING CHANGES
+
+* `IpInfo` field `DataCenter` renamed to `Datacenter`
+
+### Features
+
+* deprecate `IPLocation` ([3d142eb](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/3d142eb82f9bbd9267e5b068fbd30f69e8606dd0))
+* use `datacenter` instead of the wrong `dataCenter` ([c1d0c01](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/c1d0c0134b984242bb6c026f9c3b10e8582a7a2f))
+
 ## [3.5.0](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/compare/v3.4.2...v3.5.0) (2023-11-27)
 
 
