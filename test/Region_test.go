@@ -1,7 +1,7 @@
 package test
 
 import (
-	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v3/sdk"
+	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v4/sdk"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
