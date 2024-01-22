@@ -120,6 +120,11 @@ func main() {
 }
 ```
 
+## Sealed results
+
+This SDK provides utility methods for decoding sealed results.
+To learn more, refer to example located in [example/sealedResults.go](./example/sealedResults.go).
+
 ## Documentation for API Endpoints
 
 All URIs are relative to *https://api.fpjs.io*
