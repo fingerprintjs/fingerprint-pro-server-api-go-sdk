@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/base64"
-	"encoding/json"
 	"fmt"
 	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/sdk/sealed"
 	"os"
@@ -32,11 +31,5 @@ func main() {
 		return
 	}
 
-	responseJsonData, err := json.MarshalIndent(unsealedResponse, "", "  ")
-	if err != nil {
-		fmt.Println("Error:", err)
-		return
-	}
-	fmt.Println(string(responseJsonData))
-
+	PrintEventResponse(*unsealedResponse)
 }
