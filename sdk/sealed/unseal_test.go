@@ -60,6 +60,14 @@ func TestUnsealEventsResponseWithInvalidKeys(t *testing.T) {
 			Algorithm: AlgorithmAES256GCM,
 		},
 		{
+			Key:       base64Decode("aW52YWxpZF9rZXk="),
+			Algorithm: AlgorithmAES256GCM,
+		},
+		{
+			Key:       []byte("invalid key"),
+			Algorithm: AlgorithmAES256GCM,
+		},
+		{
 			Key:       key,
 			Algorithm: AlgorithmAES256GCM,
 		},
