@@ -566,7 +566,7 @@ paths:
                 "context"
                 "fmt"
                 "github.com/antihax/optional"
-                "github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v3/sdk"
+                "github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v4/sdk"
                 "log"
               )
 
@@ -3518,7 +3518,7 @@ paths:
                 "context"
                 "fmt"
                 "github.com/antihax/optional"
-                "github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v3/sdk"
+                "github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v4/sdk"
                 "log"
               )
 

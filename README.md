@@ -45,7 +45,7 @@ We keep the [Go support policy](https://go.dev/doc/devel/release) and support th
 
 1. Get the package from GitHub:
 ```shell
-go get github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v3
+go get github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v4
 ```
 
 2. Import and use the library:
@@ -57,7 +57,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/antihax/optional"
-	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/sdk/v3"
+	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/sdk/v4"
 	"log"
 )
 
@@ -110,7 +110,7 @@ If your subscription is in region other than US, you need to change the region i
 ```go
 
 import (
-    "github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/sdk/v3"
+    "github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/sdk/v4"
 )
 
 func main() {
