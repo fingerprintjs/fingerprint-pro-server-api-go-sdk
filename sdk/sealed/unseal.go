@@ -30,6 +30,9 @@ type DecryptionKey struct {
 	Algorithm Algorithm
 }
 
+// UnsealEventsResponse decrypts the sealed response with the provided keys.
+// The SDK will try to decrypt the result with each key until it succeeds.
+// To learn more about sealed results visit: https://dev.fingerprint.com/docs/sealed-client-results
 func UnsealEventsResponse(sealed []byte, keys []DecryptionKey) (*sdk.EventResponse, error) {
 	unsealed, err := Unseal(sealed, keys)
 
