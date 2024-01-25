@@ -16,9 +16,10 @@ type Algorithm string
 var (
 	sealHeader = []byte{0x9E, 0x85, 0xDC, 0xED}
 
-	ErrInvalidHeader    = errors.New("invalid sealed data header")
-	ErrInvalidKeys      = errors.New("invalid decryption keys")
-	ErrInvalidAlgorithm = errors.New("invalid decryption algorithm")
+	ErrInvalidHeader        = errors.New("invalid sealed data header")
+	ErrInvalidKeys          = errors.New("invalid decryption keys")
+	ErrInvalidAlgorithm     = errors.New("invalid decryption algorithm")
+	ErrInvalidEventResponse = errors.New("invalid event response")
 )
 
 const (
@@ -32,6 +33,7 @@ type DecryptionKey struct {
 
 // UnsealEventsResponse decrypts the sealed response with the provided keys.
 // The SDK will try to decrypt the result with each key until it succeeds.
+// In case if all keys fail, AggregatedUnsealError is returned with error details for each key.
 // To learn more about sealed results visit: https://dev.fingerprint.com/docs/sealed-client-results
 func UnsealEventsResponse(sealed []byte, keys []DecryptionKey) (*sdk.EventResponse, error) {
 	unsealed, err := Unseal(sealed, keys)
@@ -48,6 +50,10 @@ func UnsealEventsResponse(sealed []byte, keys []DecryptionKey) (*sdk.EventRespon
 		return nil, err
 	}
 
+	if eventResponse.Products == nil {
+		return nil, ErrInvalidEventResponse
+	}
+
 	return &eventResponse, nil
 }
 
@@ -56,23 +62,27 @@ func Unseal(sealed []byte, keys []DecryptionKey) ([]byte, error) {
 		return nil, ErrInvalidHeader
 	}
 
+	aggregateError := NewAggregatedUnsealError()
+
 	for _, key := range keys {
 		switch key.Algorithm {
 		case AlgorithmAES256GCM:
 			payload, err := decryptAes256gcm(sealed[len(sealHeader):], key.Key)
 
-			if err == nil {
+			if err != nil {
+				aggregateError.Add(NewUnsealError(err, key))
+
+				break
+			} else {
 				return payload, nil
 			}
-
-			break
 
 		default:
 			return nil, ErrInvalidAlgorithm
 		}
 	}
 
-	return nil, ErrInvalidKeys
+	return nil, aggregateError
 }
 
 func decryptAes256gcm(payload, key []byte) ([]byte, error) {
