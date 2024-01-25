@@ -272,6 +272,11 @@ Class | Method | HTTP request | Description
 - **Location**: URL query string
 
 
+## Documentation for sealed results
+
+- [SealedResults](docs/SealedResults.md)
+- [DecryptionKey](docs/DecryptionKey.md)
+
 ## Author
 
 support@fingerprint.com
