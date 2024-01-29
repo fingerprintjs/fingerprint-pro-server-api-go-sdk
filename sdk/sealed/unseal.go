@@ -58,7 +58,7 @@ func UnsealEventsResponse(sealed []byte, keys []DecryptionKey) (*sdk.EventRespon
 }
 
 func Unseal(sealed []byte, keys []DecryptionKey) ([]byte, error) {
-	if !bytes.Equal(sealed[:len(sealHeader)], sealHeader) {
+	if len(sealed) < len(sealHeader) || !bytes.Equal(sealed[:len(sealHeader)], sealHeader) {
 		return nil, ErrInvalidHeader
 	}
 

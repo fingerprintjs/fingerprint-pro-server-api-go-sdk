@@ -168,4 +168,19 @@ func TestUnsealEventsResponse(t *testing.T) {
 
 		assert.ErrorIs(t, err, ErrInvalidHeader)
 	})
+
+	t.Run("with empty data", func(t *testing.T) {
+		sealedResult := []byte("")
+		key := base64Decode("p2PA7MGy5tx56cnyJaFZMr96BCFwZeHjZV2EqMvTq53=")
+
+		keys := []DecryptionKey{
+			{
+				Key:       key,
+				Algorithm: AlgorithmAES256GCM,
+			},
+		}
+		_, err := UnsealEventsResponse(sealedResult, keys)
+
+		assert.Error(t, err, ErrInvalidHeader)
+	})
 }
