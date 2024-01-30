@@ -183,4 +183,28 @@ func TestUnsealEventsResponse(t *testing.T) {
 
 		assert.Error(t, err, ErrInvalidHeader)
 	})
+
+	t.Run("with bad nonce", func(t *testing.T) {
+		sealedResult := []byte{0x9E, 0x85, 0xDC, 0xED, 0xAA, 0xBB, 0xCC}
+		key := base64Decode("p2PA7MGy5tx56cnyJaFZMr96BCFwZeHjZV2EqMvTq53=")
+
+		keys := []DecryptionKey{
+			{
+				Key:       key,
+				Algorithm: AlgorithmAES256GCM,
+			},
+		}
+		_, err := UnsealEventsResponse(sealedResult, keys)
+
+		assert.Error(t, err)
+		assert.IsType(t, err, &AggregatedUnsealError{})
+
+		var aggregateError *AggregatedUnsealError
+		errors.As(err, &aggregateError)
+
+		assert.Len(t, aggregateError.UnsealErrors, 1)
+
+		unsealError := aggregateError.UnsealErrors[0]
+		assert.ErrorContains(t, unsealError.Error, "nonce")
+	})
 }
