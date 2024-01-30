@@ -26,9 +26,11 @@ func main() {
 	formatCode()
 }
 
-func ensureTmpDir() {
-	if _, err := os.Stat("tmp"); os.IsNotExist(err) {
-		err := os.Mkdir("tmp", 0755)
+func ensureTmpDir(paths ...string) {
+	fullPath := fmt.Sprintf("tmp/%s", strings.Join(paths, "/"))
+
+	if _, err := os.Stat(fullPath); os.IsNotExist(err) {
+		err := os.Mkdir(fullPath, 0755)
 
 		if err != nil {
 			log.Fatal(err)
@@ -38,6 +40,7 @@ func ensureTmpDir() {
 
 func moveFilesToKeepToTmpDir() {
 	ensureTmpDir()
+	ensureTmpDir("docs")
 
 	for _, file := range filesToKeep {
 		filePath := fmt.Sprintf("%s", file)
