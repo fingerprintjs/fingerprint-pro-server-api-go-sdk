@@ -128,6 +128,53 @@ func main() {
 }
 ```
 
+## Sealed results
+
+This SDK provides utility methods for decoding [sealed results](https://dev.fingerprint.com/docs/sealed-client-results).
+```go
+package main
+
+import (
+	"encoding/base64"
+	"fmt"
+	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/sdk/sealed"
+	"os"
+)
+
+// Utility function to decode base64 string
+func base64Decode(input string) []byte {
+	output, err := base64.StdEncoding.DecodeString(input)
+	if err != nil {
+		panic(err)
+	}
+	return output
+}
+
+func main() {
+	// Sealed result from the frontend.
+	sealedResult := base64Decode(os.Getenv("BASE64_SEALED_RESULT"))
+	// Base64 encoded key generated in the dashboard.
+	key := base64Decode(os.Getenv("BASE64_KEY"))
+
+	keys := []sealed.DecryptionKey{
+		// You can provide more than one key to support key rotation. The SDK will try to decrypt the result with each key.
+		{
+			Key:       key,
+			Algorithm: sealed.AlgorithmAES256GCM,
+		},
+	}
+	unsealedResponse, err := sealed.UnsealEventsResponse(sealedResult, keys)
+
+	if err != nil {
+		panic(err)
+	}
+
+	// Do something with unsealed response, e.g: send it back to the frontend.
+}
+
+```
+To learn more, refer to example located in [example/sealedResults.go](./example/sealedResults.go).
+
 ## Documentation for API Endpoints
 
 All URIs are relative to *{{basePath}}*
@@ -163,6 +210,11 @@ Class | Method | HTTP request | Description
 {{/isOAuth}}
 
 {{/authMethods}}
+
+## Documentation for sealed results
+
+- [SealedResults](docs/SealedResults.md)
+- [DecryptionKey](docs/DecryptionKey.md)
 
 ## Author
 

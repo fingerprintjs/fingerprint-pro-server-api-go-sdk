@@ -1,47 +1,39 @@
 package main
 
 import (
-	"context"
+	"encoding/base64"
 	"encoding/json"
 	"fmt"
-	"log"
+	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/sdk/sealed"
+	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v3/sdk"
 	"os"
-
-	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/sdk"
-	"github.com/joho/godotenv"
 )
 
-func main() {
-	cfg := sdk.NewConfiguration()
-	client := sdk.NewAPIClient(cfg)
-
-	// Load environment variables
-	godotenv.Load()
-
-	// Default region is sdk.RegionUS
-	if os.Getenv("REGION") == "eu" {
-		cfg.ChangeRegion(sdk.RegionEU)
-	}
-	if os.Getenv("REGION") == "ap" {
-		cfg.ChangeRegion(sdk.RegionAsia)
-	}
-
-	// Configure authorization, in our case with API Key
-	auth := context.WithValue(context.Background(), sdk.ContextAPIKey, sdk.APIKey{
-		Key: os.Getenv("FINGERPRINT_API_KEY"),
-	})
-
-	// Usually this data will come from your frontend app
-	requestId := os.Getenv("REQUEST_ID")
-
-	response, httpRes, err := client.FingerprintApi.GetEvent(auth, requestId)
-
-	fmt.Printf("%+v\n", httpRes)
-
+func base64Decode(input string) []byte {
+	output, err := base64.StdEncoding.DecodeString(input)
 	if err != nil {
-		log.Fatal(err)
+		panic(err)
+	}
+	return output
+}
+
+func main() {
+	sealedResult := base64Decode(os.Getenv("BASE64_SEALED_RESULT"))
+	key := base64Decode(os.Getenv("BASE64_KEY"))
+
+	keys := []sealed.DecryptionKey{
+		{
+			Key:       key,
+			Algorithm: sealed.AlgorithmAES256GCM,
+		},
+	}
+	unsealedResponse, err := sealed.UnsealEventsResponse(sealedResult, keys)
+	if err != nil {
+		fmt.Println("Unseal error:", err)
+		return
 	}
 
+	var response sdk.EventResponse = *unsealedResponse
 	if response.Products.Botd != nil {
 		fmt.Printf("Got response with Botd: %v \n", response.Products.Botd)
 	}

@@ -12,15 +12,56 @@ import (
 )
 
 var files = []string{"README.md", "docs", ".swagger-codegen"}
+var filesToKeep = []string{"docs/DecryptionKey.md", "docs/SealedResults.md"}
 var pathPrefix = "sdk"
 
 func main() {
+	moveFilesToKeepToTmpDir()
 	bumpConfigVersion()
 	generateSwagger()
 	moveFiles()
 	getExamples()
 	fixFingerPrintApiMdFile()
+	moveFilesToKeepFromTmpDir()
 	formatCode()
+}
+
+func ensureTmpDir() {
+	if _, err := os.Stat("tmp"); os.IsNotExist(err) {
+		err := os.Mkdir("tmp", 0755)
+
+		if err != nil {
+			log.Fatal(err)
+		}
+	}
+}
+
+func moveFilesToKeepToTmpDir() {
+	ensureTmpDir()
+
+	for _, file := range filesToKeep {
+		filePath := fmt.Sprintf("%s", file)
+		newFilePath := fmt.Sprintf("tmp/%s", file)
+
+		err := os.Rename(filePath, newFilePath)
+
+		if err != nil {
+			log.Fatal(err)
+		}
+	}
+}
+
+func moveFilesToKeepFromTmpDir() {
+	for _, file := range filesToKeep {
+		filePath := fmt.Sprintf("./tmp/%s", file)
+		newFilePath := fmt.Sprintf("%s", file)
+
+		err := os.Rename(filePath, newFilePath)
+
+		if err != nil {
+			log.Fatal(err)
+		}
+	}
 }
 
 func getVersion() string {
