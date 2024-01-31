@@ -1,3 +1,15 @@
+## [4.1.0](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/compare/v4.0.0...v4.1.0) (2024-01-31)
+
+
+### Features
+
+* add method for decoding sealed results ([5ed5c5b](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/5ed5c5bb7222727f4816e4e7a4a7cc62b8a055de))
+
+
+### Bug Fixes
+
+* update module to v4 ([be9c14e](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/be9c14ecfa6ed869f03cac0c4a4de2d641af5217))
+
 ## [4.0.0](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/compare/v3.5.0...v4.0.0) (2024-01-12)
 
 
