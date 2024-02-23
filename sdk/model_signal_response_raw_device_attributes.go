@@ -10,5 +10,6 @@
 package sdk
 
 type SignalResponseRawDeviceAttributes struct {
-	Data *map[string]interface{} `json:"data,omitempty"`
+	Data   *map[string]interface{} `json:"data,omitempty"`
+	Error_ *ProductError           `json:"error,omitempty"`
 }
