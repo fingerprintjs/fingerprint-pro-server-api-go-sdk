@@ -18,9 +18,9 @@ type ResponseVisits struct {
 	RequestId      string          `json:"requestId"`
 	BrowserDetails *BrowserDetails `json:"browserDetails"`
 	// Flag if user used incognito session.
-	Incognito  bool        `json:"incognito"`
-	Ip         string      `json:"ip"`
-	IpLocation *IpLocation `json:"ipLocation,omitempty"`
+	Incognito  bool                  `json:"incognito"`
+	Ip         string                `json:"ip"`
+	IpLocation *DeprecatedIpLocation `json:"ipLocation,omitempty"`
 	// Timestamp of the event with millisecond precision in Unix time.
 	Timestamp int64 `json:"timestamp"`
 	// Time expressed according to ISO 8601 in UTC format.

@@ -9,7 +9,6 @@
  */
 package sdk
 
-type WebhookSignalResponseTor struct {
-	// `true` if the request IP address is a known tor exit node, `false` otherwise.
-	Result bool `json:"result,omitempty"`
+type DeprecatedIpLocationCity struct {
+	Name string `json:"name,omitempty"`
 }
