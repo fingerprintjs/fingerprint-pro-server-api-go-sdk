@@ -46,13 +46,13 @@ type WebhookVisit struct {
 	Timestamp int64 `json:"timestamp"`
 	// Time expressed according to ISO 8601 in UTC format.
 	Time *time.Time `json:"time"`
-	// Page URL from which identification request was sent.
+	// Page URL from which the identification request was sent.
 	Url string `json:"url"`
 	// A customer-provided value or an object that was sent with identification request.
-	Tag ModelMap `json:"tag,omitempty"`
+	Tag ModelMap `json:"tag"`
 	// A customer-provided id that was sent with identification request.
 	LinkedId   string      `json:"linkedId,omitempty"`
-	Confidence *Confidence `json:"confidence"`
+	Confidence *Confidence `json:"confidence,omitempty"`
 	// Attribute represents if a visitor had been identified before.
 	VisitorFound bool    `json:"visitorFound"`
 	FirstSeenAt  *SeenAt `json:"firstSeenAt"`
