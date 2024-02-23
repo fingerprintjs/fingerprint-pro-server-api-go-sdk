@@ -15,7 +15,7 @@ import (
 )
 
 func TestReturnsVisits(t *testing.T) {
-	mockResponse := GetMockResponse("../test/mocks/visits_limit_1.json")
+	mockResponse := GetMockResponse("../test/mocks/get_visits_200_limit_1.json")
 
 	ts := httptest.NewServer(http.HandlerFunc(func(
 		w http.ResponseWriter,
@@ -62,7 +62,7 @@ func TestReturnsVisitsWithPagination(t *testing.T) {
 		LinkedId:      optional.NewString("request_id"),
 	}
 
-	mockResponse := GetMockResponse("../test/mocks/visits_limit_500.json")
+	mockResponse := GetMockResponse("../test/mocks/get_visits_200_limit_500.json")
 
 	ts := httptest.NewServer(http.HandlerFunc(func(
 		w http.ResponseWriter,
@@ -117,7 +117,7 @@ func TestHandlesTooManyRequestsError(t *testing.T) {
 		LinkedId:      optional.NewString("request_id"),
 	}
 
-	mockResponse := GetMockResponse("../test/mocks/visits_too_many_requests_error.json")
+	mockResponse := GetMockResponse("../test/mocks/get_visits_429_too_many_requests_error.json")
 
 	ts := httptest.NewServer(http.HandlerFunc(func(
 		w http.ResponseWriter,
@@ -169,7 +169,7 @@ func TestHandlesTooManyRequestsErrorWithoutRetryAfterHeader(t *testing.T) {
 		LinkedId:      optional.NewString("request_id"),
 	}
 
-	mockResponse := GetMockResponse("../test/mocks/visits_too_many_requests_error.json")
+	mockResponse := GetMockResponse("../test/mocks/get_visits_429_too_many_requests_error.json")
 
 	ts := httptest.NewServer(http.HandlerFunc(func(
 		w http.ResponseWriter,
