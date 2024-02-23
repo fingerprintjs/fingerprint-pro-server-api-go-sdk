@@ -3,8 +3,8 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Address** | **string** |  | [optional] [default to null]
-**Geolocation** | [***IpLocation**](IPLocation.md) |  | [optional] [default to null]
+**Address** | **string** |  | [default to null]
+**Geolocation** | [***IpLocation**](IPLocation.md) |  | [default to null]
 **Asn** | [***Asn**](ASN.md) |  | [optional] [default to null]
 **Datacenter** | [***DataCenter**](DataCenter.md) |  | [optional] [default to null]
 

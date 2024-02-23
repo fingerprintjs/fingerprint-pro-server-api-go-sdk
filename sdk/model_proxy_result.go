@@ -11,5 +11,5 @@ package sdk
 
 type ProxyResult struct {
 	// `true` if the request IP address is used by a public proxy provider, `false` otherwise.
-	Result bool `json:"result,omitempty"`
+	Result bool `json:"result"`
 }

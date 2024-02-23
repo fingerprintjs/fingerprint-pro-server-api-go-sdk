@@ -11,7 +11,7 @@ package sdk
 
 type HighActivityResult struct {
 	// Flag indicating whether the request came from a high activity visitor.
-	Result bool `json:"result,omitempty"`
+	Result bool `json:"result"`
 	// Number of requests from the same visitor in the previous day.
 	DailyRequests float64 `json:"dailyRequests,omitempty"`
 }

@@ -11,7 +11,7 @@ package sdk
 
 type VpnResult struct {
 	// VPN or other anonymizing service has been used when sending the request.
-	Result bool `json:"result,omitempty"`
+	Result bool `json:"result"`
 	// Local timezone which is used in timezoneMismatch method.
 	OriginTimezone string `json:"originTimezone"`
 	// Country of the request (only for Android SDK version >= 2.4.0, ISO 3166 format or unknown).

@@ -11,5 +11,5 @@ package sdk
 
 type VirtualMachineResult struct {
 	// `true` if the request came from a browser running inside a virtual machine (e.g. VMWare), `false` otherwise.
-	Result bool `json:"result,omitempty"`
+	Result bool `json:"result"`
 }

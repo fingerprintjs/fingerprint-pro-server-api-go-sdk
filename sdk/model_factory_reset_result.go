@@ -17,5 +17,5 @@ type FactoryResetResult struct {
 	// Time in UTC when the most recent factory reset of the Android or iOS device was done.  If there is no sign of factory reset or the client is not a mobile device, the field will contain the epoch time (1 January 1970) in UTC.
 	Time *time.Time `json:"time"`
 	// Same value as it's in the `time` field but represented in timestamp format.
-	Timestamp int64 `json:"timestamp,omitempty"`
+	Timestamp int64 `json:"timestamp"`
 }

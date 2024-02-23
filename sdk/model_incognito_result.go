@@ -11,5 +11,5 @@ package sdk
 
 type IncognitoResult struct {
 	// `true` if we detected incognito mode used in the browser, `false` otherwise.
-	Result bool `json:"result,omitempty"`
+	Result bool `json:"result"`
 }

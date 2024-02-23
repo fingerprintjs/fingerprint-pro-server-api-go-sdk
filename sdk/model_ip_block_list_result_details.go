@@ -11,7 +11,7 @@ package sdk
 
 type IpBlockListResultDetails struct {
 	// IP address was part of a known email spam attack (SMTP).
-	EmailSpam bool `json:"emailSpam,omitempty"`
+	EmailSpam bool `json:"emailSpam"`
 	// IP address was part of a known network attack (SSH/HTTPS).
-	AttackSource bool `json:"attackSource,omitempty"`
+	AttackSource bool `json:"attackSource"`
 }

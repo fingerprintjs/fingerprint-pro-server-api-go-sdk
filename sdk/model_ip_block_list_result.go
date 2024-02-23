@@ -11,6 +11,6 @@ package sdk
 
 type IpBlockListResult struct {
 	// `true` if request IP address is part of any database that we use to search for known malicious actors, `false` otherwise.
-	Result  bool                      `json:"result,omitempty"`
-	Details *IpBlockListResultDetails `json:"details,omitempty"`
+	Result  bool                      `json:"result"`
+	Details *IpBlockListResultDetails `json:"details"`
 }

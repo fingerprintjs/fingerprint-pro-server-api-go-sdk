@@ -11,5 +11,5 @@ package sdk
 
 type PrivacySettingsResult struct {
 	// `true` if the request is from a privacy aware browser (e.g. Tor) or from a browser in which fingerprinting is blocked. Otherwise `false`.
-	Result bool `json:"result,omitempty"`
+	Result bool `json:"result"`
 }

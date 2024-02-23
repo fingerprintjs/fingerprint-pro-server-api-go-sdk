@@ -11,5 +11,5 @@ package sdk
 
 type TorResult struct {
 	// `true` if the request IP address is a known tor exit node, `false` otherwise.
-	Result bool `json:"result,omitempty"`
+	Result bool `json:"result"`
 }

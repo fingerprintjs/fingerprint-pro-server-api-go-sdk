@@ -11,7 +11,7 @@ package sdk
 
 type TamperingResult struct {
 	// Flag indicating whether browser tampering was detected according to our internal thresholds.
-	Result bool `json:"result,omitempty"`
+	Result bool `json:"result"`
 	// Confidence score (`0.0 - 1.0`) for the tampering detection. Values above `0.5` suggest that we're reasonably sure there was a tampering attempt. Values below `0.5` are genuine browsers.
-	AnomalyScore float64 `json:"anomalyScore,omitempty"`
+	AnomalyScore float64 `json:"anomalyScore"`
 }
