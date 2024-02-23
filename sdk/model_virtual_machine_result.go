@@ -9,7 +9,7 @@
  */
 package sdk
 
-type SignalResponseJailbrokenData struct {
-	// iOS specific jailbreak detection. There are 2 values: • `true` - Jailbreak detected • `false` - No signs of jailbreak or the client is not iOS.
+type VirtualMachineResult struct {
+	// `true` if the request came from a browser running inside a virtual machine (e.g. VMWare), `false` otherwise.
 	Result bool `json:"result,omitempty"`
 }

@@ -10,6 +10,6 @@
 package sdk
 
 type SignalResponsePrivacySettings struct {
-	Data   *SignalResponsePrivacySettingsData `json:"data,omitempty"`
-	Error_ *ProductError                      `json:"error,omitempty"`
+	Data   *PrivacySettingsResult `json:"data,omitempty"`
+	Error_ *ProductError          `json:"error,omitempty"`
 }

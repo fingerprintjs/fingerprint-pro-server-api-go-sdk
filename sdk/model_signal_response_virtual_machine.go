@@ -10,6 +10,6 @@
 package sdk
 
 type SignalResponseVirtualMachine struct {
-	Data   *SignalResponseVirtualMachineData `json:"data,omitempty"`
-	Error_ *ProductError                     `json:"error,omitempty"`
+	Data   *VirtualMachineResult `json:"data,omitempty"`
+	Error_ *ProductError         `json:"error,omitempty"`
 }

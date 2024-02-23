@@ -10,6 +10,6 @@
 package sdk
 
 type SignalResponseProxy struct {
-	Data   *SignalResponseProxyData `json:"data,omitempty"`
-	Error_ *ProductError            `json:"error,omitempty"`
+	Data   *ProxyResult  `json:"data,omitempty"`
+	Error_ *ProductError `json:"error,omitempty"`
 }

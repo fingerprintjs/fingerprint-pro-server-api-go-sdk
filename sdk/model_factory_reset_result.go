@@ -9,7 +9,13 @@
  */
 package sdk
 
-type SignalResponseRootAppsData struct {
-	// Android specific root management apps detection. There are 2 values: • `true` - Root Management Apps detected (e.g. Magisk) • `false` - No Root Management Apps detected or the client is not Android.
-	Result bool `json:"result,omitempty"`
+import (
+	"time"
+)
+
+type FactoryResetResult struct {
+	// Time in UTC when the most recent factory reset of the Android or iOS device was done.  If there is no sign of factory reset or the client is not a mobile device, the field will contain the epoch time (1 January 1970) in UTC.
+	Time *time.Time `json:"time"`
+	// Same value as it's in the `time` field but represented in timestamp format.
+	Timestamp int64 `json:"timestamp,omitempty"`
 }

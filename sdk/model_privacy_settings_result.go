@@ -9,13 +9,7 @@
  */
 package sdk
 
-import (
-	"time"
-)
-
-type WebhookSignalResponseFactoryReset struct {
-	// Time in UTC for the Android client when recent factory reset was done.  If there is no sign of factory reset or the client isn't Android, the field will be epoch time.
-	Time *time.Time `json:"time,omitempty"`
-	// Same value as it's in the `time` field but represented in timestamp format.
-	Timestamp int64 `json:"timestamp,omitempty"`
+type PrivacySettingsResult struct {
+	// `true` if the request is from a privacy aware browser (e.g. Tor) or from a browser in which fingerprinting is blocked. Otherwise `false`.
+	Result bool `json:"result,omitempty"`
 }

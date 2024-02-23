@@ -10,6 +10,6 @@
 package sdk
 
 type SignalResponseClonedApp struct {
-	Data   *SignalResponseClonedAppData `json:"data,omitempty"`
-	Error_ *ProductError                `json:"error,omitempty"`
+	Data   *ClonedAppResult `json:"data,omitempty"`
+	Error_ *ProductError    `json:"error,omitempty"`
 }

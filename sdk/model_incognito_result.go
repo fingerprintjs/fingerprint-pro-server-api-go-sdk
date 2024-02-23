@@ -9,7 +9,7 @@
  */
 package sdk
 
-type SignalResponseFridaData struct {
-	// iOS specific [Frida](https://frida.re/docs/ios/) detection. There are 2 values: • `true` - Frida detected • `false` - No signs of Frida or the client is not iOS.
+type IncognitoResult struct {
+	// `true` if we detected incognito mode used in the browser, `false` otherwise.
 	Result bool `json:"result,omitempty"`
 }

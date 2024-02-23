@@ -20,23 +20,24 @@ type WebhookVisit struct {
 	Bot            *BotdDetectionResult `json:"bot,omitempty"`
 	IpInfo         *IpInfoResult        `json:"ipInfo,omitempty"`
 	// Flag if user used incognito session.
-	Incognito           bool                                  `json:"incognito"`
-	RootApps            *WebhookSignalResponseRootApps        `json:"rootApps,omitempty"`
-	Emulator            *WebhookSignalResponseEmulator        `json:"emulator,omitempty"`
-	ClonedApp           *WebhookSignalResponseClonedApp       `json:"clonedApp,omitempty"`
-	FactoryReset        *WebhookSignalResponseFactoryReset    `json:"factoryReset,omitempty"`
-	Jailbroken          *WebhookSignalResponseJailbroken      `json:"jailbroken,omitempty"`
-	Frida               *WebhookSignalResponseFrida           `json:"frida,omitempty"`
-	IpBlocklist         *IpBlockListResult                    `json:"ipBlocklist,omitempty"`
-	Tor                 *WebhookSignalResponseTor             `json:"tor,omitempty"`
-	PrivacySettings     *WebhookSignalResponsePrivacySettings `json:"privacySettings,omitempty"`
-	VirtualMachine      *WebhookSignalResponseVirtualMachine  `json:"virtualMachine,omitempty"`
-	Vpn                 *VpnResult                            `json:"vpn,omitempty"`
-	Proxy               *WebhookSignalResponseProxy           `json:"proxy,omitempty"`
-	Tampering           *TamperingResult                      `json:"tampering,omitempty"`
-	RawDeviceAttributes *map[string]interface{}               `json:"rawDeviceAttributes,omitempty"`
-	HighActivity        *HighActivityResult                   `json:"highActivity,omitempty"`
-	LocationSpoofing    *LocationSpoofingResult               `json:"locationSpoofing,omitempty"`
+	Incognito           bool                    `json:"incognito"`
+	RootApps            *RootAppsResult         `json:"rootApps,omitempty"`
+	Emulator            *EmulatorResult         `json:"emulator,omitempty"`
+	ClonedApp           *ClonedAppResult        `json:"clonedApp,omitempty"`
+	FactoryReset        *FactoryResetResult     `json:"factoryReset,omitempty"`
+	Jailbroken          *JailbrokenResult       `json:"jailbroken,omitempty"`
+	Frida               *FridaResult            `json:"frida,omitempty"`
+	IpBlocklist         *IpBlockListResult      `json:"ipBlocklist,omitempty"`
+	Tor                 *TorResult              `json:"tor,omitempty"`
+	PrivacySettings     *PrivacySettingsResult  `json:"privacySettings,omitempty"`
+	VirtualMachine      *VirtualMachineResult   `json:"virtualMachine,omitempty"`
+	Vpn                 *VpnResult              `json:"vpn,omitempty"`
+	Proxy               *ProxyResult            `json:"proxy,omitempty"`
+	Tampering           *TamperingResult        `json:"tampering,omitempty"`
+	RawDeviceAttributes *map[string]interface{} `json:"rawDeviceAttributes,omitempty"`
+	HighActivity        *HighActivityResult     `json:"highActivity,omitempty"`
+	LocationSpoofing    *LocationSpoofingResult `json:"locationSpoofing,omitempty"`
+	SuspectScore        *SuspectScoreResult     `json:"suspectScore,omitempty"`
 	// Unique identifier of the user's identification request.
 	RequestId      string                `json:"requestId"`
 	BrowserDetails *BrowserDetails       `json:"browserDetails"`

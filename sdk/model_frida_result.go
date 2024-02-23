@@ -9,7 +9,7 @@
  */
 package sdk
 
-type WebhookSignalResponseJailbroken struct {
-	// iOS specific jailbreak detection. There are 2 values: • `true` - Jailbreak detected • `false` - No signs of jailbreak or the client is not iOS.
-	Result bool `json:"result,omitempty"`
+type FridaResult struct {
+	// [Frida](https://frida.re/docs/) detection for Android and iOS devices. There are 2 values: • `true` - Frida detected • `false` - No signs of Frida or the client is not a mobile device.
+	Result bool `json:"result"`
 }

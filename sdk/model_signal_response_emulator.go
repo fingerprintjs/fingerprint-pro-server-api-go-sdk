@@ -10,6 +10,6 @@
 package sdk
 
 type SignalResponseEmulator struct {
-	Data   *SignalResponseEmulatorData `json:"data,omitempty"`
-	Error_ *ProductError               `json:"error,omitempty"`
+	Data   *EmulatorResult `json:"data,omitempty"`
+	Error_ *ProductError   `json:"error,omitempty"`
 }

@@ -9,7 +9,7 @@
  */
 package sdk
 
-type WebhookSignalResponseVirtualMachine struct {
-	// `true` if the request came from a browser running inside a virtual machine (e.g. VMWare), `false` otherwise.
+type EmulatorResult struct {
+	// Android specific emulator detection. There are 2 values: • `true` - Emulated environment detected (e.g. launch inside of AVD) • `false` - No signs of emulated environment detected or the client is not Android.
 	Result bool `json:"result,omitempty"`
 }

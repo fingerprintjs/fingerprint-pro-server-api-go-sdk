@@ -9,7 +9,7 @@
  */
 package sdk
 
-type SignalResponseProxyData struct {
-	// `true` if the request IP address is used by a public proxy provider, `false` otherwise.
-	Result bool `json:"result,omitempty"`
+type JailbrokenResult struct {
+	// iOS specific jailbreak detection. There are 2 values: • `true` - Jailbreak detected • `false` - No signs of jailbreak or the client is not iOS.
+	Result bool `json:"result"`
 }
