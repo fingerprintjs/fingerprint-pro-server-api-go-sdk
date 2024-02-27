@@ -7,7 +7,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/sdk"
+	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v5/sdk"
 	"github.com/joho/godotenv"
 )
 

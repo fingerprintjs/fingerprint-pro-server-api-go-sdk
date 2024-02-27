@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v4/sdk"
+	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v5/sdk"
 )
 
 func readFromFileAndUnmarshal(path string, i interface{}) {

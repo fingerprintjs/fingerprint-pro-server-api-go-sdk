@@ -4,7 +4,7 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"errors"
-	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v3/sdk"
+	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v5/sdk"
 	"github.com/stretchr/testify/assert"
 	"reflect"
 	"testing"

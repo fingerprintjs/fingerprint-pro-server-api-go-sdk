@@ -1,19 +1,19 @@
 module github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/example
 
+go 1.20
+
 require (
 	github.com/antihax/optional v1.0.0
-	github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk v0.0.0-20220810115627-e7a3ed6f02df
 	github.com/joho/godotenv v1.5.1
+	github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v5 v5.0.0-00010101000000-000000000000
 )
 
 require (
-	github.com/golang/protobuf v1.5.2 // indirect
-	golang.org/x/net v0.7.0 // indirect
-	golang.org/x/oauth2 v0.0.0-20220808172628-8227340efae7 // indirect
-	google.golang.org/appengine v1.6.7 // indirect
-	google.golang.org/protobuf v1.28.0 // indirect
+	github.com/golang/protobuf v1.5.3 // indirect
+	golang.org/x/net v0.21.0 // indirect
+	golang.org/x/oauth2 v0.17.0 // indirect
+	google.golang.org/appengine v1.6.8 // indirect
+	google.golang.org/protobuf v1.32.0 // indirect
 )
 
-go 1.19
-
-replace github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk => ../
+replace github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v5 => ../
