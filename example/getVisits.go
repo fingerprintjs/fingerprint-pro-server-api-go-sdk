@@ -4,11 +4,11 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v5/sdk"
 	"log"
 	"os"
 
 	"github.com/antihax/optional"
-	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/sdk"
 	"github.com/joho/godotenv"
 )
 
