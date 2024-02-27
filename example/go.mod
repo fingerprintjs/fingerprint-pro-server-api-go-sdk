@@ -14,6 +14,6 @@ require (
 	google.golang.org/protobuf v1.28.0 // indirect
 )
 
-go 1.19
+go 1.20
 
 replace github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk => ../
