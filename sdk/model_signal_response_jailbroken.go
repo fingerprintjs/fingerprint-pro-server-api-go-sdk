@@ -10,6 +10,6 @@
 package sdk
 
 type SignalResponseJailbroken struct {
-	Data   *SignalResponseJailbrokenData `json:"data,omitempty"`
-	Error_ *ProductError                 `json:"error,omitempty"`
+	Data   *JailbrokenResult `json:"data,omitempty"`
+	Error_ *ProductError     `json:"error,omitempty"`
 }

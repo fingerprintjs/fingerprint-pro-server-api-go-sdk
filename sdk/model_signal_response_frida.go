@@ -10,6 +10,6 @@
 package sdk
 
 type SignalResponseFrida struct {
-	Data   *SignalResponseFridaData `json:"data,omitempty"`
-	Error_ *ProductError            `json:"error,omitempty"`
+	Data   *FridaResult  `json:"data,omitempty"`
+	Error_ *ProductError `json:"error,omitempty"`
 }

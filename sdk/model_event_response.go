@@ -11,5 +11,6 @@ package sdk
 
 // Contains results from all activated products - Fingerprint Pro, Bot Detection, and others.
 type EventResponse struct {
-	Products *ProductsResponse `json:"products,omitempty"`
+	Products *ProductsResponse `json:"products"`
+	Error_   *ProductError     `json:"error,omitempty"`
 }

@@ -20,39 +20,40 @@ type WebhookVisit struct {
 	Bot            *BotdDetectionResult `json:"bot,omitempty"`
 	IpInfo         *IpInfoResult        `json:"ipInfo,omitempty"`
 	// Flag if user used incognito session.
-	Incognito           bool                                  `json:"incognito"`
-	RootApps            *WebhookSignalResponseRootApps        `json:"rootApps,omitempty"`
-	Emulator            *WebhookSignalResponseEmulator        `json:"emulator,omitempty"`
-	ClonedApp           *WebhookSignalResponseClonedApp       `json:"clonedApp,omitempty"`
-	FactoryReset        *WebhookSignalResponseFactoryReset    `json:"factoryReset,omitempty"`
-	Jailbroken          *WebhookSignalResponseJailbroken      `json:"jailbroken,omitempty"`
-	Frida               *WebhookSignalResponseFrida           `json:"frida,omitempty"`
-	IpBlocklist         *IpBlockListResult                    `json:"ipBlocklist,omitempty"`
-	Tor                 *WebhookSignalResponseTor             `json:"tor,omitempty"`
-	PrivacySettings     *WebhookSignalResponsePrivacySettings `json:"privacySettings,omitempty"`
-	VirtualMachine      *WebhookSignalResponseVirtualMachine  `json:"virtualMachine,omitempty"`
-	Vpn                 *VpnResult                            `json:"vpn,omitempty"`
-	Proxy               *WebhookSignalResponseProxy           `json:"proxy,omitempty"`
-	Tampering           *TamperingResult                      `json:"tampering,omitempty"`
-	RawDeviceAttributes *map[string]interface{}               `json:"rawDeviceAttributes,omitempty"`
-	HighActivity        *HighActivityResult                   `json:"highActivity,omitempty"`
-	LocationSpoofing    *LocationSpoofingResult               `json:"locationSpoofing,omitempty"`
+	Incognito           bool                    `json:"incognito"`
+	RootApps            *RootAppsResult         `json:"rootApps,omitempty"`
+	Emulator            *EmulatorResult         `json:"emulator,omitempty"`
+	ClonedApp           *ClonedAppResult        `json:"clonedApp,omitempty"`
+	FactoryReset        *FactoryResetResult     `json:"factoryReset,omitempty"`
+	Jailbroken          *JailbrokenResult       `json:"jailbroken,omitempty"`
+	Frida               *FridaResult            `json:"frida,omitempty"`
+	IpBlocklist         *IpBlockListResult      `json:"ipBlocklist,omitempty"`
+	Tor                 *TorResult              `json:"tor,omitempty"`
+	PrivacySettings     *PrivacySettingsResult  `json:"privacySettings,omitempty"`
+	VirtualMachine      *VirtualMachineResult   `json:"virtualMachine,omitempty"`
+	Vpn                 *VpnResult              `json:"vpn,omitempty"`
+	Proxy               *ProxyResult            `json:"proxy,omitempty"`
+	Tampering           *TamperingResult        `json:"tampering,omitempty"`
+	RawDeviceAttributes *map[string]interface{} `json:"rawDeviceAttributes,omitempty"`
+	HighActivity        *HighActivityResult     `json:"highActivity,omitempty"`
+	LocationSpoofing    *LocationSpoofingResult `json:"locationSpoofing,omitempty"`
+	SuspectScore        *SuspectScoreResult     `json:"suspectScore,omitempty"`
 	// Unique identifier of the user's identification request.
-	RequestId      string          `json:"requestId"`
-	BrowserDetails *BrowserDetails `json:"browserDetails"`
-	Ip             string          `json:"ip"`
-	IpLocation     *IpLocation     `json:"ipLocation,omitempty"`
+	RequestId      string                `json:"requestId"`
+	BrowserDetails *BrowserDetails       `json:"browserDetails"`
+	Ip             string                `json:"ip"`
+	IpLocation     *DeprecatedIpLocation `json:"ipLocation,omitempty"`
 	// Timestamp of the event with millisecond precision in Unix time.
 	Timestamp int64 `json:"timestamp"`
 	// Time expressed according to ISO 8601 in UTC format.
 	Time *time.Time `json:"time"`
-	// Page URL from which identification request was sent.
+	// Page URL from which the identification request was sent.
 	Url string `json:"url"`
 	// A customer-provided value or an object that was sent with identification request.
-	Tag ModelMap `json:"tag,omitempty"`
+	Tag ModelMap `json:"tag"`
 	// A customer-provided id that was sent with identification request.
 	LinkedId   string      `json:"linkedId,omitempty"`
-	Confidence *Confidence `json:"confidence"`
+	Confidence *Confidence `json:"confidence,omitempty"`
 	// Attribute represents if a visitor had been identified before.
 	VisitorFound bool    `json:"visitorFound"`
 	FirstSeenAt  *SeenAt `json:"firstSeenAt"`

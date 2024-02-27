@@ -10,6 +10,6 @@
 package sdk
 
 type SignalResponseIncognito struct {
-	Data   *SignalResponseIncognitoData `json:"data,omitempty"`
-	Error_ *ProductError                `json:"error,omitempty"`
+	Data   *IncognitoResult `json:"data,omitempty"`
+	Error_ *ProductError    `json:"error,omitempty"`
 }

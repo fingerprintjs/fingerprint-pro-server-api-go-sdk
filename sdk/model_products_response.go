@@ -30,5 +30,6 @@ type ProductsResponse struct {
 	Tampering           *SignalResponseTampering           `json:"tampering,omitempty"`
 	HighActivity        *SignalResponseHighActivity        `json:"highActivity,omitempty"`
 	LocationSpoofing    *SignalResponseLocationSpoofing    `json:"locationSpoofing,omitempty"`
+	SuspectScore        *SignalResponseSuspectScore        `json:"suspectScore,omitempty"`
 	RawDeviceAttributes *SignalResponseRawDeviceAttributes `json:"rawDeviceAttributes,omitempty"`
 }

@@ -21,7 +21,8 @@ type BotdResult struct {
 	Time *time.Time `json:"time"`
 	// Page URL from which identification request was sent.
 	Url       string               `json:"url"`
-	UserAgent string               `json:"userAgent,omitempty"`
-	RequestId string               `json:"requestId,omitempty"`
+	UserAgent string               `json:"userAgent"`
+	RequestId string               `json:"requestId"`
+	LinkedId  string               `json:"linkedId,omitempty"`
 	Bot       *BotdDetectionResult `json:"bot"`
 }

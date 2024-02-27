@@ -11,9 +11,9 @@ package sdk
 
 type VpnResultMethods struct {
 	// User's browser timezone doesn't match the timezone from which the request was originally made.
-	TimezoneMismatch bool `json:"timezoneMismatch,omitempty"`
+	TimezoneMismatch bool `json:"timezoneMismatch"`
 	// Request IP address is owned and used by a public VPN service provider.
-	PublicVPN bool `json:"publicVPN,omitempty"`
+	PublicVPN bool `json:"publicVPN"`
 	// This method applies to mobile devices only. Indicates the result of additional methods used to detect a VPN in mobile devices.
-	AuxiliaryMobile bool `json:"auxiliaryMobile,omitempty"`
+	AuxiliaryMobile bool `json:"auxiliaryMobile"`
 }

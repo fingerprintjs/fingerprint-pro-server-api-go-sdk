@@ -14,7 +14,7 @@ import (
 )
 
 func TestReturnsEvent(t *testing.T) {
-	mockResponse := GetMockEventResponse("../test/mocks/get_event.json")
+	mockResponse := GetMockEventResponse("../test/mocks/get_event_200.json")
 
 	ts := httptest.NewServer(http.HandlerFunc(func(
 		w http.ResponseWriter,
@@ -55,7 +55,7 @@ func TestReturnsEvent(t *testing.T) {
 }
 
 func TestReturnsEventWithErrorsInAllSignals(t *testing.T) {
-	mockResponse := GetMockEventResponse("../test/mocks/get_event_all_errors.json")
+	mockResponse := GetMockEventResponse("../test/mocks/get_event_200_all_errors.json")
 
 	ts := httptest.NewServer(http.HandlerFunc(func(
 		w http.ResponseWriter,
@@ -96,7 +96,7 @@ func TestReturnsEventWithErrorsInAllSignals(t *testing.T) {
 }
 
 func TestReturnsEventWithUnexpectedFields(t *testing.T) {
-	mockResponse := GetMockEventResponse("../test/mocks/get_event_extra_fields.json")
+	mockResponse := GetMockEventResponse("../test/mocks/get_event_200_extra_fields.json")
 
 	ts := httptest.NewServer(http.HandlerFunc(func(
 		w http.ResponseWriter,
@@ -137,7 +137,7 @@ func TestReturnsEventWithUnexpectedFields(t *testing.T) {
 }
 
 func TestReturnsBotdTooManyRequestsError(t *testing.T) {
-	mockResponse := GetMockEventResponse("../test/mocks/get_event_botd_too_many_requests_error.json")
+	mockResponse := GetMockEventResponse("../test/mocks/get_event_200_botd_too_many_requests_error.json")
 
 	ts := httptest.NewServer(http.HandlerFunc(func(
 		w http.ResponseWriter,
@@ -179,7 +179,7 @@ func TestReturnsBotdTooManyRequestsError(t *testing.T) {
 }
 
 func TestReturnsIdentificationTooManyRequestsError(t *testing.T) {
-	mockResponse := GetMockEventResponse("../test/mocks/get_event_identification_too_many_requests_error.json")
+	mockResponse := GetMockEventResponse("../test/mocks/get_event_200_identification_too_many_requests_error.json")
 
 	ts := httptest.NewServer(http.HandlerFunc(func(
 		w http.ResponseWriter,

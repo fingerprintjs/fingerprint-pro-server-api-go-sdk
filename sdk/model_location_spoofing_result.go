@@ -10,6 +10,6 @@
 package sdk
 
 type LocationSpoofingResult struct {
-	// Flag indicating whether the request came from a device with location spoofing enabled.
-	Result bool `json:"result,omitempty"`
+	// Flag indicating whether the request came from a mobile device with location spoofing enabled.
+	Result bool `json:"result"`
 }

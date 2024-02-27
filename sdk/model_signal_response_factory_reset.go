@@ -10,6 +10,6 @@
 package sdk
 
 type SignalResponseFactoryReset struct {
-	Data   *SignalResponseFactoryResetData `json:"data,omitempty"`
-	Error_ *ProductError                   `json:"error,omitempty"`
+	Data   *FactoryResetResult `json:"data,omitempty"`
+	Error_ *ProductError       `json:"error,omitempty"`
 }

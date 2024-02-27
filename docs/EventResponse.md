@@ -5,7 +5,8 @@ Contains results from all activated products - Fingerprint Pro, Bot Detection, a
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Products** | [***ProductsResponse**](ProductsResponse.md) |  | [optional] [default to null]
+**Products** | [***ProductsResponse**](ProductsResponse.md) |  | [default to null]
+**Error_** | [***ProductError**](ProductError.md) |  | [optional] [default to null]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
