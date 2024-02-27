@@ -1,3 +1,24 @@
+## [5.0.1](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/compare/v5.0.0...v5.0.1) (2024-02-27)
+
+
+### Bug Fixes
+
+* fix version references after a major release ([df759d6](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/df759d6f10b10903535dcca4b2ebdf20210d8bf7))
+
+
+### Documentation
+
+* **README:** update readme requirements section ([4c4776b](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/4c4776b0c85bd4cf6392b72058439f47a6925598))
+
+
+### Build System
+
+* **deps:** bump go version to 1.20 ([469f36a](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/469f36a6c25653f6139ca4db06296a1e5dc31980))
+* **deps:** dump go to 1.20 in examples ([f88ae65](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/f88ae65521c451d5d76b108a553480e7072bd91b))
+* **deps:** update dependencies to latest versions ([ae0189b](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/ae0189b4b0fa7b9d3a8250b744b5cc55f05fdc7a))
+* **deps:** update example project dependencies ([6944d46](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/6944d4662b61a506325c3c5fe1ab7673545d9959))
+* **deps:** update project dependencies to latest versions ([b2332a6](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/b2332a6d92e1e4fdf0192e6b5160c80462dcb27c))
+
 ## [5.0.0](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/compare/v4.1.0...v5.0.0) (2024-02-27)
 
 
