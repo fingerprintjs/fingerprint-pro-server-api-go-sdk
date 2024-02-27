@@ -1,3 +1,27 @@
+## [5.0.0](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/compare/v4.1.0...v5.0.0) (2024-02-27)
+
+
+### ⚠ BREAKING CHANGES
+
+* change models for the most smart signals
+* make identification field `confidence` optional
+* deprecated `ipLocation` field uses `DeprecatedIpLocation` model
+
+### Features
+
+* add `linkedId` field to the `BotdResult` type ([f3dec04](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/f3dec04387eb9f8c1efd889cb2ab28c7822479b2))
+* add `SuspectScore` smart signal support ([a6fe1a5](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/a6fe1a5090109f97514ad2d3db7263080b19ad9b))
+* add missed errors structures ([903bf6b](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/903bf6b8fd4a931c80ebae1998ad78604343be06))
+* fix `ipLocation` deprecation ([ec59bc6](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/ec59bc6e581f623c6675403d9bf215a811f07a73))
+* make identification field `tag` required ([b6e841e](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/b6e841e7ef77830f281e2b73e53b36711d86c4d4))
+* update `originCountry` field to the`vpn` signal ([6ce55a7](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/6ce55a7a6c65c7ec02a7dbb832694393cf7e8b57))
+* use shared structures for webhooks and event ([01c1132](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/01c11328af7d5cc10dfa0c01047d6318baf0a24c))
+
+
+### Bug Fixes
+
+* make fields required according to real API response ([a1c7578](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/a1c757859632107bec1e5bd6212185f1d462c417))
+
 ## [4.1.0](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/compare/v4.0.0...v4.1.0) (2024-01-31)
 
 
