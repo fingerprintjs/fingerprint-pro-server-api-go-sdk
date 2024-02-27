@@ -11,7 +11,7 @@ jobs:
     uses: fingerprintjs/dx-team-toolkit/.github/workflows/release-server-sdk.yml@v1
     with:
       language: golang
-      language-version: '1.19'
+      language-version: '1.20'
       prepare-command: |
         go build
     secrets:
