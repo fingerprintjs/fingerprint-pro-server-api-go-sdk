@@ -4,8 +4,8 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
-	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/sdk/sealed"
-	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v3/sdk"
+	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v5/sdk"
+	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v5/sdk/sealed"
 	"os"
 )
 

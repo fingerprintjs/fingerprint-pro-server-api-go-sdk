@@ -6,7 +6,7 @@ import (
 	"crypto/aes"
 	"crypto/cipher"
 	"encoding/json"
-	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v3/sdk"
+	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v5/sdk"
 	"github.com/pkg/errors"
 	"io"
 )
