@@ -4,8 +4,8 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
-	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v5/sdk"
 	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v5/sdk/sealed"
+	"github.com/joho/godotenv"
 	"os"
 )
 
@@ -18,8 +18,14 @@ func base64Decode(input string) []byte {
 }
 
 func main() {
+	err := godotenv.Load()
+	if err != nil {
+		fmt.Println("[sealedResults error] Error while loading env", err)
+		return
+	}
+
 	sealedResult := base64Decode(os.Getenv("BASE64_SEALED_RESULT"))
-	key := base64Decode(os.Getenv("BASE64_KEY"))
+	key := base64Decode(os.Getenv("BASE64_SEALED_RESULT_KEY"))
 
 	keys := []sealed.DecryptionKey{
 		{
@@ -33,7 +39,7 @@ func main() {
 		return
 	}
 
-	var response sdk.EventResponse = *unsealedResponse
+	var response = *unsealedResponse
 	if response.Products.Botd != nil {
 		fmt.Printf("Got response with Botd: %v \n", response.Products.Botd)
 	}
