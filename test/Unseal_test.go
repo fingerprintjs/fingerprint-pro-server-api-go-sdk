@@ -54,7 +54,6 @@ func TestUnsealEventsResponse(t *testing.T) {
 	})
 
 	t.Run("with invalid sealed result", func(t *testing.T) {
-		// "{\"invalid\":true}"
 		sealedResult := base64Decode("noXc7VOpBstjjcavDKSKr4HTavt4mdq8h6NC32T0hUtw9S0jXT8lPjZiWL8SyHxmrF3uTGqO+g==")
 		key := base64Decode("p2PA7MGy5tx56cnyJaFZMr96BCFwZeHjZV2EqMvTq53=")
 
@@ -80,7 +79,7 @@ func TestUnsealEventsResponse(t *testing.T) {
 		}
 		_, err := sealed.UnsealEventsResponse(sealedResult, keys)
 
-		assert.ErrorContains(t, err, "unexpected end of JSON input")
+		assert.Equal(t, "unexpected end of JSON input", err.Error())
 	})
 
 	t.Run("with not compressed result", func(t *testing.T) {
@@ -100,12 +99,8 @@ func TestUnsealEventsResponse(t *testing.T) {
 
 		var aggregateError *sealed.AggregatedUnsealError
 		errors.As(err, &aggregateError)
-
-		assert.Len(t, aggregateError.UnsealErrors, 1)
-
-		unsealError := aggregateError.UnsealErrors[0]
-
-		assert.ErrorContains(t, unsealError.Error, "inflated payload read all bytes: flate: corrupt input before offset 13")
+		expectedErrorMessage := "unseal failed: decompress: inflated payload read all bytes: flate: corrupt input before offset 13."
+		assert.Equal(t, expectedErrorMessage, aggregateError.Error())
 	})
 
 	t.Run("with invalid keys", func(t *testing.T) {
@@ -133,6 +128,8 @@ func TestUnsealEventsResponse(t *testing.T) {
 		_, err := sealed.UnsealEventsResponse(sealedResult, keys)
 
 		assert.IsType(t, err, &sealed.AggregatedUnsealError{})
+		expectedErrorMessage := "unseal failed: aesgcm open: cipher: message authentication failed, new cipher: crypto/aes: invalid key size 11, new cipher: crypto/aes: invalid key size 11, aesgcm open: cipher: message authentication failed."
+		assert.Equal(t, expectedErrorMessage, err.Error())
 	})
 
 	t.Run("with invalid algorithm", func(t *testing.T) {
@@ -203,9 +200,7 @@ func TestUnsealEventsResponse(t *testing.T) {
 		var aggregateError *sealed.AggregatedUnsealError
 		errors.As(err, &aggregateError)
 
-		assert.Len(t, aggregateError.UnsealErrors, 1)
-
-		unsealError := aggregateError.UnsealErrors[0]
-		assert.ErrorContains(t, unsealError.Error, "nonce")
+		expectedErrorMessage := "unseal failed: nonce."
+		assert.Equal(t, expectedErrorMessage, aggregateError.Error())
 	})
 }
