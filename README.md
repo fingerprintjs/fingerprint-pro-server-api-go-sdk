@@ -146,7 +146,7 @@ func main() {
 	// Sealed result from the frontend.
 	sealedResult := base64Decode(os.Getenv("BASE64_SEALED_RESULT"))
 	// Base64 encoded key generated in the dashboard.
-	key := base64Decode(os.Getenv("BASE64_KEY"))
+	key := base64Decode(os.Getenv("BASE64_SEALED_RESULT_KEY"))
 
 	keys := []sealed.DecryptionKey{
 		// You can provide more than one key to support key rotation. The SDK will try to decrypt the result with each key.
@@ -162,6 +162,7 @@ func main() {
 	}
 
 	// Do something with unsealed response, e.g: send it back to the frontend.
+	fmt.Println(unsealedResponse)
 }
 
 ```
