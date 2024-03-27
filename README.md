@@ -113,6 +113,11 @@ func main() {
 ## Sealed results
 
 This SDK provides utility methods for decoding [sealed results](https://dev.fingerprint.com/docs/sealed-client-results).
+Install the sealed results dependency as below:
+```shell
+go get github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v5/sdk/sealed
+```
+Then you can use below code to unseal results:
 ```go
 package main
 
