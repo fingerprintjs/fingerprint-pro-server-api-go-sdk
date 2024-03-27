@@ -45,7 +45,7 @@ We keep the [Go support policy](https://go.dev/doc/devel/release) and support th
 
 1. Get the package from GitHub:
 ```shell
-go get github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v5
+go get github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v5/sdk
 ```
 
 2. Import and use the library:
