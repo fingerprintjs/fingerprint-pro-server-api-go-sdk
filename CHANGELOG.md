@@ -1,3 +1,11 @@
+## [5.0.2](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/compare/v5.0.1...v5.0.2) (2024-03-28)
+
+
+### Build System
+
+* **deps:** bump google.golang.org/protobuf from 1.32.0 to 1.33.0 ([b749ff0](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/b749ff0c678b761c9994290cdf1937033a81cabb))
+* **deps:** bump google.golang.org/protobuf in /example ([2fd6964](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/2fd6964c4712d5ade810f96ad91ed0666df784d3))
+
 ## [5.0.1](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/compare/v5.0.0...v5.0.1) (2024-02-27)
 
 
