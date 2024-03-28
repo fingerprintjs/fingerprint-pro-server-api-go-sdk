@@ -12,7 +12,8 @@ jobs:
     with:
       language: golang
       language-version: '1.20'
+      appId: ${{ vars.APP_ID }}
       prepare-command: |
         go build
     secrets:
-      GH_RELEASE_TOKEN: ${{ secrets.GH_RELEASE_TOKEN }}
+      APP_PRIVATE_KEY: ${{ secrets.APP_PRIVATE_KEY }}

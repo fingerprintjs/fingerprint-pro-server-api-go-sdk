@@ -491,7 +491,6 @@ components:
               url:
                 description: Page URL from which the identification request was sent.
                 type: string
-                format: uri
                 example: https://some.website/path?query=params
               tag:
                 description: >-
@@ -747,7 +746,6 @@ components:
         url:
           description: Page URL from which the identification request was sent.
           type: string
-          format: uri
           example: https://some.website/path?query=params
         tag:
           description: >-
@@ -861,7 +859,6 @@ components:
         url:
           description: Page URL from which the identification request was sent.
           type: string
-          format: uri
           example: https://some.website/path?query=params
         tag:
           description: >-
@@ -1164,7 +1161,6 @@ components:
                 url:
                   description: Page URL from which the identification request was sent.
                   type: string
-                  format: uri
                   example: https://some.website/path?query=params
                 tag:
                   description: >-
@@ -1447,7 +1443,6 @@ components:
         url:
           description: Page URL from which identification request was sent.
           type: string
-          format: uri-reference
           example: https://example.com/login
         userAgent:
           type: string

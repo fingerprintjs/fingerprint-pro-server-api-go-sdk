@@ -1,11 +1,25 @@
 package sealed
 
+import (
+	"fmt"
+	"strings"
+)
+
 type AggregatedUnsealError struct {
 	UnsealErrors []UnsealError
 }
 
+func (e *AggregatedUnsealError) joinErrorMessages() string {
+	var errorList []string
+	for _, err := range e.UnsealErrors {
+		errorList = append(errorList, err.Error.Error())
+	}
+
+	return strings.Join(errorList, ", ")
+}
+
 func (e *AggregatedUnsealError) Error() string {
-	return "unseal failed"
+	return fmt.Sprintf("unseal failed: %s.", e.joinErrorMessages())
 }
 
 func NewAggregatedUnsealError() *AggregatedUnsealError {

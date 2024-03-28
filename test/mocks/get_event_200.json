@@ -9,7 +9,7 @@
         "tag": {},
         "time": "2019-05-21T16:40:13Z",
         "timestamp": 1582299576512,
-        "url": "https://www.example.com/login",
+        "url": "https://www.example.com/login?hope{this{works[!",
         "ip": "61.127.217.15",
         "ipLocation": {
           "accuracyRadius": 10,
@@ -63,7 +63,7 @@
         "bot": {
           "result": "notDetected"
         },
-        "url": "https://www.example.com/login",
+        "url": "https://www.example.com/login?hope{this{works}[!",
         "ip": "61.127.217.15",
         "time": "2019-05-21T16:40:13Z",
         "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 YaBrowser/24.1.0.0 Safari/537.36",
@@ -258,12 +258,7 @@
         },
         "cpuClass": {},
         "fonts": {
-          "value": [
-            "Arial Unicode MS",
-            "Gill Sans",
-            "Helvetica Neue",
-            "Menlo"
-          ]
+          "value": ["Arial Unicode MS", "Gill Sans", "Helvetica Neue", "Menlo"]
         }
       }
     },

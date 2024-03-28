@@ -1,28 +1,18 @@
 <p align="center">
   <a href="https://fingerprint.com">
     <picture>
-     <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/main/res/logo_light.svg" />
-     <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/main/res/logo_dark.svg" />
-     <img src="https://raw.githubusercontent.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/main/res/logo_dark.svg" alt="Fingerprint logo" width="312px" />
+     <source media="(prefers-color-scheme: dark)" srcset="https://fingerprintjs.github.io/home/resources/logo_light.svg" />
+     <source media="(prefers-color-scheme: light)" srcset="https://fingerprintjs.github.io/home/resources/logo_dark.svg" />
+     <img src="https://fingerprintjs.github.io/home/resources/logo_dark.svg" alt="Fingerprint logo" width="312px" />
    </picture>
   </a>
 </p>
 <p align="center">
-  <a href="https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/actions/workflows/release.yml">
-    <img src="https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/actions/workflows/release.yml/badge.svg" alt="CI badge" />
-  </a>
-  <a href="https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/actions/workflows/tests.yml">
-    <img src="https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/actions/workflows/tests.yml/badge.svg" alt="CI badge" />
-  </a>
-  <a href="https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/actions/workflows/functional_tests.yml">
-    <img src="https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/actions/workflows/functional_tests.yml/badge.svg" alt="CI badge" />
-  </a>
-  <a href="https://opensource.org/licenses/MIT">
-    <img src="https://img.shields.io/:license-mit-blue.svg?style=flat"/>
-  </a>
-  <a href="https://discord.gg/39EpE2neBg">
-    <img src="https://img.shields.io/discord/852099967190433792?style=logo&label=Discord&logo=Discord&logoColor=white" alt="Discord server">
-  </a>
+<a href="https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/actions/workflows/release.yml"><img src="https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/actions/workflows/release.yml/badge.svg" alt="CI badge" /></a>
+<a href="https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/actions/workflows/tests.yml"><img src="https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/actions/workflows/tests.yml/badge.svg" alt="CI badge" /></a>
+<a href="https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/actions/workflows/functional_tests.yml"><img src="https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/actions/workflows/functional_tests.yml/badge.svg" alt="CI badge" /></a>
+<a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/:license-mit-blue.svg?style=flat"/></a>
+<a href="https://discord.gg/39EpE2neBg"><img src="https://img.shields.io/discord/852099967190433792?style=logo&label=Discord&logo=Discord&logoColor=white" alt="Discord server"></a>
 </p>
 
 # Fingerprint Pro Server Go SDK
@@ -53,7 +43,7 @@ We keep the [Go support policy](https://go.dev/doc/devel/release) and support th
 
 1. Get the package from GitHub:
 ```shell
-go get github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v5
+go get github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v5/sdk
 ```
 
 2. Import and use the library:
@@ -131,6 +121,11 @@ func main() {
 ## Sealed results
 
 This SDK provides utility methods for decoding [sealed results](https://dev.fingerprint.com/docs/sealed-client-results).
+Install the sealed results dependency as below:
+```shell
+go get github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v5/sdk/sealed
+```
+Then you can use below code to unseal results:
 ```go
 package main
 
@@ -154,7 +149,7 @@ func main() {
 	// Sealed result from the frontend.
 	sealedResult := base64Decode(os.Getenv("BASE64_SEALED_RESULT"))
 	// Base64 encoded key generated in the dashboard.
-	key := base64Decode(os.Getenv("BASE64_KEY"))
+	key := base64Decode(os.Getenv("BASE64_SEALED_RESULT_KEY"))
 
 	keys := []sealed.DecryptionKey{
 		// You can provide more than one key to support key rotation. The SDK will try to decrypt the result with each key.
@@ -170,6 +165,7 @@ func main() {
 	}
 
 	// Do something with unsealed response, e.g: send it back to the frontend.
+	fmt.Println(unsealedResponse)
 }
 
 ```
