@@ -9,8 +9,8 @@
  */
 package sdk
 
-type ErrorEvent404ResponseError struct {
-	// Error code:  * `RequestNotFound` - The specified request ID was not found. It never existed, expired, or it has been deleted.
+type Common403ErrorResponse struct {
+	// Error code:  * `TokenRequired` - `Auth-API-Key` header is missing or empty  * `TokenNotFound` - No Fingerprint application found for specified secret key  * `SubscriptionNotActive` - Fingerprint application is not active  * `WrongRegion` - server and application region differ  * `FeatureNotEnabled` - this feature (for example, Delete API) is not enabled for your application
 	Code    string `json:"code"`
 	Message string `json:"message"`
 }

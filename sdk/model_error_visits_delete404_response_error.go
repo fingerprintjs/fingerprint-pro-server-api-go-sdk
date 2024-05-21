@@ -9,8 +9,8 @@
  */
 package sdk
 
-type ErrorEvent404ResponseError struct {
-	// Error code:  * `RequestNotFound` - The specified request ID was not found. It never existed, expired, or it has been deleted.
+type ErrorVisitsDelete404ResponseError struct {
+	// Error code: * `VisitorNotFound` - The specified visitor ID was not found. It never existed or it may have already been deleted.
 	Code    string `json:"code"`
 	Message string `json:"message"`
 }

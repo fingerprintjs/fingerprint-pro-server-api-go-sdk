@@ -169,8 +169,9 @@ All URIs are relative to *https://api.fpjs.io*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*FingerprintApi* | [**GetEvent**](docs/FingerprintApi.md#getevent) | **Get** /events/{request_id} | Get event by requestId
-*FingerprintApi* | [**GetVisits**](docs/FingerprintApi.md#getvisits) | **Get** /visitors/{visitor_id} | Get visits by visitorId
+*FingerprintApi* | [**DeleteVisitorData**](docs/FingerprintApi.md#deletevisitordata) | **Delete** /visitors/{visitor_id} | Delete data by visitor ID
+*FingerprintApi* | [**GetEvent**](docs/FingerprintApi.md#getevent) | **Get** /events/{request_id} | Get event by request ID
+*FingerprintApi* | [**GetVisits**](docs/FingerprintApi.md#getvisits) | **Get** /visitors/{visitor_id} | Get visits by visitor ID
 
 ## Documentation For Models
 
@@ -179,16 +180,18 @@ Class | Method | HTTP request | Description
  - [BotdResult](docs/BotdResult.md)
  - [BrowserDetails](docs/BrowserDetails.md)
  - [ClonedAppResult](docs/ClonedAppResult.md)
+ - [Common403ErrorResponse](docs/Common403ErrorResponse.md)
  - [Confidence](docs/Confidence.md)
  - [DataCenter](docs/DataCenter.md)
  - [DeprecatedIpLocation](docs/DeprecatedIpLocation.md)
  - [DeprecatedIpLocationCity](docs/DeprecatedIpLocationCity.md)
  - [EmulatorResult](docs/EmulatorResult.md)
- - [ErrorEvent403Response](docs/ErrorEvent403Response.md)
- - [ErrorEvent403ResponseError](docs/ErrorEvent403ResponseError.md)
+ - [ErrorCommon403Response](docs/ErrorCommon403Response.md)
  - [ErrorEvent404Response](docs/ErrorEvent404Response.md)
  - [ErrorEvent404ResponseError](docs/ErrorEvent404ResponseError.md)
  - [ErrorVisits403](docs/ErrorVisits403.md)
+ - [ErrorVisitsDelete404Response](docs/ErrorVisitsDelete404Response.md)
+ - [ErrorVisitsDelete404ResponseError](docs/ErrorVisitsDelete404ResponseError.md)
  - [EventResponse](docs/EventResponse.md)
  - [FactoryResetResult](docs/FactoryResetResult.md)
  - [FridaResult](docs/FridaResult.md)
