@@ -3,7 +3,6 @@ module github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v5
 go 1.20
 
 require (
-	github.com/antihax/optional v1.0.0
 	github.com/pkg/errors v0.9.1
 	github.com/stretchr/testify v1.8.4
 	golang.org/x/oauth2 v0.18.0

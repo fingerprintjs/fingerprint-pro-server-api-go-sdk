@@ -46,7 +46,6 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/antihax/optional"
 	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v5/sdk"
 	"log"
 )
@@ -65,7 +64,7 @@ func main() {
 	// Usually this data will come from your frontend app
 	visitorId := "VISITOR_ID"
 	opts := sdk.FingerprintApiGetVisitsOpts{
-		RequestId: optional.NewString("REQUEST_ID"),
+		RequestId: "REQUEST_ID_",
 	}
 	response, httpRes, err := client.FingerprintApi.GetVisits(auth, visitorId, &opts)
 	fmt.Printf("%+v\n", httpRes)

@@ -8,7 +8,6 @@ import (
 	"log"
 	"os"
 
-	"github.com/antihax/optional"
 	"github.com/joho/godotenv"
 )
 
@@ -35,7 +34,7 @@ func main() {
 	// Usually this data will come from your frontend app
 	visitorId := os.Getenv("VISITOR_ID")
 	opts := sdk.FingerprintApiGetVisitsOpts{
-		RequestId: optional.NewString(os.Getenv("REQUEST_ID")),
+		RequestId: os.Getenv("REQUEST_ID"),
 	}
 
 	response, httpRes, err := client.FingerprintApi.GetVisits(auth, visitorId, &opts)

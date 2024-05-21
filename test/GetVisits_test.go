@@ -4,7 +4,6 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/antihax/optional"
 	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v5/config"
 	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v5/sdk"
 	"github.com/stretchr/testify/assert"
@@ -56,10 +55,10 @@ func TestReturnsVisits(t *testing.T) {
 
 func TestReturnsVisitsWithPagination(t *testing.T) {
 	opts := sdk.FingerprintApiGetVisitsOpts{
-		RequestId:     optional.NewString("request_id"),
-		PaginationKey: optional.NewString("1683900801733.Ogvu1j"),
-		Limit:         optional.NewInt32(500),
-		LinkedId:      optional.NewString("request_id"),
+		RequestId:     "request_id",
+		PaginationKey: "1683900801733.Ogvu1j",
+		Limit:         500,
+		LinkedId:      "request_id",
 	}
 
 	mockResponse := GetMockResponse("../test/mocks/get_visits_200_limit_500.json")
@@ -72,10 +71,10 @@ func TestReturnsVisitsWithPagination(t *testing.T) {
 
 		assert.NoError(t, parseErr)
 
-		assert.Equal(t, r.Form.Get("request_id"), opts.RequestId.Value())
-		assert.Equal(t, r.Form.Get("paginationKey"), fmt.Sprint(opts.PaginationKey.Value()))
-		assert.Equal(t, r.Form.Get("limit"), fmt.Sprint(opts.Limit.Value()))
-		assert.Equal(t, r.Form.Get("linked_id"), opts.LinkedId.Value())
+		assert.Equal(t, r.Form.Get("request_id"), opts.RequestId)
+		assert.Equal(t, r.Form.Get("paginationKey"), fmt.Sprint(opts.PaginationKey))
+		assert.Equal(t, r.Form.Get("limit"), fmt.Sprint(opts.Limit))
+		assert.Equal(t, r.Form.Get("linked_id"), opts.LinkedId)
 
 		apiKey := r.Header.Get("Auth-Api-Key")
 		assert.Equal(t, apiKey, "api_key")
@@ -111,10 +110,10 @@ func TestReturnsVisitsWithPagination(t *testing.T) {
 
 func TestHandlesTooManyRequestsError(t *testing.T) {
 	opts := sdk.FingerprintApiGetVisitsOpts{
-		RequestId:     optional.NewString("request_id"),
-		PaginationKey: optional.NewString("1683900801733.Ogvu1j"),
-		Limit:         optional.NewInt32(500),
-		LinkedId:      optional.NewString("request_id"),
+		RequestId:     "request_id",
+		PaginationKey: "1683900801733.Ogvu1j",
+		Limit:         500,
+		LinkedId:      "request_id",
 	}
 
 	mockResponse := GetMockResponse("../test/mocks/get_visits_429_too_many_requests_error.json")
@@ -163,10 +162,10 @@ func TestHandlesTooManyRequestsError(t *testing.T) {
 
 func TestHandlesTooManyRequestsErrorWithoutRetryAfterHeader(t *testing.T) {
 	opts := sdk.FingerprintApiGetVisitsOpts{
-		RequestId:     optional.NewString("request_id"),
-		PaginationKey: optional.NewString("1683900801733.Ogvu1j"),
-		Limit:         optional.NewInt32(500),
-		LinkedId:      optional.NewString("request_id"),
+		RequestId:     "request_id",
+		PaginationKey: "1683900801733.Ogvu1j",
+		Limit:         500,
+		LinkedId:      "request_id",
 	}
 
 	mockResponse := GetMockResponse("../test/mocks/get_visits_429_too_many_requests_error.json")
