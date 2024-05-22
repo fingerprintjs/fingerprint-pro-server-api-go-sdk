@@ -41,7 +41,7 @@ type APIClient struct {
 
 	// API Services
 
-	FingerprintApi *FingerprintApiService
+	FingerprintApi FingerprintApiServiceInterface
 }
 
 type service struct {
@@ -60,7 +60,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.common.client = c
 
 	// API Services
-	c.FingerprintApi = (*FingerprintApiService)(&c.common)
+	c.FingerprintApi = &FingerprintApiService{}
 
 	return c
 }
