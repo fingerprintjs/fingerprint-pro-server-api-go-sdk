@@ -2,12 +2,10 @@ package test
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v5/config"
 	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v5/sdk"
 	"github.com/stretchr/testify/assert"
-	"log"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -15,7 +13,6 @@ import (
 
 func TestDeleteVisitorData(t *testing.T) {
 	t.Run("Returns 200 on success", func(t *testing.T) {
-		mockResponse := GetMockEventResponse("../test/mocks/get_event_200.json")
 
 		ts := httptest.NewServer(http.HandlerFunc(func(
 			w http.ResponseWriter,
@@ -31,12 +28,7 @@ func TestDeleteVisitorData(t *testing.T) {
 			assert.Equal(t, apiKey, "api_key")
 
 			w.Header().Set("Content-Type", "application/json")
-
-			err := json.NewEncoder(w).Encode(mockResponse)
-
-			if err != nil {
-				log.Fatal(err)
-			}
+			w.WriteHeader(200)
 		}))
 		defer ts.Close()
 
