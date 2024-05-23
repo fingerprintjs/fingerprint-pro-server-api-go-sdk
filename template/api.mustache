@@ -6,9 +6,10 @@ package {{packageName}}
 import (
     "context"
     "net/http"
+    "strings"
 )
 
-const INTEGRATION_INFO = "fingerprint-pro-server-go-sdk/{{packageVersion}}"
+const IntegrationInfo = "fingerprint-pro-server-go-sdk/{{packageVersion}}"
 
 type {{classname}}ServiceInterface interface {
 {{#operation}}
@@ -27,12 +28,37 @@ type {{classname}}ServiceInterface interface {
 {{/operation}}
 }
 
+type requestDefinition struct {
+    StatusCodeResultsFactoryMap map[int]func() interface{}
+    Path             func(params ...string) string
+}
 
 {{#operation}}
+func create{{nickname}}Definition() requestDefinition {
+    return requestDefinition{
+        Path: func(args ...string) string {
+            pathParams := []string{ {{#pathParams}}"{{baseName}}",{{/pathParams}} }
+
+            path := "{{{path}}}"
+
+            for i, arg := range args {
+                path = strings.Replace(path, "{"+pathParams[i]+"}", arg, -1)
+            }
+
+            return path
+        },
+        StatusCodeResultsFactoryMap: map[int]func() interface{}{
+            {{#responses}}{{#dataType}}
+            {{code}}: func() interface{} { return &{{{dataType}}}{} },
+            {{/dataType}}{{/responses}}
+        },
+    }
+}
+
 {{#hasOptionalParams}}
 
 type {{{classname}}}{{{nickname}}}Opts struct { {{#allParams}}{{^required}}
-{{#isPrimitiveType}}	{{vendorExtensions.x-exportParamName}} {{dataType}}{{/isPrimitiveType}}{{^isPrimitiveType}}	{{vendorExtensions.x-exportParamName}} interface{{/isPrimitiveType}}{{/required}}{{/allParams}}
+{{#isPrimitiveType}}	{{vendorExtensions.x-exportParamName}} {{dataType}}`url:"{{baseName}}"`{{/isPrimitiveType}}{{^isPrimitiveType}}	{{vendorExtensions.x-exportParamName}} interface{{/isPrimitiveType}}{{/required}}{{/allParams}}
 }
 
 {{/hasOptionalParams}}

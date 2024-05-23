@@ -12,9 +12,10 @@ package sdk
 import (
 	"context"
 	"net/http"
+	"strings"
 )
 
-const INTEGRATION_INFO = "fingerprint-pro-server-go-sdk/5.0.2"
+const IntegrationInfo = "fingerprint-pro-server-go-sdk/5.0.2"
 
 type FingerprintApiServiceInterface interface {
 	/*
@@ -51,10 +52,77 @@ type FingerprintApiServiceInterface interface {
 	GetVisits(ctx context.Context, visitorId string, opts *FingerprintApiGetVisitsOpts) (Response, *http.Response, error)
 }
 
+type requestDefinition struct {
+	StatusCodeResultsFactoryMap map[int]func() interface{}
+	Path                        func(params ...string) string
+}
+
+func createDeleteVisitorDataDefinition() requestDefinition {
+	return requestDefinition{
+		Path: func(args ...string) string {
+			pathParams := []string{"visitor_id"}
+
+			path := "/visitors/{visitor_id}"
+
+			for i, arg := range args {
+				path = strings.Replace(path, "{"+pathParams[i]+"}", arg, -1)
+			}
+
+			return path
+		},
+		StatusCodeResultsFactoryMap: map[int]func() interface{}{
+			403: func() interface{} { return &ErrorCommon403Response{} },
+			404: func() interface{} { return &ErrorVisitsDelete404Response{} },
+		},
+	}
+}
+
+func createGetEventDefinition() requestDefinition {
+	return requestDefinition{
+		Path: func(args ...string) string {
+			pathParams := []string{"request_id"}
+
+			path := "/events/{request_id}"
+
+			for i, arg := range args {
+				path = strings.Replace(path, "{"+pathParams[i]+"}", arg, -1)
+			}
+
+			return path
+		},
+		StatusCodeResultsFactoryMap: map[int]func() interface{}{
+			200: func() interface{} { return &EventResponse{} },
+			403: func() interface{} { return &ErrorCommon403Response{} },
+			404: func() interface{} { return &ErrorEvent404Response{} },
+		},
+	}
+}
+
+func createGetVisitsDefinition() requestDefinition {
+	return requestDefinition{
+		Path: func(args ...string) string {
+			pathParams := []string{"visitor_id"}
+
+			path := "/visitors/{visitor_id}"
+
+			for i, arg := range args {
+				path = strings.Replace(path, "{"+pathParams[i]+"}", arg, -1)
+			}
+
+			return path
+		},
+		StatusCodeResultsFactoryMap: map[int]func() interface{}{
+			200: func() interface{} { return &Response{} },
+			403: func() interface{} { return &ErrorVisits403{} },
+			429: func() interface{} { return &ManyRequestsResponse{} },
+		},
+	}
+}
+
 type FingerprintApiGetVisitsOpts struct {
-	RequestId     string
-	LinkedId      string
-	Limit         int32
-	PaginationKey string
-	Before        int64
+	RequestId     string `url:"request_id"`
+	LinkedId      string `url:"linked_id"`
+	Limit         int32  `url:"limit"`
+	PaginationKey string `url:"paginationKey"`
+	Before        int64  `url:"before"`
 }
