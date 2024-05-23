@@ -60,7 +60,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.common.client = c
 
 	// API Services
-	c.FingerprintApi = &FingerprintApiService{}
+	c.FingerprintApi = &FingerprintApiService{cfg: cfg}
 
 	return c
 }
