@@ -25,6 +25,7 @@ func TestDeleteVisitorData(t *testing.T) {
 			integrationInfo := r.URL.Query().Get("ii")
 			assert.Equal(t, integrationInfo, fmt.Sprintf("fingerprint-pro-server-go-sdk/%s", configFile.PackageVersion))
 			assert.Equal(t, r.URL.Path, "/visitors/123")
+			assert.Equal(t, r.Method, http.MethodDelete)
 
 			apiKey := r.Header.Get("Auth-Api-Key")
 			assert.Equal(t, apiKey, "api_key")
