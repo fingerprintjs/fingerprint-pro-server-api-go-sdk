@@ -26,11 +26,15 @@ func (f *FingerprintApiService) makeRequest(ctx context.Context, requestUrl *url
 	return request, nil
 }
 
+func (f *FingerprintApiService) path(definition requestDefinition, params ...string) string {
+	return f.cfg.basePath + definition.Path(params...)
+}
+
 func (f *FingerprintApiService) DeleteVisitorData(ctx context.Context, visitorId string) (*http.Response, error) {
 	_, response, err := doRequest(func() (any, *http.Response, error) {
 		definition := createDeleteVisitorDataDefinition()
 
-		path := f.cfg.basePath + definition.Path(visitorId)
+		path := f.path(definition, visitorId)
 
 		requestUrl, err := url.Parse(path)
 
@@ -75,7 +79,7 @@ func (f *FingerprintApiService) GetEvent(ctx context.Context, requestId string) 
 
 		var eventResponse EventResponse
 
-		path := f.cfg.basePath + definition.Path(requestId)
+		path := f.path(definition, requestId)
 
 		requestUrl, err := url.Parse(path)
 
@@ -120,7 +124,7 @@ func (f *FingerprintApiService) GetVisits(ctx context.Context, visitorId string,
 
 		var response Response
 
-		path := f.cfg.basePath + definition.Path(visitorId)
+		path := f.path(definition, visitorId)
 
 		requestUrl, err := url.Parse(path)
 
