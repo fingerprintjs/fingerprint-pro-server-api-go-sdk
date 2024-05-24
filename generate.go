@@ -183,6 +183,8 @@ func getExamples() {
 		"get_event_200_identification_failed_error.json",
 		"get_event_200_identification_too_many_requests_error.json",
 		"get_visits_429_too_many_requests_error.json",
+		"delete_visits_404_error.json",
+		"delete_visits_403_error.json",
 	}
 
 	for _, file := range list {
