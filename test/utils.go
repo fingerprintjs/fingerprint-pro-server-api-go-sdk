@@ -39,3 +39,9 @@ func GetEvent403ErrorMockResponse(path string) sdk.ErrorCommon403Response {
 	readFromFileAndUnmarshal(path, &mockResponse)
 	return mockResponse
 }
+
+func GetDeleteVisits404MockResponse(path string) sdk.ErrorVisitsDelete404Response {
+	var mockResponse sdk.ErrorVisitsDelete404Response
+	readFromFileAndUnmarshal(path, &mockResponse)
+	return mockResponse
+}
