@@ -14,7 +14,7 @@ import (
 )
 
 var files = []string{"README.md", "docs", ".swagger-codegen"}
-var filesToKeep = []string{"docs/DecryptionKey.md", "docs/SealedResults.md"}
+var filesToKeep = []string{"docs/DecryptionKey.md", "docs/SealedResults.md", "docs/Webhook.md"}
 var pathPrefix = "sdk"
 
 func main() {
