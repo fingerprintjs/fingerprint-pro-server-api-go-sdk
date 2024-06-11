@@ -73,7 +73,7 @@ func handleErrorResponse[T any](body []byte, httpResponse *http.Response, defini
 }
 
 func isResponseOk(httpResponse *http.Response) bool {
-	return httpResponse.StatusCode < 300
+	return 199 < httpResponse.StatusCode && httpResponse.StatusCode < 300
 }
 
 func handleAuth(ctx context.Context, request *http.Request) {
