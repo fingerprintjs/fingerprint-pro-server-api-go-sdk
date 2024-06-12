@@ -194,7 +194,7 @@ func main() {
     // Value of the "fpjs-event-signature" header.
     header := "v1=1b2c16b75bd2a870c114153ccda5bcfca63314bc722fa160d690de133ccbb9db"
 
-    isValid := webhook.CheckHeader(header, data, secret)
+    isValid := webhook.IsValidWebhookSignature(header, data, secret)
 
     if !isValid {
         panic("Invalid signature")
