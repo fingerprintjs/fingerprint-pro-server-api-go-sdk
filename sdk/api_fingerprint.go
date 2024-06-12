@@ -29,7 +29,7 @@ type FingerprintApiServiceInterface interface {
 
 	/*
 	   FingerprintApiService Get event by request ID
-	   Get a detailed analysis of an individual identification event, including Smart Signals.  **Only for Enterprise customers:** Please note that the response includes mobile signals (e.g. `rootApps`) even if the request originated from a non-mobile platform. It is highly recommended that you **ignore** the mobile signals for such requests.   Use `requestId` as the URL getPath parameter. This API method is scoped to a request, i.e. all returned information is by `requestId`.
+	   Get a detailed analysis of an individual identification event, including Smart Signals.  **Only for Enterprise customers:** Please note that the response includes mobile signals (e.g. `rootApps`) even if the request originated from a non-mobile platform. It is highly recommended that you **ignore** the mobile signals for such requests.   Use `requestId` as the URL path parameter. This API method is scoped to a request, i.e. all returned information is by `requestId`.
 	    * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	    * @param requestId The unique [identifier](https://dev.fingerprint.com/docs/js-agent#requestid) of each identification request.
 	       @return EventResponse
@@ -38,7 +38,7 @@ type FingerprintApiServiceInterface interface {
 
 	/*
 	   FingerprintApiService Get visits by visitor ID
-	   Get a history of visits (identification events) for a specific `visitorId`. Use the `visitorId` as a URL getPath parameter. Only information from the _Identification_ product is returned.  #### Headers  * `Retry-After` — Present in case of `429 Too many requests`. Indicates how long you should wait before making a follow-up request. The value is non-negative decimal integer indicating the seconds to delay after the response is received.
+	   Get a history of visits (identification events) for a specific `visitorId`. Use the `visitorId` as a URL path parameter. Only information from the _Identification_ product is returned.  #### Headers  * `Retry-After` — Present in case of `429 Too many requests`. Indicates how long you should wait before making a follow-up request. The value is non-negative decimal integer indicating the seconds to delay after the response is received.
 	    * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	    * @param visitorId Unique [visitor identifier](https://dev.fingerprint.com/docs/js-agent#visitorid) issued by Fingerprint Pro.
 	    * @param optional nil or *FingerprintApiGetVisitsOpts - Optional Parameters:

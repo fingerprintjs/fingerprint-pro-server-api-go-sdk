@@ -30,13 +30,13 @@ type {{classname}}ServiceInterface interface {
 
 type requestDefinition struct {
     StatusCodeResultsFactoryMap map[int]func() interface{}
-    Path             func(params ...string) string
+    GetPath             func(params ...string) string
 }
 
 {{#operation}}
 func create{{nickname}}Definition() requestDefinition {
     return requestDefinition{
-        Path: func(args ...string) string {
+        GetPath: func(args ...string) string {
             pathParams := []string{ {{#pathParams}}"{{baseName}}",{{/pathParams}} }
 
             path := "{{{path}}}"
