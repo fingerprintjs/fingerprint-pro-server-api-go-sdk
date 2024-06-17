@@ -54,7 +54,6 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/antihax/optional"
 	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v5/sdk"
 	"log"
 )
@@ -73,15 +72,15 @@ func main() {
 	// Usually this data will come from your frontend app
 	visitorId := "VISITOR_ID"
 	opts := sdk.FingerprintApiGetVisitsOpts{
-		RequestId: optional.NewString("REQUEST_ID"),
+		RequestId: "REQUEST_ID_",
 	}
 	response, httpRes, err := client.FingerprintApi.GetVisits(auth, visitorId, &opts)
 	fmt.Printf("%+v\n", httpRes)
 	if err != nil {
 		switch err.(type) {
-		case *sdk.GenericSwaggerError:
+		case sdk.GenericSwaggerError:
 			switch model := err.(sdk.GenericSwaggerError).Model().(type) {
-			case sdk.ManyRequestsResponse:
+			case *sdk.ManyRequestsResponse:
 				log.Printf("Too many requests, retry after %d seconds", model.RetryAfter)
 			}
 

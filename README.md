@@ -46,7 +46,6 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/antihax/optional"
 	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v5/sdk"
 	"log"
 )
@@ -65,15 +64,15 @@ func main() {
 	// Usually this data will come from your frontend app
 	visitorId := "VISITOR_ID"
 	opts := sdk.FingerprintApiGetVisitsOpts{
-		RequestId: optional.NewString("REQUEST_ID"),
+		RequestId: "REQUEST_ID_",
 	}
 	response, httpRes, err := client.FingerprintApi.GetVisits(auth, visitorId, &opts)
 	fmt.Printf("%+v\n", httpRes)
 	if err != nil {
 		switch err.(type) {
-		case *sdk.GenericSwaggerError:
+		case sdk.GenericSwaggerError:
 			switch model := err.(sdk.GenericSwaggerError).Model().(type) {
-			case sdk.ManyRequestsResponse:
+			case *sdk.ManyRequestsResponse:
 				log.Printf("Too many requests, retry after %d seconds", model.RetryAfter)
 			}
 
@@ -169,8 +168,9 @@ All URIs are relative to *https://api.fpjs.io*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*FingerprintApi* | [**GetEvent**](docs/FingerprintApi.md#getevent) | **Get** /events/{request_id} | Get event by requestId
-*FingerprintApi* | [**GetVisits**](docs/FingerprintApi.md#getvisits) | **Get** /visitors/{visitor_id} | Get visits by visitorId
+*FingerprintApi* | [**DeleteVisitorData**](docs/FingerprintApi.md#deletevisitordata) | **Delete** /visitors/{visitor_id} | Delete data by visitor ID
+*FingerprintApi* | [**GetEvent**](docs/FingerprintApi.md#getevent) | **Get** /events/{request_id} | Get event by request ID
+*FingerprintApi* | [**GetVisits**](docs/FingerprintApi.md#getvisits) | **Get** /visitors/{visitor_id} | Get visits by visitor ID
 
 ## Documentation For Models
 
@@ -179,16 +179,18 @@ Class | Method | HTTP request | Description
  - [BotdResult](docs/BotdResult.md)
  - [BrowserDetails](docs/BrowserDetails.md)
  - [ClonedAppResult](docs/ClonedAppResult.md)
+ - [Common403ErrorResponse](docs/Common403ErrorResponse.md)
  - [Confidence](docs/Confidence.md)
  - [DataCenter](docs/DataCenter.md)
  - [DeprecatedIpLocation](docs/DeprecatedIpLocation.md)
  - [DeprecatedIpLocationCity](docs/DeprecatedIpLocationCity.md)
  - [EmulatorResult](docs/EmulatorResult.md)
- - [ErrorEvent403Response](docs/ErrorEvent403Response.md)
- - [ErrorEvent403ResponseError](docs/ErrorEvent403ResponseError.md)
+ - [ErrorCommon403Response](docs/ErrorCommon403Response.md)
  - [ErrorEvent404Response](docs/ErrorEvent404Response.md)
  - [ErrorEvent404ResponseError](docs/ErrorEvent404ResponseError.md)
  - [ErrorVisits403](docs/ErrorVisits403.md)
+ - [ErrorVisitsDelete404Response](docs/ErrorVisitsDelete404Response.md)
+ - [ErrorVisitsDelete404ResponseError](docs/ErrorVisitsDelete404ResponseError.md)
  - [EventResponse](docs/EventResponse.md)
  - [FactoryResetResult](docs/FactoryResetResult.md)
  - [FridaResult](docs/FridaResult.md)
