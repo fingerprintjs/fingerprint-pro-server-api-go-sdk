@@ -42,8 +42,8 @@ func main() {
 
 	if err != nil {
 		switch err.(type) {
-		case sdk.GenericSwaggerError:
-			switch model := err.(sdk.GenericSwaggerError).Model().(type) {
+		case sdk.ApiError:
+			switch model := err.(sdk.ApiError).Model().(type) {
 			case *sdk.TooManyRequestsResponse:
 				log.Printf("Too many requests, retry after %d seconds", model.RetryAfter)
 			}

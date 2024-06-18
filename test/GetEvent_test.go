@@ -180,13 +180,13 @@ func TestGetEvent(t *testing.T) {
 		res, _, err := client.FingerprintApi.GetEvent(ctx, "123")
 
 		assert.Error(t, err)
-		assert.IsType(t, err, sdk.GenericSwaggerError{})
+		assert.IsType(t, err, sdk.ApiError{})
 		assert.NotNil(t, res)
 
-		var swaggerError sdk.GenericSwaggerError
-		errors.As(err, &swaggerError)
+		var apiError sdk.ApiError
+		errors.As(err, &apiError)
 
-		errorModel := err.(sdk.GenericSwaggerError).Model().(*sdk.ErrorCommon403Response)
+		errorModel := err.(sdk.ApiError).Model().(*sdk.ErrorCommon403Response)
 
 		assert.IsType(t, errorModel, &sdk.ErrorCommon403Response{})
 
