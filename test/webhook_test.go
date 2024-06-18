@@ -31,7 +31,7 @@ func TestIsValidWebhookSignature(t *testing.T) {
 	})
 
 	t.Run("With empty header", func(t *testing.T) {
-		isEqual := webhook.IsValidWebhookSignature("invalid", []byte(data), secret)
+		isEqual := webhook.IsValidWebhookSignature("", []byte(data), secret)
 
 		assert.Equal(t, false, isEqual)
 	})
