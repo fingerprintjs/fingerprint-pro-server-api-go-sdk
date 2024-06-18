@@ -158,8 +158,43 @@ func main() {
 	// Do something with unsealed response, e.g: send it back to the frontend.
 	fmt.Println(unsealedResponse)
 }
-
 ```
+
+## Webhook signing
+
+This SDK provides utility method for verifing the HMAC signature of the incoming webhook request.
+Install the webhook dependency as below:
+```shell
+go get github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v5/sdk/webhook
+```
+
+Then you can use below code to verify signature:
+```go
+package main
+
+import (
+	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v5/sdk/webhook"
+)
+
+func main() {
+    // Your webhook signing secret.
+    secret := "secret"
+
+    // Request data. In real life scenerio this will be the body of incoming request
+    data := []byte("data")
+
+    // Value of the "fpjs-event-signature" header.
+    header := "v1=1b2c16b75bd2a870c114153ccda5bcfca63314bc722fa160d690de133ccbb9db"
+
+    isValid := webhook.IsValidWebhookSignature(header, data, secret)
+
+    if !isValid {
+        panic("Invalid signature")
+    }
+}
+```
+
+
 To learn more, refer to example located in [example/sealedResults.go](./example/sealedResults.go).
 
 ## Documentation for API Endpoints
@@ -268,6 +303,10 @@ Class | Method | HTTP request | Description
 
 - [SealedResults](docs/SealedResults.md)
 - [DecryptionKey](docs/DecryptionKey.md)
+
+## Documentation for webhooks
+
+- [DecryptionKey](docs/Webhook.md)
 
 ## Author
 
