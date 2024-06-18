@@ -1,6 +1,6 @@
 module github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/test
 
-go 1.20
+go 1.21
 
 replace github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v5 => ../
 

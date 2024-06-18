@@ -1,6 +1,6 @@
 module github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/example
 
-go 1.20
+go 1.21
 
 require (
 	github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v5 v5.0.2
