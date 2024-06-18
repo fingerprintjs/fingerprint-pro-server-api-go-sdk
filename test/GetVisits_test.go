@@ -122,8 +122,8 @@ func TestGetVisits(t *testing.T) {
 		assert.Error(t, err)
 		assert.NotNil(t, res)
 
-		errorModel := err.(sdk.GenericSwaggerError).Model().(*sdk.ManyRequestsResponse)
-		assert.IsType(t, errorModel, &sdk.ManyRequestsResponse{})
+		errorModel := err.(sdk.GenericSwaggerError).Model().(*sdk.TooManyRequestsResponse)
+		assert.IsType(t, errorModel, &sdk.TooManyRequestsResponse{})
 		assert.Equal(t, int64(10), errorModel.RetryAfter)
 	})
 
@@ -160,8 +160,8 @@ func TestGetVisits(t *testing.T) {
 		assert.Error(t, err)
 		assert.NotNil(t, res)
 
-		errorModel := err.(sdk.GenericSwaggerError).Model().(*sdk.ManyRequestsResponse)
-		assert.IsType(t, errorModel, &sdk.ManyRequestsResponse{})
+		errorModel := err.(sdk.GenericSwaggerError).Model().(*sdk.TooManyRequestsResponse)
+		assert.IsType(t, errorModel, &sdk.TooManyRequestsResponse{})
 		assert.Equal(t, int64(0), errorModel.RetryAfter)
 	})
 }

@@ -17,7 +17,7 @@ func handlePotentialManyRequestsResponse(httpResponse *http.Response, error erro
 	var e GenericSwaggerError
 
 	if errors.As(error, &e) {
-		if model, ok := e.model.(*ManyRequestsResponse); ok {
+		if model, ok := e.model.(*TooManyRequestsResponse); ok {
 			retryAfter := getRetryAfterFromHeader(httpResponse)
 
 			model.RetryAfter = retryAfter

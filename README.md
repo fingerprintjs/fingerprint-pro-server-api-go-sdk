@@ -72,7 +72,7 @@ func main() {
 		switch err.(type) {
 		case sdk.GenericSwaggerError:
 			switch model := err.(sdk.GenericSwaggerError).Model().(type) {
-			case *sdk.ManyRequestsResponse:
+			case *sdk.TooManyRequestsResponse:
 				log.Printf("Too many requests, retry after %d seconds", model.RetryAfter)
 			}
 
@@ -242,7 +242,6 @@ Class | Method | HTTP request | Description
  - [JailbrokenResult](docs/JailbrokenResult.md)
  - [Location](docs/Location.md)
  - [LocationSpoofingResult](docs/LocationSpoofingResult.md)
- - [ManyRequestsResponse](docs/ManyRequestsResponse.md)
  - [PrivacySettingsResult](docs/PrivacySettingsResult.md)
  - [ProductError](docs/ProductError.md)
  - [ProductsResponse](docs/ProductsResponse.md)
@@ -276,6 +275,7 @@ Class | Method | HTTP request | Description
  - [Subdivision](docs/Subdivision.md)
  - [SuspectScoreResult](docs/SuspectScoreResult.md)
  - [TamperingResult](docs/TamperingResult.md)
+ - [TooManyRequestsResponse](docs/TooManyRequestsResponse.md)
  - [TorResult](docs/TorResult.md)
  - [VirtualMachineResult](docs/VirtualMachineResult.md)
  - [Visit](docs/Visit.md)

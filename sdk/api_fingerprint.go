@@ -54,12 +54,12 @@ type FingerprintApiServiceInterface interface {
 
 type requestDefinition struct {
 	StatusCodeResultsFactoryMap map[int]func() interface{}
-	GetPath                     func(params ...string) string
+	Path                        func(params ...string) string
 }
 
 func createDeleteVisitorDataDefinition() requestDefinition {
 	return requestDefinition{
-		GetPath: func(args ...string) string {
+		Path: func(args ...string) string {
 			pathParams := []string{"visitor_id"}
 
 			path := "/visitors/{visitor_id}"
@@ -79,7 +79,7 @@ func createDeleteVisitorDataDefinition() requestDefinition {
 
 func createGetEventDefinition() requestDefinition {
 	return requestDefinition{
-		GetPath: func(args ...string) string {
+		Path: func(args ...string) string {
 			pathParams := []string{"request_id"}
 
 			path := "/events/{request_id}"
@@ -100,7 +100,7 @@ func createGetEventDefinition() requestDefinition {
 
 func createGetVisitsDefinition() requestDefinition {
 	return requestDefinition{
-		GetPath: func(args ...string) string {
+		Path: func(args ...string) string {
 			pathParams := []string{"visitor_id"}
 
 			path := "/visitors/{visitor_id}"
@@ -114,7 +114,7 @@ func createGetVisitsDefinition() requestDefinition {
 		StatusCodeResultsFactoryMap: map[int]func() interface{}{
 			200: func() interface{} { return &Response{} },
 			403: func() interface{} { return &ErrorVisits403{} },
-			429: func() interface{} { return &ManyRequestsResponse{} },
+			429: func() interface{} { return &TooManyRequestsResponse{} },
 		},
 	}
 }
