@@ -14,7 +14,7 @@ func handlePotentialManyRequestsResponse(httpResponse *http.Response, error erro
 		return
 	}
 
-	var e GenericSwaggerError
+	var e ApiError
 
 	if errors.As(error, &e) {
 		if model, ok := e.model.(*TooManyRequestsResponse); ok {
@@ -48,7 +48,7 @@ func getQueryWithIntegrationInfo(url *url.URL) url.Values {
 }
 
 func handleErrorResponse[T any](body []byte, httpResponse *http.Response, definition requestDefinition, responseModel T) (T, *http.Response, error) {
-	genericError := GenericSwaggerError{
+	genericError := ApiError{
 		body:  body,
 		error: httpResponse.Status,
 	}

@@ -118,11 +118,11 @@ func TestGetVisits(t *testing.T) {
 		ctx := context.WithValue(context.Background(), sdk.ContextAPIKey, sdk.APIKey{Key: "api_key"})
 
 		res, _, err := client.FingerprintApi.GetVisits(ctx, "visitor_id", &opts)
-		assert.IsType(t, err, sdk.GenericSwaggerError{})
+		assert.IsType(t, err, sdk.ApiError{})
 		assert.Error(t, err)
 		assert.NotNil(t, res)
 
-		errorModel := err.(sdk.GenericSwaggerError).Model().(*sdk.TooManyRequestsResponse)
+		errorModel := err.(sdk.ApiError).Model().(*sdk.TooManyRequestsResponse)
 		assert.IsType(t, errorModel, &sdk.TooManyRequestsResponse{})
 		assert.Equal(t, int64(10), errorModel.RetryAfter)
 	})
@@ -156,11 +156,11 @@ func TestGetVisits(t *testing.T) {
 		ctx := context.WithValue(context.Background(), sdk.ContextAPIKey, sdk.APIKey{Key: "api_key"})
 
 		res, _, err := client.FingerprintApi.GetVisits(ctx, "visitor_id", &opts)
-		assert.IsType(t, err, sdk.GenericSwaggerError{})
+		assert.IsType(t, err, sdk.ApiError{})
 		assert.Error(t, err)
 		assert.NotNil(t, res)
 
-		errorModel := err.(sdk.GenericSwaggerError).Model().(*sdk.TooManyRequestsResponse)
+		errorModel := err.(sdk.ApiError).Model().(*sdk.TooManyRequestsResponse)
 		assert.IsType(t, errorModel, &sdk.TooManyRequestsResponse{})
 		assert.Equal(t, int64(0), errorModel.RetryAfter)
 	})

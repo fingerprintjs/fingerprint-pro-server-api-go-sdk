@@ -90,7 +90,7 @@ func TestDeleteVisitorData(t *testing.T) {
 		assert.NotNil(t, res)
 		assert.Equal(t, res.StatusCode, 404)
 
-		errorModel := err.(sdk.GenericSwaggerError).Model().(*sdk.ErrorVisitsDelete404Response)
+		errorModel := err.(sdk.ApiError).Model().(*sdk.ErrorVisitsDelete404Response)
 		assert.IsType(t, errorModel, &sdk.ErrorVisitsDelete404Response{})
 		assert.Equal(t, errorModel, &mockResponse)
 	})
@@ -137,7 +137,7 @@ func TestDeleteVisitorData(t *testing.T) {
 		assert.NotNil(t, res)
 		assert.Equal(t, res.StatusCode, 403)
 
-		errorModel := err.(sdk.GenericSwaggerError).Model().(*sdk.ErrorCommon403Response)
+		errorModel := err.(sdk.ApiError).Model().(*sdk.ErrorCommon403Response)
 		assert.IsType(t, errorModel, &sdk.ErrorCommon403Response{})
 		assert.Equal(t, errorModel, &mockResponse)
 	})
