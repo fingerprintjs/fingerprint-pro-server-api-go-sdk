@@ -80,7 +80,7 @@ func main() {
 		switch err.(type) {
 		case sdk.GenericSwaggerError:
 			switch model := err.(sdk.GenericSwaggerError).Model().(type) {
-			case *sdk.ManyRequestsResponse:
+			case *sdk.TooManyRequestsResponse:
 				log.Printf("Too many requests, retry after %d seconds", model.RetryAfter)
 			}
 
