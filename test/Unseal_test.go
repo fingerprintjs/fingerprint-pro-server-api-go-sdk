@@ -74,7 +74,7 @@ func TestUnsealEventsResponse(t *testing.T) {
 			},
 		})
 		assert.Error(t, err)
-		assert.Equal(t, "unseal failed: new cipher: crypto/aes: invalid key size 0.", err.Error())
+		assert.Equal(t, "unseal failed: new cipher\ncrypto/aes: invalid key size 0.", err.Error())
 	})
 
 	t.Run("with invalid sealed result", func(t *testing.T) {
@@ -123,7 +123,7 @@ func TestUnsealEventsResponse(t *testing.T) {
 
 		var aggregateError *sealed.AggregatedUnsealError
 		errors.As(err, &aggregateError)
-		expectedErrorMessage := "unseal failed: decompress: inflated payload read all bytes: flate: corrupt input before offset 13."
+		expectedErrorMessage := "unseal failed: decompress\nflate: corrupt input before offset 13\ninflated payload read all bytes."
 		assert.Equal(t, expectedErrorMessage, aggregateError.Error())
 	})
 
@@ -152,7 +152,7 @@ func TestUnsealEventsResponse(t *testing.T) {
 		_, err := sealed.UnsealEventsResponse(sealedResult, keys)
 
 		assert.IsType(t, err, &sealed.AggregatedUnsealError{})
-		expectedErrorMessage := "unseal failed: aesgcm open: cipher: message authentication failed, new cipher: crypto/aes: invalid key size 11, new cipher: crypto/aes: invalid key size 11, aesgcm open: cipher: message authentication failed."
+		expectedErrorMessage := "unseal failed: aesgcm open\ncipher: message authentication failed, new cipher\ncrypto/aes: invalid key size 11, new cipher\ncrypto/aes: invalid key size 11, aesgcm open\ncipher: message authentication failed."
 		assert.Equal(t, expectedErrorMessage, err.Error())
 	})
 
