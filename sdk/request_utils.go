@@ -9,7 +9,7 @@ import (
 	"strconv"
 )
 
-func handlePotentialManyRequestsResponse(httpResponse *http.Response, error error) error {
+func handlePotentialTooManyRequestsResponse(httpResponse *http.Response, error error) error {
 	if error == nil {
 		return error
 	}
