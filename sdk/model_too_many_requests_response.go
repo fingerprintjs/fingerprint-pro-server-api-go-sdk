@@ -11,6 +11,5 @@ package sdk
 
 type TooManyRequestsResponse struct {
 	// Error text.
-	Error_     string `json:"error"`
-	RetryAfter int64
+	Error_ string `json:"error"`
 }

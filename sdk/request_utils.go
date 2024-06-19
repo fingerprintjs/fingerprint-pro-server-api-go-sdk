@@ -9,9 +9,9 @@ import (
 	"strconv"
 )
 
-func handlePotentialManyRequestsResponse(httpResponse *http.Response, error error) {
+func handlePotentialManyRequestsResponse(httpResponse *http.Response, error error) error {
 	if error == nil {
-		return
+		return error
 	}
 
 	var e ApiError
@@ -20,9 +20,16 @@ func handlePotentialManyRequestsResponse(httpResponse *http.Response, error erro
 		if model, ok := e.model.(*TooManyRequestsResponse); ok {
 			retryAfter := getRetryAfterFromHeader(httpResponse)
 
-			model.RetryAfter = retryAfter
+			return &TooManyRequestsError{
+				error:      model.Error_,
+				retryAfter: retryAfter,
+				body:       e.body,
+				model:      e.model,
+			}
 		}
 	}
+
+	return error
 }
 
 func getRetryAfterFromHeader(httpResponse *http.Response) int64 {

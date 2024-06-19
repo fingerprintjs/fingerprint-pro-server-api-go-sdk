@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v5/sdk"
 	"log"
@@ -41,17 +42,13 @@ func main() {
 	fmt.Printf("%+v\n", httpRes)
 
 	if err != nil {
-		switch err.(type) {
-		case sdk.ApiError:
-			switch model := err.(sdk.ApiError).Model().(type) {
-			case *sdk.TooManyRequestsResponse:
-				log.Printf("Too many requests, retry after %d seconds", model.RetryAfter)
-			}
+		var tooManyRequestsError *sdk.TooManyRequestsError
 
-		default:
+		if errors.As(err, &tooManyRequestsError) {
+			log.Fatalf("Too many requests, retry after %d seconds", tooManyRequestsError.RetryAfter())
+		} else {
 			log.Fatal(err)
 		}
-
 	}
 
 	fmt.Printf("Got response with visitorId: %s", response.VisitorId)

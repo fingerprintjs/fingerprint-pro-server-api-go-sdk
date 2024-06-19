@@ -3,6 +3,7 @@ package test
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v5/config"
 	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v5/sdk"
@@ -118,13 +119,16 @@ func TestGetVisits(t *testing.T) {
 		ctx := context.WithValue(context.Background(), sdk.ContextAPIKey, sdk.APIKey{Key: "api_key"})
 
 		res, _, err := client.FingerprintApi.GetVisits(ctx, "visitor_id", &opts)
-		assert.IsType(t, err, sdk.ApiError{})
+		assert.IsType(t, err, &sdk.TooManyRequestsError{})
 		assert.Error(t, err)
 		assert.NotNil(t, res)
 
-		errorModel := err.(sdk.ApiError).Model().(*sdk.TooManyRequestsResponse)
+		var tooManyRequestsError *sdk.TooManyRequestsError
+		errors.As(err, &tooManyRequestsError)
+
+		errorModel := tooManyRequestsError.Model().(*sdk.TooManyRequestsResponse)
 		assert.IsType(t, errorModel, &sdk.TooManyRequestsResponse{})
-		assert.Equal(t, int64(10), errorModel.RetryAfter)
+		assert.Equal(t, int64(10), tooManyRequestsError.RetryAfter())
 	})
 
 	t.Run("Handles TooManyRequestsError without retry-after header", func(t *testing.T) {
@@ -156,12 +160,15 @@ func TestGetVisits(t *testing.T) {
 		ctx := context.WithValue(context.Background(), sdk.ContextAPIKey, sdk.APIKey{Key: "api_key"})
 
 		res, _, err := client.FingerprintApi.GetVisits(ctx, "visitor_id", &opts)
-		assert.IsType(t, err, sdk.ApiError{})
+		assert.IsType(t, err, &sdk.TooManyRequestsError{})
 		assert.Error(t, err)
 		assert.NotNil(t, res)
 
-		errorModel := err.(sdk.ApiError).Model().(*sdk.TooManyRequestsResponse)
+		var tooManyRequestsError *sdk.TooManyRequestsError
+		errors.As(err, &tooManyRequestsError)
+
+		errorModel := tooManyRequestsError.Model().(*sdk.TooManyRequestsResponse)
 		assert.IsType(t, errorModel, &sdk.TooManyRequestsResponse{})
-		assert.Equal(t, int64(0), errorModel.RetryAfter)
+		assert.Equal(t, int64(0), tooManyRequestsError.RetryAfter())
 	})
 }
