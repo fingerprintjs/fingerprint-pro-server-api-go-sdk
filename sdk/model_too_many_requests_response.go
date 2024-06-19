@@ -9,9 +9,7 @@
  */
 package sdk
 
-type Confidence struct {
-	// The confidence score is a floating-point number between 0 and 1 that represents the probability of accurate identification.
-	Score float32 `json:"score"`
-	// The revision name of the method used to calculate the Confidence score. This field is only present for customers who opted in to an alternative calculation method.
-	Revision string `json:"revision,omitempty"`
+type TooManyRequestsResponse struct {
+	// Error text.
+	Error_ string `json:"error"`
 }

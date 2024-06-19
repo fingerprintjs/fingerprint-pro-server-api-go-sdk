@@ -39,8 +39,7 @@ module.exports = {
           "CHANGELOG.md",
           "README.md",
           "config.json",
-          "docs/**/*",
-          "sdk/**/*"
+          "**/*.go",
         ]
       }
     ],

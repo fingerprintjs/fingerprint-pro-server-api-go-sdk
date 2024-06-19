@@ -3,20 +3,23 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"io/fs"
 	"log"
 	"os"
 	"os/exec"
+	"path/filepath"
 	"strings"
 
 	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v5/config"
 )
 
 var files = []string{"README.md", "docs", ".swagger-codegen"}
-var filesToKeep = []string{"docs/DecryptionKey.md", "docs/SealedResults.md"}
+var filesToKeep = []string{"docs/DecryptionKey.md", "docs/SealedResults.md", "docs/Webhook.md"}
 var pathPrefix = "sdk"
 
 func main() {
 	moveFilesToKeepToTmpDir()
+	handlePotentialMajorRelease()
 	bumpConfigVersion()
 	generateSwagger()
 	moveFiles()
@@ -80,6 +83,65 @@ func getVersion() string {
 	}
 
 	return version
+}
+
+func replaceMajorVersionMentions(newMajor string) {
+	configVersion := config.ReadConfig("./config.json").PackageVersion
+
+	oldMajor := strings.Split(configVersion, ".")[0]
+	oldMajor = fmt.Sprintf("github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v%s", oldMajor)
+
+	newMajor = fmt.Sprintf("github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v%s", newMajor)
+
+	log.Println("Replacing major version mentions in files", oldMajor, "->", newMajor)
+
+	err := filepath.Walk(".", func(path string, info fs.FileInfo, err error) error {
+		if info.IsDir() || strings.Contains(path, ".git") {
+			log.Printf("Skipping %s", path)
+			return nil
+		}
+
+		fileContents, err := os.ReadFile(path)
+
+		if err != nil {
+			return err
+		}
+
+		log.Printf("Processing %s", path)
+
+		newContents := strings.ReplaceAll(string(fileContents), oldMajor, newMajor)
+
+		err = os.WriteFile(path, []byte(newContents), 0644)
+
+		if err != nil {
+			return err
+		}
+
+		return nil
+	})
+
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
+func handlePotentialMajorRelease() {
+	version := getVersion()
+
+	configVersion := config.ReadConfig("./config.json").PackageVersion
+
+	if configVersion == version {
+		return
+	}
+
+	newMajorVersion := strings.Split(version, ".")[0]
+	currentMajorVersion := strings.Split(configVersion, ".")[0]
+
+	if newMajorVersion != currentMajorVersion {
+		log.Println("Major update detected, bumping version usage in all files")
+
+		replaceMajorVersionMentions(newMajorVersion)
+	}
 }
 
 func bumpConfigVersion() {
@@ -183,6 +245,8 @@ func getExamples() {
 		"get_event_200_identification_failed_error.json",
 		"get_event_200_identification_too_many_requests_error.json",
 		"get_visits_429_too_many_requests_error.json",
+		"delete_visits_404_error.json",
+		"delete_visits_403_error.json",
 	}
 
 	for _, file := range list {

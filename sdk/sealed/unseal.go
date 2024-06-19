@@ -6,8 +6,8 @@ import (
 	"crypto/aes"
 	"crypto/cipher"
 	"encoding/json"
+	"errors"
 	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v5/sdk"
-	"github.com/pkg/errors"
 	"io"
 )
 
@@ -88,12 +88,12 @@ func Unseal(sealed []byte, keys []DecryptionKey) ([]byte, error) {
 func decryptAes256gcm(payload, key []byte) ([]byte, error) {
 	block, err := aes.NewCipher(key)
 	if err != nil {
-		return nil, errors.Wrap(err, "new cipher")
+		return nil, errors.Join(errors.New("new cipher"), err)
 	}
 
 	aesgcm, err := cipher.NewGCM(block)
 	if err != nil {
-		return nil, errors.Wrap(err, "new GCM")
+		return nil, errors.Join(errors.New("new GCM"), err)
 	}
 
 	if len(payload) < aesgcm.NonceSize() {
@@ -103,13 +103,13 @@ func decryptAes256gcm(payload, key []byte) ([]byte, error) {
 	nonce, ciphertext := payload[:aesgcm.NonceSize()], payload[aesgcm.NonceSize():]
 	plaintext, err := aesgcm.Open(nil, nonce, ciphertext, nil)
 	if err != nil {
-		return nil, errors.Wrap(err, "aesgcm open")
+		return nil, errors.Join(errors.New("aesgcm open"), err)
 	}
 
 	payload, err = decompress(plaintext)
 
 	if err != nil {
-		return nil, errors.Wrap(err, "decompress")
+		return nil, errors.Join(errors.New("decompress"), err)
 	}
 
 	return payload, nil
@@ -121,7 +121,7 @@ func decompress(compressed []byte) ([]byte, error) {
 
 	decompressed, err := io.ReadAll(reader)
 	if err != nil {
-		return nil, errors.Wrap(err, "inflated payload read all bytes")
+		return nil, errors.Join(err, errors.New("inflated payload read all bytes"))
 	}
 
 	return decompressed, nil

@@ -26,4 +26,3 @@
 .travis.yml
 git_push.sh
 api/*
-model_many_requests_response.go

@@ -1,10 +1,9 @@
-# ErrorEvent404ResponseError
+# TooManyRequestsResponse
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Code** | **string** | Error code:  * `RequestNotFound` - The specified request ID was not found. It never existed, expired, or it has been deleted.  | [default to null]
-**Message** | **string** |  | [default to null]
+**Error_** | **string** | Error text. | [default to null]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
