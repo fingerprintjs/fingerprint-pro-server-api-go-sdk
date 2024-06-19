@@ -97,6 +97,7 @@ func replaceMajorVersionMentions(newMajor string) {
 
 	err := filepath.Walk(".", func(path string, info fs.FileInfo, err error) error {
 		if info.IsDir() || strings.Contains(path, ".git") {
+			log.Printf("Skipping %s", path)
 			return nil
 		}
 
@@ -105,6 +106,8 @@ func replaceMajorVersionMentions(newMajor string) {
 		if err != nil {
 			return err
 		}
+
+		log.Printf("Processing %s", path)
 
 		newContents := strings.ReplaceAll(string(fileContents), oldMajor, newMajor)
 
