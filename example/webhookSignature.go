@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v6/sdk/webhook"
+	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v5/sdk/webhook"
 )
 
 func main() {

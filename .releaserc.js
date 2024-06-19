@@ -40,6 +40,8 @@ module.exports = {
           "README.md",
           "config.json",
           "**/*.go",
+          "go.mod",
+          "template/README.mustache"
         ]
       }
     ],
