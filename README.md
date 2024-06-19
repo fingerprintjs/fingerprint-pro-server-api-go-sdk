@@ -68,19 +68,17 @@ func main() {
 	}
 	response, httpRes, err := client.FingerprintApi.GetVisits(auth, visitorId, &opts)
 	fmt.Printf("%+v\n", httpRes)
-	if err != nil {
-		switch err.(type) {
-		case sdk.ApiError:
-			switch model := err.(sdk.ApiError).Model().(type) {
-			case *sdk.TooManyRequestsResponse:
-				log.Printf("Too many requests, retry after %d seconds", model.RetryAfter)
-			}
 
-		default:
+	if err != nil {
+		var tooManyRequestsError *sdk.TooManyRequestsError
+
+		if errors.As(err, &tooManyRequestsError) {
+			log.Fatalf("Too many requests, retry after %d seconds", tooManyRequestsError.RetryAfter())
+		} else {
 			log.Fatal(err)
 		}
-
 	}
+
 	fmt.Printf("Got response with visitorId: %s", response.VisitorId)
 }
 ```
