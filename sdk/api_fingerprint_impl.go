@@ -13,7 +13,7 @@ type FingerprintApiService struct {
 }
 
 func (f *FingerprintApiService) makeRequest(ctx context.Context, requestUrl *url.URL, method string) (*http.Request, error) {
-	request, err := http.NewRequest(method, requestUrl.String(), nil)
+	request, err := http.NewRequestWithContext(ctx, method, requestUrl.String(), nil)
 
 	if err != nil {
 		return request, err
