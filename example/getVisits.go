@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v6/sdk"
+	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v5/sdk"
 	"log"
 	"os"
 

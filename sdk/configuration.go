@@ -93,7 +93,7 @@ func (c *Configuration) AddDefaultHeader(key string, value string) {
 func NewConfiguration() *Configuration {
 	cfg := &Configuration{
 		DefaultHeader: make(map[string]string),
-		UserAgent:     "Swagger-Codegen/6.0.0-test.1/go",
+		UserAgent:     "Swagger-Codegen/5.0.2/go",
 		region:        RegionUS,
 	}
 	cfg.basePath = resolveBasePath(cfg.region)
