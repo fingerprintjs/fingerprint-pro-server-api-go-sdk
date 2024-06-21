@@ -16,7 +16,7 @@ import (
 
 func TestGetEvent(t *testing.T) {
 	t.Run("Returns event", func(t *testing.T) {
-		mockResponse := GetMockEventResponse("../test/mocks/get_event_200.json")
+		mockResponse := GetMockResponse[sdk.EventResponse]("../test/mocks/get_event_200.json")
 
 		ts := httptest.NewServer(http.HandlerFunc(func(
 			w http.ResponseWriter,
@@ -58,7 +58,7 @@ func TestGetEvent(t *testing.T) {
 	})
 
 	t.Run("Returns event with errors in all signals", func(t *testing.T) {
-		mockResponse := GetMockEventResponse("../test/mocks/get_event_200_all_errors.json")
+		mockResponse := GetMockResponse[sdk.EventResponse]("../test/mocks/get_event_200_all_errors.json")
 
 		ts := httptest.NewServer(http.HandlerFunc(func(
 			w http.ResponseWriter,
@@ -100,7 +100,7 @@ func TestGetEvent(t *testing.T) {
 	})
 
 	t.Run("Returns event with unexpected fields", func(t *testing.T) {
-		mockResponse := GetMockEventResponse("../test/mocks/get_event_200_extra_fields.json")
+		mockResponse := GetMockResponse[sdk.EventResponse]("../test/mocks/get_event_200_extra_fields.json")
 
 		ts := httptest.NewServer(http.HandlerFunc(func(
 			w http.ResponseWriter,
@@ -141,7 +141,7 @@ func TestGetEvent(t *testing.T) {
 	})
 
 	t.Run("Returns 403 error", func(t *testing.T) {
-		mockResponse := GetEvent403ErrorMockResponse("../test/mocks/get_event_403_error.json")
+		mockResponse := GetMockResponse[sdk.Common403ErrorResponse]("../test/mocks/get_event_403_error.json")
 
 		ts := httptest.NewServer(http.HandlerFunc(func(
 			w http.ResponseWriter,
@@ -193,7 +193,7 @@ func TestGetEvent(t *testing.T) {
 	})
 
 	t.Run("Returns botd too many requests error", func(t *testing.T) {
-		mockResponse := GetMockEventResponse("../test/mocks/get_event_200_botd_too_many_requests_error.json")
+		mockResponse := GetMockResponse[sdk.EventResponse]("../test/mocks/get_event_200_botd_too_many_requests_error.json")
 
 		ts := httptest.NewServer(http.HandlerFunc(func(
 			w http.ResponseWriter,
@@ -236,7 +236,7 @@ func TestGetEvent(t *testing.T) {
 	})
 
 	t.Run("Returns identification too many requests error", func(t *testing.T) {
-		mockResponse := GetMockEventResponse("../test/mocks/get_event_200_identification_too_many_requests_error.json")
+		mockResponse := GetMockResponse[sdk.EventResponse]("../test/mocks/get_event_200_identification_too_many_requests_error.json")
 
 		ts := httptest.NewServer(http.HandlerFunc(func(
 			w http.ResponseWriter,
