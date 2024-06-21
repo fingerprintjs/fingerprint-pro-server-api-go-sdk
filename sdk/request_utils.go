@@ -22,6 +22,19 @@ func handlePotentialTooManyRequestsResponse(httpResponse *http.Response, error e
 
 			return &TooManyRequestsError{
 				error:      model.Error_,
+				code:       "TooManyRequests",
+				retryAfter: retryAfter,
+				body:       e.body,
+				model:      e.model,
+			}
+		}
+
+		if model, ok := e.model.(*ErrorCommon429Response); ok {
+			retryAfter := getRetryAfterFromHeader(httpResponse)
+
+			return &TooManyRequestsError{
+				error:      model.Error_.Message,
+				code:       model.Error_.Code,
 				retryAfter: retryAfter,
 				body:       e.body,
 				model:      e.model,
@@ -54,7 +67,7 @@ func getQueryWithIntegrationInfo(url *url.URL) url.Values {
 	return query
 }
 
-func handleErrorResponse[T any](body []byte, httpResponse *http.Response, definition requestDefinition, responseModel T) (T, *http.Response, error) {
+func handleErrorResponse(body []byte, httpResponse *http.Response, definition requestDefinition) (*http.Response, error) {
 	genericError := ApiError{
 		body:  body,
 		error: httpResponse.Status,
@@ -70,13 +83,13 @@ func handleErrorResponse[T any](body []byte, httpResponse *http.Response, defini
 		if err != nil {
 			genericError.error = err.Error()
 
-			return responseModel, httpResponse, genericError
+			return httpResponse, genericError
 		}
 
 		genericError.model = model
 	}
 
-	return responseModel, httpResponse, genericError
+	return httpResponse, genericError
 }
 
 func isResponseOk(httpResponse *http.Response) bool {

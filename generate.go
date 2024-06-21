@@ -10,7 +10,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v6/config"
+	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v5/config"
 )
 
 var files = []string{"README.md", "docs", ".swagger-codegen"}
@@ -246,7 +246,9 @@ func getExamples() {
 		"get_event_200_identification_too_many_requests_error.json",
 		"get_visits_429_too_many_requests_error.json",
 		"delete_visits_404_error.json",
+		"delete_visits_400_error.json",
 		"delete_visits_403_error.json",
+		"delete_visits_429_error.json",
 	}
 
 	for _, file := range list {

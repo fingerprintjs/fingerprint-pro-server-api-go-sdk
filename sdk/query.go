@@ -10,6 +10,15 @@ func addStructToURLQuery(query *url.Values, opts interface{}) {
 	v := reflect.ValueOf(opts)
 	t := v.Type()
 
+	if v.IsNil() {
+		return
+	}
+
+	if t.Kind() == reflect.Pointer {
+		v = v.Elem()
+		t = v.Type()
+	}
+
 	// Ensure the provided value is a struct
 	if t.Kind() != reflect.Struct {
 		return

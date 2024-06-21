@@ -5,8 +5,8 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v6/config"
-	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v6/sdk"
+	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v5/config"
+	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v5/sdk"
 	"github.com/stretchr/testify/assert"
 	"log"
 	"net/http"
@@ -16,7 +16,7 @@ import (
 
 func TestGetVisits(t *testing.T) {
 	t.Run("Returns visits", func(t *testing.T) {
-		mockResponse := GetMockResponse("../test/mocks/get_visits_200_limit_1.json")
+		mockResponse := GetMockResponse[sdk.Response]("../test/mocks/get_visits_200_limit_1.json")
 
 		ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			configFile := config.ReadConfig("../config.json")
@@ -53,7 +53,7 @@ func TestGetVisits(t *testing.T) {
 			LinkedId:      "request_id",
 		}
 
-		mockResponse := GetMockResponse("../test/mocks/get_visits_200_limit_500.json")
+		mockResponse := GetMockResponse[sdk.Response]("../test/mocks/get_visits_200_limit_500.json")
 
 		ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			parseErr := r.ParseForm()
@@ -97,7 +97,7 @@ func TestGetVisits(t *testing.T) {
 			LinkedId:      "request_id",
 		}
 
-		mockResponse := GetMockResponse("../test/mocks/get_visits_429_too_many_requests_error.json")
+		mockResponse := GetMockResponse[sdk.Response]("../test/mocks/get_visits_429_too_many_requests_error.json")
 
 		ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			parseErr := r.ParseForm()
@@ -139,7 +139,7 @@ func TestGetVisits(t *testing.T) {
 			LinkedId:      "request_id",
 		}
 
-		mockResponse := GetMockResponse("../test/mocks/get_visits_429_too_many_requests_error.json")
+		mockResponse := GetMockResponse[sdk.Response]("../test/mocks/get_visits_429_too_many_requests_error.json")
 
 		ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			parseErr := r.ParseForm()
