@@ -71,8 +71,10 @@ func createDeleteVisitorDataDefinition() requestDefinition {
 			return path
 		},
 		StatusCodeResultsFactoryMap: map[int]func() interface{}{
+			400: func() interface{} { return &ErrorVisitsDelete400Response{} },
 			403: func() interface{} { return &ErrorCommon403Response{} },
 			404: func() interface{} { return &ErrorVisitsDelete404Response{} },
+			429: func() interface{} { return &ErrorCommon429Response{} },
 		},
 	}
 }
