@@ -51,7 +51,7 @@ func (f *FingerprintApiService) doRequest(apiRequest apiRequest, result interfac
 	}
 	requestUrl.RawQuery = query.Encode()
 
-	request, err := f.prepareRequest(apiRequest.context, requestUrl, http.MethodDelete)
+	request, err := f.prepareRequest(apiRequest.context, requestUrl, apiRequest.method)
 	if err != nil {
 		return nil, err
 	}
