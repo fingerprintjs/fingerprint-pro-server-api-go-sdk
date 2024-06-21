@@ -22,6 +22,19 @@ func handlePotentialTooManyRequestsResponse(httpResponse *http.Response, error e
 
 			return &TooManyRequestsError{
 				error:      model.Error_,
+				code:       "TooManyRequests",
+				retryAfter: retryAfter,
+				body:       e.body,
+				model:      e.model,
+			}
+		}
+
+		if model, ok := e.model.(*ErrorCommon429Response); ok {
+			retryAfter := getRetryAfterFromHeader(httpResponse)
+
+			return &TooManyRequestsError{
+				error:      model.Error_.Message,
+				code:       model.Error_.Code,
 				retryAfter: retryAfter,
 				body:       e.body,
 				model:      e.model,
