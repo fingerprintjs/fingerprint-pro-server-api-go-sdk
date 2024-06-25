@@ -6,7 +6,7 @@ import (
 	"strconv"
 )
 
-func addStructToURLQuery(query *url.Values, opts interface{}) {
+func addStructToURLQuery(query *url.Values, opts any) {
 	v := reflect.ValueOf(opts)
 	t := v.Type()
 

@@ -9,14 +9,14 @@ import (
 	"strconv"
 )
 
-func handlePotentialTooManyRequestsResponse(httpResponse *http.Response, error error) error {
-	if error == nil {
-		return error
+func handlePotentialTooManyRequestsResponse(httpResponse *http.Response, err error) error {
+	if err == nil {
+		return err
 	}
 
 	var e ApiError
 
-	if errors.As(error, &e) {
+	if errors.As(err, &e) {
 		if model, ok := e.model.(*TooManyRequestsResponse); ok {
 			retryAfter := getRetryAfterFromHeader(httpResponse)
 
@@ -42,7 +42,7 @@ func handlePotentialTooManyRequestsResponse(httpResponse *http.Response, error e
 		}
 	}
 
-	return error
+	return err
 }
 
 func getRetryAfterFromHeader(httpResponse *http.Response) int64 {
