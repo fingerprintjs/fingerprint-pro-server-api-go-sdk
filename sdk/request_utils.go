@@ -93,16 +93,18 @@ func isResponseOk(httpResponse *http.Response) bool {
 }
 
 func handleAuth(ctx context.Context, request *http.Request) {
-	if ctx != nil {
-		if auth, ok := ctx.Value(ContextAPIKey).(APIKey); ok {
-			var key string
-			if auth.Prefix != "" {
-				key = auth.Prefix + " " + auth.Key
-			} else {
-				key = auth.Key
-			}
+	if ctx == nil {
+		return
+	}
 
-			request.Header.Add("Auth-API-Key", key)
+	if auth, ok := ctx.Value(ContextAPIKey).(APIKey); ok {
+		var key string
+		if auth.Prefix != "" {
+			key = auth.Prefix + " " + auth.Key
+		} else {
+			key = auth.Key
 		}
+
+		request.Header.Add("Auth-API-Key", key)
 	}
 }
