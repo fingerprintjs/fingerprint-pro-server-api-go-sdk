@@ -4,7 +4,7 @@ package sdk
 type ApiError struct {
 	body  []byte
 	error string
-	model interface{}
+	model any
 }
 
 // Error returns non-empty string if there was an error.
@@ -18,6 +18,6 @@ func (e ApiError) Body() []byte {
 }
 
 // Model returns the unpacked model of the error
-func (e ApiError) Model() interface{} {
+func (e ApiError) Model() any {
 	return e.model
 }

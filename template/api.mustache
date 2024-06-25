@@ -29,7 +29,7 @@ type {{classname}}ServiceInterface interface {
 }
 
 type requestDefinition struct {
-    StatusCodeResultsFactoryMap map[int]func() interface{}
+    StatusCodeResultsFactoryMap map[int]func() any
     GetPath             func(params ...string) string
 }
 
@@ -47,9 +47,9 @@ func create{{nickname}}Definition() requestDefinition {
 
             return path
         },
-        StatusCodeResultsFactoryMap: map[int]func() interface{}{
+        StatusCodeResultsFactoryMap: map[int]func() any{
             {{#responses}}{{#dataType}}
-            {{code}}: func() interface{} { return &{{{dataType}}}{} },
+            {{code}}: func() any { return &{{{dataType}}}{} },
             {{/dataType}}{{/responses}}
         },
     }

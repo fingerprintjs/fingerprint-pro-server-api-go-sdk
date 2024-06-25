@@ -53,7 +53,7 @@ type FingerprintApiServiceInterface interface {
 }
 
 type requestDefinition struct {
-	StatusCodeResultsFactoryMap map[int]func() interface{}
+	StatusCodeResultsFactoryMap map[int]func() any
 	GetPath                     func(params ...string) string
 }
 
@@ -70,11 +70,11 @@ func createDeleteVisitorDataDefinition() requestDefinition {
 
 			return path
 		},
-		StatusCodeResultsFactoryMap: map[int]func() interface{}{
-			400: func() interface{} { return &ErrorVisitsDelete400Response{} },
-			403: func() interface{} { return &ErrorCommon403Response{} },
-			404: func() interface{} { return &ErrorVisitsDelete404Response{} },
-			429: func() interface{} { return &ErrorCommon429Response{} },
+		StatusCodeResultsFactoryMap: map[int]func() any{
+			400: func() any { return &ErrorVisitsDelete400Response{} },
+			403: func() any { return &ErrorCommon403Response{} },
+			404: func() any { return &ErrorVisitsDelete404Response{} },
+			429: func() any { return &ErrorCommon429Response{} },
 		},
 	}
 }
@@ -92,10 +92,10 @@ func createGetEventDefinition() requestDefinition {
 
 			return path
 		},
-		StatusCodeResultsFactoryMap: map[int]func() interface{}{
-			200: func() interface{} { return &EventResponse{} },
-			403: func() interface{} { return &ErrorCommon403Response{} },
-			404: func() interface{} { return &ErrorEvent404Response{} },
+		StatusCodeResultsFactoryMap: map[int]func() any{
+			200: func() any { return &EventResponse{} },
+			403: func() any { return &ErrorCommon403Response{} },
+			404: func() any { return &ErrorEvent404Response{} },
 		},
 	}
 }
@@ -113,10 +113,10 @@ func createGetVisitsDefinition() requestDefinition {
 
 			return path
 		},
-		StatusCodeResultsFactoryMap: map[int]func() interface{}{
-			200: func() interface{} { return &Response{} },
-			403: func() interface{} { return &ErrorVisits403{} },
-			429: func() interface{} { return &TooManyRequestsResponse{} },
+		StatusCodeResultsFactoryMap: map[int]func() any{
+			200: func() any { return &Response{} },
+			403: func() any { return &ErrorVisits403{} },
+			429: func() any { return &TooManyRequestsResponse{} },
 		},
 	}
 }
