@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v5/sdk/webhook"
+	"log"
 )
 
 func main() {
@@ -17,6 +18,6 @@ func main() {
 	isValid := webhook.IsValidWebhookSignature(header, data, secret)
 
 	if !isValid {
-		panic("Invalid signature")
+		log.Fatal("Invalid signature")
 	}
 }
