@@ -17,6 +17,6 @@ func main() {
 	isValid := webhook.IsValidWebhookSignature(header, data, secret)
 
 	if !isValid {
-		panic("Invalid signature")
+		log.Fatal("Invalid signature")
 	}
 }

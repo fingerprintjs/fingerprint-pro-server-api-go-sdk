@@ -6,13 +6,14 @@ import (
 	"fmt"
 	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v6/sdk/sealed"
 	"github.com/joho/godotenv"
+	"log"
 	"os"
 )
 
 func base64Decode(input string) []byte {
 	output, err := base64.StdEncoding.DecodeString(input)
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 	return output
 }
