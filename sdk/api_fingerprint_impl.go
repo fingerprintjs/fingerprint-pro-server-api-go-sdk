@@ -87,10 +87,14 @@ func (f *FingerprintApiService) doRequest(ctx context.Context, apiRequest apiReq
 		return nil, err
 	}
 
-	query := getQueryWithIntegrationInfo(requestUrl)
-	if apiRequest.requestParams != nil {
-		addStructToURLQuery(&query, apiRequest.requestParams)
+	query := requestUrl.Query()
+
+	if urlValues, ok := apiRequest.requestParams.(urlValues); ok {
+		query = *urlValues.UrlValues()
 	}
+
+	addIntegrationInfoToQuery(&query)
+
 	requestUrl.RawQuery = query.Encode()
 
 	request, err := f.prepareRequest(ctx, requestUrl, apiRequest.method)

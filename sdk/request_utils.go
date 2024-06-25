@@ -59,12 +59,8 @@ func getRetryAfterFromHeader(httpResponse *http.Response) int64 {
 	return 0
 }
 
-func getQueryWithIntegrationInfo(url *url.URL) url.Values {
-	query := url.Query()
-
+func addIntegrationInfoToQuery(query *url.Values) {
 	query.Add("ii", IntegrationInfo)
-
-	return query
 }
 
 func handleErrorResponse(body []byte, httpResponse *http.Response, definition requestDefinition) (*http.Response, error) {

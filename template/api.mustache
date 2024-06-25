@@ -6,6 +6,7 @@ package {{packageName}}
 import (
     "context"
     "net/http"
+    "net/url"
     "strings"
 )
 
@@ -57,9 +58,30 @@ func create{{nickname}}Definition() requestDefinition {
 
 {{#hasOptionalParams}}
 
-type {{{classname}}}{{{nickname}}}Opts struct { {{#allParams}}{{^required}}
-{{#isPrimitiveType}}	{{vendorExtensions.x-exportParamName}} {{dataType}}`url:"{{baseName}}"`{{/isPrimitiveType}}{{^isPrimitiveType}}	{{vendorExtensions.x-exportParamName}} interface{{/isPrimitiveType}}{{/required}}{{/allParams}}
-}
+    type {{{classname}}}{{{nickname}}}Opts struct {
+    {{#allParams}}{{^required}}
+        {{#isPrimitiveType}}    {{vendorExtensions.x-exportParamName}} {{dataType}}{{/isPrimitiveType}}{{^isPrimitiveType}}    {{vendorExtensions.x-exportParamName}} interface{{/isPrimitiveType}}
+    {{/required}}{{/allParams}}
+    }
+
+    func (o *{{{classname}}}{{{nickname}}}Opts) UrlValues() *url.Values {
+        if o == nil {
+            return &url.Values{}
+        }
+
+        data := make(map[string]any)
+
+        {{#allParams}}{{^required}}
+            {{#isPrimitiveType}} data["{{baseName}}"] = o.{{vendorExtensions.x-exportParamName}} {{/isPrimitiveType}}
+        {{/required}}{{/allParams}}
+
+        values := urlValuesBuilder{
+		    data: data,
+	    }
+
+	    return values.UrlValues()
+    }
+
 
 {{/hasOptionalParams}}
 {{/operation}}{{/operations}}

@@ -12,6 +12,7 @@ package sdk
 import (
 	"context"
 	"net/http"
+	"net/url"
 	"strings"
 )
 
@@ -122,9 +123,29 @@ func createGetVisitsDefinition() requestDefinition {
 }
 
 type FingerprintApiGetVisitsOpts struct {
-	RequestId     string `url:"request_id"`
-	LinkedId      string `url:"linked_id"`
-	Limit         int32  `url:"limit"`
-	PaginationKey string `url:"paginationKey"`
-	Before        int64  `url:"before"`
+	RequestId     string
+	LinkedId      string
+	Limit         int32
+	PaginationKey string
+	Before        int64
+}
+
+func (o *FingerprintApiGetVisitsOpts) UrlValues() *url.Values {
+	if o == nil {
+		return &url.Values{}
+	}
+
+	data := make(map[string]any)
+
+	data["request_id"] = o.RequestId
+	data["linked_id"] = o.LinkedId
+	data["limit"] = o.Limit
+	data["paginationKey"] = o.PaginationKey
+	data["before"] = o.Before
+
+	values := urlValuesBuilder{
+		data: data,
+	}
+
+	return values.UrlValues()
 }
