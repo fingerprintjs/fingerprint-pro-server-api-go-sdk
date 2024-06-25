@@ -46,17 +46,15 @@ func (f *FingerprintApiService) GetEvent(ctx context.Context, requestId string) 
 }
 
 func (f *FingerprintApiService) GetVisits(ctx context.Context, visitorId string, opts *FingerprintApiGetVisitsOpts) (Response, *http.Response, error) {
-	definition := createGetVisitsDefinition()
-
-	var response Response
 
 	var apiRequest = apiRequest{
-		definition:    definition,
+		definition:    createGetVisitsDefinition(),
 		pathParams:    []string{visitorId},
 		requestParams: opts,
 		method:        http.MethodGet,
 	}
 
+	var response Response
 	httpResponse, err := f.doRequest(ctx, apiRequest, &response)
 
 	return response, httpResponse, err
