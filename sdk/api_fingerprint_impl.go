@@ -13,18 +13,18 @@ type FingerprintApiService struct {
 }
 
 type apiRequest struct {
-	definition    requestDefinition
-	pathParams    []string
-	method        string
-	requestParams any
+	definition  requestDefinition
+	pathParams  []string
+	method      string
+	queryParams map[string]any
 }
 
 func (f *FingerprintApiService) DeleteVisitorData(ctx context.Context, visitorId string) (*http.Response, error) {
 	var request = apiRequest{
-		definition:    createDeleteVisitorDataDefinition(),
-		pathParams:    []string{visitorId},
-		requestParams: nil,
-		method:        http.MethodDelete,
+		definition:  createDeleteVisitorDataDefinition(),
+		pathParams:  []string{visitorId},
+		queryParams: nil,
+		method:      http.MethodDelete,
 	}
 
 	return f.doRequest(ctx, request, nil)
@@ -33,10 +33,10 @@ func (f *FingerprintApiService) DeleteVisitorData(ctx context.Context, visitorId
 func (f *FingerprintApiService) GetEvent(ctx context.Context, requestId string) (EventResponse, *http.Response, error) {
 
 	request := apiRequest{
-		definition:    createGetEventDefinition(),
-		pathParams:    []string{requestId},
-		requestParams: nil,
-		method:        http.MethodGet,
+		definition:  createGetEventDefinition(),
+		pathParams:  []string{requestId},
+		queryParams: nil,
+		method:      http.MethodGet,
 	}
 
 	var eventResponse EventResponse
@@ -48,10 +48,10 @@ func (f *FingerprintApiService) GetEvent(ctx context.Context, requestId string) 
 func (f *FingerprintApiService) GetVisits(ctx context.Context, visitorId string, opts *FingerprintApiGetVisitsOpts) (Response, *http.Response, error) {
 
 	var apiRequest = apiRequest{
-		definition:    createGetVisitsDefinition(),
-		pathParams:    []string{visitorId},
-		requestParams: opts,
-		method:        http.MethodGet,
+		definition:  createGetVisitsDefinition(),
+		pathParams:  []string{visitorId},
+		queryParams: opts.ToUrlValuesMap(),
+		method:      http.MethodGet,
 	}
 
 	var response Response
@@ -87,8 +87,8 @@ func (f *FingerprintApiService) doRequest(ctx context.Context, apiRequest apiReq
 
 	query := requestUrl.Query()
 
-	if urlValues, ok := apiRequest.requestParams.(urlValues); ok {
-		query = *urlValues.UrlValues()
+	if apiRequest.queryParams != nil {
+		addMapToUrlValues(apiRequest.queryParams, &query)
 	}
 
 	addIntegrationInfoToQuery(&query)
