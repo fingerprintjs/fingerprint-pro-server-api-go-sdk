@@ -1,3 +1,11 @@
+## [6.0.0-test.2](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/compare/v6.0.0-test.1...v6.0.0-test.2) (2024-06-26)
+
+
+### Bug Fixes
+
+* allow passing `nil` configuration to `NewAPIClient` ([2e8f03a](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/2e8f03adfb484232d80a7c72d98b670a54e1831a))
+* use correct error type for `incognito`, `rawDeviceAttributes` and `tampering` in the `GetEvent` method ([1487938](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/1487938f431c8032689599ed2bca07d970eb88fb))
+
 ## [6.0.0-test.1](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/compare/v5.0.2...v6.0.0-test.1) (2024-06-21)
 
 
