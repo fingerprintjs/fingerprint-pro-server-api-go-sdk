@@ -5,11 +5,11 @@ type TooManyRequestsError struct {
 	error      string
 	retryAfter int64
 	body       []byte
-	model      interface{}
+	model      any
 	code       string
 }
 
-func (e *TooManyRequestsError) Model() interface{} {
+func (e *TooManyRequestsError) Model() any {
 	return e.model
 }
 

@@ -1,3 +1,3 @@
 package sdk
 
-type Object map[string]interface{}
+type Object map[string]any

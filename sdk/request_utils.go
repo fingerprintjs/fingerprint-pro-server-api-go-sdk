@@ -9,14 +9,14 @@ import (
 	"strconv"
 )
 
-func handlePotentialTooManyRequestsResponse(httpResponse *http.Response, error error) error {
-	if error == nil {
-		return error
+func handlePotentialTooManyRequestsResponse(httpResponse *http.Response, err error) error {
+	if err == nil {
+		return err
 	}
 
 	var e ApiError
 
-	if errors.As(error, &e) {
+	if errors.As(err, &e) {
 		if model, ok := e.model.(*TooManyRequestsResponse); ok {
 			retryAfter := getRetryAfterFromHeader(httpResponse)
 
@@ -42,7 +42,7 @@ func handlePotentialTooManyRequestsResponse(httpResponse *http.Response, error e
 		}
 	}
 
-	return error
+	return err
 }
 
 func getRetryAfterFromHeader(httpResponse *http.Response) int64 {
@@ -59,12 +59,8 @@ func getRetryAfterFromHeader(httpResponse *http.Response) int64 {
 	return 0
 }
 
-func getQueryWithIntegrationInfo(url *url.URL) url.Values {
-	query := url.Query()
-
+func addIntegrationInfoToQuery(query *url.Values) {
 	query.Add("ii", IntegrationInfo)
-
-	return query
 }
 
 func handleErrorResponse(body []byte, httpResponse *http.Response, definition requestDefinition) (*http.Response, error) {
@@ -97,16 +93,18 @@ func isResponseOk(httpResponse *http.Response) bool {
 }
 
 func handleAuth(ctx context.Context, request *http.Request) {
-	if ctx != nil {
-		if auth, ok := ctx.Value(ContextAPIKey).(APIKey); ok {
-			var key string
-			if auth.Prefix != "" {
-				key = auth.Prefix + " " + auth.Key
-			} else {
-				key = auth.Key
-			}
+	if ctx == nil {
+		return
+	}
 
-			request.Header.Add("Auth-API-Key", key)
+	if auth, ok := ctx.Value(ContextAPIKey).(APIKey); ok {
+		var key string
+		if auth.Prefix != "" {
+			key = auth.Prefix + " " + auth.Key
+		} else {
+			key = auth.Key
 		}
+
+		request.Header.Add("Auth-API-Key", key)
 	}
 }

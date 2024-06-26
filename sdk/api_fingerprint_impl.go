@@ -13,11 +13,51 @@ type FingerprintApiService struct {
 }
 
 type apiRequest struct {
-	definition    requestDefinition
-	pathParams    []string
-	method        string
-	requestParams interface{}
-	context       context.Context
+	definition  requestDefinition
+	pathParams  []string
+	method      string
+	queryParams map[string]any
+}
+
+func (f *FingerprintApiService) DeleteVisitorData(ctx context.Context, visitorId string) (*http.Response, error) {
+	var request = apiRequest{
+		definition:  createDeleteVisitorDataDefinition(),
+		pathParams:  []string{visitorId},
+		queryParams: nil,
+		method:      http.MethodDelete,
+	}
+
+	return f.doRequest(ctx, request, nil)
+}
+
+func (f *FingerprintApiService) GetEvent(ctx context.Context, requestId string) (EventResponse, *http.Response, error) {
+
+	request := apiRequest{
+		definition:  createGetEventDefinition(),
+		pathParams:  []string{requestId},
+		queryParams: nil,
+		method:      http.MethodGet,
+	}
+
+	var eventResponse EventResponse
+	response, err := f.doRequest(ctx, request, &eventResponse)
+
+	return eventResponse, response, err
+}
+
+func (f *FingerprintApiService) GetVisits(ctx context.Context, visitorId string, opts *FingerprintApiGetVisitsOpts) (Response, *http.Response, error) {
+
+	var apiRequest = apiRequest{
+		definition:  createGetVisitsDefinition(),
+		pathParams:  []string{visitorId},
+		queryParams: opts.ToUrlValuesMap(),
+		method:      http.MethodGet,
+	}
+
+	var response Response
+	httpResponse, err := f.doRequest(ctx, apiRequest, &response)
+
+	return response, httpResponse, err
 }
 
 func (f *FingerprintApiService) prepareRequest(ctx context.Context, requestUrl *url.URL, method string) (*http.Request, error) {
@@ -38,20 +78,24 @@ func (f *FingerprintApiService) getPath(definition requestDefinition, params ...
 	return f.cfg.basePath + definition.GetPath(params...)
 }
 
-func (f *FingerprintApiService) doRequest(apiRequest apiRequest, result interface{}) (*http.Response, error) {
+func (f *FingerprintApiService) doRequest(ctx context.Context, apiRequest apiRequest, result any) (*http.Response, error) {
 	path := f.getPath(apiRequest.definition, apiRequest.pathParams...)
 	requestUrl, err := url.Parse(path)
 	if err != nil {
 		return nil, err
 	}
 
-	query := getQueryWithIntegrationInfo(requestUrl)
-	if apiRequest.requestParams != nil {
-		addStructToURLQuery(&query, apiRequest.requestParams)
+	query := requestUrl.Query()
+
+	if apiRequest.queryParams != nil {
+		addMapToUrlValues(apiRequest.queryParams, &query)
 	}
+
+	addIntegrationInfoToQuery(&query)
+
 	requestUrl.RawQuery = query.Encode()
 
-	request, err := f.prepareRequest(apiRequest.context, requestUrl, apiRequest.method)
+	request, err := f.prepareRequest(ctx, requestUrl, apiRequest.method)
 	if err != nil {
 		return nil, err
 	}
@@ -77,52 +121,4 @@ func (f *FingerprintApiService) doRequest(apiRequest apiRequest, result interfac
 	_, err = handleErrorResponse(body, httpResponse, apiRequest.definition)
 
 	return httpResponse, handlePotentialTooManyRequestsResponse(httpResponse, err)
-}
-
-func (f *FingerprintApiService) DeleteVisitorData(ctx context.Context, visitorId string) (*http.Response, error) {
-	var request = apiRequest{
-		definition:    createDeleteVisitorDataDefinition(),
-		pathParams:    []string{visitorId},
-		requestParams: nil,
-		method:        http.MethodDelete,
-		context:       ctx,
-	}
-
-	return f.doRequest(request, nil)
-}
-
-func (f *FingerprintApiService) GetEvent(ctx context.Context, requestId string) (EventResponse, *http.Response, error) {
-	definition := createGetEventDefinition()
-
-	var eventResponse EventResponse
-
-	var request = apiRequest{
-		definition:    definition,
-		pathParams:    []string{requestId},
-		requestParams: nil,
-		method:        http.MethodGet,
-		context:       ctx,
-	}
-
-	response, err := f.doRequest(request, &eventResponse)
-
-	return eventResponse, response, err
-}
-
-func (f *FingerprintApiService) GetVisits(ctx context.Context, visitorId string, opts *FingerprintApiGetVisitsOpts) (Response, *http.Response, error) {
-	definition := createGetVisitsDefinition()
-
-	var response Response
-
-	var apiRequest = apiRequest{
-		definition:    definition,
-		pathParams:    []string{visitorId},
-		requestParams: opts,
-		method:        http.MethodGet,
-		context:       ctx,
-	}
-
-	httpResponse, err := f.doRequest(apiRequest, &response)
-
-	return response, httpResponse, err
 }

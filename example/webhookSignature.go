@@ -8,7 +8,7 @@ func main() {
 	// Your webhook signing secret.
 	secret := "secret"
 
-	// Request data. In real life scenerio this will be the body of incoming request
+	// Request data. In real life scenario this will be the body of incoming request
 	data := []byte("data")
 
 	// Value of the "fpjs-event-signature" header.
@@ -17,6 +17,6 @@ func main() {
 	isValid := webhook.IsValidWebhookSignature(header, data, secret)
 
 	if !isValid {
-		panic("Invalid signature")
+		log.Fatal("Invalid signature")
 	}
 }

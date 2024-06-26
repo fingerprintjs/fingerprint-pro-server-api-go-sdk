@@ -29,7 +29,7 @@ type {{classname}}ServiceInterface interface {
 }
 
 type requestDefinition struct {
-    StatusCodeResultsFactoryMap map[int]func() interface{}
+    StatusCodeResultsFactoryMap map[int]func() any
     GetPath             func(params ...string) string
 }
 
@@ -47,9 +47,9 @@ func create{{nickname}}Definition() requestDefinition {
 
             return path
         },
-        StatusCodeResultsFactoryMap: map[int]func() interface{}{
+        StatusCodeResultsFactoryMap: map[int]func() any{
             {{#responses}}{{#dataType}}
-            {{code}}: func() interface{} { return &{{{dataType}}}{} },
+            {{code}}: func() any { return &{{{dataType}}}{} },
             {{/dataType}}{{/responses}}
         },
     }
@@ -57,9 +57,26 @@ func create{{nickname}}Definition() requestDefinition {
 
 {{#hasOptionalParams}}
 
-type {{{classname}}}{{{nickname}}}Opts struct { {{#allParams}}{{^required}}
-{{#isPrimitiveType}}	{{vendorExtensions.x-exportParamName}} {{dataType}}`url:"{{baseName}}"`{{/isPrimitiveType}}{{^isPrimitiveType}}	{{vendorExtensions.x-exportParamName}} interface{{/isPrimitiveType}}{{/required}}{{/allParams}}
-}
+    type {{{classname}}}{{{nickname}}}Opts struct {
+    {{#allParams}}{{^required}}
+        {{#isPrimitiveType}}    {{vendorExtensions.x-exportParamName}} {{dataType}}{{/isPrimitiveType}}{{^isPrimitiveType}}    {{vendorExtensions.x-exportParamName}} interface{{/isPrimitiveType}}
+    {{/required}}{{/allParams}}
+    }
+
+    func (o *{{{classname}}}{{{nickname}}}Opts) ToUrlValuesMap() map[string]any {
+        data := make(map[string]any)
+
+        if o == nil {
+            return data
+        }
+
+        {{#allParams}}{{^required}}
+            {{#isPrimitiveType}} data["{{baseName}}"] = o.{{vendorExtensions.x-exportParamName}} {{/isPrimitiveType}}
+        {{/required}}{{/allParams}}
+
+        return data
+    }
+
 
 {{/hasOptionalParams}}
 {{/operation}}{{/operations}}
