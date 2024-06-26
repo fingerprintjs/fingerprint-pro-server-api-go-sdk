@@ -12,7 +12,6 @@ package sdk
 import (
 	"context"
 	"net/http"
-	"net/url"
 	"strings"
 )
 
@@ -130,12 +129,12 @@ type FingerprintApiGetVisitsOpts struct {
 	Before        int64
 }
 
-func (o *FingerprintApiGetVisitsOpts) UrlValues() *url.Values {
-	if o == nil {
-		return &url.Values{}
-	}
-
+func (o *FingerprintApiGetVisitsOpts) ToUrlValuesMap() map[string]any {
 	data := make(map[string]any)
+
+	if o == nil {
+		return data
+	}
 
 	data["request_id"] = o.RequestId
 	data["linked_id"] = o.LinkedId
@@ -143,9 +142,5 @@ func (o *FingerprintApiGetVisitsOpts) UrlValues() *url.Values {
 	data["paginationKey"] = o.PaginationKey
 	data["before"] = o.Before
 
-	values := urlValuesBuilder{
-		data: data,
-	}
-
-	return values.UrlValues()
+	return data
 }

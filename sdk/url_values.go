@@ -5,18 +5,8 @@ import (
 	"strconv"
 )
 
-type urlValues interface {
-	UrlValues() *url.Values
-}
-
-type urlValuesBuilder struct {
-	data map[string]any
-}
-
-func (u *urlValuesBuilder) UrlValues() *url.Values {
-	values := make(url.Values)
-
-	for key, value := range u.data {
+func addMapToUrlValues(data map[string]any, values *url.Values) {
+	for key, value := range data {
 		var stringValue string
 
 		switch v := value.(type) {
@@ -33,5 +23,4 @@ func (u *urlValuesBuilder) UrlValues() *url.Values {
 		values.Set(key, stringValue)
 	}
 
-	return &values
 }
