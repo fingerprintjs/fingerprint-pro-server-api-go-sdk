@@ -20,7 +20,7 @@ type apiRequest struct {
 }
 
 func (f *FingerprintApiService) DeleteVisitorData(ctx context.Context, visitorId string) (*http.Response, error) {
-	var request = apiRequest{
+	request := apiRequest{
 		definition:  createDeleteVisitorDataDefinition(),
 		pathParams:  []string{visitorId},
 		queryParams: nil,
@@ -31,7 +31,6 @@ func (f *FingerprintApiService) DeleteVisitorData(ctx context.Context, visitorId
 }
 
 func (f *FingerprintApiService) GetEvent(ctx context.Context, requestId string) (EventResponse, *http.Response, error) {
-
 	request := apiRequest{
 		definition:  createGetEventDefinition(),
 		pathParams:  []string{requestId},
@@ -46,8 +45,7 @@ func (f *FingerprintApiService) GetEvent(ctx context.Context, requestId string) 
 }
 
 func (f *FingerprintApiService) GetVisits(ctx context.Context, visitorId string, opts *FingerprintApiGetVisitsOpts) (Response, *http.Response, error) {
-
-	var apiRequest = apiRequest{
+	request := apiRequest{
 		definition:  createGetVisitsDefinition(),
 		pathParams:  []string{visitorId},
 		queryParams: opts.ToUrlValuesMap(),
@@ -55,7 +53,7 @@ func (f *FingerprintApiService) GetVisits(ctx context.Context, visitorId string,
 	}
 
 	var response Response
-	httpResponse, err := f.doRequest(ctx, apiRequest, &response)
+	httpResponse, err := f.doRequest(ctx, request, &response)
 
 	return response, httpResponse, err
 }
