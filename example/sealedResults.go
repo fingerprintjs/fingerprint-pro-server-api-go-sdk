@@ -4,7 +4,7 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
-	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v5/sdk/sealed"
+	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v6/sdk/sealed"
 	"github.com/joho/godotenv"
 	"log"
 	"os"

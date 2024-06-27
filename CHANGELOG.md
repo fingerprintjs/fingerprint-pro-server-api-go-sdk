@@ -1,3 +1,58 @@
+## [6.0.0](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/compare/v5.0.2...v6.0.0) (2024-06-27)
+
+
+### ⚠ BREAKING CHANGES
+
+* it is now easier to check for too many requests error (429):
+
+```go
+	response, httpRes, err := client.FingerprintApi.GetVisits(auth, visitorId, &opts)
+	fmt.Printf("%+v\n", httpRes)
+
+	if err != nil {
+		var tooManyRequestsError *sdk.TooManyRequestsError
+
+		if errors.As(err, &tooManyRequestsError) {
+			log.Printf("Too many requests, retry after %d seconds", tooManyRequestsError.RetryAfter())
+		} else {
+			log.Print(err)
+		}
+	}
+```
+* rename `GenericSwaggerError` to `ApiError`
+* rename `ManyRequestsResponse` to `TooManyRequestsResponse`
+* go 1.20 has reached EOL. Minimal supported version of go is now 1.21
+* right now we use native `errors` package for joining errors, meaning that multiple error messages are now joined by new line rather than colon (:)
+* optional pkg is no longer used in this SDK. Please pass native GO types instead.
+
+### Features
+
+* add `IsValidWebhookSignature` function for validating webhook signature ([a5bf13d](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/a5bf13d62171ce06ec031e26a33d27d3f0b851bb))
+* add delete API ([0e077c3](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/0e077c3546c4a29d4ca8ae42da2eff6c587fee6f))
+* add os Mismatch ([30b0215](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/30b0215128f488db116ce29e8c531cbb8718eafb))
+* add revision string field to confidence object ([8a2f270](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/8a2f270a3cc057dec78bf7b4aaa36522ca960d9c))
+* drop support for go 1.20 ([46953bc](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/46953bc345e5d6c8acdb215c2b665b54c91fe5a8))
+* drop usage of `github.com/pkg/errors` ([186d30a](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/186d30a6ae0135a02f6abd20e0746ee59bee024a))
+* introduce `TooManyRequestsError` ([85f3307](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/85f3307c19991a0cb716a6c8f313ed7fa83bccf9))
+* provide `HttpResponse()` in `ApiError` ([acd1274](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/acd1274a1e7b157f0b3dad1ff1d9b53a2730b4e6))
+* re-write request handling logic ([14b7e7f](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/14b7e7f2f26280e5ffe59269273995b17ab19126))
+* remove usage of github.com/antihax/optional package ([62db97f](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/62db97f9373b7bf929cee3f8b5fccb50d8b82bd8))
+* rename `GenericSwaggerError` to `ApiError` ([259b7b4](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/259b7b417c7dcab31021e67aaa34e8daa3e41d82))
+* rename `ManyRequestsResponse` to `TooManyRequestsResponse` ([3f66641](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/3f66641c610d34db4cd0657833ff2696948f2f3b))
+
+
+### Bug Fixes
+
+* allow passing `nil` configuration to `NewAPIClient` ([8234fbe](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/8234fbef2bd91cbc4b62ac7061b5c907759e9527))
+* move test related dependencies to test module ([298275d](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/298275d75d13298745304916425539f905b0225f))
+* use correct error type for `incognito`, `rawDeviceAttributes` and `tampering` in the `GetEvent` method ([c29aea9](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/c29aea98fb7f814f19b46225a5656318fc4f81fd))
+
+
+### Reverts
+
+* Revert "chore(release): 6.0.0-test.1 [skip ci]" ([9916b45](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/9916b459c455951a6247636a9bbccc7cecc3b285))
+* "chore(release): 6.0.0-test.1 [skip ci]" ([84ec138](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/84ec138b42fe10a7ffe649c031692da68e2cfaff))
+
 ## [5.0.2](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/compare/v5.0.1...v5.0.2) (2024-03-28)
 
 
