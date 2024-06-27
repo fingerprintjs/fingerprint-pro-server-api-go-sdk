@@ -10,7 +10,7 @@
 package sdk
 
 type ErrorEvent404ResponseError struct {
-	// Error code:  * `RequestNotFound` - request not found for specified id
+	// Error code:  * `RequestNotFound` - The specified request ID was not found. It never existed, expired, or it has been deleted.
 	Code    string `json:"code"`
 	Message string `json:"message"`
 }

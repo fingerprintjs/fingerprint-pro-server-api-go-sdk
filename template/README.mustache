@@ -35,7 +35,7 @@ For more information, please visit [{{{infoUrl}}}]({{{infoUrl}}})
 
 ## Requirements
 
-Go Lang 1.20 or higher
+Go Lang 1.21 or higher
 
 We keep the [Go support policy](https://go.dev/doc/devel/release) and support the last two major versions of Go.
 
@@ -54,7 +54,6 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/antihax/optional"
 	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v5/sdk"
 	"log"
 )
@@ -73,23 +72,21 @@ func main() {
 	// Usually this data will come from your frontend app
 	visitorId := "VISITOR_ID"
 	opts := sdk.FingerprintApiGetVisitsOpts{
-		RequestId: optional.NewString("REQUEST_ID"),
+		RequestId: "REQUEST_ID_",
 	}
 	response, httpRes, err := client.FingerprintApi.GetVisits(auth, visitorId, &opts)
 	fmt.Printf("%+v\n", httpRes)
-	if err != nil {
-		switch err.(type) {
-		case *sdk.GenericSwaggerError:
-			switch model := err.(sdk.GenericSwaggerError).Model().(type) {
-			case sdk.ManyRequestsResponse:
-				log.Printf("Too many requests, retry after %d seconds", model.RetryAfter)
-			}
 
-		default:
+	if err != nil {
+		var tooManyRequestsError *sdk.TooManyRequestsError
+
+		if errors.As(err, &tooManyRequestsError) {
+			log.Fatalf("Too many requests, retry after %d seconds", tooManyRequestsError.RetryAfter())
+		} else {
 			log.Fatal(err)
 		}
-
 	}
+
 	fmt.Printf("Got response with visitorId: %s", response.VisitorId)
 }
 ```
@@ -167,8 +164,43 @@ func main() {
 	// Do something with unsealed response, e.g: send it back to the frontend.
 	fmt.Println(unsealedResponse)
 }
-
 ```
+
+## Webhook signing
+
+This SDK provides utility method for verifing the HMAC signature of the incoming webhook request.
+Install the webhook dependency as below:
+```shell
+go get github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v5/sdk/webhook
+```
+
+Then you can use below code to verify signature:
+```go
+package main
+
+import (
+	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v5/sdk/webhook"
+)
+
+func main() {
+    // Your webhook signing secret.
+    secret := "secret"
+
+    // Request data. In real life scenario this will be the body of incoming request
+    data := []byte("data")
+
+    // Value of the "fpjs-event-signature" header.
+    header := "v1=1b2c16b75bd2a870c114153ccda5bcfca63314bc722fa160d690de133ccbb9db"
+
+    isValid := webhook.IsValidWebhookSignature(header, data, secret)
+
+    if !isValid {
+        panic("Invalid signature")
+    }
+}
+```
+
+
 To learn more, refer to example located in [example/sealedResults.go](./example/sealedResults.go).
 
 ## Documentation for API Endpoints
@@ -211,6 +243,10 @@ Class | Method | HTTP request | Description
 
 - [SealedResults](docs/SealedResults.md)
 - [DecryptionKey](docs/DecryptionKey.md)
+
+## Documentation for webhooks
+
+- [DecryptionKey](docs/Webhook.md)
 
 ## Author
 

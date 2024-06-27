@@ -3,12 +3,12 @@ package main
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v5/sdk"
 	"log"
 	"os"
 
-	"github.com/antihax/optional"
 	"github.com/joho/godotenv"
 )
 
@@ -35,24 +35,20 @@ func main() {
 	// Usually this data will come from your frontend app
 	visitorId := os.Getenv("VISITOR_ID")
 	opts := sdk.FingerprintApiGetVisitsOpts{
-		RequestId: optional.NewString(os.Getenv("REQUEST_ID")),
+		RequestId: os.Getenv("REQUEST_ID"),
 	}
 
 	response, httpRes, err := client.FingerprintApi.GetVisits(auth, visitorId, &opts)
 	fmt.Printf("%+v\n", httpRes)
 
 	if err != nil {
-		switch err.(type) {
-		case *sdk.GenericSwaggerError:
-			switch model := err.(sdk.GenericSwaggerError).Model().(type) {
-			case sdk.ManyRequestsResponse:
-				log.Printf("Too many requests, retry after %d seconds", model.RetryAfter)
-			}
+		var tooManyRequestsError *sdk.TooManyRequestsError
 
-		default:
-			log.Fatal(err)
+		if errors.As(err, &tooManyRequestsError) {
+			log.Printf("Too many requests, retry after %d seconds", tooManyRequestsError.RetryAfter())
+		} else {
+			log.Print(err)
 		}
-
 	}
 
 	fmt.Printf("Got response with visitorId: %s", response.VisitorId)

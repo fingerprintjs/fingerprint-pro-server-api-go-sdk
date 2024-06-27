@@ -1,9 +1,10 @@
-# ErrorEvent403Response
+# ErrorCommon429ResponseError
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Error_** | [***ErrorEvent403ResponseError**](ErrorEvent403ResponseError.md) |  | [optional] [default to null]
+**Code** | **string** | Error code: * `TooManyRequests` - The request is throttled.  | [default to null]
+**Message** | **string** |  | [default to null]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
