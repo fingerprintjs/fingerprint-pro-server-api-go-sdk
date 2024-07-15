@@ -160,7 +160,7 @@ func main() {
 
 ## Webhook signing
 
-This SDK provides utility method for verifing the HMAC signature of the incoming webhook request.
+This SDK provides utility method for verifing the HMAC signature of the incoming [webhook](https://dev.fingerprint.com/docs/webhooks) request.
 Install the webhook dependency as below:
 ```shell
 go get github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v6/sdk/webhook
