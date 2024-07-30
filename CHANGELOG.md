@@ -1,3 +1,10 @@
+## [6.1.0](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/compare/v6.0.0...v6.1.0) (2024-07-30)
+
+
+### Features
+
+* add velocity, remote control and developer tools smart signals ([a66f05c](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/a66f05cc3b743f3ddf3467bc79afaa9311cf2073))
+
 ## [6.0.0](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/compare/v5.0.2...v6.0.0) (2024-06-27)
 
 
