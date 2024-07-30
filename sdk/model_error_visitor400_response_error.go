@@ -9,7 +9,7 @@
  */
 package sdk
 
-type ErrorVisitsDelete400ResponseError struct {
+type ErrorVisitor400ResponseError struct {
 	// Error code: * `RequestCannotBeParsed` - The visitor ID parameter is missing or in the wrong format.
 	Code    string `json:"code"`
 	Message string `json:"message"`

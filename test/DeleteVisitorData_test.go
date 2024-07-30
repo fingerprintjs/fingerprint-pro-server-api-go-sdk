@@ -49,8 +49,8 @@ func TestDeleteVisitorData(t *testing.T) {
 		assert.Equal(t, res.StatusCode, 200)
 	})
 
-	t.Run("Returns ErrorVisitsDelete404Response on 404", func(t *testing.T) {
-		mockResponse := GetMockResponse[sdk.ErrorVisitsDelete404Response]("../test/mocks/delete_visits_404_error.json")
+	t.Run("Returns ErrorVisitor404Response on 404", func(t *testing.T) {
+		mockResponse := GetMockResponse[sdk.ErrorVisitor404Response]("../test/mocks/404_error_visitor_not_found.json")
 
 		ts := httptest.NewServer(http.HandlerFunc(func(
 			w http.ResponseWriter,
@@ -91,13 +91,13 @@ func TestDeleteVisitorData(t *testing.T) {
 		assert.NotNil(t, res)
 		assert.Equal(t, res.StatusCode, 404)
 
-		errorModel := err.(sdk.ApiError).Model().(*sdk.ErrorVisitsDelete404Response)
-		assert.IsType(t, errorModel, &sdk.ErrorVisitsDelete404Response{})
+		errorModel := err.(sdk.ApiError).Model().(*sdk.ErrorVisitor404Response)
+		assert.IsType(t, errorModel, &sdk.ErrorVisitor404Response{})
 		assert.Equal(t, errorModel, &mockResponse)
 	})
 
 	t.Run("Returns TooManyRequestsError on 429", func(t *testing.T) {
-		mockResponse := GetMockResponse[sdk.ErrorCommon429Response]("../test/mocks/delete_visits_429_error.json")
+		mockResponse := GetMockResponse[sdk.ErrorCommon429Response]("../test/mocks/429_error_too_many_requests.json")
 
 		ts := httptest.NewServer(http.HandlerFunc(func(
 			w http.ResponseWriter,
@@ -148,8 +148,8 @@ func TestDeleteVisitorData(t *testing.T) {
 		assert.Equal(t, tooManyRequestsError.Error(), mockResponse.Error_.Message)
 	})
 
-	t.Run("Returns ErrorCommon400Response on 400", func(t *testing.T) {
-		mockResponse := GetMockResponse[sdk.ErrorVisitsDelete400Response]("../test/mocks/delete_visits_400_error.json")
+	t.Run("Returns ErrorVisitor400Response on 400", func(t *testing.T) {
+		mockResponse := GetMockResponse[sdk.ErrorVisitor400Response]("../test/mocks/400_error_incorrect_visitor_id.json")
 
 		ts := httptest.NewServer(http.HandlerFunc(func(
 			w http.ResponseWriter,
@@ -190,13 +190,13 @@ func TestDeleteVisitorData(t *testing.T) {
 		assert.NotNil(t, res)
 		assert.Equal(t, res.StatusCode, 400)
 
-		errorModel := err.(sdk.ApiError).Model().(*sdk.ErrorVisitsDelete400Response)
-		assert.IsType(t, errorModel, &sdk.ErrorVisitsDelete400Response{})
+		errorModel := err.(sdk.ApiError).Model().(*sdk.ErrorVisitor400Response)
+		assert.IsType(t, errorModel, &sdk.ErrorVisitor400Response{})
 		assert.Equal(t, errorModel, &mockResponse)
 	})
 
 	t.Run("Returns ErrorCommon403Response on 403", func(t *testing.T) {
-		mockResponse := GetMockResponse[sdk.ErrorCommon403Response]("../test/mocks/delete_visits_403_error.json")
+		mockResponse := GetMockResponse[sdk.ErrorCommon403Response]("../test/mocks/403_error_feature_not_enabled.json")
 
 		ts := httptest.NewServer(http.HandlerFunc(func(
 			w http.ResponseWriter,

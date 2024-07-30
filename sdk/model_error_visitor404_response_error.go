@@ -9,6 +9,8 @@
  */
 package sdk
 
-type ErrorVisitsDelete400Response struct {
-	Error_ *ErrorVisitsDelete400ResponseError `json:"error,omitempty"`
+type ErrorVisitor404ResponseError struct {
+	// Error code: * `VisitorNotFound` - The specified visitor ID was not found. It never existed or it may have already been deleted.
+	Code    string `json:"code"`
+	Message string `json:"message"`
 }
