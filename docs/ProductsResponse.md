@@ -26,6 +26,9 @@ Name | Type | Description | Notes
 **LocationSpoofing** | [***SignalResponseLocationSpoofing**](SignalResponseLocationSpoofing.md) |  | [optional] [default to null]
 **SuspectScore** | [***SignalResponseSuspectScore**](SignalResponseSuspectScore.md) |  | [optional] [default to null]
 **RawDeviceAttributes** | [***SignalResponseRawDeviceAttributes**](SignalResponseRawDeviceAttributes.md) |  | [optional] [default to null]
+**RemoteControl** | [***SignalResponseRemoteControl**](SignalResponseRemoteControl.md) |  | [optional] [default to null]
+**Velocity** | [***SignalResponseVelocity**](SignalResponseVelocity.md) |  | [optional] [default to null]
+**DeveloperTools** | [***SignalResponseDeveloperTools**](SignalResponseDeveloperTools.md) |  | [optional] [default to null]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

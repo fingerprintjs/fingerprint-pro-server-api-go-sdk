@@ -32,4 +32,7 @@ type ProductsResponse struct {
 	LocationSpoofing    *SignalResponseLocationSpoofing    `json:"locationSpoofing,omitempty"`
 	SuspectScore        *SignalResponseSuspectScore        `json:"suspectScore,omitempty"`
 	RawDeviceAttributes *SignalResponseRawDeviceAttributes `json:"rawDeviceAttributes,omitempty"`
+	RemoteControl       *SignalResponseRemoteControl       `json:"remoteControl,omitempty"`
+	Velocity            *SignalResponseVelocity            `json:"velocity,omitempty"`
+	DeveloperTools      *SignalResponseDeveloperTools      `json:"developerTools,omitempty"`
 }
