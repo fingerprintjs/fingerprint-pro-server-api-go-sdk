@@ -246,18 +246,25 @@ func getExamples() {
 		"get_event_200_identification_too_many_requests_error.json",
 		"get_event_200_identification_too_many_requests_error_all_fields.json",
 		"get_visits_429_too_many_requests_error.json",
-		"delete_visits_404_error.json",
-		"delete_visits_400_error.json",
-		"delete_visits_403_error.json",
-		"delete_visits_429_error.json",
+		"shared/404_error_visitor_not_found.json",
+		"shared/400_error_incorrect_visitor_id.json",
+		"shared/403_error_feature_not_enabled.json",
+		"shared/429_error_too_many_requests.json",
 	}
 
 	for _, file := range list {
-		cmd := exec.Command("curl", "-o", fmt.Sprintf("./test/mocks/%s", file), fmt.Sprintf("https://fingerprintjs.github.io/fingerprint-pro-server-api-openapi/examples/%s", file))
+		url := fmt.Sprintf("https://fingerprintjs.github.io/fingerprint-pro-server-api-openapi/examples/%s", file)
+
+		outPathParts := strings.Split(file, "/")
+		outPath := outPathParts[len(outPathParts)-1]
+		outPath = fmt.Sprintf("./test/mocks/%s", outPath)
+
+		log.Printf("Downloading %s to %s", url, outPath)
+		cmd := exec.Command("curl", "-o", outPath, url)
 		_, err := cmd.Output()
 
 		if err != nil {
-			log.Fatal(err)
+			log.Printf("Error downloading %s: %s", file, err)
 		}
 	}
 
