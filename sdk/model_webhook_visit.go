@@ -38,6 +38,9 @@ type WebhookVisit struct {
 	HighActivity        *HighActivityResult     `json:"highActivity,omitempty"`
 	LocationSpoofing    *LocationSpoofingResult `json:"locationSpoofing,omitempty"`
 	SuspectScore        *SuspectScoreResult     `json:"suspectScore,omitempty"`
+	RemoteControl       *RemoteControlResult    `json:"remoteControl,omitempty"`
+	Velocity            *VelocityResult         `json:"velocity,omitempty"`
+	DeveloperTools      *DeveloperToolsResult   `json:"developerTools,omitempty"`
 	// Unique identifier of the user's identification request.
 	RequestId      string                `json:"requestId"`
 	BrowserDetails *BrowserDetails       `json:"browserDetails"`
