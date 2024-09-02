@@ -1,19 +1,19 @@
-name: 'Release'
+name: Release
 on:
   push:
     branches:
-      - test
       - main
 
 jobs:
   release:
-    name: 'Publish new version'
-    uses: fingerprintjs/dx-team-toolkit/.github/workflows/release-server-sdk.yml@v1
+    name: 'Release project'
+    uses: fingerprintjs/dx-team-toolkit/.github/workflows/release-sdk-changesets.yml@v1
     with:
+      version-command: pnpm exec changeset version && bash ./sync-version.sh
+      publish-command: pnpm exec changeset publish && go run generate.go
       language: golang
       language-version: '1.21'
-      appId: ${{ vars.APP_ID }}
       prepare-command: |
         go build
     secrets:
-      APP_PRIVATE_KEY: ${{ secrets.APP_PRIVATE_KEY }}
+      GH_RELEASE_TOKEN: ${{ secrets.GITHUB_TOKEN }}
