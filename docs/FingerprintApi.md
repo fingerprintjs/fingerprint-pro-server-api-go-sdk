@@ -4,37 +4,9 @@ All URIs are relative to *https://api.fpjs.io*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteVisitorData**](FingerprintApi.md#DeleteVisitorData) | **Delete** /visitors/{visitor_id} | Delete data by visitor ID
 [**GetEvent**](FingerprintApi.md#GetEvent) | **Get** /events/{request_id} | Get event by request ID
 [**GetVisits**](FingerprintApi.md#GetVisits) | **Get** /visitors/{visitor_id} | Get visits by visitor ID
-
-# **DeleteVisitorData**
-> DeleteVisitorData(ctx, visitorId)
-Delete data by visitor ID
-
-Request deleting all data associated with the specified visitor ID. This API is useful for compliance with privacy regulations. All delete requests are queued:   * Recent data (10 days or newer) belonging to the specified visitor will be deleted within 24 hours. * Data from older (11 days or more) identification events  will be deleted after 90 days.  If you are interested in using this API, please [contact our support team](https://fingerprint.com/support/) to enable it for you. Otherwise, you will receive a 403. 
-
-### Required Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **visitorId** | **string**| The [visitor ID](https://dev.fingerprint.com/docs/js-agent#visitorid) you want to delete. | 
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[ApiKeyHeader](../README.md#ApiKeyHeader), [ApiKeyQuery](../README.md#ApiKeyQuery)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[**UpdateEvent**](FingerprintApi.md#UpdateEvent) | **Put** /events/{request_id} | Update an event with a given request ID
 
 # **GetEvent**
 > EventResponse GetEvent(ctx, requestId)
@@ -100,6 +72,35 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **UpdateEvent**
+> UpdateEvent(ctx, body, requestId)
+Update an event with a given request ID
+
+Change information in existing events specified by `requestId` or *flag suspicious events*.  When an event is created, it is assigned `linkedId` and `tag` submitted through the JS agent parameters. This information might not be available on the client so the Server API allows for updating the attributes after the fact.  **Warning** It's not possible to update events older than 10 days. 
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **body** | [**EventUpdateRequest**](EventUpdateRequest.md)|  | 
+  **requestId** | **string**| The unique event [identifier](https://dev.fingerprint.com/docs/js-agent#requestid). | 
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[ApiKeyHeader](../README.md#ApiKeyHeader), [ApiKeyQuery](../README.md#ApiKeyQuery)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

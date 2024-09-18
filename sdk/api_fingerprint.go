@@ -19,15 +19,6 @@ const IntegrationInfo = "fingerprint-pro-server-go-sdk/6.1.0"
 
 type FingerprintApiServiceInterface interface {
 	/*
-	   FingerprintApiService Delete data by visitor ID
-	   Request deleting all data associated with the specified visitor ID. This API is useful for compliance with privacy regulations. All delete requests are queued:   * Recent data (10 days or newer) belonging to the specified visitor will be deleted within 24 hours. * Data from older (11 days or more) identification events  will be deleted after 90 days.  If you are interested in using this API, please [contact our support team](https://fingerprint.com/support/) to enable it for you. Otherwise, you will receive a 403.
-	    * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	    * @param visitorId The [visitor ID](https://dev.fingerprint.com/docs/js-agent#visitorid) you want to delete.
-
-	*/
-	DeleteVisitorData(ctx context.Context, visitorId string) (*http.Response, error)
-
-	/*
 	   FingerprintApiService Get event by request ID
 	   Get a detailed analysis of an individual identification event, including Smart Signals.  Please note that the response includes mobile signals (e.g. `rootApps`) even if the request originated from a non-mobile platform. It is highly recommended that you **ignore** the mobile signals for such requests.   Use `requestId` as the URL path parameter. This API method is scoped to a request, i.e. all returned information is by `requestId`.
 	    * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -50,33 +41,21 @@ type FingerprintApiServiceInterface interface {
 	   @return Response
 	*/
 	GetVisits(ctx context.Context, visitorId string, opts *FingerprintApiGetVisitsOpts) (Response, *http.Response, error)
+
+	/*
+	   FingerprintApiService Update an event with a given request ID
+	   Change information in existing events specified by `requestId` or *flag suspicious events*.  When an event is created, it is assigned `linkedId` and `tag` submitted through the JS agent parameters. This information might not be available on the client so the Server API allows for updating the attributes after the fact.  **Warning** It's not possible to update events older than 10 days.
+	    * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	    * @param body
+	    * @param requestId The unique event [identifier](https://dev.fingerprint.com/docs/js-agent#requestid).
+
+	*/
+	UpdateEvent(ctx context.Context, body EventUpdateRequest, requestId string) (*http.Response, error)
 }
 
 type requestDefinition struct {
 	StatusCodeResultsFactoryMap map[int]func() any
 	GetPath                     func(params ...string) string
-}
-
-func createDeleteVisitorDataDefinition() requestDefinition {
-	return requestDefinition{
-		GetPath: func(args ...string) string {
-			pathParams := []string{"visitor_id"}
-
-			path := "/visitors/{visitor_id}"
-
-			for i, arg := range args {
-				path = strings.Replace(path, "{"+pathParams[i]+"}", arg, -1)
-			}
-
-			return path
-		},
-		StatusCodeResultsFactoryMap: map[int]func() any{
-			400: func() any { return &ErrorVisitsDelete400Response{} },
-			403: func() any { return &ErrorCommon403Response{} },
-			404: func() any { return &ErrorVisitsDelete404Response{} },
-			429: func() any { return &ErrorCommon429Response{} },
-		},
-	}
 }
 
 func createGetEventDefinition() requestDefinition {
@@ -143,4 +122,26 @@ func (o *FingerprintApiGetVisitsOpts) ToUrlValuesMap() map[string]any {
 	data["before"] = o.Before
 
 	return data
+}
+
+func createUpdateEventDefinition() requestDefinition {
+	return requestDefinition{
+		GetPath: func(args ...string) string {
+			pathParams := []string{"request_id"}
+
+			path := "/events/{request_id}"
+
+			for i, arg := range args {
+				path = strings.Replace(path, "{"+pathParams[i]+"}", arg, -1)
+			}
+
+			return path
+		},
+		StatusCodeResultsFactoryMap: map[int]func() any{
+			400: func() any { return &ErrorUpdateEvent400Response{} },
+			403: func() any { return &ErrorCommon403Response{} },
+			404: func() any { return &ErrorEvent404Response{} },
+			409: func() any { return &ErrorUpdateEvent409Response{} },
+		},
+	}
 }
