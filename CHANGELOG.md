@@ -1,3 +1,5 @@
+# Fingerprint Pro Server Go SDK
+
 ## [6.1.0](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/compare/v6.0.0...v6.1.0) (2024-07-30)
 
 

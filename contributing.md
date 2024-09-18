@@ -54,12 +54,4 @@ go run getVisits.go
 
 ### How to publish
 
-The library is automatically released on every push to the `main` branch if there are relevant changes using [semantic-release](https://github.com/semantic-release/semantic-release) with following plugins:
-
-- [@semantic-release/commit-analyzer](https://github.com/semantic-release/commit-analyzer)
-- [@semantic-release/release-notes-generator](https://github.com/semantic-release/release-notes-generator)
-- [@semantic-release/changelog](https://github.com/semantic-release/changelog)
-- [@semantic-release/github](https://github.com/semantic-release/github)
-
-The workflow must be approved by one of the maintainers, first.
-The release configuration can be found in the [.releaserc.js](./.releaserc.js) file.
+We use [changesets](https://github.com/changesets/changesets) for handling release notes. If there are relevant changes, please add them to changeset via `pnpm exec changeset`. You need to run `pnpm install` before doing so.

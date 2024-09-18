@@ -33,6 +33,3 @@ _testmain.go
 
 # Built binary
 fingerprint-pro-server-api-go-sdk
-
-# Ignore lock file created in CI during release
-pnpm-lock.yaml
