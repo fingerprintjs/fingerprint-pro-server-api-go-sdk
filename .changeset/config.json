@@ -3,7 +3,7 @@
   "changelog": [
     "@fingerprintjs/changesets-changelog-format",
     {
-      "repo": "fingerprintjs/fingerprintjs-pro-server-api-go-sdk"
+      "repo": "fingerprintjs/fingerprint-pro-server-api-go-sdk"
     }
   ],
   "commit": false,
