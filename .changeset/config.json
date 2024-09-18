@@ -1,6 +1,11 @@
 {
   "$schema": "https://unpkg.com/@changesets/config@3.0.2/schema.json",
-  "changelog": "@changesets/cli/changelog",
+  "changelog": [
+    "@fingerprintjs/changesets-changelog-format",
+    {
+      "repo": "fingerprintjs/fingerprintjs-pro-server-api-go-sdk"
+    }
+  ],
   "commit": false,
   "fixed": [],
   "linked": [],
