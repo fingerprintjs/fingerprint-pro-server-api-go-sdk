@@ -204,6 +204,7 @@ Class | Method | HTTP request | Description
 *FingerprintApi* | [**DeleteVisitorData**](docs/FingerprintApi.md#deletevisitordata) | **Delete** /visitors/{visitor_id} | Delete data by visitor ID
 *FingerprintApi* | [**GetEvent**](docs/FingerprintApi.md#getevent) | **Get** /events/{request_id} | Get event by request ID
 *FingerprintApi* | [**GetVisits**](docs/FingerprintApi.md#getvisits) | **Get** /visitors/{visitor_id} | Get visits by visitor ID
+*FingerprintApi* | [**UpdateEvent**](docs/FingerprintApi.md#updateevent) | **Put** /events/{request_id} | Update an event with a given request ID
 
 ## Documentation For Models
 
@@ -224,12 +225,17 @@ Class | Method | HTTP request | Description
  - [ErrorCommon429ResponseError](docs/ErrorCommon429ResponseError.md)
  - [ErrorEvent404Response](docs/ErrorEvent404Response.md)
  - [ErrorEvent404ResponseError](docs/ErrorEvent404ResponseError.md)
+ - [ErrorUpdateEvent400Response](docs/ErrorUpdateEvent400Response.md)
+ - [ErrorUpdateEvent400ResponseError](docs/ErrorUpdateEvent400ResponseError.md)
+ - [ErrorUpdateEvent409Response](docs/ErrorUpdateEvent409Response.md)
+ - [ErrorUpdateEvent409ResponseError](docs/ErrorUpdateEvent409ResponseError.md)
+ - [ErrorVisitor400Response](docs/ErrorVisitor400Response.md)
+ - [ErrorVisitor400ResponseError](docs/ErrorVisitor400ResponseError.md)
+ - [ErrorVisitor404Response](docs/ErrorVisitor404Response.md)
+ - [ErrorVisitor404ResponseError](docs/ErrorVisitor404ResponseError.md)
  - [ErrorVisits403](docs/ErrorVisits403.md)
- - [ErrorVisitsDelete400Response](docs/ErrorVisitsDelete400Response.md)
- - [ErrorVisitsDelete400ResponseError](docs/ErrorVisitsDelete400ResponseError.md)
- - [ErrorVisitsDelete404Response](docs/ErrorVisitsDelete404Response.md)
- - [ErrorVisitsDelete404ResponseError](docs/ErrorVisitsDelete404ResponseError.md)
  - [EventResponse](docs/EventResponse.md)
+ - [EventUpdateRequest](docs/EventUpdateRequest.md)
  - [FactoryResetResult](docs/FactoryResetResult.md)
  - [FridaResult](docs/FridaResult.md)
  - [HighActivityResult](docs/HighActivityResult.md)
@@ -288,7 +294,6 @@ Class | Method | HTTP request | Description
  - [VelocityIntervals](docs/VelocityIntervals.md)
  - [VelocityResult](docs/VelocityResult.md)
  - [VirtualMachineResult](docs/VirtualMachineResult.md)
- - [Visit](docs/Visit.md)
  - [VpnResult](docs/VpnResult.md)
  - [VpnResultMethods](docs/VpnResultMethods.md)
  - [WebhookVisit](docs/WebhookVisit.md)

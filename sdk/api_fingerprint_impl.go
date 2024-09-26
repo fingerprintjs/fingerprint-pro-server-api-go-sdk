@@ -1,6 +1,7 @@
 package sdk
 
 import (
+	"bytes"
 	"context"
 	"encoding/json"
 	"io"
@@ -17,6 +18,7 @@ type apiRequest struct {
 	pathParams  []string
 	method      string
 	queryParams map[string]any
+	body        io.Reader
 }
 
 func (f *FingerprintApiService) DeleteVisitorData(ctx context.Context, visitorId string) (*http.Response, error) {
@@ -44,6 +46,24 @@ func (f *FingerprintApiService) GetEvent(ctx context.Context, requestId string) 
 	return eventResponse, response, err
 }
 
+func (f *FingerprintApiService) UpdateEvent(ctx context.Context, body EventUpdateRequest, requestId string) (*http.Response, error) {
+	bodyBytes, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+
+	request := apiRequest{
+		definition: createUpdateEventDefinition(),
+		pathParams: []string{requestId},
+		body:       bytes.NewBuffer(bodyBytes),
+		method:     http.MethodPut,
+	}
+
+	httpResponse, err := f.doRequest(ctx, request, nil)
+
+	return httpResponse, err
+}
+
 func (f *FingerprintApiService) GetVisits(ctx context.Context, visitorId string, opts *FingerprintApiGetVisitsOpts) (Response, *http.Response, error) {
 	request := apiRequest{
 		definition:  createGetVisitsDefinition(),
@@ -58,8 +78,8 @@ func (f *FingerprintApiService) GetVisits(ctx context.Context, visitorId string,
 	return response, httpResponse, err
 }
 
-func (f *FingerprintApiService) prepareRequest(ctx context.Context, requestUrl *url.URL, method string) (*http.Request, error) {
-	request, err := http.NewRequestWithContext(ctx, method, requestUrl.String(), nil)
+func (f *FingerprintApiService) prepareRequest(ctx context.Context, requestUrl *url.URL, method string, body io.Reader) (*http.Request, error) {
+	request, err := http.NewRequestWithContext(ctx, method, requestUrl.String(), body)
 
 	if err != nil {
 		return request, err
@@ -93,7 +113,7 @@ func (f *FingerprintApiService) doRequest(ctx context.Context, apiRequest apiReq
 
 	requestUrl.RawQuery = query.Encode()
 
-	request, err := f.prepareRequest(ctx, requestUrl, apiRequest.method)
+	request, err := f.prepareRequest(ctx, requestUrl, apiRequest.method, apiRequest.body)
 	if err != nil {
 		return nil, err
 	}

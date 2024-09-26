@@ -9,6 +9,6 @@
  */
 package sdk
 
-type ErrorVisitsDelete400Response struct {
-	Error_ *ErrorVisitsDelete400ResponseError `json:"error,omitempty"`
+type ErrorVisitor404Response struct {
+	Error_ *ErrorVisitor404ResponseError `json:"error,omitempty"`
 }

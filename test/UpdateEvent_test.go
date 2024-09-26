@@ -3,7 +3,6 @@ package test
 import (
 	"context"
 	"encoding/json"
-	"errors"
 	"fmt"
 	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v6/config"
 	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v6/sdk"
@@ -13,7 +12,7 @@ import (
 	"testing"
 )
 
-func TestDeleteVisitorData(t *testing.T) {
+func TestUpdateEvent(t *testing.T) {
 	t.Run("Returns 200 on success", func(t *testing.T) {
 		ts := httptest.NewServer(http.HandlerFunc(func(
 			w http.ResponseWriter,
@@ -22,8 +21,8 @@ func TestDeleteVisitorData(t *testing.T) {
 			configFile := config.ReadConfig("../config.json")
 			integrationInfo := r.URL.Query().Get("ii")
 			assert.Equal(t, integrationInfo, fmt.Sprintf("fingerprint-pro-server-go-sdk/%s", configFile.PackageVersion))
-			assert.Equal(t, r.URL.Path, "/visitors/123")
-			assert.Equal(t, r.Method, http.MethodDelete)
+			assert.Equal(t, r.URL.Path, "/events/123")
+			assert.Equal(t, r.Method, http.MethodPut)
 
 			apiKey := r.Header.Get("Auth-Api-Key")
 			assert.Equal(t, apiKey, "api_key")
@@ -42,15 +41,19 @@ func TestDeleteVisitorData(t *testing.T) {
 			Key: "api_key",
 		})
 
-		res, err := client.FingerprintApi.DeleteVisitorData(ctx, "123")
+		res, err := client.FingerprintApi.UpdateEvent(ctx, sdk.EventUpdateRequest{
+			LinkedId: "linked_id",
+			Tag:      nil,
+			Suspect:  true,
+		}, "123")
 
 		assert.NoError(t, err)
 		assert.NotNil(t, res)
 		assert.Equal(t, res.StatusCode, 200)
 	})
 
-	t.Run("Returns ErrorVisitor404Response on 404", func(t *testing.T) {
-		mockResponse := GetMockResponse[sdk.ErrorVisitor404Response]("../test/mocks/404_error_visitor_not_found.json")
+	t.Run("Returns ErrorEvent404Response on 404", func(t *testing.T) {
+		mockResponse := GetMockResponse[sdk.ErrorEvent404Response]("../test/mocks/update_event_404_error.json")
 
 		ts := httptest.NewServer(http.HandlerFunc(func(
 			w http.ResponseWriter,
@@ -60,8 +63,8 @@ func TestDeleteVisitorData(t *testing.T) {
 			configFile := config.ReadConfig("../config.json")
 			integrationInfo := r.URL.Query().Get("ii")
 			assert.Equal(t, integrationInfo, fmt.Sprintf("fingerprint-pro-server-go-sdk/%s", configFile.PackageVersion))
-			assert.Equal(t, r.URL.Path, "/visitors/123")
-			assert.Equal(t, r.Method, http.MethodDelete)
+			assert.Equal(t, r.URL.Path, "/events/123")
+			assert.Equal(t, r.Method, http.MethodPut)
 
 			apiKey := r.Header.Get("Auth-Api-Key")
 			assert.Equal(t, apiKey, "api_key")
@@ -85,19 +88,23 @@ func TestDeleteVisitorData(t *testing.T) {
 			Key: "api_key",
 		})
 
-		res, err := client.FingerprintApi.DeleteVisitorData(ctx, "123")
+		res, err := client.FingerprintApi.UpdateEvent(ctx, sdk.EventUpdateRequest{
+			LinkedId: "linked_id",
+			Tag:      nil,
+			Suspect:  true,
+		}, "123")
 
 		assert.Error(t, err)
 		assert.NotNil(t, res)
 		assert.Equal(t, res.StatusCode, 404)
 
-		errorModel := err.(sdk.ApiError).Model().(*sdk.ErrorVisitor404Response)
-		assert.IsType(t, errorModel, &sdk.ErrorVisitor404Response{})
+		errorModel := err.(sdk.ApiError).Model().(*sdk.ErrorEvent404Response)
+		assert.IsType(t, errorModel, &sdk.ErrorEvent404Response{})
 		assert.Equal(t, errorModel, &mockResponse)
 	})
 
-	t.Run("Returns TooManyRequestsError on 429", func(t *testing.T) {
-		mockResponse := GetMockResponse[sdk.ErrorCommon429Response]("../test/mocks/429_error_too_many_requests.json")
+	t.Run("Returns ErrorUpdateEvent400Response on 400", func(t *testing.T) {
+		mockResponse := GetMockResponse[sdk.ErrorUpdateEvent400Response]("../test/mocks/update_event_400_error.json")
 
 		ts := httptest.NewServer(http.HandlerFunc(func(
 			w http.ResponseWriter,
@@ -107,60 +114,8 @@ func TestDeleteVisitorData(t *testing.T) {
 			configFile := config.ReadConfig("../config.json")
 			integrationInfo := r.URL.Query().Get("ii")
 			assert.Equal(t, integrationInfo, fmt.Sprintf("fingerprint-pro-server-go-sdk/%s", configFile.PackageVersion))
-			assert.Equal(t, r.URL.Path, "/visitors/123")
-			assert.Equal(t, r.Method, http.MethodDelete)
-
-			apiKey := r.Header.Get("Auth-Api-Key")
-			assert.Equal(t, apiKey, "api_key")
-
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(429)
-			err := json.NewEncoder(w).Encode(mockResponse)
-
-			if err != nil {
-				panic(err)
-			}
-		}))
-
-		defer ts.Close()
-
-		cfg := sdk.NewConfiguration()
-		cfg.ChangeBasePath(ts.URL)
-
-		client := sdk.NewAPIClient(cfg)
-
-		ctx := context.WithValue(context.Background(), sdk.ContextAPIKey, sdk.APIKey{
-			Key: "api_key",
-		})
-
-		res, err := client.FingerprintApi.DeleteVisitorData(ctx, "123")
-
-		assert.Error(t, err)
-		assert.NotNil(t, res)
-		assert.Equal(t, res.StatusCode, 429)
-
-		var tooManyRequestsError *sdk.TooManyRequestsError
-		errors.As(err, &tooManyRequestsError)
-
-		assert.IsType(t, tooManyRequestsError, &sdk.TooManyRequestsError{})
-
-		assert.Equal(t, tooManyRequestsError.Code(), mockResponse.Error_.Code)
-		assert.Equal(t, tooManyRequestsError.Error(), mockResponse.Error_.Message)
-	})
-
-	t.Run("Returns ErrorVisitor400Response on 400", func(t *testing.T) {
-		mockResponse := GetMockResponse[sdk.ErrorVisitor400Response]("../test/mocks/400_error_incorrect_visitor_id.json")
-
-		ts := httptest.NewServer(http.HandlerFunc(func(
-			w http.ResponseWriter,
-			r *http.Request,
-		) {
-
-			configFile := config.ReadConfig("../config.json")
-			integrationInfo := r.URL.Query().Get("ii")
-			assert.Equal(t, integrationInfo, fmt.Sprintf("fingerprint-pro-server-go-sdk/%s", configFile.PackageVersion))
-			assert.Equal(t, r.URL.Path, "/visitors/123")
-			assert.Equal(t, r.Method, http.MethodDelete)
+			assert.Equal(t, r.URL.Path, "/events/123")
+			assert.Equal(t, r.Method, http.MethodPut)
 
 			apiKey := r.Header.Get("Auth-Api-Key")
 			assert.Equal(t, apiKey, "api_key")
@@ -184,19 +139,23 @@ func TestDeleteVisitorData(t *testing.T) {
 			Key: "api_key",
 		})
 
-		res, err := client.FingerprintApi.DeleteVisitorData(ctx, "123")
+		res, err := client.FingerprintApi.UpdateEvent(ctx, sdk.EventUpdateRequest{
+			LinkedId: "linked_id",
+			Tag:      nil,
+			Suspect:  true,
+		}, "123")
 
 		assert.Error(t, err)
 		assert.NotNil(t, res)
 		assert.Equal(t, res.StatusCode, 400)
 
-		errorModel := err.(sdk.ApiError).Model().(*sdk.ErrorVisitor400Response)
-		assert.IsType(t, errorModel, &sdk.ErrorVisitor400Response{})
+		errorModel := err.(sdk.ApiError).Model().(*sdk.ErrorUpdateEvent400Response)
+		assert.IsType(t, errorModel, &sdk.ErrorUpdateEvent400Response{})
 		assert.Equal(t, errorModel, &mockResponse)
 	})
 
 	t.Run("Returns ErrorCommon403Response on 403", func(t *testing.T) {
-		mockResponse := GetMockResponse[sdk.ErrorCommon403Response]("../test/mocks/403_error_feature_not_enabled.json")
+		mockResponse := GetMockResponse[sdk.ErrorCommon403Response]("../test/mocks/update_event_403_error.json")
 
 		ts := httptest.NewServer(http.HandlerFunc(func(
 			w http.ResponseWriter,
@@ -206,8 +165,8 @@ func TestDeleteVisitorData(t *testing.T) {
 			configFile := config.ReadConfig("../config.json")
 			integrationInfo := r.URL.Query().Get("ii")
 			assert.Equal(t, integrationInfo, fmt.Sprintf("fingerprint-pro-server-go-sdk/%s", configFile.PackageVersion))
-			assert.Equal(t, r.URL.Path, "/visitors/123")
-			assert.Equal(t, r.Method, http.MethodDelete)
+			assert.Equal(t, r.URL.Path, "/events/123")
+			assert.Equal(t, r.Method, http.MethodPut)
 
 			apiKey := r.Header.Get("Auth-Api-Key")
 			assert.Equal(t, apiKey, "api_key")
@@ -231,7 +190,11 @@ func TestDeleteVisitorData(t *testing.T) {
 			Key: "api_key",
 		})
 
-		res, err := client.FingerprintApi.DeleteVisitorData(ctx, "123")
+		res, err := client.FingerprintApi.UpdateEvent(ctx, sdk.EventUpdateRequest{
+			LinkedId: "linked_id",
+			Tag:      nil,
+			Suspect:  true,
+		}, "123")
 
 		assert.Error(t, err)
 		assert.NotNil(t, res)
@@ -242,4 +205,54 @@ func TestDeleteVisitorData(t *testing.T) {
 		assert.Equal(t, errorModel, &mockResponse)
 	})
 
+	t.Run("Returns ErrorUpdateEvent409Response on 409", func(t *testing.T) {
+		mockResponse := GetMockResponse[sdk.ErrorUpdateEvent409Response]("../test/mocks/update_event_409_error.json")
+
+		ts := httptest.NewServer(http.HandlerFunc(func(
+			w http.ResponseWriter,
+			r *http.Request,
+		) {
+
+			configFile := config.ReadConfig("../config.json")
+			integrationInfo := r.URL.Query().Get("ii")
+			assert.Equal(t, integrationInfo, fmt.Sprintf("fingerprint-pro-server-go-sdk/%s", configFile.PackageVersion))
+			assert.Equal(t, r.URL.Path, "/events/123")
+			assert.Equal(t, r.Method, http.MethodPut)
+
+			apiKey := r.Header.Get("Auth-Api-Key")
+			assert.Equal(t, apiKey, "api_key")
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(409)
+			err := json.NewEncoder(w).Encode(mockResponse)
+
+			if err != nil {
+				panic(err)
+			}
+		}))
+		defer ts.Close()
+
+		cfg := sdk.NewConfiguration()
+		cfg.ChangeBasePath(ts.URL)
+
+		client := sdk.NewAPIClient(cfg)
+
+		ctx := context.WithValue(context.Background(), sdk.ContextAPIKey, sdk.APIKey{
+			Key: "api_key",
+		})
+
+		res, err := client.FingerprintApi.UpdateEvent(ctx, sdk.EventUpdateRequest{
+			LinkedId: "linked_id",
+			Tag:      nil,
+			Suspect:  true,
+		}, "123")
+
+		assert.Error(t, err)
+		assert.NotNil(t, res)
+		assert.Equal(t, res.StatusCode, 409)
+
+		errorModel := err.(sdk.ApiError).Model().(*sdk.ErrorUpdateEvent409Response)
+		assert.IsType(t, errorModel, &sdk.ErrorUpdateEvent409Response{})
+		assert.Equal(t, errorModel, &mockResponse)
+	})
 }

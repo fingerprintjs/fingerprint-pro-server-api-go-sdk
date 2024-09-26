@@ -20,7 +20,7 @@ const IntegrationInfo = "fingerprint-pro-server-go-sdk/6.1.0"
 type FingerprintApiServiceInterface interface {
 	/*
 	   FingerprintApiService Delete data by visitor ID
-	   Request deleting all data associated with the specified visitor ID. This API is useful for compliance with privacy regulations. All delete requests are queued:   * Recent data (10 days or newer) belonging to the specified visitor will be deleted within 24 hours. * Data from older (11 days or more) identification events  will be deleted after 90 days.  If you are interested in using this API, please [contact our support team](https://fingerprint.com/support/) to enable it for you. Otherwise, you will receive a 403.
+	   Request deleting all data associated with the specified visitor ID. This API is useful for compliance with privacy regulations. ### Which data is deleted? - Browser (or device) properties - Identification requests made from this browser (or device)  #### Browser (or device) properties - Represents the data that Fingerprint collected from this specific browser (or device) and everything inferred and derived from it. - Upon request to delete, this data is deleted asynchronously (typically within a few minutes) and it will no longer be used to identify this browser (or device) for your [Fingerprint Application](https://dev.fingerprint.com/docs/glossary#fingerprint-application).  #### Identification requests made from this browser (or device) - Fingerprint stores the identification requests made from a browser (or device) for up to 30 (or 90) days depending on your plan. To learn more, see [Data Retention](https://dev.fingerprint.com/docs/regions#data-retention). - Upon request to delete, the identification requests that were made by this browser   - Within the past 10 days are deleted within 24 hrs.   - Outside of 10 days are allowed to purge as per your data retention period.  ### Corollary After requesting to delete a visitor ID, - If the same browser (or device) requests to identify, it will receive a different visitor ID. - If you request [`/events` API](https://dev.fingerprint.com/reference/getevent) with a `request_id` that was made outside of the 10 days, you will still receive a valid response. - If you request [`/visitors` API](https://dev.fingerprint.com/reference/getvisits) for the deleted visitor ID, the response will include identification requests that were made outside of those 10 days.  ### Interested? Please [contact our support team](https://fingerprint.com/support/) to enable it for you. Otherwise, you will receive a 403.
 	    * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	    * @param visitorId The [visitor ID](https://dev.fingerprint.com/docs/js-agent#visitorid) you want to delete.
 
@@ -50,6 +50,16 @@ type FingerprintApiServiceInterface interface {
 	   @return Response
 	*/
 	GetVisits(ctx context.Context, visitorId string, opts *FingerprintApiGetVisitsOpts) (Response, *http.Response, error)
+
+	/*
+	   FingerprintApiService Update an event with a given request ID
+	   Change information in existing events specified by `requestId` or *flag suspicious events*.  When an event is created, it is assigned `linkedId` and `tag` submitted through the JS agent parameters. This information might not be available on the client so the Server API allows for updating the attributes after the fact.  **Warning** It's not possible to update events older than 10 days.
+	    * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	    * @param body
+	    * @param requestId The unique event [identifier](https://dev.fingerprint.com/docs/js-agent#requestid).
+
+	*/
+	UpdateEvent(ctx context.Context, body EventUpdateRequest, requestId string) (*http.Response, error)
 }
 
 type requestDefinition struct {
@@ -71,9 +81,9 @@ func createDeleteVisitorDataDefinition() requestDefinition {
 			return path
 		},
 		StatusCodeResultsFactoryMap: map[int]func() any{
-			400: func() any { return &ErrorVisitsDelete400Response{} },
+			400: func() any { return &ErrorVisitor400Response{} },
 			403: func() any { return &ErrorCommon403Response{} },
-			404: func() any { return &ErrorVisitsDelete404Response{} },
+			404: func() any { return &ErrorVisitor404Response{} },
 			429: func() any { return &ErrorCommon429Response{} },
 		},
 	}
@@ -143,4 +153,26 @@ func (o *FingerprintApiGetVisitsOpts) ToUrlValuesMap() map[string]any {
 	data["before"] = o.Before
 
 	return data
+}
+
+func createUpdateEventDefinition() requestDefinition {
+	return requestDefinition{
+		GetPath: func(args ...string) string {
+			pathParams := []string{"request_id"}
+
+			path := "/events/{request_id}"
+
+			for i, arg := range args {
+				path = strings.Replace(path, "{"+pathParams[i]+"}", arg, -1)
+			}
+
+			return path
+		},
+		StatusCodeResultsFactoryMap: map[int]func() any{
+			400: func() any { return &ErrorUpdateEvent400Response{} },
+			403: func() any { return &ErrorCommon403Response{} },
+			404: func() any { return &ErrorEvent404Response{} },
+			409: func() any { return &ErrorUpdateEvent409Response{} },
+		},
+	}
 }

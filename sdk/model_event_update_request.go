@@ -9,6 +9,11 @@
  */
 package sdk
 
-type ErrorVisitsDelete404Response struct {
-	Error_ *ErrorVisitsDelete404ResponseError `json:"error,omitempty"`
+type EventUpdateRequest struct {
+	// LinkedID value to assign to the existing event
+	LinkedId string `json:"linkedId,omitempty"`
+	// Full `tag` value to be set to the existing event. Replaces any existing `tag` payload completely.
+	Tag *interface{} `json:"tag,omitempty"`
+	// Suspect flag indicating observed suspicious or fraudulent event
+	Suspect bool `json:"suspect,omitempty"`
 }
