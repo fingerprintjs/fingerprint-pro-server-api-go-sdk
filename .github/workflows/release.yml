@@ -9,6 +9,7 @@ jobs:
     name: 'Release project'
     uses: fingerprintjs/dx-team-toolkit/.github/workflows/release-sdk-changesets.yml@v1
     with:
+      appId: ${{ vars.APP_ID }}
       version-command: bash ./changeset-version.sh
       publish-command: bash ./changeset-publish.sh
       language: golang
@@ -16,4 +17,4 @@ jobs:
       prepare-command: |
         go build
     secrets:
-      GH_RELEASE_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      APP_PRIVATE_KEY: ${{ secrets.APP_PRIVATE_KEY }}
