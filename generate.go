@@ -95,7 +95,7 @@ func replaceMajorVersionMentions(newMajor string) {
 	log.Println("Replacing major version mentions in files", oldMajor, "->", newMajor)
 
 	err := filepath.Walk(".", func(path string, info fs.FileInfo, err error) error {
-		if info.IsDir() || strings.Contains(path, ".git") {
+		if info.IsDir() || strings.Contains(path, ".git") || strings.Contains(path, "node_modules") {
 			log.Printf("Skipping %s", path)
 			return nil
 		}
