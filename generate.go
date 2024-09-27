@@ -69,6 +69,30 @@ func moveFilesToKeepFromTmpDir() {
 	}
 }
 
+func getModuleVersion() string {
+	cmd := exec.Command("go", "mod", "edit", "-json")
+
+	output, err := cmd.Output()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	var module struct {
+		Module struct {
+			Path string
+		}
+	}
+	if err := json.Unmarshal(output, &module); err != nil {
+		log.Fatal(err)
+	}
+
+	parts := strings.Split(module.Module.Path, "/")
+	version := parts[len(parts)-1]
+
+	// Return version without "v" prefix
+	return version[1:]
+}
+
 func getVersion() string {
 	var version string
 
@@ -84,13 +108,9 @@ func getVersion() string {
 	return version
 }
 
-func replaceMajorVersionMentions(newMajor string) {
-	configVersion := config.ReadConfig("./config.json").PackageVersion
-
-	oldMajor := strings.Split(configVersion, ".")[0]
-	oldMajor = fmt.Sprintf("github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v%s", oldMajor)
-
+func replaceMajorVersionMentions(newMajor string, oldMajor string) {
 	newMajor = fmt.Sprintf("github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v%s", newMajor)
+	oldMajor = fmt.Sprintf("github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v%s", oldMajor)
 
 	log.Println("Replacing major version mentions in files", oldMajor, "->", newMajor)
 
@@ -126,20 +146,14 @@ func replaceMajorVersionMentions(newMajor string) {
 
 func handlePotentialMajorRelease() {
 	version := getVersion()
-
-	configVersion := config.ReadConfig("./config.json").PackageVersion
-
-	if configVersion == version {
-		return
-	}
-
 	newMajorVersion := strings.Split(version, ".")[0]
-	currentMajorVersion := strings.Split(configVersion, ".")[0]
 
-	if newMajorVersion != currentMajorVersion {
+	moduleVersion := getModuleVersion()
+
+	if newMajorVersion != moduleVersion {
 		log.Println("Major update detected, bumping version usage in all files")
 
-		replaceMajorVersionMentions(newMajorVersion)
+		replaceMajorVersionMentions(newMajorVersion, moduleVersion)
 	}
 }
 
