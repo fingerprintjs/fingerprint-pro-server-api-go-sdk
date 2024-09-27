@@ -7,7 +7,7 @@ import (
 	"crypto/cipher"
 	"encoding/json"
 	"errors"
-	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v7/sdk"
+	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v6/sdk"
 	"io"
 )
 
