@@ -3,7 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v6/sdk"
+	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v7/sdk"
 	"log"
 	"os"
 
