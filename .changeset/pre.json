@@ -4,11 +4,5 @@
   "initialVersions": {
     "fingerprint-pro-server-api-go-sdk": "6.1.0"
   },
-  "changesets": [
-    "angry-crabs-roll",
-    "cuddly-wasps-try",
-    "sour-moose-exist",
-    "tough-roses-grow",
-    "wild-oranges-feel"
-  ]
+  "changesets": []
 }

@@ -10,7 +10,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v7/config"
+	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v6/config"
 )
 
 var files = []string{"README.md", "docs", ".swagger-codegen"}
