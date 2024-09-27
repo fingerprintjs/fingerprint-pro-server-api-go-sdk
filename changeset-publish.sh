@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-pnpm exec changeset publish && go run generate.go
+go run generate.go && pnpm exec changeset publish
