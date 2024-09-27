@@ -1,6 +1,7 @@
 package test
 
 import (
+	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v6/sdk"
 	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v6/sdk/webhook"
 	"github.com/stretchr/testify/assert"
 	"testing"
@@ -8,6 +9,14 @@ import (
 
 const secret = "secret"
 const data = "data"
+
+func TestIfWebhookIsOk(t *testing.T) {
+	t.Run("Check if webhook response can be unmarshalled", func(t *testing.T) {
+		var mockResponse sdk.WebhookVisit
+		err := readFromFileAndUnmarshal2("../test/mocks/webhook.json", &mockResponse)
+		assert.Equal(t, true, err == nil)
+	})
+}
 
 func TestIsValidWebhookSignature(t *testing.T) {
 	const validHeader = "v1=1b2c16b75bd2a870c114153ccda5bcfca63314bc722fa160d690de133ccbb9db"
