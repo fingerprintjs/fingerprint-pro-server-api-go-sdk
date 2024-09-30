@@ -1,5 +1,24 @@
 # Fingerprint Pro Server Go SDK
 
+## 7.0.0
+
+### Major Changes
+
+- make `tag` field optional for Webhook ([406a373](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/406a3738e7f280a29bb691257c5b76ef936b387a))
+- Change `ModelMap` to contain any possible property, not just strings ([f4a0749](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/f4a07499a69e758690313380a0138052ead5f327))
+- Rename errors models related to visits:
+  - rename `ErrorVisitsDelete400Response` to `ErrorVisitor400Response`
+  - rename `ErrorVisitsDelete404ResponseError` to `ErrorVisitor404ResponseError`
+  - rename `ErrorVisitsDelete404Response` to `ErrorVisitor404Response` ([fe7e9f7](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/fe7e9f74c82347043e41e7755a97790e77ed35e2))
+
+### Minor Changes
+
+- **events**: Introduce `PUT` endpoint for `/events` API ([e9df386](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/e9df386d101da407e6bf16b59bca4f47d5690246))
+
+### Patch Changes
+
+- Remove unused `Model` struct ([d398848](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/d39884830b68ebe5eb8a600b14bb862ac36a949d))
+
 ## 7.0.0-test.0
 
 ### Major Changes
