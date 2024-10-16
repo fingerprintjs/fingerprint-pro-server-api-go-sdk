@@ -50,7 +50,7 @@ func TestDeleteVisitorData(t *testing.T) {
 	})
 
 	t.Run("Returns ErrorVisitor404Response on 404", func(t *testing.T) {
-		mockResponse := GetMockResponse[sdk.ErrorVisitor404Response]("../test/mocks/404_error_visitor_not_found.json")
+		mockResponse := GetMockResponse[sdk.ErrorVisitor404Response]("../test/mocks/shared/404_error_visitor_not_found.json")
 
 		ts := httptest.NewServer(http.HandlerFunc(func(
 			w http.ResponseWriter,
@@ -97,7 +97,7 @@ func TestDeleteVisitorData(t *testing.T) {
 	})
 
 	t.Run("Returns TooManyRequestsError on 429", func(t *testing.T) {
-		mockResponse := GetMockResponse[sdk.ErrorCommon429Response]("../test/mocks/429_error_too_many_requests.json")
+		mockResponse := GetMockResponse[sdk.ErrorCommon429Response]("../test/mocks/shared/429_error_too_many_requests.json")
 
 		ts := httptest.NewServer(http.HandlerFunc(func(
 			w http.ResponseWriter,
@@ -149,7 +149,7 @@ func TestDeleteVisitorData(t *testing.T) {
 	})
 
 	t.Run("Returns ErrorVisitor400Response on 400", func(t *testing.T) {
-		mockResponse := GetMockResponse[sdk.ErrorVisitor400Response]("../test/mocks/400_error_incorrect_visitor_id.json")
+		mockResponse := GetMockResponse[sdk.ErrorVisitor400Response]("../test/mocks/shared/400_error_incorrect_visitor_id.json")
 
 		ts := httptest.NewServer(http.HandlerFunc(func(
 			w http.ResponseWriter,
@@ -196,7 +196,7 @@ func TestDeleteVisitorData(t *testing.T) {
 	})
 
 	t.Run("Returns ErrorCommon403Response on 403", func(t *testing.T) {
-		mockResponse := GetMockResponse[sdk.ErrorCommon403Response]("../test/mocks/403_error_feature_not_enabled.json")
+		mockResponse := GetMockResponse[sdk.ErrorCommon403Response]("../test/mocks/shared/403_error_feature_not_enabled.json")
 
 		ts := httptest.NewServer(http.HandlerFunc(func(
 			w http.ResponseWriter,

@@ -17,4 +17,6 @@ type VpnResult struct {
 	// Country of the request (only for Android SDK version >= 2.4.0, ISO 3166 format or unknown).
 	OriginCountry string            `json:"originCountry,omitempty"`
 	Methods       *VpnResultMethods `json:"methods"`
+	// A confidence rating for the VPN detection result — \"low\", \"medium\", or \"high\". Depends on the combination of results returned from all VPN detection methods.
+	Confidence string `json:"confidence"`
 }
