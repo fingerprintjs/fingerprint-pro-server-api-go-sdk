@@ -10,8 +10,10 @@
 package sdk
 
 type TamperingResult struct {
-	// Flag indicating whether browser tampering was detected according to our internal thresholds.
+	// Flag indicating browser tampering was detected. This happens when either of these conditions is true:   * There are inconsistencies in the browser configuration that cross our internal tampering thresholds (indicated by `anomalyScore`).   * The browser signature resembles one of \"anti-detect\" browsers specifically designed to evade identification and fingerprinting, for example, Incognition (indicated by `antiDetectBrowser`).
 	Result bool `json:"result"`
-	// Confidence score (`0.0 - 1.0`) for the tampering detection. Values above `0.5` suggest that we're reasonably sure there was a tampering attempt. Values below `0.5` are genuine browsers.
+	// Confidence score (`0.0 - 1.0`) for tampering detection. Values above `0.5` indicate that there was a tampering attempt. Values below `0.5` indicate genuine browsers.
 	AnomalyScore float64 `json:"anomalyScore"`
+	// Is `true` if the identified browser resembles one of \"anti-detect\" browsers, for example, Incognition. Anti-detect browsers try to evade identification by masking or manipulating their fingerprint to imitate legitimate browser configurations.
+	AntiDetectBrowser bool `json:"antiDetectBrowser"`
 }

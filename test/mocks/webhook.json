@@ -133,7 +133,8 @@
   },
   "tampering": {
     "result": false,
-    "anomalyScore": 0
+    "anomalyScore": 0,
+    "antiDetectBrowser": false
   },
   "clonedApp": {
     "result": false
