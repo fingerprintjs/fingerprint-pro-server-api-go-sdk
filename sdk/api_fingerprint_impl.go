@@ -78,6 +78,21 @@ func (f *FingerprintApiService) GetVisits(ctx context.Context, visitorId string,
 	return response, httpResponse, err
 }
 
+func (f *FingerprintApiService) GetRelatedVisitors(ctx context.Context, visitorId string) (RelatedVisitorsResponse, *http.Response, error) {
+	request := apiRequest{
+		definition: createGetRelatedVisitorsDefinition(),
+		queryParams: map[string]any{
+			"visitor_id": visitorId,
+		},
+		method: http.MethodGet,
+	}
+
+	var response RelatedVisitorsResponse
+	httpResponse, err := f.doRequest(ctx, request, &response)
+
+	return response, httpResponse, err
+}
+
 func (f *FingerprintApiService) prepareRequest(ctx context.Context, requestUrl *url.URL, method string, body io.Reader) (*http.Request, error) {
 	request, err := http.NewRequestWithContext(ctx, method, requestUrl.String(), body)
 

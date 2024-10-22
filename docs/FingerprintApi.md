@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**DeleteVisitorData**](FingerprintApi.md#DeleteVisitorData) | **Delete** /visitors/{visitor_id} | Delete data by visitor ID
 [**GetEvent**](FingerprintApi.md#GetEvent) | **Get** /events/{request_id} | Get event by request ID
+[**GetRelatedVisitors**](FingerprintApi.md#GetRelatedVisitors) | **Get** /related-visitors | Get Related Visitors
 [**GetVisits**](FingerprintApi.md#GetVisits) | **Get** /visitors/{visitor_id} | Get visits by visitor ID
 [**UpdateEvent**](FingerprintApi.md#UpdateEvent) | **Put** /events/{request_id} | Update an event with a given request ID
 
@@ -53,6 +54,34 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**EventResponse**](EventResponse.md)
+
+### Authorization
+
+[ApiKeyHeader](../README.md#ApiKeyHeader), [ApiKeyQuery](../README.md#ApiKeyQuery)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **GetRelatedVisitors**
+> RelatedVisitorsResponse GetRelatedVisitors(ctx, visitorId)
+Get Related Visitors
+
+Related visitors API lets you link web visits and in-app browser visits that originated from the same mobile device. It searches the past 6 months of identification events to find the visitor IDs that belong to the same mobile device as the given visitor ID.  ⚠️ Please note that this API is not enabled by default and is billable separately. ⚠️  If you would like to use Related visitors API, please contact our [support team](https://fingerprint.com/support). To learn more, see [Related visitors API reference](https://dev.fingerprint.com/reference/related-visitors-api). 
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **visitorId** | **string**| The [visitor ID](https://dev.fingerprint.com/docs/js-agent#visitorid) for which you want to find the other visitor IDs that originated from the same mobile device. | 
+
+### Return type
+
+[**RelatedVisitorsResponse**](RelatedVisitorsResponse.md)
 
 ### Authorization
 

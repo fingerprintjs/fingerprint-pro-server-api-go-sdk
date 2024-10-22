@@ -37,6 +37,15 @@ type FingerprintApiServiceInterface interface {
 	GetEvent(ctx context.Context, requestId string) (EventResponse, *http.Response, error)
 
 	/*
+	   FingerprintApiService Get Related Visitors
+	   Related visitors API lets you link web visits and in-app browser visits that originated from the same mobile device. It searches the past 6 months of identification events to find the visitor IDs that belong to the same mobile device as the given visitor ID.  ⚠️ Please note that this API is not enabled by default and is billable separately. ⚠️  If you would like to use Related visitors API, please contact our [support team](https://fingerprint.com/support). To learn more, see [Related visitors API reference](https://dev.fingerprint.com/reference/related-visitors-api).
+	    * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	    * @param visitorId The [visitor ID](https://dev.fingerprint.com/docs/js-agent#visitorid) for which you want to find the other visitor IDs that originated from the same mobile device.
+	       @return RelatedVisitorsResponse
+	*/
+	GetRelatedVisitors(ctx context.Context, visitorId string) (RelatedVisitorsResponse, *http.Response, error)
+
+	/*
 	   FingerprintApiService Get visits by visitor ID
 	   Get a history of visits (identification events) for a specific `visitorId`. Use the `visitorId` as a URL path parameter. Only information from the _Identification_ product is returned.  #### Headers  * `Retry-After` — Present in case of `429 Too many requests`. Indicates how long you should wait before making a follow-up request. The value is non-negative decimal integer indicating the seconds to delay after the response is received.
 	    * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -106,6 +115,29 @@ func createGetEventDefinition() requestDefinition {
 			200: func() any { return &EventResponse{} },
 			403: func() any { return &ErrorCommon403Response{} },
 			404: func() any { return &ErrorEvent404Response{} },
+		},
+	}
+}
+
+func createGetRelatedVisitorsDefinition() requestDefinition {
+	return requestDefinition{
+		GetPath: func(args ...string) string {
+			pathParams := []string{}
+
+			path := "/related-visitors"
+
+			for i, arg := range args {
+				path = strings.Replace(path, "{"+pathParams[i]+"}", arg, -1)
+			}
+
+			return path
+		},
+		StatusCodeResultsFactoryMap: map[int]func() any{
+			200: func() any { return &RelatedVisitorsResponse{} },
+			400: func() any { return &ErrorVisitor400Response{} },
+			403: func() any { return &ErrorCommon403Response{} },
+			404: func() any { return &ErrorVisitor404Response{} },
+			429: func() any { return &ErrorCommon429Response{} },
 		},
 	}
 }

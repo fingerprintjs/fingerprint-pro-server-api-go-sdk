@@ -203,6 +203,7 @@ Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *FingerprintApi* | [**DeleteVisitorData**](docs/FingerprintApi.md#deletevisitordata) | **Delete** /visitors/{visitor_id} | Delete data by visitor ID
 *FingerprintApi* | [**GetEvent**](docs/FingerprintApi.md#getevent) | **Get** /events/{request_id} | Get event by request ID
+*FingerprintApi* | [**GetRelatedVisitors**](docs/FingerprintApi.md#getrelatedvisitors) | **Get** /related-visitors | Get Related Visitors
 *FingerprintApi* | [**GetVisits**](docs/FingerprintApi.md#getvisits) | **Get** /visitors/{visitor_id} | Get visits by visitor ID
 *FingerprintApi* | [**UpdateEvent**](docs/FingerprintApi.md#updateevent) | **Put** /events/{request_id} | Update an event with a given request ID
 
@@ -258,6 +259,8 @@ Class | Method | HTTP request | Description
  - [ProductsResponseIdentification](docs/ProductsResponseIdentification.md)
  - [ProductsResponseIdentificationData](docs/ProductsResponseIdentificationData.md)
  - [ProxyResult](docs/ProxyResult.md)
+ - [RelatedVisitor](docs/RelatedVisitor.md)
+ - [RelatedVisitorsResponse](docs/RelatedVisitorsResponse.md)
  - [RemoteControlResult](docs/RemoteControlResult.md)
  - [Response](docs/Response.md)
  - [ResponseVisits](docs/ResponseVisits.md)
