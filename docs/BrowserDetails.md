@@ -10,7 +10,6 @@ Name | Type | Description | Notes
 **OsVersion** | **string** |  | [default to null]
 **Device** | **string** |  | [default to null]
 **UserAgent** | **string** |  | [default to null]
-**BotProbability** | **int32** |  | [optional] [default to null]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

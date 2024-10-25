@@ -9,6 +9,10 @@
  */
 package sdk
 
+// Is absent if the velocity data could not be generated for the visitor ID.
 type VelocityIntervals struct {
-	Intervals *VelocityIntervalResult `json:"intervals,omitempty"`
+	Var5m int32 `json:"5m"`
+	Var1h int32 `json:"1h"`
+	// The `24h` interval of `distinctIp`, `distinctLinkedId`, `distinctCountry`, `distinctIpByLinkedId` and `distinctVisitorIdByLinkedId` will be omitted if the number of `events`` for the visitor ID in the last 24 hours (`events.intervals.['24h']`) is higher than 20.000.
+	Var24h int32 `json:"24h,omitempty"`
 }

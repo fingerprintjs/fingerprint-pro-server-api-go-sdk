@@ -10,6 +10,6 @@
 package sdk
 
 type ModelError struct {
-	Name    string `json:"name"`
-	Message string `json:"message"`
+	Code    *ErrorCode `json:"code"`
+	Message string     `json:"message"`
 }
