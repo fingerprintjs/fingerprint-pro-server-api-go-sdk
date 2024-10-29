@@ -26,3 +26,4 @@
 .travis.yml
 git_push.sh
 api/*
+model_object.go
