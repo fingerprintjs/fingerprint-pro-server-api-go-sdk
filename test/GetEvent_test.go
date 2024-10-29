@@ -16,7 +16,7 @@ import (
 
 func TestGetEvent(t *testing.T) {
 	t.Run("Returns event", func(t *testing.T) {
-		mockResponse := GetMockResponse[sdk.EventResponse]("../test/mocks/get_event_200.json")
+		mockResponse := GetMockResponse[sdk.EventsGetResponse]("../test/mocks/get_event_200.json")
 
 		ts := httptest.NewServer(http.HandlerFunc(func(
 			w http.ResponseWriter,
@@ -58,7 +58,7 @@ func TestGetEvent(t *testing.T) {
 	})
 
 	t.Run("Returns event with errors in all signals", func(t *testing.T) {
-		mockResponse := GetMockResponse[sdk.EventResponse]("../test/mocks/get_event_200_all_errors.json")
+		mockResponse := GetMockResponse[sdk.EventsGetResponse]("../test/mocks/get_event_200_all_errors.json")
 
 		ts := httptest.NewServer(http.HandlerFunc(func(
 			w http.ResponseWriter,
@@ -100,7 +100,7 @@ func TestGetEvent(t *testing.T) {
 	})
 
 	t.Run("Returns event with unexpected fields", func(t *testing.T) {
-		mockResponse := GetMockResponse[sdk.EventResponse]("../test/mocks/get_event_200_extra_fields.json")
+		mockResponse := GetMockResponse[sdk.EventsGetResponse]("../test/mocks/get_event_200_extra_fields.json")
 
 		ts := httptest.NewServer(http.HandlerFunc(func(
 			w http.ResponseWriter,
@@ -140,8 +140,8 @@ func TestGetEvent(t *testing.T) {
 		assert.Equal(t, res, mockResponse)
 	})
 
-	t.Run("Returns 403 error", func(t *testing.T) {
-		mockResponse := GetMockResponse[sdk.Common403ErrorResponse]("../test/mocks/get_event_403_error.json")
+	t.Run("Returns ErrorResponse on 403 error", func(t *testing.T) {
+		mockResponse := GetMockResponse[sdk.ErrorResponse]("../test/mocks/errors/403_subscription_not_active.json")
 
 		ts := httptest.NewServer(http.HandlerFunc(func(
 			w http.ResponseWriter,
@@ -186,14 +186,14 @@ func TestGetEvent(t *testing.T) {
 		var apiError sdk.ApiError
 		errors.As(err, &apiError)
 
-		errorModel := err.(sdk.ApiError).Model().(*sdk.ErrorCommon403Response)
+		errorModel := err.(sdk.ApiError).Model().(*sdk.ErrorResponse)
 
-		assert.IsType(t, errorModel, &sdk.ErrorCommon403Response{})
+		assert.IsType(t, errorModel, &sdk.ErrorResponse{})
 
 	})
 
 	t.Run("Return too many requests error in all fields", func(t *testing.T) {
-		mockResponse := GetMockResponse[sdk.EventResponse]("../test/mocks/get_event_200_identification_too_many_requests_error_all_fields.json")
+		mockResponse := GetMockResponse[sdk.EventsGetResponse]("../test/mocks/get_event_200_too_many_requests_error.json")
 
 		ts := httptest.NewServer(http.HandlerFunc(func(
 			w http.ResponseWriter,
@@ -233,8 +233,8 @@ func TestGetEvent(t *testing.T) {
 		assert.Equal(t, res, mockResponse)
 	})
 
-	t.Run("Returns botd too many requests error", func(t *testing.T) {
-		mockResponse := GetMockResponse[sdk.EventResponse]("../test/mocks/get_event_200_botd_too_many_requests_error.json")
+	t.Run("Returns botd error", func(t *testing.T) {
+		mockResponse := GetMockResponse[sdk.EventsGetResponse]("../test/mocks/get_event_200_botd_failed_error.json")
 
 		ts := httptest.NewServer(http.HandlerFunc(func(
 			w http.ResponseWriter,
@@ -272,12 +272,12 @@ func TestGetEvent(t *testing.T) {
 		assert.NoError(t, err)
 		assert.NotNil(t, res)
 		assert.Equal(t, res, mockResponse)
-		assert.Equal(t, res.Products.Botd.Error_.Code, "TooManyRequests")
+		assert.Equal(t, *res.Products.Botd.Error_.Code, sdk.FAILED)
 
 	})
 
-	t.Run("Returns identification too many requests error", func(t *testing.T) {
-		mockResponse := GetMockResponse[sdk.EventResponse]("../test/mocks/get_event_200_identification_too_many_requests_error.json")
+	t.Run("Returns identification error", func(t *testing.T) {
+		mockResponse := GetMockResponse[sdk.EventsGetResponse]("../test/mocks/get_event_200_identification_failed_error.json")
 
 		ts := httptest.NewServer(http.HandlerFunc(func(
 			w http.ResponseWriter,
@@ -315,7 +315,7 @@ func TestGetEvent(t *testing.T) {
 		assert.NoError(t, err)
 		assert.NotNil(t, res)
 		assert.Equal(t, res, mockResponse)
-		assert.Equal(t, res.Products.Identification.Error_.Code, "429 Too Many Requests")
+		assert.Equal(t, *res.Products.Identification.Error_.Code, sdk.FAILED)
 
 	})
 
