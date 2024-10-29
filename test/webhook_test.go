@@ -12,7 +12,7 @@ const data = "data"
 
 func TestWebhookModel(t *testing.T) {
 	t.Run("Check if webhook response can be unmarshalled", func(t *testing.T) {
-		var mockResponse sdk.WebhookVisit
+		var mockResponse sdk.Webhook
 		err := readFromFileAndUnmarshalWithError("../test/mocks/webhook.json", &mockResponse)
 		assert.NoError(t, err)
 	})

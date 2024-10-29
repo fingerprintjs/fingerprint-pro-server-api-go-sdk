@@ -97,7 +97,7 @@ func TestDeleteVisitorData(t *testing.T) {
 	})
 
 	t.Run("Returns TooManyRequestsError on 429", func(t *testing.T) {
-		mockResponse := GetMockResponse[sdk.ErrorCommon429Response]("../test/mocks/errors/429_too_many_requests.json")
+		mockResponse := GetMockResponse[sdk.ErrorResponse]("../test/mocks/errors/429_too_many_requests.json")
 
 		ts := httptest.NewServer(http.HandlerFunc(func(
 			w http.ResponseWriter,
@@ -144,7 +144,7 @@ func TestDeleteVisitorData(t *testing.T) {
 
 		assert.IsType(t, tooManyRequestsError, &sdk.TooManyRequestsError{})
 
-		assert.Equal(t, tooManyRequestsError.Code(), sdk.ErrorCode(mockResponse.Error_.Code))
+		assert.Equal(t, tooManyRequestsError.Code(), *mockResponse.Error_.Code)
 		assert.Equal(t, tooManyRequestsError.Error(), mockResponse.Error_.Message)
 	})
 
