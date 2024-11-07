@@ -32,14 +32,13 @@ func main() {
 
 	// Usually this data will come from your frontend app
 	requestId := os.Getenv("REQUEST_ID")
-	tag := make(map[string]string)
-	tag["key"] = "value"
-	tagAsInterface := interface{}(tag)
-
-	body := sdk.EventUpdateRequest{
+	tag := sdk.ModelMap{
+		"key": "value",
+	}
+	body := sdk.EventsUpdateRequest{
 		Suspect:  false,
 		LinkedId: "new_linked_id",
-		Tag:      &tagAsInterface,
+		Tag:      &tag,
 	}
 
 	httpRes, err := client.FingerprintApi.UpdateEvent(auth, body, requestId)
