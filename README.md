@@ -62,11 +62,12 @@ func main() {
 		Key: "SECRET_API_KEY",
 	})
 	// Usually this data will come from your frontend app
-	visitorId := "VISITOR_ID"
+	visitorId := "<VISITOR_ID>"
+	requestId := "<REQUEST_ID>"
 	opts := sdk.FingerprintApiGetVisitsOpts{
-		RequestId: "REQUEST_ID_",
+		RequestId: requestId,
 	}
-	response, httpRes, err := client.FingerprintApi.GetVisits(auth, visitorId, &opts)
+	visits, httpRes, err := client.FingerprintApi.GetVisits(auth, visitorId, &opts)
 	fmt.Printf("%+v\n", httpRes)
 
 	if err != nil {
@@ -79,7 +80,17 @@ func main() {
 		}
 	}
 
-	fmt.Printf("Got response with visitorId: %s", response.VisitorId)
+	fmt.Printf("Got response with visitorId: %s", visits.VisitorId)
+	
+	event, httpRes, err := client.FingerprintApi.GetEvent(auth, requestId)
+	if err != nil {
+		log.Fatal(err)
+    }
+
+	if event.Products.Identification != nil {
+		fmt.Printf("Got response with Identification: %v", event.Products.Identification)
+
+	}
 }
 ```
 
