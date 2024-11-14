@@ -5,6 +5,7 @@ type ApiError struct {
 	body  []byte
 	error string
 	model any
+	code  ErrorCode
 }
 
 // Error returns non-empty string if there was an error.
@@ -20,4 +21,9 @@ func (e ApiError) Body() []byte {
 // Model returns the unpacked model of the error
 func (e ApiError) Model() any {
 	return e.model
+}
+
+// Code returns the error code
+func (e ApiError) Code() ErrorCode {
+	return e.code
 }

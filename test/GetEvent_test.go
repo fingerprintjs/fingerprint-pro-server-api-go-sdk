@@ -189,7 +189,8 @@ func TestGetEvent(t *testing.T) {
 		errorModel := err.(sdk.ApiError).Model().(*sdk.ErrorResponse)
 
 		assert.IsType(t, errorModel, &sdk.ErrorResponse{})
-
+		assert.Equal(t, apiError.Code(), *mockResponse.Error_.Code)
+		assert.Equal(t, apiError.Error(), mockResponse.Error_.Message)
 	})
 
 	t.Run("Return too many requests error in all fields", func(t *testing.T) {
