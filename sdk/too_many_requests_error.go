@@ -6,7 +6,7 @@ type TooManyRequestsError struct {
 	retryAfter int64
 	body       []byte
 	model      any
-	code       string
+	code       ErrorCode
 }
 
 func (e *TooManyRequestsError) Model() any {
@@ -25,6 +25,6 @@ func (e *TooManyRequestsError) RetryAfter() int64 {
 	return e.retryAfter
 }
 
-func (e *TooManyRequestsError) Code() string {
+func (e *TooManyRequestsError) Code() ErrorCode {
 	return e.code
 }

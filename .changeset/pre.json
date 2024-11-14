@@ -1,8 +1,8 @@
 {
-  "mode": "exit",
+  "mode": "pre",
   "tag": "test",
   "initialVersions": {
-    "fingerprint-pro-server-api-go-sdk": "6.1.0"
+    "fingerprint-pro-server-api-go-sdk": "7.0.0-test.0"
   },
   "changesets": [
     "angry-crabs-roll",

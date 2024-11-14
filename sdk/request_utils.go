@@ -16,25 +16,29 @@ func handlePotentialTooManyRequestsResponse(httpResponse *http.Response, err err
 
 	var e ApiError
 
+	if httpResponse.StatusCode != http.StatusTooManyRequests {
+		return err
+	}
+
 	if errors.As(err, &e) {
-		if model, ok := e.model.(*TooManyRequestsResponse); ok {
+		if model, ok := e.model.(*ErrorPlainResponse); ok {
 			retryAfter := getRetryAfterFromHeader(httpResponse)
 
 			return &TooManyRequestsError{
 				error:      model.Error_,
-				code:       "TooManyRequests",
+				code:       TOOMANYREQUESTS429,
 				retryAfter: retryAfter,
 				body:       e.body,
 				model:      e.model,
 			}
 		}
 
-		if model, ok := e.model.(*ErrorCommon429Response); ok {
+		if model, ok := e.model.(*ErrorResponse); ok {
 			retryAfter := getRetryAfterFromHeader(httpResponse)
 
 			return &TooManyRequestsError{
 				error:      model.Error_.Message,
-				code:       model.Error_.Code,
+				code:       *model.Error_.Code,
 				retryAfter: retryAfter,
 				body:       e.body,
 				model:      e.model,

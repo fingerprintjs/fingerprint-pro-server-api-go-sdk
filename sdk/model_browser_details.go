@@ -17,5 +17,4 @@ type BrowserDetails struct {
 	OsVersion           string `json:"osVersion"`
 	Device              string `json:"device"`
 	UserAgent           string `json:"userAgent"`
-	BotProbability      int32  `json:"botProbability,omitempty"`
 }

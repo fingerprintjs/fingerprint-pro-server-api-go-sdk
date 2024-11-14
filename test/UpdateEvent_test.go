@@ -41,7 +41,7 @@ func TestUpdateEvent(t *testing.T) {
 			Key: "api_key",
 		})
 
-		res, err := client.FingerprintApi.UpdateEvent(ctx, sdk.EventUpdateRequest{
+		res, err := client.FingerprintApi.UpdateEvent(ctx, sdk.EventsUpdateRequest{
 			LinkedId: "linked_id",
 			Tag:      nil,
 			Suspect:  true,
@@ -52,8 +52,8 @@ func TestUpdateEvent(t *testing.T) {
 		assert.Equal(t, res.StatusCode, 200)
 	})
 
-	t.Run("Returns ErrorEvent404Response on 404", func(t *testing.T) {
-		mockResponse := GetMockResponse[sdk.ErrorEvent404Response]("../test/mocks/update_event_404_error.json")
+	t.Run("Returns ErrorResponse on 404", func(t *testing.T) {
+		mockResponse := GetMockResponse[sdk.ErrorResponse]("../test/mocks/errors/404_visitor_not_found.json")
 
 		ts := httptest.NewServer(http.HandlerFunc(func(
 			w http.ResponseWriter,
@@ -88,7 +88,7 @@ func TestUpdateEvent(t *testing.T) {
 			Key: "api_key",
 		})
 
-		res, err := client.FingerprintApi.UpdateEvent(ctx, sdk.EventUpdateRequest{
+		res, err := client.FingerprintApi.UpdateEvent(ctx, sdk.EventsUpdateRequest{
 			LinkedId: "linked_id",
 			Tag:      nil,
 			Suspect:  true,
@@ -98,13 +98,13 @@ func TestUpdateEvent(t *testing.T) {
 		assert.NotNil(t, res)
 		assert.Equal(t, res.StatusCode, 404)
 
-		errorModel := err.(sdk.ApiError).Model().(*sdk.ErrorEvent404Response)
-		assert.IsType(t, errorModel, &sdk.ErrorEvent404Response{})
+		errorModel := err.(sdk.ApiError).Model().(*sdk.ErrorResponse)
+		assert.IsType(t, errorModel, &sdk.ErrorResponse{})
 		assert.Equal(t, errorModel, &mockResponse)
 	})
 
-	t.Run("Returns ErrorUpdateEvent400Response on 400", func(t *testing.T) {
-		mockResponse := GetMockResponse[sdk.ErrorUpdateEvent400Response]("../test/mocks/update_event_400_error.json")
+	t.Run("Returns ErrorResponse on 400", func(t *testing.T) {
+		mockResponse := GetMockResponse[sdk.ErrorResponse]("../test/mocks/errors/400_request_body_invalid.json")
 
 		ts := httptest.NewServer(http.HandlerFunc(func(
 			w http.ResponseWriter,
@@ -139,7 +139,7 @@ func TestUpdateEvent(t *testing.T) {
 			Key: "api_key",
 		})
 
-		res, err := client.FingerprintApi.UpdateEvent(ctx, sdk.EventUpdateRequest{
+		res, err := client.FingerprintApi.UpdateEvent(ctx, sdk.EventsUpdateRequest{
 			LinkedId: "linked_id",
 			Tag:      nil,
 			Suspect:  true,
@@ -149,13 +149,13 @@ func TestUpdateEvent(t *testing.T) {
 		assert.NotNil(t, res)
 		assert.Equal(t, res.StatusCode, 400)
 
-		errorModel := err.(sdk.ApiError).Model().(*sdk.ErrorUpdateEvent400Response)
-		assert.IsType(t, errorModel, &sdk.ErrorUpdateEvent400Response{})
+		errorModel := err.(sdk.ApiError).Model().(*sdk.ErrorResponse)
+		assert.IsType(t, errorModel, &sdk.ErrorResponse{})
 		assert.Equal(t, errorModel, &mockResponse)
 	})
 
-	t.Run("Returns ErrorCommon403Response on 403", func(t *testing.T) {
-		mockResponse := GetMockResponse[sdk.ErrorCommon403Response]("../test/mocks/update_event_403_error.json")
+	t.Run("Returns ErrorResponse on 403", func(t *testing.T) {
+		mockResponse := GetMockResponse[sdk.ErrorResponse]("../test/mocks/errors/403_token_required.json")
 
 		ts := httptest.NewServer(http.HandlerFunc(func(
 			w http.ResponseWriter,
@@ -190,7 +190,7 @@ func TestUpdateEvent(t *testing.T) {
 			Key: "api_key",
 		})
 
-		res, err := client.FingerprintApi.UpdateEvent(ctx, sdk.EventUpdateRequest{
+		res, err := client.FingerprintApi.UpdateEvent(ctx, sdk.EventsUpdateRequest{
 			LinkedId: "linked_id",
 			Tag:      nil,
 			Suspect:  true,
@@ -200,13 +200,13 @@ func TestUpdateEvent(t *testing.T) {
 		assert.NotNil(t, res)
 		assert.Equal(t, res.StatusCode, 403)
 
-		errorModel := err.(sdk.ApiError).Model().(*sdk.ErrorCommon403Response)
-		assert.IsType(t, errorModel, &sdk.ErrorCommon403Response{})
+		errorModel := err.(sdk.ApiError).Model().(*sdk.ErrorResponse)
+		assert.IsType(t, errorModel, &sdk.ErrorResponse{})
 		assert.Equal(t, errorModel, &mockResponse)
 	})
 
-	t.Run("Returns ErrorUpdateEvent409Response on 409", func(t *testing.T) {
-		mockResponse := GetMockResponse[sdk.ErrorUpdateEvent409Response]("../test/mocks/update_event_409_error.json")
+	t.Run("Returns ErrorResponse on 409", func(t *testing.T) {
+		mockResponse := GetMockResponse[sdk.ErrorResponse]("../test/mocks/errors/409_state_not_ready.json")
 
 		ts := httptest.NewServer(http.HandlerFunc(func(
 			w http.ResponseWriter,
@@ -241,7 +241,7 @@ func TestUpdateEvent(t *testing.T) {
 			Key: "api_key",
 		})
 
-		res, err := client.FingerprintApi.UpdateEvent(ctx, sdk.EventUpdateRequest{
+		res, err := client.FingerprintApi.UpdateEvent(ctx, sdk.EventsUpdateRequest{
 			LinkedId: "linked_id",
 			Tag:      nil,
 			Suspect:  true,
@@ -251,8 +251,8 @@ func TestUpdateEvent(t *testing.T) {
 		assert.NotNil(t, res)
 		assert.Equal(t, res.StatusCode, 409)
 
-		errorModel := err.(sdk.ApiError).Model().(*sdk.ErrorUpdateEvent409Response)
-		assert.IsType(t, errorModel, &sdk.ErrorUpdateEvent409Response{})
+		errorModel := err.(sdk.ApiError).Model().(*sdk.ErrorResponse)
+		assert.IsType(t, errorModel, &sdk.ErrorResponse{})
 		assert.Equal(t, errorModel, &mockResponse)
 	})
 }

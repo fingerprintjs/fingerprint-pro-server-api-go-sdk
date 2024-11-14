@@ -16,7 +16,7 @@ import (
 
 func TestGetVisits(t *testing.T) {
 	t.Run("Returns visits", func(t *testing.T) {
-		mockResponse := GetMockResponse[sdk.Response]("../test/mocks/get_visits_200_limit_1.json")
+		mockResponse := GetMockResponse[sdk.VisitorsGetResponse]("../test/mocks/get_visitors_200_limit_1.json")
 
 		ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			configFile := config.ReadConfig("../config.json")
@@ -53,7 +53,7 @@ func TestGetVisits(t *testing.T) {
 			LinkedId:      "request_id",
 		}
 
-		mockResponse := GetMockResponse[sdk.Response]("../test/mocks/get_visits_200_limit_500.json")
+		mockResponse := GetMockResponse[sdk.VisitorsGetResponse]("../test/mocks/get_visitors_200_limit_500.json")
 
 		ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			parseErr := r.ParseForm()
@@ -97,7 +97,7 @@ func TestGetVisits(t *testing.T) {
 			LinkedId:      "request_id",
 		}
 
-		mockResponse := GetMockResponse[sdk.Response]("../test/mocks/get_visits_429_too_many_requests_error.json")
+		mockResponse := GetMockResponse[sdk.VisitorsGetResponse]("../test/mocks/get_visitors_429_too_many_requests.json")
 
 		ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			parseErr := r.ParseForm()
@@ -126,8 +126,8 @@ func TestGetVisits(t *testing.T) {
 		var tooManyRequestsError *sdk.TooManyRequestsError
 		errors.As(err, &tooManyRequestsError)
 
-		errorModel := tooManyRequestsError.Model().(*sdk.TooManyRequestsResponse)
-		assert.IsType(t, errorModel, &sdk.TooManyRequestsResponse{})
+		errorModel := tooManyRequestsError.Model().(*sdk.ErrorPlainResponse)
+		assert.IsType(t, errorModel, &sdk.ErrorPlainResponse{})
 		assert.Equal(t, int64(10), tooManyRequestsError.RetryAfter())
 	})
 
@@ -139,7 +139,7 @@ func TestGetVisits(t *testing.T) {
 			LinkedId:      "request_id",
 		}
 
-		mockResponse := GetMockResponse[sdk.Response]("../test/mocks/get_visits_429_too_many_requests_error.json")
+		mockResponse := GetMockResponse[sdk.VisitorsGetResponse]("../test/mocks/get_visitors_429_too_many_requests.json")
 
 		ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			parseErr := r.ParseForm()
@@ -167,8 +167,8 @@ func TestGetVisits(t *testing.T) {
 		var tooManyRequestsError *sdk.TooManyRequestsError
 		errors.As(err, &tooManyRequestsError)
 
-		errorModel := tooManyRequestsError.Model().(*sdk.TooManyRequestsResponse)
-		assert.IsType(t, errorModel, &sdk.TooManyRequestsResponse{})
+		errorModel := tooManyRequestsError.Model().(*sdk.ErrorPlainResponse)
+		assert.IsType(t, errorModel, &sdk.ErrorPlainResponse{})
 		assert.Equal(t, int64(0), tooManyRequestsError.RetryAfter())
 	})
 }

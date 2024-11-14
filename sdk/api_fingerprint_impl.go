@@ -32,7 +32,7 @@ func (f *FingerprintApiService) DeleteVisitorData(ctx context.Context, visitorId
 	return f.doRequest(ctx, request, nil)
 }
 
-func (f *FingerprintApiService) GetEvent(ctx context.Context, requestId string) (EventResponse, *http.Response, error) {
+func (f *FingerprintApiService) GetEvent(ctx context.Context, requestId string) (EventsGetResponse, *http.Response, error) {
 	request := apiRequest{
 		definition:  createGetEventDefinition(),
 		pathParams:  []string{requestId},
@@ -40,13 +40,13 @@ func (f *FingerprintApiService) GetEvent(ctx context.Context, requestId string) 
 		method:      http.MethodGet,
 	}
 
-	var eventResponse EventResponse
+	var eventResponse EventsGetResponse
 	response, err := f.doRequest(ctx, request, &eventResponse)
 
 	return eventResponse, response, err
 }
 
-func (f *FingerprintApiService) UpdateEvent(ctx context.Context, body EventUpdateRequest, requestId string) (*http.Response, error) {
+func (f *FingerprintApiService) UpdateEvent(ctx context.Context, body EventsUpdateRequest, requestId string) (*http.Response, error) {
 	bodyBytes, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -64,7 +64,7 @@ func (f *FingerprintApiService) UpdateEvent(ctx context.Context, body EventUpdat
 	return httpResponse, err
 }
 
-func (f *FingerprintApiService) GetVisits(ctx context.Context, visitorId string, opts *FingerprintApiGetVisitsOpts) (Response, *http.Response, error) {
+func (f *FingerprintApiService) GetVisits(ctx context.Context, visitorId string, opts *FingerprintApiGetVisitsOpts) (VisitorsGetResponse, *http.Response, error) {
 	request := apiRequest{
 		definition:  createGetVisitsDefinition(),
 		pathParams:  []string{visitorId},
@@ -72,7 +72,7 @@ func (f *FingerprintApiService) GetVisits(ctx context.Context, visitorId string,
 		method:      http.MethodGet,
 	}
 
-	var response Response
+	var response VisitorsGetResponse
 	httpResponse, err := f.doRequest(ctx, request, &response)
 
 	return response, httpResponse, err

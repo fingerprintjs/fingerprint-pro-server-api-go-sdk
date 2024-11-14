@@ -35,14 +35,14 @@ type DecryptionKey struct {
 // The SDK will try to decrypt the result with each key until it succeeds.
 // In case if all keys fail, AggregatedUnsealError is returned with error details for each key.
 // To learn more about sealed results visit: https://dev.fingerprint.com/docs/sealed-client-results
-func UnsealEventsResponse(sealed []byte, keys []DecryptionKey) (*sdk.EventResponse, error) {
+func UnsealEventsResponse(sealed []byte, keys []DecryptionKey) (*sdk.EventsGetResponse, error) {
 	unsealed, err := Unseal(sealed, keys)
 
 	if err != nil {
 		return nil, err
 	}
 
-	var eventResponse sdk.EventResponse
+	var eventResponse sdk.EventsGetResponse
 
 	err = json.Unmarshal(unsealed, &eventResponse)
 
