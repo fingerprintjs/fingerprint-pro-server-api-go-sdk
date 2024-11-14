@@ -67,14 +67,11 @@ func addIntegrationInfoToQuery(query *url.Values) {
 	query.Add("ii", IntegrationInfo)
 }
 
-// UNKNOWN_ERROR_CODE is a fallback error code for unknown errors, usually used when ErrorPlainResponse is returned
-var UNKNOWN_ERROR_CODE ErrorCode = "UNKNOWN"
-
 func handleErrorResponse(body []byte, httpResponse *http.Response, definition requestDefinition) (*http.Response, error) {
 	apiError := ApiError{
 		body:  body,
 		error: httpResponse.Status,
-		code:  UNKNOWN_ERROR_CODE,
+		code:  FAILED,
 	}
 
 	modelFactory := definition.StatusCodeResultsFactoryMap[httpResponse.StatusCode]

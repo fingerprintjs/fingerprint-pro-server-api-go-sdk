@@ -210,7 +210,7 @@ func TestGetVisits(t *testing.T) {
 
 		errorModel := apiError.Model().(*sdk.ErrorPlainResponse)
 		assert.IsType(t, errorModel, &sdk.ErrorPlainResponse{})
-		assert.Equal(t, apiError.Code(), sdk.UNKNOWN_ERROR_CODE)
+		assert.Equal(t, apiError.Code(), sdk.FAILED)
 		assert.Equal(t, apiError.Error(), mockResponse.Error_)
 	})
 
