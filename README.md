@@ -81,7 +81,7 @@ func main() {
 	}
 
 	fmt.Printf("Got response with visitorId: %s", visits.VisitorId)
-	
+
 	event, httpRes, err := client.FingerprintApi.GetEvent(auth, requestId)
 	if err != nil {
 		log.Fatal(err)
