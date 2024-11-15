@@ -67,7 +67,7 @@ func addIntegrationInfoToQuery(query *url.Values) {
 	query.Add("ii", IntegrationInfo)
 }
 
-func handleErrorResponse(body []byte, httpResponse *http.Response, definition requestDefinition) (*http.Response, error) {
+func handleErrorResponse(body []byte, httpResponse *http.Response, definition requestDefinition) error {
 	apiError := ApiError{
 		body:  body,
 		error: httpResponse.Status,
@@ -84,7 +84,7 @@ func handleErrorResponse(body []byte, httpResponse *http.Response, definition re
 		if err != nil {
 			apiError.error = err.Error()
 
-			return httpResponse, apiError
+			return apiError
 		}
 
 		switch v := model.(type) {
@@ -99,7 +99,7 @@ func handleErrorResponse(body []byte, httpResponse *http.Response, definition re
 		apiError.model = model
 	}
 
-	return httpResponse, apiError
+	return apiError
 }
 
 func isResponseOk(httpResponse *http.Response) bool {

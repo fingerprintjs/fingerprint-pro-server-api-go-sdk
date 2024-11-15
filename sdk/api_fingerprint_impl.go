@@ -151,7 +151,7 @@ func (f *FingerprintApiService) doRequest(ctx context.Context, apiRequest apiReq
 		return httpResponse, err
 	}
 
-	_, err = handleErrorResponse(body, httpResponse, apiRequest.definition)
+	err = handleErrorResponse(body, httpResponse, apiRequest.definition)
 
 	return httpResponse, handlePotentialTooManyRequestsResponse(httpResponse, err)
 }
