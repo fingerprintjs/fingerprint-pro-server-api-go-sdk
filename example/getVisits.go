@@ -47,7 +47,13 @@ func main() {
 		if errors.As(err, &tooManyRequestsError) {
 			log.Printf("Too many requests, retry after %d seconds", tooManyRequestsError.RetryAfter())
 		} else {
-			log.Print(err)
+			var apiError sdk.ApiError
+
+			if errors.As(err, &apiError) {
+				log.Fatalf("Error: %s, %s", apiError.Code(), apiError.Error())
+			}
+
+			log.Fatal(err)
 		}
 	}
 

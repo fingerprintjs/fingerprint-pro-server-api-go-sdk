@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"log"
 	"os"
@@ -39,6 +40,12 @@ func main() {
 	fmt.Printf("%+v\n", httpRes)
 
 	if err != nil {
+		var apiError sdk.ApiError
+
+		if errors.As(err, &apiError) {
+			log.Fatalf("Error: %s, %s", apiError.Code(), apiError.Error())
+		}
+
 		log.Fatal(err)
 	}
 
