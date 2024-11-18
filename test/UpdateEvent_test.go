@@ -47,7 +47,7 @@ func TestUpdateEvent(t *testing.T) {
 			Suspect:  true,
 		}, "123")
 
-		assert.NoError(t, err)
+		assert.Nil(t, err)
 		assert.NotNil(t, res)
 		assert.Equal(t, res.StatusCode, 200)
 	})
@@ -98,7 +98,7 @@ func TestUpdateEvent(t *testing.T) {
 		assert.NotNil(t, res)
 		assert.Equal(t, res.StatusCode, 404)
 
-		errorModel := err.(sdk.ApiError).Model().(*sdk.ErrorResponse)
+		errorModel := err.(*sdk.ApiError).Model().(*sdk.ErrorResponse)
 		assert.IsType(t, errorModel, &sdk.ErrorResponse{})
 		assert.Equal(t, errorModel, &mockResponse)
 	})
@@ -149,7 +149,7 @@ func TestUpdateEvent(t *testing.T) {
 		assert.NotNil(t, res)
 		assert.Equal(t, res.StatusCode, 400)
 
-		errorModel := err.(sdk.ApiError).Model().(*sdk.ErrorResponse)
+		errorModel := err.(*sdk.ApiError).Model().(*sdk.ErrorResponse)
 		assert.IsType(t, errorModel, &sdk.ErrorResponse{})
 		assert.Equal(t, errorModel, &mockResponse)
 	})
@@ -200,7 +200,7 @@ func TestUpdateEvent(t *testing.T) {
 		assert.NotNil(t, res)
 		assert.Equal(t, res.StatusCode, 403)
 
-		errorModel := err.(sdk.ApiError).Model().(*sdk.ErrorResponse)
+		errorModel := err.(*sdk.ApiError).Model().(*sdk.ErrorResponse)
 		assert.IsType(t, errorModel, &sdk.ErrorResponse{})
 		assert.Equal(t, errorModel, &mockResponse)
 	})
@@ -251,7 +251,7 @@ func TestUpdateEvent(t *testing.T) {
 		assert.NotNil(t, res)
 		assert.Equal(t, res.StatusCode, 409)
 
-		errorModel := err.(sdk.ApiError).Model().(*sdk.ErrorResponse)
+		errorModel := err.(*sdk.ApiError).Model().(*sdk.ErrorResponse)
 		assert.IsType(t, errorModel, &sdk.ErrorResponse{})
 		assert.Equal(t, errorModel, &mockResponse)
 	})

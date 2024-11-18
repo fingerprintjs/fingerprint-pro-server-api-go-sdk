@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"errors"
 	"fmt"
 	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v7/sdk"
 	"log"
@@ -40,13 +39,7 @@ func main() {
 	fmt.Printf("%+v\n", httpRes)
 
 	if err != nil {
-		var apiError sdk.ApiError
-
-		if errors.As(err, &apiError) {
-			log.Fatalf("Error: %s, %s", apiError.Code(), apiError.Error())
-		}
-
-		log.Fatal(err)
+		log.Fatalf("Error: %s, %s", err.Code(), err.Error())
 	}
 
 }

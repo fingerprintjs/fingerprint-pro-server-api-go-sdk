@@ -21,7 +21,7 @@ type apiRequest struct {
 	body        io.Reader
 }
 
-func (f *FingerprintApiService) DeleteVisitorData(ctx context.Context, visitorId string) (*http.Response, error) {
+func (f *FingerprintApiService) DeleteVisitorData(ctx context.Context, visitorId string) (*http.Response, Error) {
 	request := apiRequest{
 		definition:  createDeleteVisitorDataDefinition(),
 		pathParams:  []string{visitorId},
@@ -32,7 +32,7 @@ func (f *FingerprintApiService) DeleteVisitorData(ctx context.Context, visitorId
 	return f.doRequest(ctx, request, nil)
 }
 
-func (f *FingerprintApiService) GetEvent(ctx context.Context, requestId string) (EventsGetResponse, *http.Response, error) {
+func (f *FingerprintApiService) GetEvent(ctx context.Context, requestId string) (EventsGetResponse, *http.Response, Error) {
 	request := apiRequest{
 		definition:  createGetEventDefinition(),
 		pathParams:  []string{requestId},
@@ -46,10 +46,10 @@ func (f *FingerprintApiService) GetEvent(ctx context.Context, requestId string) 
 	return eventResponse, response, err
 }
 
-func (f *FingerprintApiService) UpdateEvent(ctx context.Context, body EventsUpdateRequest, requestId string) (*http.Response, error) {
+func (f *FingerprintApiService) UpdateEvent(ctx context.Context, body EventsUpdateRequest, requestId string) (*http.Response, Error) {
 	bodyBytes, err := json.Marshal(body)
 	if err != nil {
-		return nil, err
+		return nil, WrapWithApiError(err)
 	}
 
 	request := apiRequest{
@@ -59,12 +59,12 @@ func (f *FingerprintApiService) UpdateEvent(ctx context.Context, body EventsUpda
 		method:     http.MethodPut,
 	}
 
-	httpResponse, err := f.doRequest(ctx, request, nil)
+	httpResponse, apiError := f.doRequest(ctx, request, nil)
 
-	return httpResponse, err
+	return httpResponse, apiError
 }
 
-func (f *FingerprintApiService) GetVisits(ctx context.Context, visitorId string, opts *FingerprintApiGetVisitsOpts) (VisitorsGetResponse, *http.Response, error) {
+func (f *FingerprintApiService) GetVisits(ctx context.Context, visitorId string, opts *FingerprintApiGetVisitsOpts) (VisitorsGetResponse, *http.Response, Error) {
 	request := apiRequest{
 		definition:  createGetVisitsDefinition(),
 		pathParams:  []string{visitorId},
@@ -78,7 +78,7 @@ func (f *FingerprintApiService) GetVisits(ctx context.Context, visitorId string,
 	return response, httpResponse, err
 }
 
-func (f *FingerprintApiService) GetRelatedVisitors(ctx context.Context, visitorId string) (RelatedVisitorsResponse, *http.Response, error) {
+func (f *FingerprintApiService) GetRelatedVisitors(ctx context.Context, visitorId string) (RelatedVisitorsResponse, *http.Response, Error) {
 	request := apiRequest{
 		definition: createGetRelatedVisitorsDefinition(),
 		queryParams: map[string]any{
@@ -111,11 +111,11 @@ func (f *FingerprintApiService) getPath(definition requestDefinition, params ...
 	return f.cfg.basePath + definition.GetPath(params...)
 }
 
-func (f *FingerprintApiService) doRequest(ctx context.Context, apiRequest apiRequest, result any) (*http.Response, error) {
+func (f *FingerprintApiService) doRequest(ctx context.Context, apiRequest apiRequest, result any) (*http.Response, Error) {
 	path := f.getPath(apiRequest.definition, apiRequest.pathParams...)
 	requestUrl, err := url.Parse(path)
 	if err != nil {
-		return nil, err
+		return nil, WrapWithApiError(err)
 	}
 
 	query := requestUrl.Query()
@@ -130,28 +130,32 @@ func (f *FingerprintApiService) doRequest(ctx context.Context, apiRequest apiReq
 
 	request, err := f.prepareRequest(ctx, requestUrl, apiRequest.method, apiRequest.body)
 	if err != nil {
-		return nil, err
+		return nil, WrapWithApiError(err)
 	}
 
 	httpResponse, err := f.cfg.HTTPClient.Do(request)
 	if err != nil {
-		return httpResponse, err
+		return httpResponse, WrapWithApiError(err)
 	}
 
 	body, err := io.ReadAll(httpResponse.Body)
 	if err != nil {
-		return httpResponse, err
+		return httpResponse, WrapWithApiError(err)
 	}
 
 	if isResponseOk(httpResponse) {
 		if result != nil {
-			err = json.Unmarshal(body, &result)
+			jsonErr := json.Unmarshal(body, &result)
+
+			if jsonErr != nil {
+				return httpResponse, WrapWithApiError(jsonErr)
+			}
 		}
 
-		return httpResponse, err
+		return httpResponse, nil
 	}
 
-	err = handleErrorResponse(body, httpResponse, apiRequest.definition)
+	apiError := handleErrorResponse(body, httpResponse, apiRequest.definition)
 
-	return httpResponse, handlePotentialTooManyRequestsResponse(httpResponse, err)
+	return httpResponse, handlePotentialTooManyRequestsResponse(httpResponse, apiError)
 }

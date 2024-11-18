@@ -3,7 +3,6 @@ package test
 import (
 	"context"
 	"encoding/json"
-	"errors"
 	"fmt"
 	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v7/config"
 	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v7/sdk"
@@ -51,7 +50,7 @@ func TestGetEvent(t *testing.T) {
 
 		res, _, err := client.FingerprintApi.GetEvent(ctx, "123")
 
-		assert.NoError(t, err)
+		assert.Nil(t, err)
 		assert.NotNil(t, res)
 		assert.Equal(t, res, mockResponse)
 
@@ -93,7 +92,7 @@ func TestGetEvent(t *testing.T) {
 
 		res, _, err := client.FingerprintApi.GetEvent(ctx, "123")
 
-		assert.NoError(t, err)
+		assert.Nil(t, err)
 		assert.NotNil(t, res)
 		assert.Equal(t, res, mockResponse)
 
@@ -135,7 +134,7 @@ func TestGetEvent(t *testing.T) {
 
 		res, _, err := client.FingerprintApi.GetEvent(ctx, "123")
 
-		assert.NoError(t, err)
+		assert.Nil(t, err)
 		assert.NotNil(t, res)
 		assert.Equal(t, res, mockResponse)
 	})
@@ -180,17 +179,14 @@ func TestGetEvent(t *testing.T) {
 		res, _, err := client.FingerprintApi.GetEvent(ctx, "123")
 
 		assert.Error(t, err)
-		assert.IsType(t, err, sdk.ApiError{})
+		assert.IsType(t, err, &sdk.ApiError{})
 		assert.NotNil(t, res)
 
-		var apiError sdk.ApiError
-		errors.As(err, &apiError)
-
-		errorModel := err.(sdk.ApiError).Model().(*sdk.ErrorResponse)
+		errorModel := err.(*sdk.ApiError).Model().(*sdk.ErrorResponse)
 
 		assert.IsType(t, errorModel, &sdk.ErrorResponse{})
-		assert.Equal(t, apiError.Code(), *mockResponse.Error_.Code)
-		assert.Equal(t, apiError.Error(), mockResponse.Error_.Message)
+		assert.Equal(t, err.Code(), *mockResponse.Error_.Code)
+		assert.Equal(t, err.Error(), mockResponse.Error_.Message)
 	})
 
 	t.Run("Return too many requests error in all fields", func(t *testing.T) {
@@ -229,7 +225,7 @@ func TestGetEvent(t *testing.T) {
 
 		res, _, err := client.FingerprintApi.GetEvent(ctx, "123")
 
-		assert.NoError(t, err)
+		assert.Nil(t, err)
 		assert.NotNil(t, res)
 		assert.Equal(t, res, mockResponse)
 	})
@@ -270,7 +266,7 @@ func TestGetEvent(t *testing.T) {
 
 		res, _, err := client.FingerprintApi.GetEvent(ctx, "123")
 
-		assert.NoError(t, err)
+		assert.Nil(t, err)
 		assert.NotNil(t, res)
 		assert.Equal(t, res, mockResponse)
 		assert.Equal(t, *res.Products.Botd.Error_.Code, sdk.FAILED)
@@ -313,7 +309,7 @@ func TestGetEvent(t *testing.T) {
 
 		res, _, err := client.FingerprintApi.GetEvent(ctx, "123")
 
-		assert.NoError(t, err)
+		assert.Nil(t, err)
 		assert.NotNil(t, res)
 		assert.Equal(t, res, mockResponse)
 		assert.Equal(t, *res.Products.Identification.Error_.Code, sdk.FAILED)
@@ -405,7 +401,7 @@ func TestGetEvent(t *testing.T) {
 
 		ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			parseErr := r.ParseForm()
-			assert.NoError(t, parseErr)
+			assert.Nil(t, parseErr)
 
 			apiKey := r.Header.Get("Auth-Api-Key")
 			assert.Equal(t, apiKey, "api_key")
@@ -514,7 +510,7 @@ func TestGetEvent(t *testing.T) {
 
 		ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			parseErr := r.ParseForm()
-			assert.NoError(t, parseErr)
+			assert.Nil(t, parseErr)
 
 			apiKey := r.Header.Get("Auth-Api-Key")
 			assert.Equal(t, apiKey, "api_key")
@@ -535,7 +531,7 @@ func TestGetEvent(t *testing.T) {
 		ctx := context.WithValue(context.Background(), sdk.ContextAPIKey, sdk.APIKey{Key: "api_key"})
 
 		res, _, err := client.FingerprintApi.GetEvent(ctx, "request_id")
-		assert.NoError(t, err)
+		assert.Nil(t, err)
 		assert.NotNil(t, res)
 		assert.Equal(t, res.Products.Botd.Data.Url, "https://www.example.com/{{{login")
 	})

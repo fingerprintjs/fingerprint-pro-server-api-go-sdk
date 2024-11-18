@@ -44,19 +44,13 @@ func main() {
 		if errors.As(err, &tooManyRequestsError) {
 			log.Printf("Too many requests, retry after %d seconds", tooManyRequestsError.RetryAfter())
 		} else {
-			var apiError sdk.ApiError
-
-			if errors.As(err, &apiError) {
-				log.Fatalf("Error: %s, %s", apiError.Code(), apiError.Error())
-			}
-
-			log.Fatal(err)
+			log.Fatalf("Error: %s, %s", err.Code(), err.Error())
 		}
 	}
 
 	// Print full response as JSON
-	responseJsonData, err := json.MarshalIndent(response, "", "  ")
-	if err != nil {
+	responseJsonData, jsonErr := json.MarshalIndent(response, "", "  ")
+	if jsonErr != nil {
 		fmt.Println("Error:", err)
 		return
 	}

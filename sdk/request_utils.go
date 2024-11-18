@@ -9,15 +9,15 @@ import (
 	"strconv"
 )
 
-func handlePotentialTooManyRequestsResponse(httpResponse *http.Response, err error) error {
+func handlePotentialTooManyRequestsResponse(httpResponse *http.Response, err Error) Error {
 	if err == nil {
-		return err
+		return nil
 	}
 
-	var e ApiError
+	var e *ApiError
 
 	if httpResponse.StatusCode != http.StatusTooManyRequests {
-		return err
+		return WrapWithApiError(err)
 	}
 
 	if errors.As(err, &e) {
@@ -67,7 +67,7 @@ func addIntegrationInfoToQuery(query *url.Values) {
 	query.Add("ii", IntegrationInfo)
 }
 
-func handleErrorResponse(body []byte, httpResponse *http.Response, definition requestDefinition) error {
+func handleErrorResponse(body []byte, httpResponse *http.Response, definition requestDefinition) *ApiError {
 	apiError := ApiError{
 		body:  body,
 		error: httpResponse.Status,
@@ -84,7 +84,7 @@ func handleErrorResponse(body []byte, httpResponse *http.Response, definition re
 		if err != nil {
 			apiError.error = err.Error()
 
-			return apiError
+			return &apiError
 		}
 
 		switch v := model.(type) {
@@ -99,7 +99,7 @@ func handleErrorResponse(body []byte, httpResponse *http.Response, definition re
 		apiError.model = model
 	}
 
-	return apiError
+	return &apiError
 }
 
 func isResponseOk(httpResponse *http.Response) bool {

@@ -25,7 +25,7 @@ type FingerprintApiServiceInterface interface {
 	    * @param visitorId The [visitor ID](https://dev.fingerprint.com/reference/get-function#visitorid) you want to delete.
 
 	*/
-	DeleteVisitorData(ctx context.Context, visitorId string) (*http.Response, error)
+	DeleteVisitorData(ctx context.Context, visitorId string) (*http.Response, Error)
 
 	/*
 	   FingerprintApiService Get event by request ID
@@ -34,7 +34,7 @@ type FingerprintApiServiceInterface interface {
 	    * @param requestId The unique [identifier](https://dev.fingerprint.com/reference/get-function#requestid) of each identification request.
 	       @return EventsGetResponse
 	*/
-	GetEvent(ctx context.Context, requestId string) (EventsGetResponse, *http.Response, error)
+	GetEvent(ctx context.Context, requestId string) (EventsGetResponse, *http.Response, Error)
 
 	/*
 	   FingerprintApiService Get Related Visitors
@@ -43,7 +43,7 @@ type FingerprintApiServiceInterface interface {
 	    * @param visitorId The [visitor ID](https://dev.fingerprint.com/reference/get-function#visitorid) for which you want to find the other visitor IDs that originated from the same mobile device.
 	       @return RelatedVisitorsResponse
 	*/
-	GetRelatedVisitors(ctx context.Context, visitorId string) (RelatedVisitorsResponse, *http.Response, error)
+	GetRelatedVisitors(ctx context.Context, visitorId string) (RelatedVisitorsResponse, *http.Response, Error)
 
 	/*
 	   FingerprintApiService Get visits by visitor ID
@@ -58,7 +58,7 @@ type FingerprintApiServiceInterface interface {
 	    * @param "Before" (int64) -  ⚠️ Deprecated pagination method, please use `paginationKey` instead. Timestamp (in milliseconds since epoch) used to paginate results.
 	   @return VisitorsGetResponse
 	*/
-	GetVisits(ctx context.Context, visitorId string, opts *FingerprintApiGetVisitsOpts) (VisitorsGetResponse, *http.Response, error)
+	GetVisits(ctx context.Context, visitorId string, opts *FingerprintApiGetVisitsOpts) (VisitorsGetResponse, *http.Response, Error)
 
 	/*
 	   FingerprintApiService Update an event with a given request ID
@@ -68,7 +68,7 @@ type FingerprintApiServiceInterface interface {
 	    * @param requestId The unique event [identifier](https://dev.fingerprint.com/reference/get-function#requestid).
 
 	*/
-	UpdateEvent(ctx context.Context, body EventsUpdateRequest, requestId string) (*http.Response, error)
+	UpdateEvent(ctx context.Context, body EventsUpdateRequest, requestId string) (*http.Response, Error)
 }
 
 type requestDefinition struct {
