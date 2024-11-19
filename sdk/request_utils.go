@@ -9,15 +9,15 @@ import (
 	"strconv"
 )
 
-func handlePotentialTooManyRequestsResponse(httpResponse *http.Response, err error) error {
+func handlePotentialTooManyRequestsResponse(httpResponse *http.Response, err Error) Error {
 	if err == nil {
-		return err
+		return nil
 	}
 
-	var e ApiError
+	var e *ApiError
 
 	if httpResponse.StatusCode != http.StatusTooManyRequests {
-		return err
+		return WrapWithApiError(err)
 	}
 
 	if errors.As(err, &e) {
@@ -67,10 +67,11 @@ func addIntegrationInfoToQuery(query *url.Values) {
 	query.Add("ii", IntegrationInfo)
 }
 
-func handleErrorResponse(body []byte, httpResponse *http.Response, definition requestDefinition) (*http.Response, error) {
-	genericError := ApiError{
+func handleErrorResponse(body []byte, httpResponse *http.Response, definition requestDefinition) *ApiError {
+	apiError := ApiError{
 		body:  body,
 		error: httpResponse.Status,
+		code:  FAILED,
 	}
 
 	modelFactory := definition.StatusCodeResultsFactoryMap[httpResponse.StatusCode]
@@ -81,15 +82,24 @@ func handleErrorResponse(body []byte, httpResponse *http.Response, definition re
 		err := json.Unmarshal(body, &model)
 
 		if err != nil {
-			genericError.error = err.Error()
+			apiError.error = err.Error()
 
-			return httpResponse, genericError
+			return &apiError
 		}
 
-		genericError.model = model
+		switch v := model.(type) {
+		case *ErrorResponse:
+			apiError.code = *v.Error_.Code
+			apiError.error = v.Error_.Message
+
+		case *ErrorPlainResponse:
+			apiError.error = v.Error_
+		}
+
+		apiError.model = model
 	}
 
-	return httpResponse, genericError
+	return &apiError
 }
 
 func isResponseOk(httpResponse *http.Response) bool {

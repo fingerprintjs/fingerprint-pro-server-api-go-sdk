@@ -42,7 +42,7 @@ func TestGetRelatedVisitors(t *testing.T) {
 		ctx := context.WithValue(context.Background(), sdk.ContextAPIKey, sdk.APIKey{Key: "api_key"})
 
 		res, _, err := client.FingerprintApi.GetRelatedVisitors(ctx, mockResponse.RelatedVisitors[0].VisitorId)
-		assert.NoError(t, err)
+		assert.Nil(t, err)
 		assert.NotNil(t, res)
 		assert.Equal(t, res, mockResponse)
 	})
@@ -52,7 +52,7 @@ func TestGetRelatedVisitors(t *testing.T) {
 
 		ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			parseErr := r.ParseForm()
-			assert.NoError(t, parseErr)
+			assert.Nil(t, parseErr)
 
 			configFile := config.ReadConfig("../config.json")
 
@@ -132,7 +132,7 @@ func TestGetRelatedVisitors(t *testing.T) {
 		assert.NotNil(t, res)
 		assert.Equal(t, 400, res.StatusCode)
 
-		errorModel := err.(sdk.ApiError).Model().(*sdk.ErrorResponse)
+		errorModel := err.(*sdk.ApiError).Model().(*sdk.ErrorResponse)
 		assert.IsType(t, errorModel, &sdk.ErrorResponse{})
 		assert.Equal(t, errorModel, &mockResponse)
 	})
@@ -179,7 +179,7 @@ func TestGetRelatedVisitors(t *testing.T) {
 		assert.NotNil(t, res)
 		assert.Equal(t, 403, res.StatusCode)
 
-		errorModel := err.(sdk.ApiError).Model().(*sdk.ErrorResponse)
+		errorModel := err.(*sdk.ApiError).Model().(*sdk.ErrorResponse)
 		assert.IsType(t, errorModel, &sdk.ErrorResponse{})
 		assert.Equal(t, errorModel, &mockResponse)
 	})
@@ -226,7 +226,7 @@ func TestGetRelatedVisitors(t *testing.T) {
 		assert.NotNil(t, res)
 		assert.Equal(t, 404, res.StatusCode)
 
-		errorModel := err.(sdk.ApiError).Model().(*sdk.ErrorResponse)
+		errorModel := err.(*sdk.ApiError).Model().(*sdk.ErrorResponse)
 		assert.IsType(t, errorModel, &sdk.ErrorResponse{})
 		assert.Equal(t, errorModel, &mockResponse)
 	})

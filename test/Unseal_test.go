@@ -46,7 +46,7 @@ func TestUnsealEventsResponse(t *testing.T) {
 		}
 		unsealed, err := sealed.UnsealEventsResponse(sealedResult, keys)
 
-		assert.NoError(t, err)
+		assert.Nil(t, err)
 
 		isEqual := reflect.DeepEqual(*unsealed, expectedResponse)
 

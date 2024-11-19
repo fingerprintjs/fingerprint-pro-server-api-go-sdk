@@ -23,7 +23,7 @@ type {{classname}}ServiceInterface interface {
     {{/required}}{{/allParams}}{{/hasOptionalParams}}
     {{#returnType}}@return {{{returnType}}}{{/returnType}}
     */
-    {{{nickname}}}(ctx context.Context{{#hasParams}}, {{/hasParams}}{{#allParams}}{{#required}}{{paramName}} {{{dataType}}}{{#hasMore}}, {{/hasMore}}{{/required}}{{/allParams}}{{#hasOptionalParams}}opts *{{{classname}}}{{{nickname}}}Opts{{/hasOptionalParams}}) ({{#returnType}}{{{returnType}}}, {{/returnType}}*http.Response, error)
+    {{{nickname}}}(ctx context.Context{{#hasParams}}, {{/hasParams}}{{#allParams}}{{#required}}{{paramName}} {{{dataType}}}{{#hasMore}}, {{/hasMore}}{{/required}}{{/allParams}}{{#hasOptionalParams}}opts *{{{classname}}}{{{nickname}}}Opts{{/hasOptionalParams}}) ({{#returnType}}{{{returnType}}}, {{/returnType}}*http.Response, Error)
 
 {{/operation}}
 }

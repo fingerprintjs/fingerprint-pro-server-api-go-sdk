@@ -46,6 +46,6 @@ func main() {
 	fmt.Printf("%+v\n", httpRes)
 
 	if err != nil {
-		log.Fatal(err)
+		log.Fatalf("Error: %s, %s", err.Code(), err.Error())
 	}
 }

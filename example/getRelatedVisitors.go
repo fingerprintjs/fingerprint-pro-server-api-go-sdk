@@ -44,13 +44,13 @@ func main() {
 		if errors.As(err, &tooManyRequestsError) {
 			log.Printf("Too many requests, retry after %d seconds", tooManyRequestsError.RetryAfter())
 		} else {
-			log.Print(err)
+			log.Fatalf("Error: %s, %s", err.Code(), err.Error())
 		}
 	}
 
 	// Print full response as JSON
-	responseJsonData, err := json.MarshalIndent(response, "", "  ")
-	if err != nil {
+	responseJsonData, jsonErr := json.MarshalIndent(response, "", "  ")
+	if jsonErr != nil {
 		fmt.Println("Error:", err)
 		return
 	}

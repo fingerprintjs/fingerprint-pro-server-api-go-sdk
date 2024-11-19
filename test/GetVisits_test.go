@@ -40,7 +40,7 @@ func TestGetVisits(t *testing.T) {
 		ctx := context.WithValue(context.Background(), sdk.ContextAPIKey, sdk.APIKey{Key: "api_key"})
 
 		res, _, err := client.FingerprintApi.GetVisits(ctx, "visitor_id", nil)
-		assert.NoError(t, err)
+		assert.Nil(t, err)
 		assert.NotNil(t, res)
 		assert.Equal(t, res.VisitorId, mockResponse.VisitorId)
 	})
@@ -57,7 +57,7 @@ func TestGetVisits(t *testing.T) {
 
 		ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			parseErr := r.ParseForm()
-			assert.NoError(t, parseErr)
+			assert.Nil(t, parseErr)
 
 			assert.Equal(t, r.Form.Get("request_id"), opts.RequestId)
 			assert.Equal(t, r.Form.Get("paginationKey"), fmt.Sprint(opts.PaginationKey))
@@ -81,7 +81,7 @@ func TestGetVisits(t *testing.T) {
 		ctx := context.WithValue(context.Background(), sdk.ContextAPIKey, sdk.APIKey{Key: "api_key"})
 
 		res, _, err := client.FingerprintApi.GetVisits(ctx, "visitor_id", &opts)
-		assert.NoError(t, err)
+		assert.Nil(t, err)
 		assert.NotNil(t, res)
 		assert.Equal(t, res.VisitorId, mockResponse.VisitorId)
 		assert.Equal(t, res.Visits, mockResponse.Visits)
@@ -101,7 +101,7 @@ func TestGetVisits(t *testing.T) {
 
 		ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			parseErr := r.ParseForm()
-			assert.NoError(t, parseErr)
+			assert.Nil(t, parseErr)
 
 			w.Header().Set("Content-Type", "application/json")
 			w.Header().Set("Retry-After", "10")
@@ -143,7 +143,7 @@ func TestGetVisits(t *testing.T) {
 
 		ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			parseErr := r.ParseForm()
-			assert.NoError(t, parseErr)
+			assert.Nil(t, parseErr)
 
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusTooManyRequests)
@@ -171,4 +171,44 @@ func TestGetVisits(t *testing.T) {
 		assert.IsType(t, errorModel, &sdk.ErrorPlainResponse{})
 		assert.Equal(t, int64(0), tooManyRequestsError.RetryAfter())
 	})
+
+	t.Run("Returns ErrorPlainResponse on 400", func(t *testing.T) {
+		opts := sdk.FingerprintApiGetVisitsOpts{
+			RequestId:     "request_id",
+			PaginationKey: "1683900801733.Ogvu1j",
+			Limit:         500,
+			LinkedId:      "request_id",
+		}
+
+		mockResponse := GetMockResponse[sdk.ErrorPlainResponse]("../test/mocks/get_visitors_400_bad_request.json")
+
+		ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			parseErr := r.ParseForm()
+			assert.Nil(t, parseErr)
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusBadRequest)
+			err := json.NewEncoder(w).Encode(mockResponse)
+			if err != nil {
+				log.Fatal(err)
+			}
+		}))
+		defer ts.Close()
+
+		cfg := sdk.NewConfiguration()
+		cfg.ChangeBasePath(ts.URL)
+		client := sdk.NewAPIClient(cfg)
+		ctx := context.WithValue(context.Background(), sdk.ContextAPIKey, sdk.APIKey{Key: "api_key"})
+
+		res, _, err := client.FingerprintApi.GetVisits(ctx, "visitor_id", &opts)
+		assert.IsType(t, err, &sdk.ApiError{})
+		assert.Error(t, err)
+		assert.NotNil(t, res)
+
+		errorModel := err.Model().(*sdk.ErrorPlainResponse)
+		assert.IsType(t, errorModel, &sdk.ErrorPlainResponse{})
+		assert.Equal(t, err.Code(), sdk.FAILED)
+		assert.Equal(t, err.Error(), mockResponse.Error_)
+	})
+
 }

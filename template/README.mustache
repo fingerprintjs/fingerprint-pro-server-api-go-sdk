@@ -84,6 +84,8 @@ func main() {
 		if errors.As(err, &tooManyRequestsError) {
 			log.Fatalf("Too many requests, retry after %d seconds", tooManyRequestsError.RetryAfter())
 		} else {
+			// You can also use err.Model() and err.Body() to get more details about the error
+			log.Printf("Error %s: %v", err.Code(), err)
 			log.Fatal(err)
 		}
 	}
@@ -92,12 +94,13 @@ func main() {
 
 	event, httpRes, err := client.FingerprintApi.GetEvent(auth, requestId)
 	if err != nil {
+		// You can also use err.Model() and err.Body() to get more details about the error
+		log.Printf("Error %s: %v", err.Code(), err)
 		log.Fatal(err)
-    }
+        }
 
 	if event.Products.Identification != nil {
 		fmt.Printf("Got response with Identification: %v", event.Products.Identification)
-
 	}
 }
 ```
