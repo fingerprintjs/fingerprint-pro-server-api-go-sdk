@@ -1,5 +1,16 @@
 # Fingerprint Pro Server Go SDK
 
+## 7.0.0-test.2
+
+### Major Changes
+
+- Provide error message from received response rather than status code text in `ApiError.Error()` ([76a47e1](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/76a47e132a9fb85d271ae541c68a6727e8a20914))
+- Always throw `sdk.Error` from all Fingerprint API methods ([c02c7d9](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/c02c7d9420f494cc080ada5c10b193c5bfc9ee1c))
+
+### Minor Changes
+
+- Provide ErrorCode in `Code()` method in `ApiError` ([76a47e1](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/76a47e132a9fb85d271ae541c68a6727e8a20914))
+
 ## 7.0.0-test.1
 
 ### Major Changes
