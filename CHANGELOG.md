@@ -3,6 +3,8 @@
 ## 7.0.0
 
 ### Major Changes
+The underlying Server API hasn’t changed, but we made SDK type and class generation more precise, resulting in small breaking changes for the SDK itself. This change should make the SDK API a lot more stable going forward
+
 
 - make `tag` field optional for Webhook ([406a373](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/406a3738e7f280a29bb691257c5b76ef936b387a))
 - Provide error message from received response rather than status code text in `ApiError.Error()` ([76a47e1](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/76a47e132a9fb85d271ae541c68a6727e8a20914))
