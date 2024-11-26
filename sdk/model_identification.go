@@ -26,6 +26,8 @@ type Identification struct {
 	IpLocation *DeprecatedGeolocation `json:"ipLocation,omitempty"`
 	// A customer-provided id that was sent with the request.
 	LinkedId string `json:"linkedId,omitempty"`
+	// Field is `true` if you have previously set the `suspect` flag for this event using the [Server API Update event endpoint](https://dev.fingerprint.com/reference/updateevent).
+	Suspect bool `json:"suspect,omitempty"`
 	// Timestamp of the event with millisecond precision in Unix time.
 	Timestamp int64 `json:"timestamp"`
 	// Time expressed according to ISO 8601 in UTC format, when the request from the JS agent was made. We recommend to treat requests that are older than 2 minutes as malicious. Otherwise, request replay attacks are possible.
