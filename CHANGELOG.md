@@ -1,5 +1,11 @@
 # Fingerprint Pro Server Go SDK
 
+## 7.1.1
+
+### Patch Changes
+
+- Correctly send `suspect` in `EventsUpdateRequest` when set to `false` ([b114460](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/b11446075cef727ed9efc63979e74a753cd4d913))
+
 ## 7.1.0
 
 ### Minor Changes
