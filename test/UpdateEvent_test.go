@@ -7,6 +7,7 @@ import (
 	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v7/config"
 	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v7/sdk"
 	"github.com/stretchr/testify/assert"
+	"io"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -45,6 +46,88 @@ func TestUpdateEvent(t *testing.T) {
 			LinkedId: "linked_id",
 			Tag:      nil,
 			Suspect:  true,
+		}, "123")
+
+		assert.Nil(t, err)
+		assert.NotNil(t, res)
+		assert.Equal(t, res.StatusCode, 200)
+	})
+
+	t.Run("Update with empty body", func(t *testing.T) {
+		ts := httptest.NewServer(http.HandlerFunc(func(
+			w http.ResponseWriter,
+			r *http.Request,
+		) {
+			body, err := io.ReadAll(r.Body)
+			assert.NoError(t, err)
+
+			assert.Equal(t, "{\"suspect\":false}", string(body))
+
+			configFile := config.ReadConfig("../config.json")
+			integrationInfo := r.URL.Query().Get("ii")
+			assert.Equal(t, integrationInfo, fmt.Sprintf("fingerprint-pro-server-go-sdk/%s", configFile.PackageVersion))
+			assert.Equal(t, r.URL.Path, "/events/123")
+			assert.Equal(t, r.Method, http.MethodPut)
+
+			apiKey := r.Header.Get("Auth-Api-Key")
+			assert.Equal(t, apiKey, "api_key")
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(200)
+		}))
+		defer ts.Close()
+
+		cfg := sdk.NewConfiguration()
+		cfg.ChangeBasePath(ts.URL)
+
+		client := sdk.NewAPIClient(cfg)
+
+		ctx := context.WithValue(context.Background(), sdk.ContextAPIKey, sdk.APIKey{
+			Key: "api_key",
+		})
+
+		res, err := client.FingerprintApi.UpdateEvent(ctx, sdk.EventsUpdateRequest{}, "123")
+
+		assert.Nil(t, err)
+		assert.NotNil(t, res)
+		assert.Equal(t, res.StatusCode, 200)
+	})
+
+	t.Run("Update with just suspect=false", func(t *testing.T) {
+		ts := httptest.NewServer(http.HandlerFunc(func(
+			w http.ResponseWriter,
+			r *http.Request,
+		) {
+			body, err := io.ReadAll(r.Body)
+			assert.NoError(t, err)
+
+			assert.Equal(t, "{\"suspect\":false}", string(body))
+
+			configFile := config.ReadConfig("../config.json")
+			integrationInfo := r.URL.Query().Get("ii")
+			assert.Equal(t, integrationInfo, fmt.Sprintf("fingerprint-pro-server-go-sdk/%s", configFile.PackageVersion))
+			assert.Equal(t, r.URL.Path, "/events/123")
+			assert.Equal(t, r.Method, http.MethodPut)
+
+			apiKey := r.Header.Get("Auth-Api-Key")
+			assert.Equal(t, apiKey, "api_key")
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(200)
+		}))
+		defer ts.Close()
+
+		cfg := sdk.NewConfiguration()
+		cfg.ChangeBasePath(ts.URL)
+
+		client := sdk.NewAPIClient(cfg)
+
+		ctx := context.WithValue(context.Background(), sdk.ContextAPIKey, sdk.APIKey{
+			Key: "api_key",
+		})
+
+		res, err := client.FingerprintApi.UpdateEvent(ctx, sdk.EventsUpdateRequest{
+			Suspect: false,
 		}, "123")
 
 		assert.Nil(t, err)
