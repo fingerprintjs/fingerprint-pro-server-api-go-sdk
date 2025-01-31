@@ -35,8 +35,9 @@ func main() {
 	tag := sdk.ModelMap{
 		"key": "value",
 	}
+	suspect := false
 	body := sdk.EventsUpdateRequest{
-		Suspect:  false,
+		Suspect:  &suspect,
 		LinkedId: "new_linked_id",
 		Tag:      &tag,
 	}

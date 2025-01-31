@@ -13,6 +13,8 @@ import (
 	"testing"
 )
 
+var trueValue = true
+
 func TestUpdateEvent(t *testing.T) {
 	t.Run("Returns 200 on success", func(t *testing.T) {
 		ts := httptest.NewServer(http.HandlerFunc(func(
@@ -45,7 +47,7 @@ func TestUpdateEvent(t *testing.T) {
 		res, err := client.FingerprintApi.UpdateEvent(ctx, sdk.EventsUpdateRequest{
 			LinkedId: "linked_id",
 			Tag:      nil,
-			Suspect:  true,
+			Suspect:  &trueValue,
 		}, "123")
 
 		assert.Nil(t, err)
@@ -61,7 +63,7 @@ func TestUpdateEvent(t *testing.T) {
 			body, err := io.ReadAll(r.Body)
 			assert.NoError(t, err)
 
-			assert.Equal(t, "{\"suspect\":false}", string(body))
+			assert.Equal(t, "{}", string(body))
 
 			configFile := config.ReadConfig("../config.json")
 			integrationInfo := r.URL.Query().Get("ii")
@@ -126,8 +128,10 @@ func TestUpdateEvent(t *testing.T) {
 			Key: "api_key",
 		})
 
+		suspect := false
+
 		res, err := client.FingerprintApi.UpdateEvent(ctx, sdk.EventsUpdateRequest{
-			Suspect: false,
+			Suspect: &suspect,
 		}, "123")
 
 		assert.Nil(t, err)
@@ -174,7 +178,7 @@ func TestUpdateEvent(t *testing.T) {
 		res, err := client.FingerprintApi.UpdateEvent(ctx, sdk.EventsUpdateRequest{
 			LinkedId: "linked_id",
 			Tag:      nil,
-			Suspect:  true,
+			Suspect:  &trueValue,
 		}, "123")
 
 		assert.Error(t, err)
@@ -225,7 +229,7 @@ func TestUpdateEvent(t *testing.T) {
 		res, err := client.FingerprintApi.UpdateEvent(ctx, sdk.EventsUpdateRequest{
 			LinkedId: "linked_id",
 			Tag:      nil,
-			Suspect:  true,
+			Suspect:  &trueValue,
 		}, "123")
 
 		assert.Error(t, err)
@@ -276,7 +280,7 @@ func TestUpdateEvent(t *testing.T) {
 		res, err := client.FingerprintApi.UpdateEvent(ctx, sdk.EventsUpdateRequest{
 			LinkedId: "linked_id",
 			Tag:      nil,
-			Suspect:  true,
+			Suspect:  &trueValue,
 		}, "123")
 
 		assert.Error(t, err)
@@ -327,7 +331,7 @@ func TestUpdateEvent(t *testing.T) {
 		res, err := client.FingerprintApi.UpdateEvent(ctx, sdk.EventsUpdateRequest{
 			LinkedId: "linked_id",
 			Tag:      nil,
-			Suspect:  true,
+			Suspect:  &trueValue,
 		}, "123")
 
 		assert.Error(t, err)

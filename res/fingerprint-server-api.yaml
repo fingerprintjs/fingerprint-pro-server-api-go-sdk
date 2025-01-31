@@ -1874,7 +1874,7 @@ components:
         suspect:
           type: boolean
           description: Suspect flag indicating observed suspicious or fraudulent event
-          x-go-skip-omitempty: true
+          x-go-force-pointer: true
     Visit:
       type: object
       additionalProperties: false
