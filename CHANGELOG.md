@@ -1,5 +1,11 @@
 # Fingerprint Pro Server Go SDK
 
+## 7.1.2
+
+### Patch Changes
+
+- Make `suspect` in `EventsUpdateRequest` nullable by changing its type to `*bool` ([c00647b](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/c00647b0127316a294410d6ee248c2aaeeeff220))
+
 ## 7.1.2-test.0
 
 ### Patch Changes
