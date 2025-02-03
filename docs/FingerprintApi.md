@@ -8,6 +8,7 @@ Method | HTTP request | Description
 [**GetEvent**](FingerprintApi.md#GetEvent) | **Get** /events/{request_id} | Get event by request ID
 [**GetRelatedVisitors**](FingerprintApi.md#GetRelatedVisitors) | **Get** /related-visitors | Get Related Visitors
 [**GetVisits**](FingerprintApi.md#GetVisits) | **Get** /visitors/{visitor_id} | Get visits by visitor ID
+[**SearchEvents**](FingerprintApi.md#SearchEvents) | **Get** /events/search | Get events via search
 [**UpdateEvent**](FingerprintApi.md#UpdateEvent) | **Put** /events/{request_id} | Update an event with a given request ID
 
 # **DeleteVisitorData**
@@ -122,6 +123,49 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**VisitorsGetResponse**](VisitorsGetResponse.md)
+
+### Authorization
+
+[ApiKeyHeader](../README.md#ApiKeyHeader), [ApiKeyQuery](../README.md#ApiKeyQuery)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **SearchEvents**
+> SearchEventsResponse SearchEvents(ctx, limit, optional)
+Get events via search
+
+Search for identification events, including Smart Signals, using multiple filtering criteria. If you don't provide `start` or `end` parameters, the default search range is the last 7 days.  Please note that events include mobile signals (e.g. `rootApps`) even if the request originated from a non-mobile platform. We recommend you **ignore** mobile signals for such requests. 
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **limit** | **int32**| Limit the number of events returned.  | 
+ **optional** | ***FingerprintApiSearchEventsOpts** | optional parameters | nil if no parameters
+
+### Optional Parameters
+Optional parameters are passed through a pointer to a FingerprintApiSearchEventsOpts struct
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **visitorId** | **string**| Unique [visitor identifier](https://dev.fingerprint.com/reference/get-function#visitorid) issued by Fingerprint Pro. Filter for events matching this `visitor_id`.  | 
+ **bot** | **string**| Filter events by the bot detection result, specifically:    - events where any kind of bot was detected.   - events where a good bot was detected.   - events where a bad bot was detected.   - events where no bot was detected.  | 
+ **ipAddress** | **string**| Filter events by IP address range. The range can be as specific as a single IP (/32 for IPv4 or /128 for IPv6)  All ip_address filters must use CIDR notation, for example, 10.0.0.0/24, 192.168.0.1/32  | 
+ **linkedId** | **string**| Filter events by your custom identifier.   You can use [linked IDs](https://dev.fingerprint.com/reference/get-function#linkedid) to associate identification requests with your own identifier, for example, session ID, purchase ID, or transaction ID. You can then use this `linked_id` parameter to retrieve all events associated with your custom identifier.  | 
+ **start** | **int64**| Filter events with a timestamp greater than the start time, in Unix time (milliseconds).  | 
+ **end** | **int64**| Filter events with a timestamp smaller than the end time, in Unix time (milliseconds).  | 
+ **reverse** | **bool**| Sort events in reverse timestamp order.  | 
+ **suspect** | **bool**| Filter events previously tagged as suspicious via the [Update API](https://dev.fingerprint.com/reference/updateevent).  | 
+
+### Return type
+
+[**SearchEventsResponse**](SearchEventsResponse.md)
 
 ### Authorization
 

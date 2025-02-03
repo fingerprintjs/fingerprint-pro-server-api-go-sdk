@@ -61,6 +61,24 @@ type FingerprintApiServiceInterface interface {
 	GetVisits(ctx context.Context, visitorId string, opts *FingerprintApiGetVisitsOpts) (VisitorsGetResponse, *http.Response, Error)
 
 	/*
+	   FingerprintApiService Get events via search
+	   Search for identification events, including Smart Signals, using multiple filtering criteria. If you don't provide `start` or `end` parameters, the default search range is the last 7 days.  Please note that events include mobile signals (e.g. `rootApps`) even if the request originated from a non-mobile platform. We recommend you **ignore** mobile signals for such requests.
+	    * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	    * @param limit Limit the number of events returned.
+	    * @param optional nil or *FingerprintApiSearchEventsOpts - Optional Parameters:
+	        * @param "VisitorId" (string) -  Unique [visitor identifier](https://dev.fingerprint.com/reference/get-function#visitorid) issued by Fingerprint Pro. Filter for events matching this `visitor_id`.
+	    * @param "Bot" (string) -  Filter events by the bot detection result, specifically:    - events where any kind of bot was detected.   - events where a good bot was detected.   - events where a bad bot was detected.   - events where no bot was detected.
+	    * @param "IpAddress" (string) -  Filter events by IP address range. The range can be as specific as a single IP (/32 for IPv4 or /128 for IPv6)  All ip_address filters must use CIDR notation, for example, 10.0.0.0/24, 192.168.0.1/32
+	    * @param "LinkedId" (string) -  Filter events by your custom identifier.   You can use [linked IDs](https://dev.fingerprint.com/reference/get-function#linkedid) to associate identification requests with your own identifier, for example, session ID, purchase ID, or transaction ID. You can then use this `linked_id` parameter to retrieve all events associated with your custom identifier.
+	    * @param "Start" (int64) -  Filter events with a timestamp greater than the start time, in Unix time (milliseconds).
+	    * @param "End" (int64) -  Filter events with a timestamp smaller than the end time, in Unix time (milliseconds).
+	    * @param "Reverse" (bool) -  Sort events in reverse timestamp order.
+	    * @param "Suspect" (bool) -  Filter events previously tagged as suspicious via the [Update API](https://dev.fingerprint.com/reference/updateevent).
+	   @return SearchEventsResponse
+	*/
+	SearchEvents(ctx context.Context, limit int32, opts *FingerprintApiSearchEventsOpts) (SearchEventsResponse, *http.Response, Error)
+
+	/*
 	   FingerprintApiService Update an event with a given request ID
 	   Change information in existing events specified by `requestId` or *flag suspicious events*.  When an event is created, it is assigned `linkedId` and `tag` submitted through the JS agent parameters. This information might not be available on the client so the Server API allows for updating the attributes after the fact.  **Warning** It's not possible to update events older than 10 days.
 	    * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -184,6 +202,57 @@ func (o *FingerprintApiGetVisitsOpts) ToUrlValuesMap() map[string]any {
 	data["limit"] = o.Limit
 	data["paginationKey"] = o.PaginationKey
 	data["before"] = o.Before
+
+	return data
+}
+
+func createSearchEventsDefinition() requestDefinition {
+	return requestDefinition{
+		GetPath: func(args ...string) string {
+			pathParams := []string{}
+
+			path := "/events/search"
+
+			for i, arg := range args {
+				path = strings.Replace(path, "{"+pathParams[i]+"}", arg, -1)
+			}
+
+			return path
+		},
+		StatusCodeResultsFactoryMap: map[int]func() any{
+			200: func() any { return &SearchEventsResponse{} },
+			400: func() any { return &ErrorResponse{} },
+			403: func() any { return &ErrorResponse{} },
+		},
+	}
+}
+
+type FingerprintApiSearchEventsOpts struct {
+	VisitorId string
+	Bot       string
+	IpAddress string
+	LinkedId  string
+	Start     int64
+	End       int64
+	Reverse   bool
+	Suspect   bool
+}
+
+func (o *FingerprintApiSearchEventsOpts) ToUrlValuesMap() map[string]any {
+	data := make(map[string]any)
+
+	if o == nil {
+		return data
+	}
+
+	data["visitor_id"] = o.VisitorId
+	data["bot"] = o.Bot
+	data["ip_address"] = o.IpAddress
+	data["linked_id"] = o.LinkedId
+	data["start"] = o.Start
+	data["end"] = o.End
+	data["reverse"] = o.Reverse
+	data["suspect"] = o.Suspect
 
 	return data
 }
