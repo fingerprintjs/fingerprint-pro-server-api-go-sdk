@@ -10,6 +10,9 @@ func addMapToUrlValues(data map[string]any, values *url.Values) {
 		var stringValue string
 
 		switch v := value.(type) {
+
+		case bool:
+			stringValue = strconv.FormatBool(v)
 		case string:
 			stringValue = v
 		case int32:
