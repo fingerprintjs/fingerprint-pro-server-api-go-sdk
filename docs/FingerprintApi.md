@@ -154,15 +154,13 @@ Optional parameters are passed through a pointer to a FingerprintApiSearchEvents
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**optional** | ***FingerprintApiSearchEventsOpts** | optional parameters | nil if no parameters
-**optional** | ***FingerprintApiSearchEventsOpts** | optional parameters | nil if no parameters
- **visitorId** | **string**| Unique [visitor identifier](https://dev.fingerprint.com/reference/get-function#visitorid) issued by Fingerprint Pro. Filter for events matching this `visitor_id`.  | **optional** | ***FingerprintApiSearchEventsOpts** | optional parameters | nil if no parameters
- **bot** | **string**| Filter events by the bot detection result, specifically:    - events where any kind of bot was detected.   - events where a good bot was detected.   - events where a bad bot was detected.   - events where no bot was detected.  | **optional** | ***FingerprintApiSearchEventsOpts** | optional parameters | nil if no parameters
- **ipAddress** | **string**| Filter events by IP address range. The range can be as specific as a single IP (/32 for IPv4 or /128 for IPv6)  All ip_address filters must use CIDR notation, for example, 10.0.0.0/24, 192.168.0.1/32  | **optional** | ***FingerprintApiSearchEventsOpts** | optional parameters | nil if no parameters
- **linkedId** | **string**| Filter events by your custom identifier.   You can use [linked IDs](https://dev.fingerprint.com/reference/get-function#linkedid) to associate identification requests with your own identifier, for example, session ID, purchase ID, or transaction ID. You can then use this `linked_id` parameter to retrieve all events associated with your custom identifier.  | **optional** | ***FingerprintApiSearchEventsOpts** | optional parameters | nil if no parameters
- **start** | **int64**| Filter events with a timestamp greater than the start time, in Unix time (milliseconds).  | **optional** | ***FingerprintApiSearchEventsOpts** | optional parameters | nil if no parameters
- **end** | **int64**| Filter events with a timestamp smaller than the end time, in Unix time (milliseconds).  | **optional** | ***FingerprintApiSearchEventsOpts** | optional parameters | nil if no parameters
- **reverse** | **bool**| Sort events in reverse timestamp order.  | **optional** | ***FingerprintApiSearchEventsOpts** | optional parameters | nil if no parameters
+ **visitorId** | **string**| Unique [visitor identifier](https://dev.fingerprint.com/reference/get-function#visitorid) issued by Fingerprint Pro. Filter for events matching this `visitor_id`.  | 
+ **bot** | **string**| Filter events by the bot detection result, specifically:    - events where any kind of bot was detected.   - events where a good bot was detected.   - events where a bad bot was detected.   - events where no bot was detected.  | 
+ **ipAddress** | **string**| Filter events by IP address range. The range can be as specific as a single IP (/32 for IPv4 or /128 for IPv6)  All ip_address filters must use CIDR notation, for example, 10.0.0.0/24, 192.168.0.1/32  | 
+ **linkedId** | **string**| Filter events by your custom identifier.   You can use [linked IDs](https://dev.fingerprint.com/reference/get-function#linkedid) to associate identification requests with your own identifier, for example, session ID, purchase ID, or transaction ID. You can then use this `linked_id` parameter to retrieve all events associated with your custom identifier.  | 
+ **start** | **int64**| Filter events with a timestamp greater than the start time, in Unix time (milliseconds).  | 
+ **end** | **int64**| Filter events with a timestamp smaller than the end time, in Unix time (milliseconds).  | 
+ **reverse** | **bool**| Sort events in reverse timestamp order.  | 
  **suspect** | **bool**| Filter events previously tagged as suspicious via the [Update API](https://dev.fingerprint.com/reference/updateevent).  | 
 
 ### Return type

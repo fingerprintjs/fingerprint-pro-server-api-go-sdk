@@ -25,6 +25,7 @@ func main() {
 	moveFiles()
 	fixFingerPrintApiMdFile()
 	fixErrorCodemodel()
+	fixSearchEventsDocsDuplicatedParam()
 	moveFilesToKeepFromTmpDir()
 	formatCode()
 }
@@ -256,6 +257,46 @@ func fixErrorCodemodel() {
 
 	contents = []byte(strings.Replace(string(contents), "429TOOMANYREQUESTS_ ErrorCode", "TOOMANYREQUESTS429 ErrorCode", -1))
 	err = os.WriteFile(path, contents, 0644)
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
+// fixSearchEventsDocsDuplicatedParam fixes invalid docs for EventsSearch method, where FingerprintApiSearchEventsOpts references were duplicated in both Required and Optional params section
+func fixSearchEventsDocsDuplicatedParam() {
+	phraseToRemove := "**optional** | ***FingerprintApiSearchEventsOpts** | optional parameters | nil if no parameters"
+	filePath := "docs/FingerprintApi.md"
+
+	fileContents, err := os.ReadFile(filePath)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fileContentsArray := strings.Split(string(fileContents), "\n")
+	var fileContentsArrayResult []string
+
+	seenFirstLine := false
+
+	for _, line := range fileContentsArray {
+		if strings.Contains(line, phraseToRemove) {
+			if !seenFirstLine {
+				// Skip replacement the first time we see the phraseToRemove, because in this case we want to keep it
+				seenFirstLine = true
+			} else {
+				line = strings.Replace(line, phraseToRemove, "", -1)
+
+				if line == "" {
+					continue
+				}
+			}
+		}
+
+		fileContentsArrayResult = append(fileContentsArrayResult, line)
+	}
+
+	err = os.WriteFile(filePath, []byte(strings.Join(fileContentsArrayResult, "\n")), 0644)
+
 	if err != nil {
 		log.Fatal(err)
 	}
