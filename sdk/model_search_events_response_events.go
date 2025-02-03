@@ -9,10 +9,7 @@
  */
 package sdk
 
-type EventsUpdateRequest struct {
-	// LinkedID value to assign to the existing event
-	LinkedId string    `json:"linkedId,omitempty"`
-	Tag      *ModelMap `json:"tag,omitempty"`
-	// Suspect flag indicating observed suspicious or fraudulent event
-	Suspect bool `json:"suspect,omitempty"`
+// Device intelligence results for the identification event.
+type SearchEventsResponseEvents struct {
+	Products *Products `json:"products"`
 }

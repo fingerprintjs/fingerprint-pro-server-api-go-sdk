@@ -9,10 +9,8 @@
  */
 package sdk
 
-type EventsUpdateRequest struct {
-	// LinkedID value to assign to the existing event
-	LinkedId string    `json:"linkedId,omitempty"`
-	Tag      *ModelMap `json:"tag,omitempty"`
-	// Suspect flag indicating observed suspicious or fraudulent event
-	Suspect bool `json:"suspect,omitempty"`
+// Contains a list of all identification events matching the specified search criteria.
+type SearchEventsResponse struct {
+	Events        []SearchEventsResponseEvents `json:"events,omitempty"`
+	PaginationKey string                       `json:"paginationKey,omitempty"`
 }
