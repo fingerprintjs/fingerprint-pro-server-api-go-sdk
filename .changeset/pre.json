@@ -4,5 +4,7 @@
   "initialVersions": {
     "fingerprint-pro-server-api-go-sdk": "7.1.2"
   },
-  "changesets": []
+  "changesets": [
+    "good-experts-watch"
+  ]
 }
