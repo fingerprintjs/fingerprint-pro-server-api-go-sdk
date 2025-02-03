@@ -7,6 +7,7 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"strconv"
 )
 
 type FingerprintApiService struct {
@@ -73,6 +74,22 @@ func (f *FingerprintApiService) GetVisits(ctx context.Context, visitorId string,
 	}
 
 	var response VisitorsGetResponse
+	httpResponse, err := f.doRequest(ctx, request, &response)
+
+	return response, httpResponse, err
+}
+
+func (f *FingerprintApiService) SearchEvents(ctx context.Context, limit int32, opts *FingerprintApiSearchEventsOpts) (SearchEventsResponse, *http.Response, Error) {
+	queryParams := opts.ToUrlValuesMap()
+	queryParams["limit"] = strconv.Itoa(int(limit))
+
+	request := apiRequest{
+		definition:  createSearchEventsDefinition(),
+		queryParams: queryParams,
+		method:      http.MethodGet,
+	}
+
+	var response SearchEventsResponse
 	httpResponse, err := f.doRequest(ctx, request, &response)
 
 	return response, httpResponse, err
