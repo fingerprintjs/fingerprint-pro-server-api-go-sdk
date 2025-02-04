@@ -228,14 +228,14 @@ func createSearchEventsDefinition() requestDefinition {
 }
 
 type FingerprintApiSearchEventsOpts struct {
-	VisitorId string
-	Bot       string
-	IpAddress string
-	LinkedId  string
-	Start     int64
-	End       int64
-	Reverse   bool
-	Suspect   bool
+	VisitorId *string
+	Bot       *string
+	IpAddress *string
+	LinkedId  *string
+	Start     *int64
+	End       *int64
+	Reverse   *bool
+	Suspect   *bool
 }
 
 func (o *FingerprintApiSearchEventsOpts) ToUrlValuesMap() map[string]any {

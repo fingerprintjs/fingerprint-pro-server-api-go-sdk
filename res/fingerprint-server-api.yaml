@@ -299,6 +299,7 @@ paths:
             issued by Fingerprint Pro.
         - name: request_id
           in: query
+          x-go-skip-pointer: true
           schema:
             type: string
           description: >
@@ -313,6 +314,7 @@ paths:
             returned.
         - name: linked_id
           in: query
+          x-go-skip-pointer: true
           schema:
             type: string
           description: >
@@ -327,6 +329,7 @@ paths:
             with your custom identifier.
         - name: limit
           in: query
+          x-go-skip-pointer: true
           schema:
             type: integer
             format: int32
@@ -345,6 +348,7 @@ paths:
             500.
         - name: paginationKey
           in: query
+          x-go-skip-pointer: true
           schema:
             type: string
           description: >
@@ -373,6 +377,7 @@ paths:
             scanning, the `paginationKey` attribute is not returned.
         - name: before
           in: query
+          x-go-skip-pointer: true
           deprecated: true
           schema:
             type: integer
