@@ -13,12 +13,24 @@ func addMapToUrlValues(data map[string]any, values *url.Values) {
 
 		case bool:
 			stringValue = strconv.FormatBool(v)
+		case *bool:
+			stringValue = strconv.FormatBool(*v)
+
+		case *string:
+			stringValue = *v
 		case string:
 			stringValue = v
+
+		case *int32:
+			stringValue = strconv.FormatInt(int64(*v), 10)
 		case int32:
 			stringValue = strconv.FormatInt(int64(v), 10)
+
+		case *int64:
+			stringValue = strconv.FormatInt(*v, 10)
 		case int64:
 			stringValue = strconv.FormatInt(v, 10)
+
 		default:
 			continue
 		}

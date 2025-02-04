@@ -62,16 +62,16 @@ func TestSearchEvents(t *testing.T) {
 			assert.Equal(t, apiKey, "api_key")
 
 			assert.Equal(t, "/events/search", r.URL.Path)
-			assert.Equal(t, "2", r.URL.Query().Get("limit"))
+			assert.Equal(t, "2", r.URL.Query().Get("limit"), "limit")
 			assert.Len(t, strings.Split(r.URL.RawQuery, "&"), 10)
-			assert.Equal(t, "true", r.URL.Query().Get("suspect"))
-			assert.Equal(t, "bot", r.URL.Query().Get("bot"))
-			assert.Equal(t, "10", r.URL.Query().Get("end"))
-			assert.Equal(t, "5", r.URL.Query().Get("start"))
-			assert.Equal(t, "127.0.0.1", r.URL.Query().Get("ip_address"))
-			assert.Equal(t, "linked_id", r.URL.Query().Get("linked_id"))
-			assert.Equal(t, "false", r.URL.Query().Get("reverse"))
-			assert.Equal(t, "XIkiQhRyp7edU9SA0jBb", r.URL.Query().Get("visitor_id"))
+			assert.Equal(t, "true", r.URL.Query().Get("suspect"), "suspect")
+			assert.Equal(t, "bot", r.URL.Query().Get("bot"), "bot")
+			assert.Equal(t, "10", r.URL.Query().Get("end"), "end")
+			assert.Equal(t, "5", r.URL.Query().Get("start"), "start")
+			assert.Equal(t, "127.0.0.1", r.URL.Query().Get("ip_address"), "ip_address")
+			assert.Equal(t, "linked_id", r.URL.Query().Get("linked_id"), "linked_id")
+			assert.Equal(t, "false", r.URL.Query().Get("reverse"), "reverse")
+			assert.Equal(t, "XIkiQhRyp7edU9SA0jBb", r.URL.Query().Get("visitor_id"), "visitor_id")
 
 			w.Header().Set("Content-Type", "application/json")
 			err := json.NewEncoder(w).Encode(mockResponse)
@@ -86,15 +86,23 @@ func TestSearchEvents(t *testing.T) {
 		client := sdk.NewAPIClient(cfg)
 		ctx := context.WithValue(context.Background(), sdk.ContextAPIKey, sdk.APIKey{Key: "api_key"})
 
+		var end int64 = 10
+		var start int64 = 5
+		suspect := true
+		reverse := false
+		bot := "bot"
+		ipAddress := "127.0.0.1"
+		linkedId := "linked_id"
+		visitorId := "XIkiQhRyp7edU9SA0jBb"
 		opts := sdk.FingerprintApiSearchEventsOpts{
-			Suspect:   true,
-			Bot:       "bot",
-			End:       10,
-			Start:     5,
-			IpAddress: "127.0.0.1",
-			LinkedId:  "linked_id",
-			Reverse:   false,
-			VisitorId: "XIkiQhRyp7edU9SA0jBb",
+			Suspect:   &suspect,
+			Bot:       &bot,
+			End:       &end,
+			Start:     &start,
+			IpAddress: &ipAddress,
+			LinkedId:  &linkedId,
+			Reverse:   &reverse,
+			VisitorId: &visitorId,
 		}
 		res, _, err := client.FingerprintApi.SearchEvents(ctx, 2, &opts)
 		assert.Nil(t, err)
