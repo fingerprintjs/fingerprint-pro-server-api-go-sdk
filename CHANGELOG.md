@@ -1,5 +1,11 @@
 # Fingerprint Pro Server Go SDK
 
+## 7.2.0-test.1
+
+### Patch Changes
+
+- Allow nullable values in `FingerprintApiSearchEventsOpts` ([8421968](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/8421968922e5206b57df315e101a741141a4ea96))
+
 ## 7.2.0-test.0
 
 ### Minor Changes
