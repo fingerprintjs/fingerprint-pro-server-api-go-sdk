@@ -5,6 +5,7 @@
     "fingerprint-pro-server-api-go-sdk": "7.1.2"
   },
   "changesets": [
+    "fifty-spiders-jog",
     "good-experts-watch"
   ]
 }
