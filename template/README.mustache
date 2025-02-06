@@ -102,6 +102,14 @@ func main() {
 	if event.Products.Identification != nil {
 		fmt.Printf("Got response with Identification: %v", event.Products.Identification)
 	}
+
+	opts := sdk.FingerprintApiSearchEventsOpts{
+		Suspect: true,
+	}
+	searchEventsResult, httpRes, err := client.FingerprintApi.SearchEvents(auth, 10, &opts)
+	if searchEventsResult.Events != nil {
+		fmt.Printf("Got response with Events: %v \n", searchEventsResult.Events)
+	}
 }
 ```
 
