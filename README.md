@@ -65,14 +65,17 @@ func main() {
 	visitorId := "<VISITOR_ID>"
 	requestId := "<REQUEST_ID>"
 	opts := sdk.FingerprintApiGetVisitsOpts{
+		// Get visits for this requestId
 		RequestId: requestId,
 	}
+	// Get visits for given visitorId and requestId
 	visits, httpRes, err := client.FingerprintApi.GetVisits(auth, visitorId, &opts)
 	fmt.Printf("%+v\n", httpRes)
 
 	if err != nil {
 		var tooManyRequestsError *sdk.TooManyRequestsError
 
+		// Handle potential TooManyRequestsError
 		if errors.As(err, &tooManyRequestsError) {
 			log.Fatalf("Too many requests, retry after %d seconds", tooManyRequestsError.RetryAfter())
 		} else {
@@ -84,6 +87,7 @@ func main() {
 
 	fmt.Printf("Got response with visitorId: %s", visits.VisitorId)
 
+	// Get event by given requestId
 	event, httpRes, err := client.FingerprintApi.GetEvent(auth, requestId)
 	if err != nil {
 		// You can also use err.Model() and err.Body() to get more details about the error
@@ -91,13 +95,16 @@ func main() {
 		log.Fatal(err)
         }
 
+        // Access identification details
 	if event.Products.Identification != nil {
 		fmt.Printf("Got response with Identification: %v", event.Products.Identification)
 	}
 
 	opts := sdk.FingerprintApiSearchEventsOpts{
+        // Suspect can be set by using `UpdateEvent` method
 		Suspect: true,
 	}
+	// Search for 10 events with suspect=true
 	searchEventsResult, httpRes, err := client.FingerprintApi.SearchEvents(auth, 10, &opts)
 	if searchEventsResult.Events != nil {
 		fmt.Printf("Got response with Events: %v \n", searchEventsResult.Events)
