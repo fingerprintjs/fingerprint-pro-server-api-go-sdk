@@ -1,5 +1,6 @@
 name: E2E Tests
 on:
+  pull_request:
   release:
     types:
       - published
