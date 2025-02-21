@@ -190,7 +190,7 @@ type FingerprintApiGetVisitsOpts struct {
 	Before        int64
 }
 
-func (o *FingerprintApiGetVisitsOpts) ToUrlValuesMap() map[string]any {
+func (o *FingerprintApiGetVisitsOpts) ToQueryParams() map[string]any {
 	data := make(map[string]any)
 
 	if o == nil {
@@ -238,7 +238,7 @@ type FingerprintApiSearchEventsOpts struct {
 	Suspect   *bool
 }
 
-func (o *FingerprintApiSearchEventsOpts) ToUrlValuesMap() map[string]any {
+func (o *FingerprintApiSearchEventsOpts) ToQueryParams() map[string]any {
 	data := make(map[string]any)
 
 	if o == nil {
