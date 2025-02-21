@@ -107,7 +107,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **visitorId** | **string**| Unique [visitor identifier](https://dev.fingerprint.com/reference/get-function#visitorid) issued by Fingerprint Pro. | 
- **opts** | ***FingerprintApiGetVisitsOpts** | optional parameters | nil if no parameters
+ 
 
 ### Optional Parameters
 Optional parameters are passed through a pointer to a FingerprintApiGetVisitsOpts struct
@@ -154,7 +154,6 @@ Optional parameters are passed through a pointer to a FingerprintApiSearchEvents
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**optional** | ***FingerprintApiSearchEventsOpts** | optional parameters | nil if no parameters
  **visitorId** | **string**| Unique [visitor identifier](https://dev.fingerprint.com/reference/get-function#visitorid) issued by Fingerprint Pro. Filter for events matching this `visitor_id`.  | 
  **bot** | **string**| Filter events by the bot detection result, specifically:    - events where any kind of bot was detected.   - events where a good bot was detected.   - events where a bad bot was detected.   - events where no bot was detected.  | 
  **ipAddress** | **string**| Filter events by IP address range. The range can be as specific as a single IP (/32 for IPv4 or /128 for IPv6)  All ip_address filters must use CIDR notation, for example, 10.0.0.0/24, 192.168.0.1/32  | 
