@@ -189,10 +189,10 @@ paths:
               - none
           description: |
             Filter events by the bot detection result, specifically: 
-              - events where any kind of bot was detected.
-              - events where a good bot was detected.
-              - events where a bad bot was detected.
-              - events where no bot was detected.
+              `all` - events where any kind of bot was detected.
+              `good` - events where a good bot was detected.
+              `bad` - events where a bad bot was detected.
+              `none` - events where no bot was detected.
         - name: ip_address
           in: query
           schema:
@@ -245,7 +245,11 @@ paths:
             type: boolean
           description: >
             Filter events previously tagged as suspicious via the [Update
-            API](https://dev.fingerprint.com/reference/updateevent).
+            API](https://dev.fingerprint.com/reference/updateevent). 
+
+            > Note: When using this parameter, only events with the `suspect`
+            property explicitly set to `true` or `false` are returned. Events
+            with undefined `suspect` property are left out of the response.
       responses:
         '200':
           description: Events matching the filter(s).
@@ -299,7 +303,6 @@ paths:
             issued by Fingerprint Pro.
         - name: request_id
           in: query
-          x-go-skip-pointer: true
           schema:
             type: string
           description: >
@@ -314,7 +317,6 @@ paths:
             returned.
         - name: linked_id
           in: query
-          x-go-skip-pointer: true
           schema:
             type: string
           description: >
@@ -329,7 +331,6 @@ paths:
             with your custom identifier.
         - name: limit
           in: query
-          x-go-skip-pointer: true
           schema:
             type: integer
             format: int32
@@ -348,7 +349,6 @@ paths:
             500.
         - name: paginationKey
           in: query
-          x-go-skip-pointer: true
           schema:
             type: string
           description: >
@@ -377,7 +377,6 @@ paths:
             scanning, the `paginationKey` attribute is not returned.
         - name: before
           in: query
-          x-go-skip-pointer: true
           deprecated: true
           schema:
             type: integer
@@ -2004,7 +2003,7 @@ components:
         suspect:
           type: boolean
           description: Suspect flag indicating observed suspicious or fraudulent event
-          x-go-force-pointer: true
+          x-go-skip-omitempty: true
     SearchEventsResponse:
       type: object
       description: >-

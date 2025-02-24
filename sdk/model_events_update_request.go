@@ -14,5 +14,5 @@ type EventsUpdateRequest struct {
 	LinkedId string    `json:"linkedId,omitempty"`
 	Tag      *ModelMap `json:"tag,omitempty"`
 	// Suspect flag indicating observed suspicious or fraudulent event
-	Suspect *bool `json:"suspect,omitempty"`
+	Suspect bool `json:"suspect"`
 }
