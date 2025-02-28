@@ -183,11 +183,11 @@ func createGetVisitsDefinition() requestDefinition {
 }
 
 type FingerprintApiGetVisitsOpts struct {
-	RequestId     *string
-	LinkedId      *string
-	Limit         *int32
-	PaginationKey *string
-	Before        *int64
+	RequestId     string
+	LinkedId      string
+	Limit         int32
+	PaginationKey string
+	Before        int64
 }
 
 func (o *FingerprintApiGetVisitsOpts) ToUrlValuesMap() map[string]any {
