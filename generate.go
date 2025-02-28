@@ -264,7 +264,7 @@ func fixErrorCodemodel() {
 
 // fixSearchEventsDocsDuplicatedParam fixes invalid docs for EventsSearch method, where FingerprintApiSearchEventsOpts references were duplicated in both Required and Optional params section
 func fixSearchEventsDocsDuplicatedParam() {
-	phraseToRemove := "**optional** | ***FingerprintApiSearchEventsOpts** | optional parameters | nil if no parameters"
+	phraseToRemove := "**opts** | ***FingerprintApiSearchEventsOpts** | optional parameters | nil if no parameters"
 	filePath := "docs/FingerprintApi.md"
 
 	fileContents, err := os.ReadFile(filePath)
@@ -306,7 +306,7 @@ func fixSearchEventsDocsDuplicatedParam() {
 func fixFingerPrintApiMdFile() {
 	token := "{{classname}}"
 	target := "FingerprintApi"
-	targetsToRemove := []string{"**optional** | ***FingerprintApiGetVisitsOpts** | optional parameters | nil if no parameters"}
+	targetsToRemove := []string{"**opts** | ***FingerprintApiGetVisitsOpts** | optional parameters | nil if no parameters"}
 	filePath := "docs/FingerprintApi.md"
 
 	fileContents, err := os.ReadFile(filePath)

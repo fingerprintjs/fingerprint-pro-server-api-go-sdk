@@ -147,7 +147,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **limit** | **int32**| Limit the number of events returned.  | 
- **optional** | ***FingerprintApiSearchEventsOpts** | optional parameters | nil if no parameters
+ **opts** | ***FingerprintApiSearchEventsOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 Optional parameters are passed through a pointer to a FingerprintApiSearchEventsOpts struct

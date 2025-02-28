@@ -69,7 +69,7 @@ func (f *FingerprintApiService) GetVisits(ctx context.Context, visitorId string,
 	request := apiRequest{
 		definition:  createGetVisitsDefinition(),
 		pathParams:  []string{visitorId},
-		queryParams: opts.ToUrlValuesMap(),
+		queryParams: opts.ToQueryParams(),
 		method:      http.MethodGet,
 	}
 
@@ -80,7 +80,7 @@ func (f *FingerprintApiService) GetVisits(ctx context.Context, visitorId string,
 }
 
 func (f *FingerprintApiService) SearchEvents(ctx context.Context, limit int32, opts *FingerprintApiSearchEventsOpts) (SearchEventsResponse, *http.Response, Error) {
-	queryParams := opts.ToUrlValuesMap()
+	queryParams := opts.ToQueryParams()
 	queryParams["limit"] = strconv.Itoa(int(limit))
 
 	request := apiRequest{

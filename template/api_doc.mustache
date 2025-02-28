@@ -22,7 +22,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.{{/@last}}{{/allParams}}{{#allParams}}{{#required}}
   **{{paramName}}** | {{#isFile}}**{{dataType}}**{{/isFile}}{{#isPrimitiveType}}**{{dataType}}**{{/isPrimitiveType}}{{^isPrimitiveType}}{{^isFile}}[**{{dataType}}**]({{baseType}}.md){{/isFile}}{{/isPrimitiveType}}| {{{description}}} | {{#defaultValue}}[default to {{defaultValue}}]{{/defaultValue}}{{/required}}{{/allParams}}{{#hasOptionalParams}}
- **optional** | ***{{{classname}}}{{{nickname}}}Opts** | optional parameters | nil if no parameters
+ **opts** | ***{{{classname}}}{{{nickname}}}Opts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 Optional parameters are passed through a pointer to a {{{classname}}}{{{nickname}}}Opts struct
@@ -31,7 +31,7 @@ Optional parameters are passed through a pointer to a {{{classname}}}{{{nickname
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 {{/@last}}{{/allParams}}{{#allParams}}
-**optional** | ***{{{classname}}}{{{nickname}}}Opts** | optional parameters | nil if no parameters
+**opts** | ***{{{classname}}}{{{nickname}}}Opts** | optional parameters | nil if no parameters
 {{^required}} **{{paramName}}** | {{#isFile}}**Interface of {{dataType}}**{{/isFile}}{{#isPrimitiveType}}**{{dataType}}**{{/isPrimitiveType}}{{^isPrimitiveType}}{{^isFile}}[**Interface of {{dataType}}**]({{baseType}}.md){{/isFile}}{{/isPrimitiveType}}| {{{description}}} | {{#defaultValue}}[default to {{defaultValue}}]{{/defaultValue}}{{/required}}{{/allParams}}{{/hasOptionalParams}}
 
 ### Return type
