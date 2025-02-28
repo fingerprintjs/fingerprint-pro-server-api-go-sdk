@@ -18,7 +18,7 @@ type {{classname}}ServiceInterface interface {
     {{{notes}}}{{/notes}}
      * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
     {{#allParams}}{{#required}} * @param {{paramName}}{{#description}} {{{.}}}{{/description}}
-    {{/required}}{{/allParams}}{{#hasOptionalParams}} * @param optional nil or *{{{classname}}}{{{nickname}}}Opts - Optional Parameters:
+    {{/required}}{{/allParams}}{{#hasOptionalParams}} * @param opts nil or *{{{classname}}}{{{nickname}}}Opts - Optional Parameters:
     {{#allParams}}{{^required}}     * @param "{{vendorExtensions.x-exportParamName}}" ({{#isPrimitiveType}}{{dataType}}{{/isPrimitiveType}}{{^isPrimitiveType}}Interface of {{dataType}}{{/isPrimitiveType}}) - {{#description}} {{{.}}}{{/description}}
     {{/required}}{{/allParams}}{{/hasOptionalParams}}
     {{#returnType}}@return {{{returnType}}}{{/returnType}}
