@@ -29,8 +29,9 @@ func main() {
 		Key: os.Getenv("FINGERPRINT_API_KEY"),
 	})
 
+	//suspect := false
 	opts := sdk.FingerprintApiSearchEventsOpts{
-		//Suspect: false,
+		//Suspect: &suspect,
 	}
 
 	response, httpRes, err := client.FingerprintApi.SearchEvents(auth, 10, &opts)
