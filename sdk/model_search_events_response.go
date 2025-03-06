@@ -11,6 +11,7 @@ package sdk
 
 // Contains a list of all identification events matching the specified search criteria.
 type SearchEventsResponse struct {
-	Events        []SearchEventsResponseEvents `json:"events,omitempty"`
-	PaginationKey string                       `json:"paginationKey,omitempty"`
+	Events []SearchEventsResponseEvents `json:"events,omitempty"`
+	// Use this value in the `pagination_key` parameter to request the next page of search results.
+	PaginationKey string `json:"paginationKey,omitempty"`
 }

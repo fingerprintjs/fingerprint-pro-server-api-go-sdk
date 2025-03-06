@@ -112,6 +112,7 @@ func main() {
 	opts := sdk.FingerprintApiSearchEventsOpts{
         // Suspect can be set by using `UpdateEvent` method
 		Suspect: &suspect,
+		PaginationKey: "1740815825085"
 	}
 	// Search for 10 events with suspect=true
 	searchEventsResult, httpRes, err := client.FingerprintApi.SearchEvents(auth, 10, &opts)

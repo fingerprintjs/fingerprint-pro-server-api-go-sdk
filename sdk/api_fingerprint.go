@@ -66,7 +66,8 @@ type FingerprintApiServiceInterface interface {
 	    * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	    * @param limit Limit the number of events returned.
 	    * @param opts nil or *FingerprintApiSearchEventsOpts - Optional Parameters:
-	        * @param "VisitorId" (string) -  Unique [visitor identifier](https://dev.fingerprint.com/reference/get-function#visitorid) issued by Fingerprint Pro. Filter for events matching this `visitor_id`.
+	        * @param "PaginationKey" (string) -  Use `pagination_key` to get the next page of results.   When more results are available (e.g., you requested up to 200 results for your search using `limit`, but there are more than 200 events total matching your request), the `paginationKey` top-level attribute is added to the response. The key corresponds to the `timestamp` of the last returned event. In the following request, use that value in the `pagination_key` parameter to get the next page of results:  1. First request, returning most recent 200 events: `GET api-base-url/events/search?limit=200` 2. Use `response.paginationKey` to get the next page of results: `GET api-base-url/events/search?limit=200&pagination_key=1740815825085`
+	    * @param "VisitorId" (string) -  Unique [visitor identifier](https://dev.fingerprint.com/reference/get-function#visitorid) issued by Fingerprint Pro. Filter for events matching this `visitor_id`.
 	    * @param "Bot" (string) -  Filter events by the bot detection result, specifically:    `all` - events where any kind of bot was detected.   `good` - events where a good bot was detected.   `bad` - events where a bad bot was detected.   `none` - events where no bot was detected.
 	    * @param "IpAddress" (string) -  Filter events by IP address range. The range can be as specific as a single IP (/32 for IPv4 or /128 for IPv6)  All ip_address filters must use CIDR notation, for example, 10.0.0.0/24, 192.168.0.1/32
 	    * @param "LinkedId" (string) -  Filter events by your custom identifier.   You can use [linked IDs](https://dev.fingerprint.com/reference/get-function#linkedid) to associate identification requests with your own identifier, for example, session ID, purchase ID, or transaction ID. You can then use this `linked_id` parameter to retrieve all events associated with your custom identifier.
@@ -228,14 +229,15 @@ func createSearchEventsDefinition() requestDefinition {
 }
 
 type FingerprintApiSearchEventsOpts struct {
-	VisitorId *string
-	Bot       *string
-	IpAddress *string
-	LinkedId  *string
-	Start     *int64
-	End       *int64
-	Reverse   *bool
-	Suspect   *bool
+	PaginationKey *string
+	VisitorId     *string
+	Bot           *string
+	IpAddress     *string
+	LinkedId      *string
+	Start         *int64
+	End           *int64
+	Reverse       *bool
+	Suspect       *bool
 }
 
 func (o *FingerprintApiSearchEventsOpts) ToQueryParams() map[string]any {
@@ -245,6 +247,7 @@ func (o *FingerprintApiSearchEventsOpts) ToQueryParams() map[string]any {
 		return data
 	}
 
+	data["pagination_key"] = o.PaginationKey
 	data["visitor_id"] = o.VisitorId
 	data["bot"] = o.Bot
 	data["ip_address"] = o.IpAddress
