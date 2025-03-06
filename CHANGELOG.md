@@ -1,5 +1,15 @@
 # Fingerprint Pro Server Go SDK
 
+## 7.2.0-test.2
+
+### Minor Changes
+
+- **events-search**: Add 'pagination_key' parameter ([7815d8c](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/7815d8c51dde845bbceba2d1530503b59177b1b3))
+
+### Patch Changes
+
+- **events-search**: Improve parameter descriptions for `bot`, `suspect` ([8554da9](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/8554da95d90a227adedebe73226812faea6395aa))
+
 ## 7.2.0-test.1
 
 ### Patch Changes
