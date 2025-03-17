@@ -1,5 +1,11 @@
 # Fingerprint Pro Server Go SDK
 
+## 7.2.0
+
+### Minor Changes
+
+- **events-search**: Add a new `events/search` API endpoint. Allow users to search for identification events matching one or more search criteria, for example, visitor ID, IP address, bot detection result, etc. ([a68e3d6](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/a68e3d68100e1fb4cf94cccced30cbe9ec9bf75d))
+
 ## 7.2.0-test.2
 
 ### Minor Changes
