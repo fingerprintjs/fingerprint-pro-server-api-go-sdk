@@ -63,4 +63,5 @@ type Webhook struct {
 	RemoteControl       *WebhookRemoteControl          `json:"remoteControl,omitempty"`
 	Velocity            *WebhookVelocity               `json:"velocity,omitempty"`
 	DeveloperTools      *WebhookDeveloperTools         `json:"developerTools,omitempty"`
+	MitmAttack          *WebhookMitMAttack             `json:"mitmAttack,omitempty"`
 }

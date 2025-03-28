@@ -29,6 +29,7 @@ Name | Type | Description | Notes
 **RemoteControl** | [***ProductRemoteControl**](ProductRemoteControl.md) |  | [optional] [default to null]
 **Velocity** | [***ProductVelocity**](ProductVelocity.md) |  | [optional] [default to null]
 **DeveloperTools** | [***ProductDeveloperTools**](ProductDeveloperTools.md) |  | [optional] [default to null]
+**MitmAttack** | [***ProductMitMAttack**](ProductMitMAttack.md) |  | [optional] [default to null]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
