@@ -35,4 +35,5 @@ type Products struct {
 	RemoteControl       *ProductRemoteControl       `json:"remoteControl,omitempty"`
 	Velocity            *ProductVelocity            `json:"velocity,omitempty"`
 	DeveloperTools      *ProductDeveloperTools      `json:"developerTools,omitempty"`
+	MitmAttack          *ProductMitMAttack          `json:"mitmAttack,omitempty"`
 }
