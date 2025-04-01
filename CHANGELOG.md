@@ -1,5 +1,11 @@
 # Fingerprint Pro Server Go SDK
 
+## 7.3.0
+
+### Minor Changes
+
+- Add `mitmAttack` (man-in-the-middle attack) Smart Signal. ([6472400](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/6472400979adcb805047c04ec4f0466ea832a691))
+
 ## 7.2.0
 
 ### Minor Changes
