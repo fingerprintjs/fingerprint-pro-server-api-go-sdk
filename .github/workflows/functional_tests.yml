@@ -1,9 +1,9 @@
 name: Functional tests
 
 on:
-  pull_request_target:
-    branches:
-      - "*"
+  push:
+    branches-ignore:
+      - main
   workflow_dispatch:
   schedule:
     - cron: "0 5 * * *"
@@ -12,7 +12,6 @@ jobs:
   tests:
     name: Functional tests (GO ${{ matrix.go-version }})
     runs-on: "ubuntu-latest"
-
     strategy:
       matrix:
         go-version: ['1.21', '1.22']
@@ -24,13 +23,11 @@ jobs:
       - uses: actions/setup-go@v5
         with:
           go-version: ${{ matrix.go-version }}
-      - run: go version
       - name: Run functional tests
-        run: cd example && go run getVisits.go && go run getEvent.go
+        run: go test
+        working-directory: functional_test
         env:
           FINGERPRINT_API_KEY: ${{ secrets.FINGERPRINT_API_KEY }}
-          VISITOR_ID: ${{ secrets.VISITOR_ID }}
-          REQUEST_ID: ${{ secrets.REQUEST_ID }}
 
   report-status:
     needs: tests
