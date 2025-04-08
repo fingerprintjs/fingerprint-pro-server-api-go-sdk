@@ -1,5 +1,11 @@
 # Fingerprint Pro Server Go SDK
 
+## 7.3.1
+
+### Patch Changes
+
+- Don't send `null` Tag in `UpdateEvent` operation ([5556ddb](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/5556ddb3c44fca724289cf979da5da063a4ad083))
+
 ## 7.3.0
 
 ### Minor Changes
