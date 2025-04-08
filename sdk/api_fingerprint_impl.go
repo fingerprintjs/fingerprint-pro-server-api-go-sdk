@@ -48,6 +48,12 @@ func (f *FingerprintApiService) GetEvent(ctx context.Context, requestId string) 
 }
 
 func (f *FingerprintApiService) UpdateEvent(ctx context.Context, body EventsUpdateRequest, requestId string) (*http.Response, Error) {
+	// Avoid passing empty tag, which would result in serialisation to `null`, since our API doesn't support that
+	// TODO In the next major release, make `Tag` just a `ModelMap` so that `omitempty` can apply here.
+	if body.Tag != nil && len(*body.Tag) == 0 {
+		body.Tag = nil
+	}
+
 	bodyBytes, err := json.Marshal(body)
 	if err != nil {
 		return nil, WrapWithApiError(err)
