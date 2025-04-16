@@ -20,7 +20,7 @@ const IntegrationInfo = "fingerprint-pro-server-go-sdk/7.3.1"
 type FingerprintApiServiceInterface interface {
 	/*
 	   FingerprintApiService Delete data by visitor ID
-	   Request deleting all data associated with the specified visitor ID. This API is useful for compliance with privacy regulations. ### Which data is deleted? - Browser (or device) properties - Identification requests made from this browser (or device)  #### Browser (or device) properties - Represents the data that Fingerprint collected from this specific browser (or device) and everything inferred and derived from it. - Upon request to delete, this data is deleted asynchronously (typically within a few minutes) and it will no longer be used to identify this browser (or device) for your [Fingerprint Application](https://dev.fingerprint.com/docs/glossary#fingerprint-application).  #### Identification requests made from this browser (or device) - Fingerprint stores the identification requests made from a browser (or device) for up to 30 (or 90) days depending on your plan. To learn more, see [Data Retention](https://dev.fingerprint.com/docs/regions#data-retention). - Upon request to delete, the identification requests that were made by this browser   - Within the past 10 days are deleted within 24 hrs.   - Outside of 10 days are allowed to purge as per your data retention period.  ### Corollary After requesting to delete a visitor ID, - If the same browser (or device) requests to identify, it will receive a different visitor ID. - If you request [`/events` API](https://dev.fingerprint.com/reference/getevent) with a `request_id` that was made outside of the 10 days, you will still receive a valid response. - If you request [`/visitors` API](https://dev.fingerprint.com/reference/getvisits) for the deleted visitor ID, the response will include identification requests that were made outside of those 10 days.  ### Interested? Please [contact our support team](https://fingerprint.com/support/) to enable it for you. Otherwise, you will receive a 403.
+	   Request deleting all data associated with the specified visitor ID. This API is useful for compliance with privacy regulations. ### Which data is deleted? - Browser (or device) properties - Identification requests made from this browser (or device)  #### Browser (or device) properties - Represents the data that Fingerprint collected from this specific browser (or device) and everything inferred and derived from it. - Upon request to delete, this data is deleted asynchronously (typically within a few minutes) and it will no longer be used to identify this browser (or device) for your [Fingerprint Workspace](https://dev.fingerprint.com/docs/glossary#fingerprint-workspace).  #### Identification requests made from this browser (or device) - Fingerprint stores the identification requests made from a browser (or device) for up to 30 (or 90) days depending on your plan. To learn more, see [Data Retention](https://dev.fingerprint.com/docs/regions#data-retention). - Upon request to delete, the identification requests that were made by this browser   - Within the past 10 days are deleted within 24 hrs.   - Outside of 10 days are allowed to purge as per your data retention period.  ### Corollary After requesting to delete a visitor ID, - If the same browser (or device) requests to identify, it will receive a different visitor ID. - If you request [`/events` API](https://dev.fingerprint.com/reference/getevent) with a `request_id` that was made outside of the 10 days, you will still receive a valid response. - If you request [`/visitors` API](https://dev.fingerprint.com/reference/getvisits) for the deleted visitor ID, the response will include identification requests that were made outside of those 10 days.  ### Interested? Please [contact our support team](https://fingerprint.com/support/) to enable it for you. Otherwise, you will receive a 403.
 	    * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	    * @param visitorId The [visitor ID](https://dev.fingerprint.com/reference/get-function#visitorid) you want to delete.
 
@@ -68,13 +68,27 @@ type FingerprintApiServiceInterface interface {
 	    * @param opts nil or *FingerprintApiSearchEventsOpts - Optional Parameters:
 	        * @param "PaginationKey" (string) -  Use `pagination_key` to get the next page of results.   When more results are available (e.g., you requested up to 200 results for your search using `limit`, but there are more than 200 events total matching your request), the `paginationKey` top-level attribute is added to the response. The key corresponds to the `timestamp` of the last returned event. In the following request, use that value in the `pagination_key` parameter to get the next page of results:  1. First request, returning most recent 200 events: `GET api-base-url/events/search?limit=200` 2. Use `response.paginationKey` to get the next page of results: `GET api-base-url/events/search?limit=200&pagination_key=1740815825085`
 	    * @param "VisitorId" (string) -  Unique [visitor identifier](https://dev.fingerprint.com/reference/get-function#visitorid) issued by Fingerprint Pro. Filter for events matching this `visitor_id`.
-	    * @param "Bot" (string) -  Filter events by the bot detection result, specifically:    `all` - events where any kind of bot was detected.   `good` - events where a good bot was detected.   `bad` - events where a bad bot was detected.   `none` - events where no bot was detected.
+	    * @param "Bot" (string) -  Filter events by the Bot Detection result, specifically:    `all` - events where any kind of bot was detected.   `good` - events where a good bot was detected.   `bad` - events where a bad bot was detected.   `none` - events where no bot was detected. > Note: When using this parameter, only events with the `products.botd.data.bot.result` property set to a valid value are returned. Events without a `products.botd` Smart Signal result are left out of the response.
 	    * @param "IpAddress" (string) -  Filter events by IP address range. The range can be as specific as a single IP (/32 for IPv4 or /128 for IPv6)  All ip_address filters must use CIDR notation, for example, 10.0.0.0/24, 192.168.0.1/32
 	    * @param "LinkedId" (string) -  Filter events by your custom identifier.   You can use [linked IDs](https://dev.fingerprint.com/reference/get-function#linkedid) to associate identification requests with your own identifier, for example, session ID, purchase ID, or transaction ID. You can then use this `linked_id` parameter to retrieve all events associated with your custom identifier.
 	    * @param "Start" (int64) -  Filter events with a timestamp greater than the start time, in Unix time (milliseconds).
 	    * @param "End" (int64) -  Filter events with a timestamp smaller than the end time, in Unix time (milliseconds).
 	    * @param "Reverse" (bool) -  Sort events in reverse timestamp order.
 	    * @param "Suspect" (bool) -  Filter events previously tagged as suspicious via the [Update API](https://dev.fingerprint.com/reference/updateevent).  > Note: When using this parameter, only events with the `suspect` property explicitly set to `true` or `false` are returned. Events with undefined `suspect` property are left out of the response.
+	    * @param "Vpn" (bool) -  Filter events by VPN Detection result.   > Note: When using this parameter, only events with the `products.vpn.data.result` property set to `true` or `false` are returned. Events without a `products.vpn` Smart Signal result are left out of the response.
+	    * @param "VirtualMachine" (bool) -  Filter events by Virtual Machine Detection result.   > Note: When using this parameter, only events with the `products.virtualMachine.data.result` property set to `true` or `false` are returned. Events without a `products.virtualMachine` Smart Signal result are left out of the response.
+	    * @param "Tampering" (bool) -  Filter events by Tampering Detection result.   > Note: When using this parameter, only events with the `products.tampering.data.result` property set to `true` or `false` are returned. Events without a `products.tampering` Smart Signal result are left out of the response.
+	    * @param "AntiDetectBrowser" (bool) -  Filter events by Anti-detect Browser Detection result.   > Note: When using this parameter, only events with the `products.tampering.data.antiDetectBrowser` property set to `true` or `false` are returned. Events without a `products.tampering` Smart Signal result are left out of the response.
+	    * @param "Incognito" (bool) -  Filter events by Browser Incognito Detection result.   > Note: When using this parameter, only events with the `products.incognito.data.result` property set to `true` or `false` are returned. Events without a `products.incognito` Smart Signal result are left out of the response.
+	    * @param "PrivacySettings" (bool) -  Filter events by Privacy Settings Detection result.   > Note: When using this parameter, only events with the `products.privacySettings.data.result` property set to `true` or `false` are returned. Events without a `products.privacySettings` Smart Signal result are left out of the response.
+	    * @param "Jailbroken" (bool) -  Filter events by Jailbroken Device Detection result.   > Note: When using this parameter, only events with the `products.jailbroken.data.result` property set to `true` or `false` are returned. Events without a `products.jailbroken` Smart Signal result are left out of the response.
+	    * @param "Frida" (bool) -  Filter events by Frida Detection result.   > Note: When using this parameter, only events with the `products.frida.data.result` property set to `true` or `false` are returned. Events without a `products.frida` Smart Signal result are left out of the response.
+	    * @param "FactoryReset" (bool) -  Filter events by Factory Reset Detection result.   > Note: When using this parameter, only events with the `products.factoryReset.data.result` property set to `true` or `false` are returned. Events without a `products.factoryReset` Smart Signal result are left out of the response.
+	    * @param "ClonedApp" (bool) -  Filter events by Cloned App Detection result.   > Note: When using this parameter, only events with the `products.clonedApp.data.result` property set to `true` or `false` are returned. Events without a `products.clonedApp` Smart Signal result are left out of the response.
+	    * @param "Emulator" (bool) -  Filter events by Android Emulator Detection result.   > Note: When using this parameter, only events with the `products.emulator.data.result` property set to `true` or `false` are returned. Events without a `products.emulator` Smart Signal result are left out of the response.
+	    * @param "RootApps" (bool) -  Filter events by Rooted Device Detection result.   > Note: When using this parameter, only events with the `products.rootApps.data.result` property set to `true` or `false` are returned. Events without a `products.rootApps` Smart Signal result are left out of the response.
+	    * @param "VpnConfidence" (string) -  Filter events by VPN Detection result confidence level.   `high` - events with high VPN Detection confidence. `medium` - events with medium VPN Detection confidence. `low` - events with low VPN Detection confidence. > Note: When using this parameter, only events with the `products.vpn.data.confidence` property set to a valid value are returned. Events without a `products.vpn` Smart Signal result are left out of the response.
+	    * @param "MinSuspectScore" (float32) -  Filter events with Suspect Score result above a provided minimum threshold. > Note: When using this parameter, only events where the `products.suspectScore.data.result` property set to a value exceeding your threshold are returned. Events without a `products.suspectScore` Smart Signal result are left out of the response.
 	   @return SearchEventsResponse
 	*/
 	SearchEvents(ctx context.Context, limit int32, opts *FingerprintApiSearchEventsOpts) (SearchEventsResponse, *http.Response, Error)
@@ -229,15 +243,29 @@ func createSearchEventsDefinition() requestDefinition {
 }
 
 type FingerprintApiSearchEventsOpts struct {
-	PaginationKey *string
-	VisitorId     *string
-	Bot           *string
-	IpAddress     *string
-	LinkedId      *string
-	Start         *int64
-	End           *int64
-	Reverse       *bool
-	Suspect       *bool
+	PaginationKey     *string
+	VisitorId         *string
+	Bot               *string
+	IpAddress         *string
+	LinkedId          *string
+	Start             *int64
+	End               *int64
+	Reverse           *bool
+	Suspect           *bool
+	Vpn               *bool
+	VirtualMachine    *bool
+	Tampering         *bool
+	AntiDetectBrowser *bool
+	Incognito         *bool
+	PrivacySettings   *bool
+	Jailbroken        *bool
+	Frida             *bool
+	FactoryReset      *bool
+	ClonedApp         *bool
+	Emulator          *bool
+	RootApps          *bool
+	VpnConfidence     *string
+	MinSuspectScore   *float32
 }
 
 func (o *FingerprintApiSearchEventsOpts) ToQueryParams() map[string]any {
@@ -256,6 +284,20 @@ func (o *FingerprintApiSearchEventsOpts) ToQueryParams() map[string]any {
 	data["end"] = o.End
 	data["reverse"] = o.Reverse
 	data["suspect"] = o.Suspect
+	data["vpn"] = o.Vpn
+	data["virtual_machine"] = o.VirtualMachine
+	data["tampering"] = o.Tampering
+	data["anti_detect_browser"] = o.AntiDetectBrowser
+	data["incognito"] = o.Incognito
+	data["privacy_settings"] = o.PrivacySettings
+	data["jailbroken"] = o.Jailbroken
+	data["frida"] = o.Frida
+	data["factory_reset"] = o.FactoryReset
+	data["cloned_app"] = o.ClonedApp
+	data["emulator"] = o.Emulator
+	data["root_apps"] = o.RootApps
+	data["vpn_confidence"] = o.VpnConfidence
+	data["min_suspect_score"] = o.MinSuspectScore
 
 	return data
 }
