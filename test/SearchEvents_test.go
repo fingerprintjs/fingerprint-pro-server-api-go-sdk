@@ -113,23 +113,45 @@ func TestSearchEvents(t *testing.T) {
 
 		ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			configFile := config.ReadConfig("../config.json")
-			integrationInfo := r.URL.Query().Get("ii")
+			query := r.URL.Query()
+			integrationInfo := query.Get("ii")
 			assert.Equal(t, integrationInfo, fmt.Sprintf("fingerprint-pro-server-go-sdk/%s", configFile.PackageVersion))
 
 			apiKey := r.Header.Get("Auth-Api-Key")
 			assert.Equal(t, apiKey, "api_key")
 
 			assert.Equal(t, "/events/search", r.URL.Path)
-			assert.Equal(t, "2", r.URL.Query().Get("limit"), "limit")
-			assert.Len(t, strings.Split(r.URL.RawQuery, "&"), 10)
-			assert.Equal(t, "true", r.URL.Query().Get("suspect"), "suspect")
-			assert.Equal(t, "bot", r.URL.Query().Get("bot"), "bot")
-			assert.Equal(t, "10", r.URL.Query().Get("end"), "end")
-			assert.Equal(t, "5", r.URL.Query().Get("start"), "start")
-			assert.Equal(t, "127.0.0.1", r.URL.Query().Get("ip_address"), "ip_address")
-			assert.Equal(t, "linked_id", r.URL.Query().Get("linked_id"), "linked_id")
-			assert.Equal(t, "false", r.URL.Query().Get("reverse"), "reverse")
-			assert.Equal(t, "XIkiQhRyp7edU9SA0jBb", r.URL.Query().Get("visitor_id"), "visitor_id")
+			assert.Equal(t, "2", query.Get("limit"), "limit")
+			assert.Len(t, strings.Split(r.URL.RawQuery, "&"), 24, "expected all parameters in query")
+
+			// Existing params
+			assert.Equal(t, "true", query.Get("suspect"), "suspect")
+			assert.True(t, query.Has("suspect"), "has suspect")
+			assert.Equal(t, "bot", query.Get("bot"), "bot")
+			assert.True(t, query.Has("bot"), "has bot")
+			assert.Equal(t, "10", query.Get("end"), "end")
+			assert.Equal(t, "5", query.Get("start"), "start")
+			assert.Equal(t, "127.0.0.1", query.Get("ip_address"), "ip_address")
+			assert.True(t, query.Has("ip_address"), "has ip_address")
+			assert.Equal(t, "linked_id", query.Get("linked_id"), "linked_id")
+			assert.Equal(t, "false", query.Get("reverse"), "reverse")
+			assert.Equal(t, "XIkiQhRyp7edU9SA0jBb", query.Get("visitor_id"), "visitor_id")
+
+			// New params
+			assert.Equal(t, "true", query.Get("vpn"), "vpn")
+			assert.Equal(t, "true", query.Get("virtual_machine"), "virtual_machine")
+			assert.Equal(t, "true", query.Get("tampering"), "tampering")
+			assert.Equal(t, "true", query.Get("anti_detect_browser"), "anti_detect_browser")
+			assert.Equal(t, "true", query.Get("incognito"), "incognito")
+			assert.Equal(t, "true", query.Get("privacy_settings"), "privacy_settings")
+			assert.Equal(t, "true", query.Get("jailbroken"), "jailbroken")
+			assert.Equal(t, "true", query.Get("frida"), "frida")
+			assert.Equal(t, "true", query.Get("factory_reset"), "factory_reset")
+			assert.Equal(t, "true", query.Get("cloned_app"), "cloned_app")
+			assert.Equal(t, "true", query.Get("emulator"), "emulator")
+			assert.Equal(t, "true", query.Get("root_apps"), "root_apps")
+			assert.Equal(t, "high", query.Get("vpn_confidence"), "vpn_confidence")
+			assert.Equal(t, "85.5", query.Get("min_suspect_score"), "min_suspect_score")
 
 			w.Header().Set("Content-Type", "application/json")
 			err := json.NewEncoder(w).Encode(mockResponse)
@@ -144,30 +166,61 @@ func TestSearchEvents(t *testing.T) {
 		client := sdk.NewAPIClient(cfg)
 		ctx := context.WithValue(context.Background(), sdk.ContextAPIKey, sdk.APIKey{Key: "api_key"})
 
-		var end int64 = 10
-		var start int64 = 5
-		suspect := true
-		reverse := false
-		bot := "bot"
-		ipAddress := "127.0.0.1"
-		linkedId := "linked_id"
-		visitorId := "XIkiQhRyp7edU9SA0jBb"
+		var (
+			end               int64   = 10
+			start             int64   = 5
+			suspect                   = true
+			reverse                   = false
+			bot                       = "bot"
+			ipAddress                 = "127.0.0.1"
+			linkedId                  = "linked_id"
+			visitorId                 = "XIkiQhRyp7edU9SA0jBb"
+			vpn                       = true
+			virtualMachine            = true
+			tampering                 = true
+			antiDetectBrowser         = true
+			incognito                 = true
+			privacySettings           = true
+			jailbroken                = true
+			frida                     = true
+			factoryReset              = true
+			clonedApp                 = true
+			emulator                  = true
+			rootApps                  = true
+			vpnConfidence             = "high"
+			minSuspectScore   float32 = 85.5
+		)
+
 		opts := sdk.FingerprintApiSearchEventsOpts{
-			Suspect:   &suspect,
-			Bot:       &bot,
-			End:       &end,
-			Start:     &start,
-			IpAddress: &ipAddress,
-			LinkedId:  &linkedId,
-			Reverse:   &reverse,
-			VisitorId: &visitorId,
+			Suspect:           &suspect,
+			Bot:               &bot,
+			End:               &end,
+			Start:             &start,
+			IpAddress:         &ipAddress,
+			LinkedId:          &linkedId,
+			Reverse:           &reverse,
+			VisitorId:         &visitorId,
+			Vpn:               &vpn,
+			VirtualMachine:    &virtualMachine,
+			Tampering:         &tampering,
+			AntiDetectBrowser: &antiDetectBrowser,
+			Incognito:         &incognito,
+			PrivacySettings:   &privacySettings,
+			Jailbroken:        &jailbroken,
+			Frida:             &frida,
+			FactoryReset:      &factoryReset,
+			ClonedApp:         &clonedApp,
+			Emulator:          &emulator,
+			RootApps:          &rootApps,
+			VpnConfidence:     &vpnConfidence,
+			MinSuspectScore:   &minSuspectScore,
 		}
 		res, _, err := client.FingerprintApi.SearchEvents(ctx, 2, &opts)
 		assert.Nil(t, err)
 		assert.NotNil(t, res)
 		assert.Equal(t, res, mockResponse)
+		assert.IsType(t, sdk.SearchEventsResponse{}, res)
 	})
-
 	t.Run("Returns ErrorResponse on 400", func(t *testing.T) {
 		mockResponse := GetMockResponse[sdk.ErrorResponse]("../test/mocks/errors/400_ip_address_invalid.json")
 
