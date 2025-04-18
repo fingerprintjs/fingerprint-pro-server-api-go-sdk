@@ -1,5 +1,16 @@
 # Fingerprint Pro Server Go SDK
 
+## 7.4.0-test.0
+
+### Minor Changes
+
+- **events-search**: Event search now supports a new set of filter parameters: `vpn`, `virtual_machine`, `tampering`, `anti_detect_browser`, `incognito`, `privacy_settings`, `jailbroken`, `frida`, `factory_reset`, `cloned_app`, `emulator`, `root_apps`, `vpn_confidence`, `min_suspect_score`. ([d2d6a3a](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/d2d6a3a7162e74ffcecebaa06c62f0d93529e9c3))
+
+### Patch Changes
+
+- **events**: Update Tampering descriptions to reflect Android support. ([d2d6a3a](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/d2d6a3a7162e74ffcecebaa06c62f0d93529e9c3))
+- **webhook**: Add `environmentId` property ([d2d6a3a](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/d2d6a3a7162e74ffcecebaa06c62f0d93529e9c3))
+
 ## 7.3.1
 
 ### Patch Changes

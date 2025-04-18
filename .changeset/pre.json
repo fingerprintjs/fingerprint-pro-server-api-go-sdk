@@ -4,5 +4,9 @@
   "initialVersions": {
     "fingerprint-pro-server-api-go-sdk": "7.3.1"
   },
-  "changesets": []
+  "changesets": [
+    "fuzzy-pumas-end",
+    "sharp-chicken-yawn",
+    "thick-clouds-ring"
+  ]
 }
