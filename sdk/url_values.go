@@ -50,6 +50,14 @@ func addMapToUrlValues(data map[string]any, values *url.Values) {
 		case int64:
 			stringValue = strconv.FormatInt(v, 10)
 
+		case float32:
+			stringValue = strconv.FormatFloat(float64(v), 'f', -1, 32)
+		case *float32:
+			if v == nil {
+				continue
+			}
+			stringValue = strconv.FormatFloat(float64(*v), 'f', -1, 32)
+
 		default:
 			continue
 		}

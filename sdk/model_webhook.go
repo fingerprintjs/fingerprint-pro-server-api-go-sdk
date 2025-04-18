@@ -19,8 +19,10 @@ type Webhook struct {
 	// Page URL from which the request was sent.
 	Url string `json:"url"`
 	// IP address of the requesting browser or bot.
-	Ip  string    `json:"ip"`
-	Tag *ModelMap `json:"tag,omitempty"`
+	Ip string `json:"ip"`
+	// Environment ID of the event.
+	EnvironmentId string    `json:"environmentId,omitempty"`
+	Tag           *ModelMap `json:"tag,omitempty"`
 	// Time expressed according to ISO 8601 in UTC format, when the request from the JS agent was made. We recommend to treat requests that are older than 2 minutes as malicious. Otherwise, request replay attacks are possible.
 	Time *time.Time `json:"time"`
 	// Timestamp of the event with millisecond precision in Unix time.
