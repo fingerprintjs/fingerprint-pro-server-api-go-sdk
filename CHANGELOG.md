@@ -1,5 +1,11 @@
 # Fingerprint Pro Server Go SDK
 
+## 7.4.0-test.1
+
+### Minor Changes
+
+- **events-search**: Event search now supports two new filter parameters: `ip_blocklist`, `datacenter` ([d045db5](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/d045db53dabcc0a6adcbfae35c6d7571095d4eed))
+
 ## 7.4.0-test.0
 
 ### Minor Changes
