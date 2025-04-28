@@ -122,7 +122,7 @@ func TestSearchEvents(t *testing.T) {
 
 			assert.Equal(t, "/events/search", r.URL.Path)
 			assert.Equal(t, "2", query.Get("limit"), "limit")
-			assert.Len(t, strings.Split(r.URL.RawQuery, "&"), 24, "expected all parameters in query")
+			assert.Len(t, strings.Split(r.URL.RawQuery, "&"), 26, "expected all parameters in query")
 
 			// Existing params
 			assert.Equal(t, "true", query.Get("suspect"), "suspect")
@@ -152,6 +152,8 @@ func TestSearchEvents(t *testing.T) {
 			assert.Equal(t, "true", query.Get("root_apps"), "root_apps")
 			assert.Equal(t, "high", query.Get("vpn_confidence"), "vpn_confidence")
 			assert.Equal(t, "85.5", query.Get("min_suspect_score"), "min_suspect_score")
+			assert.Equal(t, "true", query.Get("ip_blocklist"), "ip_blocklist")
+			assert.Equal(t, "true", query.Get("datacenter"), "datacenter")
 
 			w.Header().Set("Content-Type", "application/json")
 			err := json.NewEncoder(w).Encode(mockResponse)
@@ -189,6 +191,8 @@ func TestSearchEvents(t *testing.T) {
 			rootApps                  = true
 			vpnConfidence             = "high"
 			minSuspectScore   float32 = 85.5
+			ipBlocklist               = true
+			datacenter                = true
 		)
 
 		opts := sdk.FingerprintApiSearchEventsOpts{
@@ -214,6 +218,8 @@ func TestSearchEvents(t *testing.T) {
 			RootApps:          &rootApps,
 			VpnConfidence:     &vpnConfidence,
 			MinSuspectScore:   &minSuspectScore,
+			IpBlocklist:       &ipBlocklist,
+			Datacenter:        &datacenter,
 		}
 		res, _, err := client.FingerprintApi.SearchEvents(ctx, 2, &opts)
 		assert.Nil(t, err)

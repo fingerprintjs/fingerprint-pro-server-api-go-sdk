@@ -89,6 +89,8 @@ type FingerprintApiServiceInterface interface {
 	    * @param "RootApps" (bool) -  Filter events by Rooted Device Detection result.   > Note: When using this parameter, only events with the `products.rootApps.data.result` property set to `true` or `false` are returned. Events without a `products.rootApps` Smart Signal result are left out of the response.
 	    * @param "VpnConfidence" (string) -  Filter events by VPN Detection result confidence level.   `high` - events with high VPN Detection confidence. `medium` - events with medium VPN Detection confidence. `low` - events with low VPN Detection confidence. > Note: When using this parameter, only events with the `products.vpn.data.confidence` property set to a valid value are returned. Events without a `products.vpn` Smart Signal result are left out of the response.
 	    * @param "MinSuspectScore" (float32) -  Filter events with Suspect Score result above a provided minimum threshold. > Note: When using this parameter, only events where the `products.suspectScore.data.result` property set to a value exceeding your threshold are returned. Events without a `products.suspectScore` Smart Signal result are left out of the response.
+	    * @param "IpBlocklist" (bool) -  Filter events by IP Blocklist Detection result.   > Note: When using this parameter, only events with the `products.ipBlocklist.data.result` property set to `true` or `false` are returned. Events without a `products.ipBlocklist` Smart Signal result are left out of the response.
+	    * @param "Datacenter" (bool) -  Filter events by Datacenter Detection result.   > Note: When using this parameter, only events with the `products.ipInfo.data.v4.datacenter.result` or `products.ipInfo.data.v6.datacenter.result` property set to `true` or `false` are returned. Events without a `products.ipInfo` Smart Signal result are left out of the response.
 	   @return SearchEventsResponse
 	*/
 	SearchEvents(ctx context.Context, limit int32, opts *FingerprintApiSearchEventsOpts) (SearchEventsResponse, *http.Response, Error)
@@ -266,6 +268,8 @@ type FingerprintApiSearchEventsOpts struct {
 	RootApps          *bool
 	VpnConfidence     *string
 	MinSuspectScore   *float32
+	IpBlocklist       *bool
+	Datacenter        *bool
 }
 
 func (o *FingerprintApiSearchEventsOpts) ToQueryParams() map[string]any {
@@ -298,6 +302,8 @@ func (o *FingerprintApiSearchEventsOpts) ToQueryParams() map[string]any {
 	data["root_apps"] = o.RootApps
 	data["vpn_confidence"] = o.VpnConfidence
 	data["min_suspect_score"] = o.MinSuspectScore
+	data["ip_blocklist"] = o.IpBlocklist
+	data["datacenter"] = o.Datacenter
 
 	return data
 }
