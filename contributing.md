@@ -1,4 +1,4 @@
-# Contributing to Fingerprint Pro Server API Go SDK
+# Contributing to Fingerprint Server API Go SDK
 
 ## Structure
 
