@@ -14,7 +14,7 @@ import (
 )
 
 var files = []string{"README.md", "docs", ".swagger-codegen"}
-var filesToKeep = []string{"docs/DecryptionKey.md", "docs/SealedResults.md", "docs/Webhook.md"}
+var filesToKeep = []string{"docs/DecryptionKey.md", "docs/SealedResults.md", "docs/Webhook.md", "sdk/deprecated_enum_alias.go"}
 var pathPrefix = "sdk"
 
 func main() {
@@ -45,6 +45,7 @@ func ensureTmpDir(paths ...string) {
 func moveFilesToKeepToTmpDir() {
 	ensureTmpDir()
 	ensureTmpDir("docs")
+	ensureTmpDir("sdk")
 
 	for _, file := range filesToKeep {
 		filePath := fmt.Sprintf("%s", file)

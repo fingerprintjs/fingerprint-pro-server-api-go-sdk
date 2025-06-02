@@ -14,7 +14,7 @@ type ProxyConfidence string
 
 // List of ProxyConfidence
 const (
-	LOW    ProxyConfidence = "low"
-	MEDIUM ProxyConfidence = "medium"
-	HIGH   ProxyConfidence = "high"
+	ProxyConfidence_LOW    ProxyConfidence = "low"
+	ProxyConfidence_MEDIUM ProxyConfidence = "medium"
+	ProxyConfidence_HIGH   ProxyConfidence = "high"
 )

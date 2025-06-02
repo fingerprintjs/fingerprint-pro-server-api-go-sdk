@@ -14,7 +14,7 @@ type BotdBotResult string
 
 // List of BotdBotResult
 const (
-	NOT_DETECTED BotdBotResult = "notDetected"
-	GOOD         BotdBotResult = "good"
-	BAD          BotdBotResult = "bad"
+	BotdBotResult_NOT_DETECTED BotdBotResult = "notDetected"
+	BotdBotResult_GOOD         BotdBotResult = "good"
+	BotdBotResult_BAD          BotdBotResult = "bad"
 )
