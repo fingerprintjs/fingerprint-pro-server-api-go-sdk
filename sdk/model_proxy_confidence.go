@@ -9,8 +9,12 @@
  */
 package sdk
 
-type Proxy struct {
-	// IP address was used by a public proxy provider or belonged to a known recent residential proxy
-	Result     bool             `json:"result"`
-	Confidence *ProxyConfidence `json:"confidence"`
-}
+// ProxyConfidence : Confidence level of the proxy detection. If a proxy is not detected, confidence is \"high\". If it's detected, can be \"low\", \"medium\", or \"high\".
+type ProxyConfidence string
+
+// List of ProxyConfidence
+const (
+	LOW    ProxyConfidence = "low"
+	MEDIUM ProxyConfidence = "medium"
+	HIGH   ProxyConfidence = "high"
+)

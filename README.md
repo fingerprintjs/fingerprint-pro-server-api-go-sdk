@@ -305,6 +305,7 @@ Class | Method | HTTP request | Description
  - [ProductVpn](docs/ProductVpn.md)
  - [Products](docs/Products.md)
  - [Proxy](docs/Proxy.md)
+ - [ProxyConfidence](docs/ProxyConfidence.md)
  - [RawDeviceAttribute](docs/RawDeviceAttribute.md)
  - [RawDeviceAttributeError](docs/RawDeviceAttributeError.md)
  - [RelatedVisitor](docs/RelatedVisitor.md)
