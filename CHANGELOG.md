@@ -1,5 +1,17 @@
 # Fingerprint Pro Server Go SDK
 
+## 7.5.0
+
+### Minor Changes
+
+- Added explicit enum constant prefixes for better clarity and to avoid name collisions.
+  The following existing enums now use prefixed constant names (all new enums will follow this convention):
+  - `VpnConfidence`
+  - `ErrorCode`
+  - `BotdBotResult`
+    Deprecated the old unprefixed constant aliases; they will be removed in the next major release. ([ee87334](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/ee873348f97f1901afbdddf557ac68aa52e4a8d0))
+- Add `confidence` property to the Proxy detection Smart Signal, which now supports both residential and public web proxies. ([a50ee45](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/a50ee452d6453185e20d1a42be1d2c8cb14cf90f))
+
 ## 7.4.0
 
 ### Minor Changes
