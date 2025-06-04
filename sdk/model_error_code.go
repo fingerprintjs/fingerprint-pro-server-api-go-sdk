@@ -14,16 +14,16 @@ type ErrorCode string
 
 // List of ErrorCode
 const (
-	REQUEST_CANNOT_BE_PARSED ErrorCode = "RequestCannotBeParsed"
-	TOKEN_REQUIRED           ErrorCode = "TokenRequired"
-	TOKEN_NOT_FOUND          ErrorCode = "TokenNotFound"
-	SUBSCRIPTION_NOT_ACTIVE  ErrorCode = "SubscriptionNotActive"
-	WRONG_REGION             ErrorCode = "WrongRegion"
-	FEATURE_NOT_ENABLED      ErrorCode = "FeatureNotEnabled"
-	REQUEST_NOT_FOUND        ErrorCode = "RequestNotFound"
-	VISITOR_NOT_FOUND        ErrorCode = "VisitorNotFound"
-	TOO_MANY_REQUESTS        ErrorCode = "TooManyRequests"
-	TOOMANYREQUESTS429       ErrorCode = "429 Too Many Requests"
-	STATE_NOT_READY          ErrorCode = "StateNotReady"
-	FAILED                   ErrorCode = "Failed"
+	ErrorCode_REQUEST_CANNOT_BE_PARSED ErrorCode = "RequestCannotBeParsed"
+	ErrorCode_TOKEN_REQUIRED           ErrorCode = "TokenRequired"
+	ErrorCode_TOKEN_NOT_FOUND          ErrorCode = "TokenNotFound"
+	ErrorCode_SUBSCRIPTION_NOT_ACTIVE  ErrorCode = "SubscriptionNotActive"
+	ErrorCode_WRONG_REGION             ErrorCode = "WrongRegion"
+	ErrorCode_FEATURE_NOT_ENABLED      ErrorCode = "FeatureNotEnabled"
+	ErrorCode_REQUEST_NOT_FOUND        ErrorCode = "RequestNotFound"
+	ErrorCode_VISITOR_NOT_FOUND        ErrorCode = "VisitorNotFound"
+	ErrorCode_TOO_MANY_REQUESTS        ErrorCode = "TooManyRequests"
+	ErrorCode_TOOMANYREQUESTS429       ErrorCode = "429 Too Many Requests"
+	ErrorCode_STATE_NOT_READY          ErrorCode = "StateNotReady"
+	ErrorCode_FAILED                   ErrorCode = "Failed"
 )

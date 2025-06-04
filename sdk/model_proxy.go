@@ -10,6 +10,7 @@
 package sdk
 
 type Proxy struct {
-	// `true` if the request IP address is used by a public proxy provider, `false` otherwise.
-	Result bool `json:"result"`
+	// IP address was used by a public proxy provider or belonged to a known recent residential proxy
+	Result     bool             `json:"result"`
+	Confidence *ProxyConfidence `json:"confidence"`
 }

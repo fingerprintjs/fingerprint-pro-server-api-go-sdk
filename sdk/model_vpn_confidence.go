@@ -14,7 +14,7 @@ type VpnConfidence string
 
 // List of VPNConfidence
 const (
-	LOW    VpnConfidence = "low"
-	MEDIUM VpnConfidence = "medium"
-	HIGH   VpnConfidence = "high"
+	VpnConfidence_LOW    VpnConfidence = "low"
+	VpnConfidence_MEDIUM VpnConfidence = "medium"
+	VpnConfidence_HIGH   VpnConfidence = "high"
 )
