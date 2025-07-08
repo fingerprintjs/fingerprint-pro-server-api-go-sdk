@@ -41,4 +41,6 @@ type Identification struct {
 	FirstSeenAt  *IdentificationSeenAt          `json:"firstSeenAt"`
 	LastSeenAt   *IdentificationSeenAt          `json:"lastSeenAt"`
 	Components   *map[string]RawDeviceAttribute `json:"components,omitempty"`
+	// `true` if we determined that this payload was replayed, `false` otherwise.
+	Replayed bool `json:"replayed,omitempty"`
 }
