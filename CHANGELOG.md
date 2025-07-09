@@ -1,5 +1,11 @@
 # Fingerprint Pro Server Go SDK
 
+## 7.6.0
+
+### Minor Changes
+
+- add `replayed` field to `identification` in Events and Webhooks ([fb28ecb](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/fb28ecb18f86987dfb67616e258c956acf802104))
+
 ## 7.5.0
 
 ### Minor Changes
