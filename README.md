@@ -312,6 +312,7 @@ Class | Method | HTTP request | Description
  - [RelatedVisitorsResponse](docs/RelatedVisitorsResponse.md)
  - [RemoteControl](docs/RemoteControl.md)
  - [RootApps](docs/RootApps.md)
+ - [Sdk](docs/Sdk.md)
  - [SearchEventsResponse](docs/SearchEventsResponse.md)
  - [SearchEventsResponseEvents](docs/SearchEventsResponseEvents.md)
  - [SuspectScore](docs/SuspectScore.md)

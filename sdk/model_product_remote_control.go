@@ -9,6 +9,7 @@
  */
 package sdk
 
+// This product is deprecated.
 type ProductRemoteControl struct {
 	Data   *RemoteControl `json:"data,omitempty"`
 	Error_ *ModelError    `json:"error,omitempty"`

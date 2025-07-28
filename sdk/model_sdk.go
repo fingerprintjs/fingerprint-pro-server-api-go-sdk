@@ -9,8 +9,10 @@
  */
 package sdk
 
-// This signal is deprecated.
-type RemoteControl struct {
-	// `true` if the request came from a machine being remotely controlled (e.g. TeamViewer), `false` otherwise.
-	Result bool `json:"result"`
+// Contains information about the SDK used to perform the request.
+type Sdk struct {
+	// Platform of the SDK.
+	Platform string `json:"platform"`
+	// SDK version string.
+	Version string `json:"version"`
 }

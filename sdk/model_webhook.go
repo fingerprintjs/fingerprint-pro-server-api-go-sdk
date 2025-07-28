@@ -68,4 +68,5 @@ type Webhook struct {
 	MitmAttack          *WebhookMitMAttack             `json:"mitmAttack,omitempty"`
 	// `true` if we determined that this payload was replayed, `false` otherwise.
 	Replayed bool `json:"replayed,omitempty"`
+	Sdk      *Sdk `json:"sdk"`
 }
