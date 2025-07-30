@@ -9,8 +9,10 @@
  */
 package sdk
 
-// Deprecated: This product is deprecated.
-type ProductRemoteControl struct {
-	Data   *RemoteControl `json:"data,omitempty"`
-	Error_ *ModelError    `json:"error,omitempty"`
+// Contains information about the SDK used to perform the request.
+type Sdk struct {
+	// Platform of the SDK.
+	Platform string `json:"platform"`
+	// SDK version string.
+	Version string `json:"version"`
 }

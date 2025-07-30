@@ -20,7 +20,8 @@ Name | Type | Description | Notes
 **FirstSeenAt** | [***IdentificationSeenAt**](IdentificationSeenAt.md) |  | [default to null]
 **LastSeenAt** | [***IdentificationSeenAt**](IdentificationSeenAt.md) |  | [default to null]
 **Components** | [***map[string]RawDeviceAttribute**](map.md) |  | [optional] [default to null]
-**Replayed** | **bool** | `true` if we determined that this payload was replayed, `false` otherwise.  | [optional] [default to null]
+**Replayed** | **bool** | `true` if we determined that this payload was replayed, `false` otherwise.  | [default to null]
+**Sdk** | [***Sdk**](SDK.md) |  | [optional] [default to null]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
