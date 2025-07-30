@@ -15,7 +15,7 @@ const (
     {{/enumVars}}
 {{/allowableValues}}
 ){{/isEnum}}{{^isEnum}}{{#description}}
-    // {{{description}}}{{/description}}
+    // {{#schema.deprecated}}Deprecated: {{/schema.deprecated}}{{{description}}}{{/description}}
 type {{classname}} struct {
 {{#vars}}
     {{^@first}}
