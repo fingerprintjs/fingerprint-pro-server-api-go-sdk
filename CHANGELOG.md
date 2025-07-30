@@ -1,5 +1,16 @@
 # Fingerprint Pro Server Go SDK
 
+## 7.7.0-test.0
+
+### Minor Changes
+
+- Mark `replayed` field required in the `identification` product schema. This field will always be present. ([e1387da](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/e1387da86f10cecbcaf4fdc57a9cd08fca6dfe62))
+- Add `sdk` field with platform metadata to `identification` ([e1387da](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/e1387da86f10cecbcaf4fdc57a9cd08fca6dfe62))
+
+### Patch Changes
+
+- Deprecate the Remote Control Detection Smart Signal. This signal is no longer available. ([e1387da](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/e1387da86f10cecbcaf4fdc57a9cd08fca6dfe62))
+
 ## 7.6.0
 
 ### Minor Changes
