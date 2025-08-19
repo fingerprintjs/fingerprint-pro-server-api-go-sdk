@@ -1,5 +1,11 @@
 # Fingerprint Pro Server Go SDK
 
+## 7.8.0
+
+### Minor Changes
+
+- Add `details` object to the `proxy` signal. This field includes the `type` of the detected proxy (`residential` or `data_center`) and the `lastSeenAt` timestamp of when an IP was last observed to show proxy-like behavior. ([b4175d0](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/b4175d0bd3b47254742c52a8642d8f6d516e6b0c))
+
 ## 7.7.0
 
 ### Minor Changes
