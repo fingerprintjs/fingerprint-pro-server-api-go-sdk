@@ -306,6 +306,7 @@ Class | Method | HTTP request | Description
  - [Products](docs/Products.md)
  - [Proxy](docs/Proxy.md)
  - [ProxyConfidence](docs/ProxyConfidence.md)
+ - [ProxyDetails](docs/ProxyDetails.md)
  - [RawDeviceAttribute](docs/RawDeviceAttribute.md)
  - [RawDeviceAttributeError](docs/RawDeviceAttributeError.md)
  - [RelatedVisitor](docs/RelatedVisitor.md)

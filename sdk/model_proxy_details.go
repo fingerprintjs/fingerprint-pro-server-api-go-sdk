@@ -9,9 +9,14 @@
  */
 package sdk
 
-type Proxy struct {
-	// IP address was used by a public proxy provider or belonged to a known recent residential proxy
-	Result     bool             `json:"result"`
-	Confidence *ProxyConfidence `json:"confidence"`
-	Details    *ProxyDetails    `json:"details,omitempty"`
+import (
+	"time"
+)
+
+// Proxy detection details (present if proxy is detected)
+type ProxyDetails struct {
+	// Residential proxies use real user IP addresses to appear as legitimate traffic,  while data center proxies are public proxies hosted in data centers
+	ProxyType string `json:"proxyType"`
+	// ISO 8601 formatted timestamp in UTC with hourly resolution of when this IP was last seen as a proxy when available.
+	LastSeenAt *time.Time `json:"lastSeenAt,omitempty"`
 }
