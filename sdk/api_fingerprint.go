@@ -91,6 +91,13 @@ type FingerprintApiServiceInterface interface {
 	    * @param "MinSuspectScore" (float32) -  Filter events with Suspect Score result above a provided minimum threshold. > Note: When using this parameter, only events where the `products.suspectScore.data.result` property set to a value exceeding your threshold are returned. Events without a `products.suspectScore` Smart Signal result are left out of the response.
 	    * @param "IpBlocklist" (bool) -  Filter events by IP Blocklist Detection result.   > Note: When using this parameter, only events with the `products.ipBlocklist.data.result` property set to `true` or `false` are returned. Events without a `products.ipBlocklist` Smart Signal result are left out of the response.
 	    * @param "Datacenter" (bool) -  Filter events by Datacenter Detection result.   > Note: When using this parameter, only events with the `products.ipInfo.data.v4.datacenter.result` or `products.ipInfo.data.v6.datacenter.result` property set to `true` or `false` are returned. Events without a `products.ipInfo` Smart Signal result are left out of the response.
+	    * @param "DeveloperTools" (bool) -  Filter events by Developer Tools detection result. > Note: When using this parameter, only events with the `products.developerTools.data.result` property set to `true` or `false` are returned. Events without a `products.developerTools` Smart Signal result are left out of the response.
+	    * @param "LocationSpoofing" (bool) -  Filter events by Location Spoofing detection result. > Note: When using this parameter, only events with the `products.locationSpoofing.data.result` property set to `true` or `false` are returned. Events without a `products.locationSpoofing` Smart Signal result are left out of the response.
+	    * @param "MitmAttack" (bool) -  Filter events by MITM (Man-in-the-Middle) Attack detection result. > Note: When using this parameter, only events with the `products.mitmAttack.data.result` property set to `true` or `false` are returned. Events without a `products.mitmAttack` Smart Signal result are left out of the response.
+	    * @param "Proxy" (bool) -  Filter events by Proxy detection result. > Note: When using this parameter, only events with the `products.proxy.data.result` property set to `true` or `false` are returned. Events without a `products.proxy` Smart Signal result are left out of the response.
+	    * @param "SdkVersion" (string) -  Filter events by a specific SDK version associated with the identification event. Example: `3.11.14`
+	    * @param "SdkPlatform" (string) -  Filter events by the SDK Platform associated with the identification event. `js` - JavaScript agent (Web). `ios` - Apple iOS based devices. `android` - Android based devices.
+	    * @param "Environment" (Interface of []string) -  Filter for events by providing one or more environment IDs.
 	   @return SearchEventsResponse
 	*/
 	SearchEvents(ctx context.Context, limit int32, opts *FingerprintApiSearchEventsOpts) (SearchEventsResponse, *http.Response, Error)
@@ -270,6 +277,13 @@ type FingerprintApiSearchEventsOpts struct {
 	MinSuspectScore   *float32
 	IpBlocklist       *bool
 	Datacenter        *bool
+	DeveloperTools    *bool
+	LocationSpoofing  *bool
+	MitmAttack        *bool
+	Proxy             *bool
+	SdkVersion        *string
+	SdkPlatform       *string
+	Environment       any
 }
 
 func (o *FingerprintApiSearchEventsOpts) ToQueryParams() map[string]any {
@@ -304,6 +318,12 @@ func (o *FingerprintApiSearchEventsOpts) ToQueryParams() map[string]any {
 	data["min_suspect_score"] = o.MinSuspectScore
 	data["ip_blocklist"] = o.IpBlocklist
 	data["datacenter"] = o.Datacenter
+	data["developer_tools"] = o.DeveloperTools
+	data["location_spoofing"] = o.LocationSpoofing
+	data["mitm_attack"] = o.MitmAttack
+	data["proxy"] = o.Proxy
+	data["sdk_version"] = o.SdkVersion
+	data["sdk_platform"] = o.SdkPlatform
 
 	return data
 }
