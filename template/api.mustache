@@ -59,7 +59,7 @@ func create{{nickname}}Definition() requestDefinition {
 
     type {{{classname}}}{{{nickname}}}Opts struct {
     {{#allParams}}{{^required}}
-        {{#isPrimitiveType}}    {{vendorExtensions.x-exportParamName}} {{^vendorExtensions.x-go-skip-pointer}}{{^required}}*{{/required}}{{/vendorExtensions.x-go-skip-pointer}}{{dataType}}{{/isPrimitiveType}}{{^isPrimitiveType}}    {{vendorExtensions.x-exportParamName}} interface {}{{/isPrimitiveType}}
+        {{#isPrimitiveType}}    {{vendorExtensions.x-exportParamName}} {{^vendorExtensions.x-go-skip-pointer}}{{^required}}*{{/required}}{{/vendorExtensions.x-go-skip-pointer}}{{dataType}}{{/isPrimitiveType}}{{^isPrimitiveType}}    {{vendorExtensions.x-exportParamName}} any{{/isPrimitiveType}}
     {{/required}}{{/allParams}}
     }
 
