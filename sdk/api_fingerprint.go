@@ -325,59 +325,8 @@ func (o *FingerprintApiSearchEventsOpts) ToQueryParams() map[string]any {
 	data["sdk_version"] = o.SdkVersion
 	data["sdk_platform"] = o.SdkPlatform
 
-	{
-		v := any(o.Environment)
-		var out []string
-
-		switch vv := v.(type) {
-		case string:
-			if vv != "" {
-				out = []string{vv}
-			}
-		case *string:
-			if vv != nil && *vv != "" {
-				out = []string{*vv}
-			}
-		case []string:
-			if len(vv) > 0 {
-				out = vv
-			}
-		case *[]string:
-			if vv != nil && len(*vv) > 0 {
-				out = *vv
-			}
-		case []any:
-			// accept only if all elements are strings or *string
-			tmp := make([]string, 0, len(vv))
-			ok := true
-			for _, e := range vv {
-				switch s := e.(type) {
-				case string:
-					tmp = append(tmp, s)
-				case *string:
-					if s != nil {
-						tmp = append(tmp, *s)
-					} else {
-						ok = false
-					}
-				default:
-					ok = false
-				}
-				if !ok {
-					break
-				}
-			}
-			if ok && len(tmp) > 0 {
-				out = tmp
-			}
-		default:
-			// unsupported -> skip
-		}
-
-		if len(out) > 0 {
-			data["environment"] = out
-		}
-	}
+	// pass-through; flattener will handle strings vs []string
+	data["environment"] = o.Environment
 
 	return data
 }
