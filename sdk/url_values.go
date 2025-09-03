@@ -16,9 +16,7 @@ func addMapToUrlValues(data map[string]any, values *url.Values) {
 		switch v := value.(type) {
 		case []string:
 			for _, s := range v {
-				if s != "" {
-					values.Add(key, s)
-				}
+				values.Add(key, s)
 			}
 			continue
 		case *[]string:
@@ -26,9 +24,7 @@ func addMapToUrlValues(data map[string]any, values *url.Values) {
 				continue
 			}
 			for _, s := range *v {
-				if s != "" {
-					values.Add(key, s)
-				}
+				values.Add(key, s)
 			}
 			continue
 		case []any:
@@ -37,11 +33,9 @@ func addMapToUrlValues(data map[string]any, values *url.Values) {
 			for _, e := range v {
 				switch s := e.(type) {
 				case string:
-					if s != "" {
-						tmp = append(tmp, s)
-					}
+					tmp = append(tmp, s)
 				case *string:
-					if s != nil && *s != "" {
+					if s != nil {
 						tmp = append(tmp, *s)
 					} else {
 						ok = false
