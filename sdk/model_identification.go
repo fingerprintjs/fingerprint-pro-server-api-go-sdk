@@ -14,7 +14,7 @@ import (
 )
 
 type Identification struct {
-	// String of 20 characters that uniquely identifies the visitor's browser.
+	// String of 20 characters that uniquely identifies the visitor's browser or mobile device.
 	VisitorId string `json:"visitorId"`
 	// Unique identifier of the user's request.
 	RequestId      string          `json:"requestId"`
@@ -44,4 +44,6 @@ type Identification struct {
 	// `true` if we determined that this payload was replayed, `false` otherwise.
 	Replayed bool `json:"replayed"`
 	Sdk      *Sdk `json:"sdk,omitempty"`
+	// Environment ID associated with the event
+	EnvironmentId string `json:"environmentId,omitempty"`
 }

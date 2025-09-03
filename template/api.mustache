@@ -72,6 +72,10 @@ func create{{nickname}}Definition() requestDefinition {
 
         {{#allParams}}{{^required}}
             {{#isPrimitiveType}} data["{{baseName}}"] = o.{{vendorExtensions.x-exportParamName}} {{/isPrimitiveType}}
+            {{^isPrimitiveType}}
+                // pass-through; flattener will handle strings vs []string
+                data["{{baseName}}"] = o.{{vendorExtensions.x-exportParamName}}
+            {{/isPrimitiveType}}
         {{/required}}{{/allParams}}
 
         return data

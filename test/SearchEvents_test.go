@@ -122,7 +122,7 @@ func TestSearchEvents(t *testing.T) {
 
 			assert.Equal(t, "/events/search", r.URL.Path)
 			assert.Equal(t, "2", query.Get("limit"), "limit")
-			assert.Len(t, strings.Split(r.URL.RawQuery, "&"), 26, "expected all parameters in query")
+			assert.Len(t, strings.Split(r.URL.RawQuery, "&"), 34, "expected all parameters in query")
 
 			// Existing params
 			assert.Equal(t, "true", query.Get("suspect"), "suspect")
@@ -154,6 +154,15 @@ func TestSearchEvents(t *testing.T) {
 			assert.Equal(t, "85.5", query.Get("min_suspect_score"), "min_suspect_score")
 			assert.Equal(t, "true", query.Get("ip_blocklist"), "ip_blocklist")
 			assert.Equal(t, "true", query.Get("datacenter"), "datacenter")
+			assert.Equal(t, "true", query.Get("developer_tools"), "developer_tools")
+			assert.Equal(t, "true", query.Get("location_spoofing"), "location_spoofing")
+			assert.Equal(t, "true", query.Get("mitm_attack"), "mitm_attack")
+			assert.Equal(t, "true", query.Get("proxy"), "proxy")
+			assert.Equal(t, "testSdkVersion", query.Get("sdk_version"), "sdk_version")
+			assert.Equal(t, "testSdkPlatform", query.Get("sdk_platform"), "sdk_platform")
+
+			envs := r.URL.Query()["environment"]
+			assert.Equal(t, []string{"env1", "env2"}, envs, "environment")
 
 			w.Header().Set("Content-Type", "application/json")
 			err := json.NewEncoder(w).Encode(mockResponse)
@@ -193,6 +202,13 @@ func TestSearchEvents(t *testing.T) {
 			minSuspectScore   float32 = 85.5
 			ipBlocklist               = true
 			datacenter                = true
+			developerTools            = true
+			locationSpoofing          = true
+			mitmAttack                = true
+			proxy                     = true
+			sdkVersion                = "testSdkVersion"
+			sdkPlatform               = "testSdkPlatform"
+			environment               = []string{"env1", "env2"}
 		)
 
 		opts := sdk.FingerprintApiSearchEventsOpts{
@@ -220,6 +236,13 @@ func TestSearchEvents(t *testing.T) {
 			MinSuspectScore:   &minSuspectScore,
 			IpBlocklist:       &ipBlocklist,
 			Datacenter:        &datacenter,
+			DeveloperTools:    &developerTools,
+			LocationSpoofing:  &locationSpoofing,
+			MitmAttack:        &mitmAttack,
+			Proxy:             &proxy,
+			SdkVersion:        &sdkVersion,
+			SdkPlatform:       &sdkPlatform,
+			Environment:       &environment,
 		}
 		res, _, err := client.FingerprintApi.SearchEvents(ctx, 2, &opts)
 		assert.Nil(t, err)

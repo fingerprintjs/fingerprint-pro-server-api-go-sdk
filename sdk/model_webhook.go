@@ -30,7 +30,7 @@ type Webhook struct {
 	IpLocation *DeprecatedGeolocation `json:"ipLocation,omitempty"`
 	// A customer-provided id that was sent with the request.
 	LinkedId string `json:"linkedId,omitempty"`
-	// String of 20 characters that uniquely identifies the visitor's browser.
+	// String of 20 characters that uniquely identifies the visitor's browser or mobile device.
 	VisitorId string `json:"visitorId,omitempty"`
 	// Attribute represents if a visitor had been identified before.
 	VisitorFound   bool                      `json:"visitorFound,omitempty"`
@@ -67,6 +67,7 @@ type Webhook struct {
 	DeveloperTools      *WebhookDeveloperTools         `json:"developerTools,omitempty"`
 	MitmAttack          *WebhookMitMAttack             `json:"mitmAttack,omitempty"`
 	// `true` if we determined that this payload was replayed, `false` otherwise.
-	Replayed bool `json:"replayed,omitempty"`
-	Sdk      *Sdk `json:"sdk"`
+	Replayed         bool                     `json:"replayed,omitempty"`
+	Sdk              *Sdk                     `json:"sdk"`
+	SupplementaryIds *WebhookSupplementaryIDs `json:"supplementaryIds,omitempty"`
 }
