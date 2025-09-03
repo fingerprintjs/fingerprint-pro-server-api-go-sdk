@@ -27,32 +27,6 @@ func addMapToUrlValues(data map[string]any, values *url.Values) {
 				values.Add(key, s)
 			}
 			continue
-		case []any:
-			tmp := make([]string, 0, len(v))
-			ok := true
-			for _, e := range v {
-				switch s := e.(type) {
-				case string:
-					tmp = append(tmp, s)
-				case *string:
-					if s != nil {
-						tmp = append(tmp, *s)
-					} else {
-						ok = false
-					}
-				default:
-					ok = false
-				}
-				if !ok {
-					break
-				}
-			}
-			if ok {
-				for _, s := range tmp {
-					values.Add(key, s)
-				}
-			}
-			continue
 		case bool:
 			stringValue = strconv.FormatBool(v)
 		case *bool:
