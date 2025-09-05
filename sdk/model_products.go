@@ -36,4 +36,5 @@ type Products struct {
 	Velocity            *ProductVelocity            `json:"velocity,omitempty"`
 	DeveloperTools      *ProductDeveloperTools      `json:"developerTools,omitempty"`
 	MitmAttack          *ProductMitMAttack          `json:"mitmAttack,omitempty"`
+	Proximity           *ProductProximity           `json:"proximity,omitempty"`
 }

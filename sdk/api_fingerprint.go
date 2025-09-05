@@ -98,6 +98,8 @@ type FingerprintApiServiceInterface interface {
 	    * @param "SdkVersion" (string) -  Filter events by a specific SDK version associated with the identification event. Example: `3.11.14`
 	    * @param "SdkPlatform" (string) -  Filter events by the SDK Platform associated with the identification event. `js` - JavaScript agent (Web). `ios` - Apple iOS based devices. `android` - Android based devices.
 	    * @param "Environment" (Interface of []string) -  Filter for events by providing one or more environment IDs.
+	    * @param "ProximityId" (string) -  Filter events by the most precise Proximity ID provided by default. > Note: When using this parameter, only events with the `products.proximity.id` property matching the provided ID are returned. Events without a `products.proximity` result are left out of the response.
+	    * @param "ProximityPrecisionRadius" (int32) -  Filter events by Proximity Radius. > Note: When using this parameter, only events with the `products.proximity.precisionRadius` property set to a valid value are returned. Events without a `products.proximity` result are left out of the response.
 	   @return SearchEventsResponse
 	*/
 	SearchEvents(ctx context.Context, limit int32, opts *FingerprintApiSearchEventsOpts) (SearchEventsResponse, *http.Response, Error)
@@ -252,38 +254,40 @@ func createSearchEventsDefinition() requestDefinition {
 }
 
 type FingerprintApiSearchEventsOpts struct {
-	PaginationKey     *string
-	VisitorId         *string
-	Bot               *string
-	IpAddress         *string
-	LinkedId          *string
-	Start             *int64
-	End               *int64
-	Reverse           *bool
-	Suspect           *bool
-	Vpn               *bool
-	VirtualMachine    *bool
-	Tampering         *bool
-	AntiDetectBrowser *bool
-	Incognito         *bool
-	PrivacySettings   *bool
-	Jailbroken        *bool
-	Frida             *bool
-	FactoryReset      *bool
-	ClonedApp         *bool
-	Emulator          *bool
-	RootApps          *bool
-	VpnConfidence     *string
-	MinSuspectScore   *float32
-	IpBlocklist       *bool
-	Datacenter        *bool
-	DeveloperTools    *bool
-	LocationSpoofing  *bool
-	MitmAttack        *bool
-	Proxy             *bool
-	SdkVersion        *string
-	SdkPlatform       *string
-	Environment       any
+	PaginationKey            *string
+	VisitorId                *string
+	Bot                      *string
+	IpAddress                *string
+	LinkedId                 *string
+	Start                    *int64
+	End                      *int64
+	Reverse                  *bool
+	Suspect                  *bool
+	Vpn                      *bool
+	VirtualMachine           *bool
+	Tampering                *bool
+	AntiDetectBrowser        *bool
+	Incognito                *bool
+	PrivacySettings          *bool
+	Jailbroken               *bool
+	Frida                    *bool
+	FactoryReset             *bool
+	ClonedApp                *bool
+	Emulator                 *bool
+	RootApps                 *bool
+	VpnConfidence            *string
+	MinSuspectScore          *float32
+	IpBlocklist              *bool
+	Datacenter               *bool
+	DeveloperTools           *bool
+	LocationSpoofing         *bool
+	MitmAttack               *bool
+	Proxy                    *bool
+	SdkVersion               *string
+	SdkPlatform              *string
+	Environment              any
+	ProximityId              *string
+	ProximityPrecisionRadius *int32
 }
 
 func (o *FingerprintApiSearchEventsOpts) ToQueryParams() map[string]any {
@@ -327,6 +331,8 @@ func (o *FingerprintApiSearchEventsOpts) ToQueryParams() map[string]any {
 
 	// pass-through; flattener will handle strings vs []string
 	data["environment"] = o.Environment
+	data["proximity_id"] = o.ProximityId
+	data["proximity_precision_radius"] = o.ProximityPrecisionRadius
 
 	return data
 }

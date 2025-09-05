@@ -122,7 +122,7 @@ func TestSearchEvents(t *testing.T) {
 
 			assert.Equal(t, "/events/search", r.URL.Path)
 			assert.Equal(t, "2", query.Get("limit"), "limit")
-			assert.Len(t, strings.Split(r.URL.RawQuery, "&"), 34, "expected all parameters in query")
+			assert.Len(t, strings.Split(r.URL.RawQuery, "&"), 36, "expected all parameters in query")
 
 			// Existing params
 			assert.Equal(t, "true", query.Get("suspect"), "suspect")
@@ -160,6 +160,8 @@ func TestSearchEvents(t *testing.T) {
 			assert.Equal(t, "true", query.Get("proxy"), "proxy")
 			assert.Equal(t, "testSdkVersion", query.Get("sdk_version"), "sdk_version")
 			assert.Equal(t, "testSdkPlatform", query.Get("sdk_platform"), "sdk_platform")
+			assert.Equal(t, "testProximityId", query.Get("proximity_id"), "proximity_id")
+			assert.Equal(t, "10", query.Get("proximity_precision_radius"), "proximity_precision_radius")
 
 			envs := r.URL.Query()["environment"]
 			assert.Equal(t, []string{"env1", "env2"}, envs, "environment")
@@ -178,71 +180,75 @@ func TestSearchEvents(t *testing.T) {
 		ctx := context.WithValue(context.Background(), sdk.ContextAPIKey, sdk.APIKey{Key: "api_key"})
 
 		var (
-			end               int64   = 10
-			start             int64   = 5
-			suspect                   = true
-			reverse                   = false
-			bot                       = "bot"
-			ipAddress                 = "127.0.0.1"
-			linkedId                  = "linked_id"
-			visitorId                 = "XIkiQhRyp7edU9SA0jBb"
-			vpn                       = true
-			virtualMachine            = true
-			tampering                 = true
-			antiDetectBrowser         = true
-			incognito                 = true
-			privacySettings           = true
-			jailbroken                = true
-			frida                     = true
-			factoryReset              = true
-			clonedApp                 = true
-			emulator                  = true
-			rootApps                  = true
-			vpnConfidence             = "high"
-			minSuspectScore   float32 = 85.5
-			ipBlocklist               = true
-			datacenter                = true
-			developerTools            = true
-			locationSpoofing          = true
-			mitmAttack                = true
-			proxy                     = true
-			sdkVersion                = "testSdkVersion"
-			sdkPlatform               = "testSdkPlatform"
-			environment               = []string{"env1", "env2"}
+			end                      int64   = 10
+			start                    int64   = 5
+			suspect                          = true
+			reverse                          = false
+			bot                              = "bot"
+			ipAddress                        = "127.0.0.1"
+			linkedId                         = "linked_id"
+			visitorId                        = "XIkiQhRyp7edU9SA0jBb"
+			vpn                              = true
+			virtualMachine                   = true
+			tampering                        = true
+			antiDetectBrowser                = true
+			incognito                        = true
+			privacySettings                  = true
+			jailbroken                       = true
+			frida                            = true
+			factoryReset                     = true
+			clonedApp                        = true
+			emulator                         = true
+			rootApps                         = true
+			vpnConfidence                    = "high"
+			minSuspectScore          float32 = 85.5
+			ipBlocklist                      = true
+			datacenter                       = true
+			developerTools                   = true
+			locationSpoofing                 = true
+			mitmAttack                       = true
+			proxy                            = true
+			sdkVersion                       = "testSdkVersion"
+			sdkPlatform                      = "testSdkPlatform"
+			environment                      = []string{"env1", "env2"}
+			proximityId                      = "testProximityId"
+			proximityPrecisionRadius int32   = 10
 		)
 
 		opts := sdk.FingerprintApiSearchEventsOpts{
-			Suspect:           &suspect,
-			Bot:               &bot,
-			End:               &end,
-			Start:             &start,
-			IpAddress:         &ipAddress,
-			LinkedId:          &linkedId,
-			Reverse:           &reverse,
-			VisitorId:         &visitorId,
-			Vpn:               &vpn,
-			VirtualMachine:    &virtualMachine,
-			Tampering:         &tampering,
-			AntiDetectBrowser: &antiDetectBrowser,
-			Incognito:         &incognito,
-			PrivacySettings:   &privacySettings,
-			Jailbroken:        &jailbroken,
-			Frida:             &frida,
-			FactoryReset:      &factoryReset,
-			ClonedApp:         &clonedApp,
-			Emulator:          &emulator,
-			RootApps:          &rootApps,
-			VpnConfidence:     &vpnConfidence,
-			MinSuspectScore:   &minSuspectScore,
-			IpBlocklist:       &ipBlocklist,
-			Datacenter:        &datacenter,
-			DeveloperTools:    &developerTools,
-			LocationSpoofing:  &locationSpoofing,
-			MitmAttack:        &mitmAttack,
-			Proxy:             &proxy,
-			SdkVersion:        &sdkVersion,
-			SdkPlatform:       &sdkPlatform,
-			Environment:       &environment,
+			Suspect:                  &suspect,
+			Bot:                      &bot,
+			End:                      &end,
+			Start:                    &start,
+			IpAddress:                &ipAddress,
+			LinkedId:                 &linkedId,
+			Reverse:                  &reverse,
+			VisitorId:                &visitorId,
+			Vpn:                      &vpn,
+			VirtualMachine:           &virtualMachine,
+			Tampering:                &tampering,
+			AntiDetectBrowser:        &antiDetectBrowser,
+			Incognito:                &incognito,
+			PrivacySettings:          &privacySettings,
+			Jailbroken:               &jailbroken,
+			Frida:                    &frida,
+			FactoryReset:             &factoryReset,
+			ClonedApp:                &clonedApp,
+			Emulator:                 &emulator,
+			RootApps:                 &rootApps,
+			VpnConfidence:            &vpnConfidence,
+			MinSuspectScore:          &minSuspectScore,
+			IpBlocklist:              &ipBlocklist,
+			Datacenter:               &datacenter,
+			DeveloperTools:           &developerTools,
+			LocationSpoofing:         &locationSpoofing,
+			MitmAttack:               &mitmAttack,
+			Proxy:                    &proxy,
+			SdkVersion:               &sdkVersion,
+			SdkPlatform:              &sdkPlatform,
+			Environment:              &environment,
+			ProximityId:              &proximityId,
+			ProximityPrecisionRadius: &proximityPrecisionRadius,
 		}
 		res, _, err := client.FingerprintApi.SearchEvents(ctx, 2, &opts)
 		assert.Nil(t, err)
