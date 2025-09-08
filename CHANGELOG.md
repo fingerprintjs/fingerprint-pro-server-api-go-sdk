@@ -1,5 +1,11 @@
 # Fingerprint Pro Server Go SDK
 
+## 7.9.0-test.1
+
+### Minor Changes
+
+- Add `proximity` signal that represents a fixed geographical zone in a discrete global grid within which the device is observed. ([97c2b14](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/97c2b14e3ee2817ec95b3c8089bcaa9332972352))
+
 ## 7.9.0-test.0
 
 ### Minor Changes
