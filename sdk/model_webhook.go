@@ -70,4 +70,5 @@ type Webhook struct {
 	Replayed         bool                     `json:"replayed,omitempty"`
 	Sdk              *Sdk                     `json:"sdk"`
 	SupplementaryIds *WebhookSupplementaryIDs `json:"supplementaryIds,omitempty"`
+	Proximity        *WebhookProximity        `json:"proximity,omitempty"`
 }

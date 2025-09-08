@@ -186,6 +186,8 @@ Name | Type | Description  | Notes
  **sdkVersion** | **string**| Filter events by a specific SDK version associated with the identification event. Example: `3.11.14`  | 
  **sdkPlatform** | **string**| Filter events by the SDK Platform associated with the identification event. `js` - JavaScript agent (Web). `ios` - Apple iOS based devices. `android` - Android based devices.  | 
  **environment** | [**Interface of []string**](string.md)| Filter for events by providing one or more environment IDs.  | 
+ **proximityId** | **string**| Filter events by the most precise Proximity ID provided by default. > Note: When using this parameter, only events with the `products.proximity.id` property matching the provided ID are returned. Events without a `products.proximity` result are left out of the response.  | 
+ **proximityPrecisionRadius** | **int32**| Filter events by Proximity Radius. > Note: When using this parameter, only events with the `products.proximity.precisionRadius` property set to a valid value are returned. Events without a `products.proximity` result are left out of the response.  | 
 
 ### Return type
 
