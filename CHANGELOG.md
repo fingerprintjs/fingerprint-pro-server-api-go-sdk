@@ -1,5 +1,14 @@
 # Fingerprint Pro Server Go SDK
 
+## 7.9.0
+
+### Minor Changes
+
+- **events-search**: Event search now supports a new set of filter parameters: `developer_tools`, `location_spoofing`, `mitm_attack`, `proxy`, `sdk_version`, `sdk_platform`, `environment` ([ff17e0f](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/ff17e0f7d12b0729b01afbfe31e89b3b6bda2d9a))
+- **webhook**: Add `supplementaryIds` property to the Webhooks schema. ([ff17e0f](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/ff17e0f7d12b0729b01afbfe31e89b3b6bda2d9a))
+- Add `proximity` signal that represents a fixed geographical zone in a discrete global grid within which the device is observed. ([97c2b14](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/97c2b14e3ee2817ec95b3c8089bcaa9332972352))
+- Add `environmentId` property to `identification` ([ff17e0f](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/ff17e0f7d12b0729b01afbfe31e89b3b6bda2d9a))
+
 ## 7.9.0-test.1
 
 ### Minor Changes
