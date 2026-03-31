@@ -1,5 +1,20 @@
 # Fingerprint Pro Server Go SDK
 
+## 7.10.0
+
+### Minor Changes
+
+- Add `mlScore` fields to the `VirtualMachine` signal ([a6a3a13](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/a6a3a13e42b6c4bd897ce68002cedfd527dd806e))
+- Add `WorkspaceScopedSecretKeyRequired` error code ([1847841](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/1847841d239bfebdf700a22f2b0a30bcd4bf015f))
+- Add optional `Type` field to `IPInfoASN` response model ([1847841](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/1847841d239bfebdf700a22f2b0a30bcd4bf015f))
+- Add `Integrations` field to `SDK` model with a list of `Integration` and `IntegrationSubintegration`. ([1847841](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/1847841d239bfebdf700a22f2b0a30bcd4bf015f))
+- Add `confidence` and `mlScore` fields to the `Tampering` signal ([a6a3a13](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/a6a3a13e42b6c4bd897ce68002cedfd527dd806e))
+- Add deprecation warning
+
+  ### Deprecation
+
+  :warning: `fingerprintjs/fingerprint-pro-server-api-go-sdk` uses Server API v3, which is deprecated. Please migrate to the new [`fingerprintjs/go-sdk`](https://github.com/fingerprintjs/go-sdk) package which uses Server API v4. ([1847841](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/1847841d239bfebdf700a22f2b0a30bcd4bf015f))
+
 ## 7.9.0
 
 ### Minor Changes
