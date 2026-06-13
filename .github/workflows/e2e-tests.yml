@@ -22,6 +22,7 @@ jobs:
     with:
       sdk: go
       sdkVersion: ${{ needs.read-version.outputs.version }}
+      sdkPackageName: 'github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk'
       appId: ${{ vars.RUNNER_APP_ID }}
       commitSha: ${{ github.event.pull_request.head.sha || github.sha }}
     secrets:
