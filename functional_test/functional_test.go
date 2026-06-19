@@ -136,10 +136,10 @@ func TestApiFunctional(t *testing.T) {
 			oldEvent := events.Events[0]
 
 			// Try to get old events to check if they still could be deserialized
-			oldVisit, _, err := client.FingerprintApi.GetVisits(auth, oldEvent.Products.Identification.Data.RequestId, nil)
+			oldVisit, _, err := client.FingerprintApi.GetVisits(auth, oldEvent.Products.Identification.Data.VisitorId, nil)
 			assert.NoError(t, err)
 			assert.NotNil(t, oldEvent.Products)
-			assert.Equal(t, oldEvent.Products.Identification.Data.RequestId, oldVisit.VisitorId)
+			assert.Equal(t, oldEvent.Products.Identification.Data.VisitorId, oldVisit.VisitorId)
 
 			oldGetEvent, _, err := client.FingerprintApi.GetEvent(auth, oldEvent.Products.Identification.Data.RequestId)
 			assert.NoError(t, err)
