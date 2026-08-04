@@ -15,7 +15,7 @@ import (
 
 // Proxy detection details (present if proxy is detected)
 type ProxyDetails struct {
-	// Residential proxies use real user IP addresses to appear as legitimate traffic,  while data center proxies are public proxies hosted in data centers
+	// Residential proxies use real user IP addresses to appear as legitimate traffic, while data center proxies are public proxies hosted in data centers. `unknown` is reported when a proxy is detected solely by the ML model and the IP sources did not determine a specific type.
 	ProxyType string `json:"proxyType"`
 	// ISO 8601 formatted timestamp in UTC with hourly resolution of when this IP was last seen as a proxy when available.
 	LastSeenAt *time.Time `json:"lastSeenAt,omitempty"`

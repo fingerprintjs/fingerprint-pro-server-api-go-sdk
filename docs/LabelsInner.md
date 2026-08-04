@@ -1,9 +1,11 @@
-# DeveloperTools
+# LabelsInner
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Result** | **bool** | `true` if the browser has DevTools open (Chrome, Firefox) or the Android/iOS device has Developer Tools enabled, `false` otherwise.  | [default to null]
+**Label** | **string** |  | [optional] [default to null]
+**Prediction** | **bool** |  | [optional] [default to null]
+**MlScore** | **float64** |  | [optional] [default to null]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

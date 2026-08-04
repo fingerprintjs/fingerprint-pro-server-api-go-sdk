@@ -94,6 +94,8 @@ type FingerprintApiServiceInterface interface {
 	    * @param "DeveloperTools" (bool) -  Filter events by Developer Tools detection result. > Note: When using this parameter, only events with the `products.developerTools.data.result` property set to `true` or `false` are returned. Events without a `products.developerTools` Smart Signal result are left out of the response.
 	    * @param "LocationSpoofing" (bool) -  Filter events by Location Spoofing detection result. > Note: When using this parameter, only events with the `products.locationSpoofing.data.result` property set to `true` or `false` are returned. Events without a `products.locationSpoofing` Smart Signal result are left out of the response.
 	    * @param "MitmAttack" (bool) -  Filter events by MITM (Man-in-the-Middle) Attack detection result. > Note: When using this parameter, only events with the `products.mitmAttack.data.result` property set to `true` or `false` are returned. Events without a `products.mitmAttack` Smart Signal result are left out of the response.
+	    * @param "RareDevice" (bool) -  Filter events by Rare Device detection result. > Note: When using this parameter, only events with the `products.rareDevice.data.result` property set to `true` or `false` are returned. Events without a `products.rareDevice` Smart Signal result are left out of the response.
+	    * @param "RareDevicePercentileBucket" (string) -  Filter events by Rare Device percentile bucket. `<p95` - device configuration is in the bottom 95% (most common). `p95-p99` - device is in the 95th to 99th percentile. `p99-p99.5` - device is in the 99th to 99.5th percentile. `p99.5-p99.9` - device is in the 99.5th to 99.9th percentile. `p99.9+` - device is in the top 0.1% (rarest). `not_seen` - device configuration has never been observed before.
 	    * @param "Proxy" (bool) -  Filter events by Proxy detection result. > Note: When using this parameter, only events with the `products.proxy.data.result` property set to `true` or `false` are returned. Events without a `products.proxy` Smart Signal result are left out of the response.
 	    * @param "SdkVersion" (string) -  Filter events by a specific SDK version associated with the identification event. Example: `3.11.14`
 	    * @param "SdkPlatform" (string) -  Filter events by the SDK Platform associated with the identification event. `js` - JavaScript agent (Web). `ios` - Apple iOS based devices. `android` - Android based devices.
@@ -254,40 +256,42 @@ func createSearchEventsDefinition() requestDefinition {
 }
 
 type FingerprintApiSearchEventsOpts struct {
-	PaginationKey            *string
-	VisitorId                *string
-	Bot                      *string
-	IpAddress                *string
-	LinkedId                 *string
-	Start                    *int64
-	End                      *int64
-	Reverse                  *bool
-	Suspect                  *bool
-	Vpn                      *bool
-	VirtualMachine           *bool
-	Tampering                *bool
-	AntiDetectBrowser        *bool
-	Incognito                *bool
-	PrivacySettings          *bool
-	Jailbroken               *bool
-	Frida                    *bool
-	FactoryReset             *bool
-	ClonedApp                *bool
-	Emulator                 *bool
-	RootApps                 *bool
-	VpnConfidence            *string
-	MinSuspectScore          *float32
-	IpBlocklist              *bool
-	Datacenter               *bool
-	DeveloperTools           *bool
-	LocationSpoofing         *bool
-	MitmAttack               *bool
-	Proxy                    *bool
-	SdkVersion               *string
-	SdkPlatform              *string
-	Environment              any
-	ProximityId              *string
-	ProximityPrecisionRadius *int32
+	PaginationKey              *string
+	VisitorId                  *string
+	Bot                        *string
+	IpAddress                  *string
+	LinkedId                   *string
+	Start                      *int64
+	End                        *int64
+	Reverse                    *bool
+	Suspect                    *bool
+	Vpn                        *bool
+	VirtualMachine             *bool
+	Tampering                  *bool
+	AntiDetectBrowser          *bool
+	Incognito                  *bool
+	PrivacySettings            *bool
+	Jailbroken                 *bool
+	Frida                      *bool
+	FactoryReset               *bool
+	ClonedApp                  *bool
+	Emulator                   *bool
+	RootApps                   *bool
+	VpnConfidence              *string
+	MinSuspectScore            *float32
+	IpBlocklist                *bool
+	Datacenter                 *bool
+	DeveloperTools             *bool
+	LocationSpoofing           *bool
+	MitmAttack                 *bool
+	RareDevice                 *bool
+	RareDevicePercentileBucket *string
+	Proxy                      *bool
+	SdkVersion                 *string
+	SdkPlatform                *string
+	Environment                any
+	ProximityId                *string
+	ProximityPrecisionRadius   *int32
 }
 
 func (o *FingerprintApiSearchEventsOpts) ToQueryParams() map[string]any {
@@ -325,6 +329,8 @@ func (o *FingerprintApiSearchEventsOpts) ToQueryParams() map[string]any {
 	data["developer_tools"] = o.DeveloperTools
 	data["location_spoofing"] = o.LocationSpoofing
 	data["mitm_attack"] = o.MitmAttack
+	data["rare_device"] = o.RareDevice
+	data["rare_device_percentile_bucket"] = o.RareDevicePercentileBucket
 	data["proxy"] = o.Proxy
 	data["sdk_version"] = o.SdkVersion
 	data["sdk_platform"] = o.SdkPlatform
