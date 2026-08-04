@@ -66,6 +66,7 @@ type Webhook struct {
 	Velocity            *WebhookVelocity               `json:"velocity,omitempty"`
 	DeveloperTools      *WebhookDeveloperTools         `json:"developerTools,omitempty"`
 	MitmAttack          *WebhookMitMAttack             `json:"mitmAttack,omitempty"`
+	RareDevice          *WebhookRareDevice             `json:"rareDevice,omitempty"`
 	// `true` if we determined that this payload was replayed, `false` otherwise.
 	Replayed         bool                     `json:"replayed,omitempty"`
 	Sdk              *Sdk                     `json:"sdk"`
