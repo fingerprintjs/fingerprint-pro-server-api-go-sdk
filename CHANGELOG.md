@@ -1,5 +1,14 @@
 # Fingerprint Pro Server Go SDK
 
+## 7.11.0
+
+### Minor Changes
+
+- Add the `Labels` Smart Signal. The `Products` response now exposes a `Labels` field (`ProductLabels`) whose `data` is an array of label predictions (`label`, `prediction`, `mlScore`). ([bfdba9e](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/bfdba9ea7298ce1cf54ea9d70867205bc51cfe18))
+- Add machine learning-based Smart Signals from the Server API schema: `mlScore` on the `VPN` and `Proxy` results (and their webhook counterparts), and `mlPrediction` on `VPNMethods`. These signals are in beta and only available to select customers. ([bfdba9e](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/bfdba9ea7298ce1cf54ea9d70867205bc51cfe18))
+- Add `RareDevice` and `RareDevicePercentileBucket` filters to `FingerprintApiSearchEventsOpts`. ([7199081](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/7199081142e8e0d829d951379c7f46e87c710258))
+- Add the `RareDevice` Smart Signal. The `Products` response now exposes a `RareDevice` field (`ProductRareDevice`) whose `data` is a `bool` that is true when the device is considered rare based on its hardware and software attributes. This signal is currently in beta and only available to select customers. ([bfdba9e](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/bfdba9ea7298ce1cf54ea9d70867205bc51cfe18))
+
 ## 7.10.0
 
 ### Minor Changes
