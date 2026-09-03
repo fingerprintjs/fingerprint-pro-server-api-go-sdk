@@ -2,12 +2,13 @@ package functional_test
 
 import (
 	"context"
-	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v7/sdk"
-	"github.com/joho/godotenv"
-	"github.com/stretchr/testify/assert"
 	"os"
 	"testing"
 	"time"
+
+	"github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v7/sdk"
+	"github.com/joho/godotenv"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestApiFunctional(t *testing.T) {
@@ -23,7 +24,7 @@ func TestApiFunctional(t *testing.T) {
 	client := sdk.NewAPIClient(cfg)
 
 	end := time.Now().UnixMilli()
-	start := time.Now().AddDate(0, 0, -90).UnixMilli()
+	start := time.Now().AddDate(0, 0, -89).UnixMilli()
 	opts := sdk.FingerprintApiSearchEventsOpts{
 		Start: &start,
 		End:   &end,
@@ -85,7 +86,7 @@ func TestApiFunctional(t *testing.T) {
 	t.Run("SearchEvents", func(t *testing.T) {
 		t.Run("simple search", func(t *testing.T) {
 			end := time.Now().UnixMilli()
-			start := time.Now().AddDate(0, 0, -365).UnixMilli()
+			start := time.Now().AddDate(0, 0, -89).UnixMilli()
 			opts := sdk.FingerprintApiSearchEventsOpts{
 				Start: &start,
 				End:   &end,
@@ -98,7 +99,7 @@ func TestApiFunctional(t *testing.T) {
 
 		t.Run("with pagination", func(t *testing.T) {
 			end := time.Now().UnixMilli()
-			start := time.Now().AddDate(0, 0, -365).UnixMilli()
+			start := time.Now().AddDate(0, 0, -89).UnixMilli()
 			events, _, err := client.FingerprintApi.SearchEvents(auth, 2, &sdk.FingerprintApiSearchEventsOpts{
 				Start: &start,
 				End:   &end,
@@ -122,7 +123,7 @@ func TestApiFunctional(t *testing.T) {
 
 		t.Run("with old events", func(t *testing.T) {
 			end := time.Now().UnixMilli()
-			start := time.Now().AddDate(0, 0, -365).UnixMilli()
+			start := time.Now().AddDate(0, 0, -89).UnixMilli()
 			reverse := true
 			events, _, err := client.FingerprintApi.SearchEvents(auth, 2, &sdk.FingerprintApiSearchEventsOpts{
 				Start:   &start,
