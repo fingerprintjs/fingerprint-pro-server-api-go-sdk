@@ -3,7 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Label** | **string** |  | [optional] [default to null]
+**Label** | **string** |  | [default to null]
 **Prediction** | **bool** |  | [optional] [default to null]
 **MlScore** | **float64** |  | [optional] [default to null]
 
