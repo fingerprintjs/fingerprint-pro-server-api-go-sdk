@@ -11,6 +11,6 @@ package sdk
 
 type LabelsInner struct {
 	Label      string  `json:"label"`
-	Prediction bool    `json:"prediction,omitempty"`
+	Prediction bool    `json:"prediction"`
 	MlScore    float64 `json:"mlScore,omitempty"`
 }

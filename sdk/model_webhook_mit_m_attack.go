@@ -11,5 +11,5 @@ package sdk
 
 type WebhookMitMAttack struct {
 	// * `true` - When requests made from your users' mobile devices to Fingerprint servers have been intercepted and potentially modified.  * `false` - Otherwise or when the request originated from a browser. See [MitM Attack Detection](https://dev.fingerprint.com/docs/smart-signals-overview#mitm-attack-detection) to learn more about this Smart Signal.
-	Result bool `json:"result,omitempty"`
+	Result bool `json:"result"`
 }

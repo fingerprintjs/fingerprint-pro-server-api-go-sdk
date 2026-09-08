@@ -13,7 +13,7 @@ type SupplementaryId struct {
 	// String of 20 characters that uniquely identifies the visitor's browser or mobile device.
 	VisitorId string `json:"visitorId,omitempty"`
 	// Attribute represents if a visitor had been identified before.
-	VisitorFound bool                      `json:"visitorFound,omitempty"`
+	VisitorFound bool                      `json:"visitorFound"`
 	Confidence   *IdentificationConfidence `json:"confidence,omitempty"`
 	FirstSeenAt  *IdentificationSeenAt     `json:"firstSeenAt,omitempty"`
 	LastSeenAt   *IdentificationSeenAt     `json:"lastSeenAt,omitempty"`

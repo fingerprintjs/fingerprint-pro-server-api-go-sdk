@@ -11,5 +11,5 @@ package sdk
 
 type WebhookLocationSpoofing struct {
 	// Flag indicating whether the request came from a mobile device with location spoofing enabled.
-	Result bool `json:"result,omitempty"`
+	Result bool `json:"result"`
 }

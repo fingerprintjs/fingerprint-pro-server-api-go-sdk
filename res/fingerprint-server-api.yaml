@@ -1411,6 +1411,7 @@ components:
           type: string
           description: A customer-provided id that was sent with the request.
         suspect:
+          x-go-skip-omitempty: true
           description: >-
             Field is `true` if you have previously set the `suspect` flag for
             this event using the [Server API Update event
@@ -1844,6 +1845,7 @@ components:
             This field allows you to differentiate VPN users and relay service
             users in your fraud prevention logic.
         mlPrediction:
+          x-go-skip-omitempty: true
           type: boolean
           description: >
             `true` if the request came from a device running a VPN, `false`
@@ -2243,6 +2245,7 @@ components:
         team](https://fingerprint.com/support/).
       properties:
         result:
+          x-go-skip-omitempty: true
           type: boolean
           description: >
             `true` if the device is considered rare based on its combination of
@@ -2487,6 +2490,7 @@ components:
           label:
             type: string
           prediction:
+            x-go-skip-omitempty: true
             type: boolean
           mlScore:
             type: number
@@ -2797,6 +2801,7 @@ components:
       additionalProperties: false
       properties:
         result:
+          x-go-skip-omitempty: true
           type: boolean
           description: >
             Android specific root management apps detection. There are 2
@@ -2808,6 +2813,7 @@ components:
       additionalProperties: false
       properties:
         result:
+          x-go-skip-omitempty: true
           type: boolean
           description: |
             Android specific emulator detection. There are 2 values: 
@@ -2829,6 +2835,7 @@ components:
       additionalProperties: false
       properties:
         result:
+          x-go-skip-omitempty: true
           type: boolean
           description: >
             `true` if request IP address is part of any database that we use to
@@ -2840,6 +2847,7 @@ components:
       additionalProperties: false
       properties:
         result:
+          x-go-skip-omitempty: true
           type: boolean
           description: >
             `true` if the request IP address is a known tor exit node, `false`
@@ -2849,6 +2857,7 @@ components:
       additionalProperties: false
       properties:
         result:
+          x-go-skip-omitempty: true
           type: boolean
           description: >-
             VPN or other anonymizing service has been used when sending the
@@ -2882,6 +2891,7 @@ components:
       additionalProperties: false
       properties:
         result:
+          x-go-skip-omitempty: true
           type: boolean
           description: >
             IP address was used by a public proxy provider or belonged to a
@@ -2907,6 +2917,7 @@ components:
       additionalProperties: false
       properties:
         result:
+          x-go-skip-omitempty: true
           type: boolean
           description: >
             Indicates if an identification request from a browser or an Android
@@ -2948,6 +2959,7 @@ components:
               * Values above `0.8` indicate that the request is an anti detect browser based on the ml model
               * Values below `0.8` indicate that the request is not an anti detect browser based on the ml model
         antiDetectBrowser:
+          x-go-skip-omitempty: true
           type: boolean
           description: >
             Anti-detect browsers try to evade identification by masking or
@@ -2961,6 +2973,7 @@ components:
       additionalProperties: false
       properties:
         result:
+          x-go-skip-omitempty: true
           type: boolean
           description: |
             Android specific cloned application detection. There are 2 values: 
@@ -2998,6 +3011,7 @@ components:
       additionalProperties: false
       properties:
         result:
+          x-go-skip-omitempty: true
           type: boolean
           description: |
             iOS specific jailbreak detection. There are 2 values:
@@ -3008,6 +3022,7 @@ components:
       additionalProperties: false
       properties:
         result:
+          x-go-skip-omitempty: true
           type: boolean
           description: >
             [Frida](https://frida.re/docs/) detection for Android and iOS
@@ -3019,6 +3034,7 @@ components:
       additionalProperties: false
       properties:
         result:
+          x-go-skip-omitempty: true
           type: boolean
           description: >
             `true` if the request is from a privacy aware browser (e.g. Tor) or
@@ -3029,6 +3045,7 @@ components:
       additionalProperties: false
       properties:
         result:
+          x-go-skip-omitempty: true
           type: boolean
           description: >
             `true` if the request came from a browser running inside a virtual
@@ -3078,6 +3095,7 @@ components:
       additionalProperties: false
       properties:
         result:
+          x-go-skip-omitempty: true
           type: boolean
           description: >-
             Flag indicating whether the request came from a mobile device with
@@ -3103,6 +3121,7 @@ components:
       additionalProperties: false
       properties:
         result:
+          x-go-skip-omitempty: true
           type: boolean
           description: >
             `true` if the request came from a machine being remotely controlled
@@ -3163,6 +3182,7 @@ components:
       additionalProperties: false
       properties:
         result:
+          x-go-skip-omitempty: true
           type: boolean
           description: >
             `true` if the browser has DevTools open (Chrome, Firefox) or the
@@ -3172,6 +3192,7 @@ components:
       additionalProperties: false
       properties:
         result:
+          x-go-skip-omitempty: true
           type: boolean
           description: >
             * `true` - When requests made from your users' mobile devices to
@@ -3187,6 +3208,7 @@ components:
       additionalProperties: false
       properties:
         result:
+          x-go-skip-omitempty: true
           type: boolean
           description: >
             `true` if the device is considered rare based on its combination of
@@ -3220,6 +3242,7 @@ components:
             String of 20 characters that uniquely identifies the visitor's
             browser or mobile device.
         visitorFound:
+          x-go-skip-omitempty: true
           type: boolean
           description: Attribute represents if a visitor had been identified before.
         confidence:
@@ -3327,6 +3350,7 @@ components:
             String of 20 characters that uniquely identifies the visitor's
             browser or mobile device.
         visitorFound:
+          x-go-skip-omitempty: true
           type: boolean
           description: Attribute represents if a visitor had been identified before.
         confidence:
@@ -3338,6 +3362,7 @@ components:
         browserDetails:
           $ref: '#/components/schemas/BrowserDetails'
         incognito:
+          x-go-skip-omitempty: true
           type: boolean
           description: Flag if user used incognito session.
         clientReferrer:
@@ -3395,6 +3420,7 @@ components:
         rareDevice:
           $ref: '#/components/schemas/WebhookRareDevice'
         replayed:
+          x-go-skip-omitempty: true
           type: boolean
           description: >
             `true` if we determined that this payload was replayed, `false`

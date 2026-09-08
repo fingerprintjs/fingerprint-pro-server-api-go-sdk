@@ -33,13 +33,13 @@ type Webhook struct {
 	// String of 20 characters that uniquely identifies the visitor's browser or mobile device.
 	VisitorId string `json:"visitorId,omitempty"`
 	// Attribute represents if a visitor had been identified before.
-	VisitorFound   bool                      `json:"visitorFound,omitempty"`
+	VisitorFound   bool                      `json:"visitorFound"`
 	Confidence     *IdentificationConfidence `json:"confidence,omitempty"`
 	FirstSeenAt    *IdentificationSeenAt     `json:"firstSeenAt,omitempty"`
 	LastSeenAt     *IdentificationSeenAt     `json:"lastSeenAt,omitempty"`
 	BrowserDetails *BrowserDetails           `json:"browserDetails,omitempty"`
 	// Flag if user used incognito session.
-	Incognito           bool                           `json:"incognito,omitempty"`
+	Incognito           bool                           `json:"incognito"`
 	ClientReferrer      string                         `json:"clientReferrer,omitempty"`
 	Components          *map[string]RawDeviceAttribute `json:"components,omitempty"`
 	Bot                 *BotdBot                       `json:"bot,omitempty"`
@@ -68,7 +68,7 @@ type Webhook struct {
 	MitmAttack          *WebhookMitMAttack             `json:"mitmAttack,omitempty"`
 	RareDevice          *WebhookRareDevice             `json:"rareDevice,omitempty"`
 	// `true` if we determined that this payload was replayed, `false` otherwise.
-	Replayed         bool                     `json:"replayed,omitempty"`
+	Replayed         bool                     `json:"replayed"`
 	Sdk              *Sdk                     `json:"sdk"`
 	SupplementaryIds *WebhookSupplementaryIDs `json:"supplementaryIds,omitempty"`
 	Proximity        *WebhookProximity        `json:"proximity,omitempty"`

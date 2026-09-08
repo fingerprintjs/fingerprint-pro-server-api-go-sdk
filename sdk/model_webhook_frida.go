@@ -11,5 +11,5 @@ package sdk
 
 type WebhookFrida struct {
 	// [Frida](https://frida.re/docs/) detection for Android and iOS devices. There are 2 values:   * `true` - Frida detected   * `false` - No signs of Frida or the client is not a mobile device.
-	Result bool `json:"result,omitempty"`
+	Result bool `json:"result"`
 }

@@ -11,5 +11,5 @@ package sdk
 
 type WebhookDeveloperTools struct {
 	// `true` if the browser has DevTools open (Chrome, Firefox) or the Android/iOS device has Developer Tools enabled, `false` otherwise.
-	Result bool `json:"result,omitempty"`
+	Result bool `json:"result"`
 }

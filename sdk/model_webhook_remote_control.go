@@ -12,5 +12,5 @@ package sdk
 // Deprecated: This signal is deprecated.
 type WebhookRemoteControl struct {
 	// `true` if the request came from a machine being remotely controlled (e.g. TeamViewer), `false` otherwise.
-	Result bool `json:"result,omitempty"`
+	Result bool `json:"result"`
 }

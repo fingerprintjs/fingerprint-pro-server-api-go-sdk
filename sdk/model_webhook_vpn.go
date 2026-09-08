@@ -11,7 +11,7 @@ package sdk
 
 type WebhookVpn struct {
 	// VPN or other anonymizing service has been used when sending the request.
-	Result     bool           `json:"result,omitempty"`
+	Result     bool           `json:"result"`
 	Confidence *VpnConfidence `json:"confidence,omitempty"`
 	// Machine learning–based VPN score, represented as a floating-point value between 0 and 1 (inclusive), with up to three decimal places of precision. A higher score means a higher confidence in the positive `vpn` detection result. This Smart Signal is currently in beta and only available to select customers. If you are interested, please [contact our support team](https://fingerprint.com/support/).
 	MlScore float64 `json:"mlScore,omitempty"`
