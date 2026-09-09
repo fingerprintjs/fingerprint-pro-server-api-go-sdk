@@ -33,18 +33,6 @@ func handlePotentialTooManyRequestsResponse(httpResponse *http.Response, err Err
 			}
 		}
 
-		if model, ok := e.model.(*ErrorPlainResponse); ok {
-			retryAfter := getRetryAfterFromHeader(httpResponse)
-
-			return &TooManyRequestsError{
-				error:      model.Error_,
-				code:       TOOMANYREQUESTS429,
-				retryAfter: retryAfter,
-				body:       e.body,
-				model:      e.model,
-			}
-		}
-
 		if model, ok := e.model.(*ErrorResponse); ok {
 			retryAfter := getRetryAfterFromHeader(httpResponse)
 
@@ -66,16 +54,6 @@ func handlePotentialTooManyRequestsResponse(httpResponse *http.Response, err Err
 				body:       e.body,
 				model:      e.model,
 			}
-		}
-
-		retryAfter := getRetryAfterFromHeader(httpResponse)
-
-		return &TooManyRequestsError{
-			error:      e.error,
-			code:       TOOMANYREQUESTS429,
-			retryAfter: retryAfter,
-			body:       e.body,
-			model:      e.model,
 		}
 	}
 
@@ -112,15 +90,9 @@ func handleErrorResponse(body []byte, httpResponse *http.Response, definition re
 	if modelFactory != nil {
 		model := modelFactory()
 
-		err := json.Unmarshal(body, model)
+		err := json.Unmarshal(body, &model)
 
 		if err != nil {
-			var plain ErrorPlainResponse
-			if errPlain := json.Unmarshal(body, &plain); errPlain == nil {
-				apiError.error = plain.Error_
-				apiError.model = &plain
-				return &apiError
-			}
 			apiError.error = err.Error()
 
 			return &apiError

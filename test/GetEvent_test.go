@@ -536,23 +536,5 @@ func TestGetEvent(t *testing.T) {
 		assert.Equal(t, res.Products.Botd.Data.Url, "https://www.example.com/{{{login")
 	})
 
-	t.Run("Handles 429 response with empty object or missing code without panic", func(t *testing.T) {
-		ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusTooManyRequests)
-			_, _ = w.Write([]byte("{}"))
-		}))
-		defer ts.Close()
-
-		cfg := sdk.NewConfiguration()
-		cfg.ChangeBasePath(ts.URL)
-		client := sdk.NewAPIClient(cfg)
-		ctx := context.WithValue(context.Background(), sdk.ContextAPIKey, sdk.APIKey{Key: "api_key"})
-
-		_, _, err := client.FingerprintApi.GetEvent(ctx, "request_id")
-		assert.Error(t, err)
-		assert.IsType(t, &sdk.TooManyRequestsError{}, err)
-		assert.Equal(t, sdk.TOOMANYREQUESTS429, err.Code())
-	})
 }
 
