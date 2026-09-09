@@ -37,12 +37,16 @@ func handlePotentialTooManyRequestsResponse(httpResponse *http.Response, err Err
 			retryAfter := getRetryAfterFromHeader(httpResponse)
 
 			code := TOOMANYREQUESTS429
-			if model.Error_.Code != nil {
-				code = *model.Error_.Code
+			var msg string
+			if model.Error_ != nil {
+				msg = model.Error_.Message
+				if model.Error_.Code != nil {
+					code = *model.Error_.Code
+				}
 			}
 
 			return &TooManyRequestsError{
-				error:      model.Error_.Message,
+				error:      msg,
 				code:       code,
 				retryAfter: retryAfter,
 				body:       e.body,
@@ -84,9 +88,15 @@ func handleErrorResponse(body []byte, httpResponse *http.Response, definition re
 	if modelFactory != nil {
 		model := modelFactory()
 
-		err := json.Unmarshal(body, &model)
+		err := json.Unmarshal(body, model)
 
 		if err != nil {
+			var plain ErrorPlainResponse
+			if errPlain := json.Unmarshal(body, &plain); errPlain == nil {
+				apiError.error = plain.Error_
+				apiError.model = &plain
+				return &apiError
+			}
 			apiError.error = err.Error()
 
 			return &apiError
@@ -94,10 +104,12 @@ func handleErrorResponse(body []byte, httpResponse *http.Response, definition re
 
 		switch v := model.(type) {
 		case *ErrorResponse:
-			if v.Error_.Code != nil {
-				apiError.code = *v.Error_.Code
+			if v.Error_ != nil {
+				if v.Error_.Code != nil {
+					apiError.code = *v.Error_.Code
+				}
+				apiError.error = v.Error_.Message
 			}
-			apiError.error = v.Error_.Message
 
 		case *ErrorPlainResponse:
 			apiError.error = v.Error_
