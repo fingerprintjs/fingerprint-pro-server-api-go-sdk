@@ -33,6 +33,7 @@ func TestApiFingerprint(t *testing.T) {
 		_, _, err := client.FingerprintApi.GetEvent(ctx, "req_123")
 
 		assert.NotNil(t, err)
+		assert.Equal(t, sdk.FAILED, err.Code())
 		assert.Equal(t, "Forbidden request without code", err.Error())
 	})
 
@@ -41,7 +42,7 @@ func TestApiFingerprint(t *testing.T) {
 			w.Header().Set("Content-Type", "application/json")
 			w.Header().Set("Retry-After", "5")
 			w.WriteHeader(http.StatusTooManyRequests)
-			w.Write([]byte(`{"error": "Too many requests"}`))
+			w.Write([]byte(`{"error": {"message": "Too many requests"}}`))
 		}))
 		defer ts.Close()
 
@@ -53,7 +54,8 @@ func TestApiFingerprint(t *testing.T) {
 		_, _, err := client.FingerprintApi.GetEvent(ctx, "req_123")
 
 		assert.NotNil(t, err)
+		assert.IsType(t, &sdk.TooManyRequestsError{}, err)
+		assert.Equal(t, sdk.TOOMANYREQUESTS429, err.Code())
 		assert.Equal(t, "Too many requests", err.Error())
 	})
 }
-
