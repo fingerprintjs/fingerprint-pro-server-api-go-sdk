@@ -53,7 +53,7 @@ func TestApiFingerprint(t *testing.T) {
 		_, _, err := client.FingerprintApi.GetEvent(ctx, "req_123")
 
 		assert.NotNil(t, err)
-		assert.Equal(t, "429 Too Many Requests", err.Error())
+		assert.Equal(t, "Too many requests", err.Error())
 	})
 }
 
