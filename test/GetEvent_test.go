@@ -551,7 +551,8 @@ func TestGetEvent(t *testing.T) {
 
 		_, _, err := client.FingerprintApi.GetEvent(ctx, "request_id")
 		assert.Error(t, err)
+		assert.IsType(t, &sdk.TooManyRequestsError{}, err)
+		assert.Equal(t, sdk.TOOMANYREQUESTS429, err.Code())
 	})
-
 }
 
