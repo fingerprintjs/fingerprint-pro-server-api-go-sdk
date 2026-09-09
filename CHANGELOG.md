@@ -1,5 +1,15 @@
 # Fingerprint Pro Server Go SDK
 
+## 7.12.0
+
+### Minor Changes
+
+- Add `RequestReadTimeout` `ErrorCode` value, returned when the request body could not be read before the connection timed out ([73b95c3](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/73b95c36dea74d4cf84b1f5ad01718c20a3a3952))
+
+### Patch Changes
+
+- **events**: Require `LabelsInner.Label`, clarify `ProxyDetails.ProxyType` values, default the `Reverse` search filter to `false`, and update `VisitorsGetResponse` and `GetVisits` documentation to note that `visits` now contains at most one item ([73b95c3](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/73b95c36dea74d4cf84b1f5ad01718c20a3a3952))
+
 ## 7.11.0
 
 ### Minor Changes
