@@ -33,13 +33,27 @@ func handlePotentialTooManyRequestsResponse(httpResponse *http.Response, err Err
 			}
 		}
 
+		if model, ok := e.model.(*ErrorPlainResponse); ok {
+			retryAfter := getRetryAfterFromHeader(httpResponse)
+
+			return &TooManyRequestsError{
+				error:      model.Error_,
+				code:       TOOMANYREQUESTS429,
+				retryAfter: retryAfter,
+				body:       e.body,
+				model:      e.model,
+			}
+		}
+
 		if model, ok := e.model.(*ErrorResponse); ok {
 			retryAfter := getRetryAfterFromHeader(httpResponse)
 
 			code := TOOMANYREQUESTS429
-			var msg string
+			msg := e.error
 			if model.Error_ != nil {
-				msg = model.Error_.Message
+				if model.Error_.Message != "" {
+					msg = model.Error_.Message
+				}
 				if model.Error_.Code != nil {
 					code = *model.Error_.Code
 				}
@@ -52,6 +66,16 @@ func handlePotentialTooManyRequestsResponse(httpResponse *http.Response, err Err
 				body:       e.body,
 				model:      e.model,
 			}
+		}
+
+		retryAfter := getRetryAfterFromHeader(httpResponse)
+
+		return &TooManyRequestsError{
+			error:      e.error,
+			code:       TOOMANYREQUESTS429,
+			retryAfter: retryAfter,
+			body:       e.body,
+			model:      e.model,
 		}
 	}
 
