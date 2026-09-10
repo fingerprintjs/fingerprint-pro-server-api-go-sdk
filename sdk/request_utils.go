@@ -37,18 +37,15 @@ func handlePotentialTooManyRequestsResponse(httpResponse *http.Response, err Err
 			retryAfter := getRetryAfterFromHeader(httpResponse)
 
 			code := TOOMANYREQUESTS429
-			msg := e.error
-			if model.Error_ != nil {
-				if model.Error_.Message != "" {
-					msg = model.Error_.Message
-				}
-				if model.Error_.Code != nil {
-					code = *model.Error_.Code
-				}
+			if model.Error_ == nil {
+				return err
+			}
+			if model.Error_.Code != nil {
+				code = *model.Error_.Code
 			}
 
 			return &TooManyRequestsError{
-				error:      msg,
+				error:      model.Error_.Message,
 				code:       code,
 				retryAfter: retryAfter,
 				body:       e.body,
@@ -90,7 +87,7 @@ func handleErrorResponse(body []byte, httpResponse *http.Response, definition re
 	if modelFactory != nil {
 		model := modelFactory()
 
-		err := json.Unmarshal(body, &model)
+		err := json.Unmarshal(body, model)
 
 		if err != nil {
 			apiError.error = err.Error()
