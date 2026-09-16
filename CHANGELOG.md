@@ -1,5 +1,11 @@
 # Fingerprint Pro Server Go SDK
 
+## 7.12.1
+
+### Patch Changes
+
+- Fix nil pointer dereference when an error response is missing a `code` field ([b0392ac](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/b0392acba2bd317dee9fe18fd20875de72d498a4))
+
 ## 7.12.0
 
 ### Minor Changes
