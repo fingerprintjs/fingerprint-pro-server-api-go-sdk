@@ -12,6 +12,7 @@ package sdk
 import (
 	"context"
 	"net/http"
+	"net/url"
 	"strings"
 )
 
@@ -23,6 +24,7 @@ type FingerprintApiServiceInterface interface {
 	   > 🚧 Deprecation Notice > > This version of Server API is marked as deprecated starting on **Jan 7th 2026** according to our [API Deprecation Policy](https://dev.fingerprint.com/reference/api-deprecation-policy). If you still use this version, please follow our [migration guide](https://dev.fingerprint.com/reference/migrating-from-server-api-v3-to-v4) to migrate from this deprecated version to the new one.  Request deleting all data associated with the specified visitor ID. This API is useful for compliance with privacy regulations. ### Which data is deleted? - Browser (or device) properties - Identification requests made from this browser (or device)  #### Browser (or device) properties - Represents the data that Fingerprint collected from this specific browser (or device) and everything inferred and derived from it. - Upon request to delete, this data is deleted asynchronously (typically within a few minutes) and it will no longer be used to identify this browser (or device) for your [Fingerprint Workspace](https://dev.fingerprint.com/docs/glossary#fingerprint-workspace).  #### Identification requests made from this browser (or device) - Fingerprint stores the identification requests made from a browser (or device) for up to 30 (or 90) days depending on your plan. To learn more, see [Data Retention](https://dev.fingerprint.com/docs/regions#data-retention). - Upon request to delete, the identification requests that were made by this browser   - Within the past 10 days are deleted within 24 hrs.   - Outside of 10 days are allowed to purge as per your data retention period.  ### Corollary After requesting to delete a visitor ID, - If the same browser (or device) requests to identify, it will receive a different visitor ID. - If you request [`/events` API](https://dev.fingerprint.com/reference/getevent) with a `request_id` that was made outside of the 10 days, you will still receive a valid response. - If you request [`/visitors` API](https://dev.fingerprint.com/reference/getvisits) for the deleted visitor ID, the response will include identification requests that were made outside of those 10 days.  ### Interested? Please [contact our support team](https://fingerprint.com/support/) to enable it for you. Otherwise, you will receive a 403.
 	    * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	    * @param visitorId The [visitor ID](https://dev.fingerprint.com/reference/get-function#visitorid) you want to delete.
+	        * Returns *InvalidArgumentError without sending a request when visitorId is "." or "..", as those values are not valid identifiers.
 
 	*/
 	DeleteVisitorData(ctx context.Context, visitorId string) (*http.Response, Error)
@@ -32,7 +34,8 @@ type FingerprintApiServiceInterface interface {
 	   > 🚧 Deprecation Notice > > This version of Server API is marked as deprecated starting on **Jan 7th 2026** according to our [API Deprecation Policy](https://dev.fingerprint.com/reference/api-deprecation-policy). If you still use this version, please follow our [migration guide](https://dev.fingerprint.com/reference/migrating-from-server-api-v3-to-v4#migrating-get-events) to migrate from this deprecated version to the new one.  Get a detailed analysis of an individual identification event, including Smart Signals.  Please note that the response includes mobile signals (e.g. `rootApps`) even if the request originated from a non-mobile platform. It is highly recommended that you **ignore** the mobile signals for such requests.   Use `requestId` as the URL path parameter. This API method is scoped to a request, i.e. all returned information is by `requestId`.
 	    * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	    * @param requestId The unique [identifier](https://dev.fingerprint.com/reference/get-function#requestid) of each identification request.
-	       @return EventsGetResponse
+	        * Returns *InvalidArgumentError without sending a request when requestId is "." or "..", as those values are not valid identifiers.
+	   @return EventsGetResponse
 	*/
 	GetEvent(ctx context.Context, requestId string) (EventsGetResponse, *http.Response, Error)
 
@@ -56,6 +59,7 @@ type FingerprintApiServiceInterface interface {
 	    * @param "Limit" (int32) -  Limit scanned results.  `GET /visitors/{visitor_id}` currently returns at most one visit. Use `GET /events/search` for paginated multi-event queries.
 	    * @param "PaginationKey" (string) -  Deprecated pagination parameter retained for backward compatibility.  `GET /visitors/{visitor_id}` currently returns at most one visit, so pagination is not expected. Use `GET /events/search` for paginated results.
 	    * @param "Before" (int64) -  ⚠️ Deprecated pagination method, please use `paginationKey` instead. Timestamp (in milliseconds since epoch) used to paginate results. `GET /visitors/{visitor_id}` currently returns at most one visit, so pagination is not expected.
+	    * Returns *InvalidArgumentError without sending a request when visitorId is "." or "..", as those values are not valid identifiers.
 	   @return VisitorsGetResponse
 	*/
 	GetVisits(ctx context.Context, visitorId string, opts *FingerprintApiGetVisitsOpts) (VisitorsGetResponse, *http.Response, Error)
@@ -112,6 +116,7 @@ type FingerprintApiServiceInterface interface {
 	    * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	    * @param body
 	    * @param requestId The unique event [identifier](https://dev.fingerprint.com/reference/get-function#requestid).
+	        * Returns *InvalidArgumentError without sending a request when requestId is "." or "..", as those values are not valid identifiers.
 
 	*/
 	UpdateEvent(ctx context.Context, body EventsUpdateRequest, requestId string) (*http.Response, Error)
@@ -119,18 +124,23 @@ type FingerprintApiServiceInterface interface {
 
 type requestDefinition struct {
 	StatusCodeResultsFactoryMap map[int]func() any
-	GetPath                     func(params ...string) string
+	// PathParamNames holds the Go parameter names, positionally matching the values passed to
+	// GetPath. It exists to name a parameter in errors, so it deliberately differs from the
+	// snake_case path template tokens GetPath substitutes on and cannot be merged with them.
+	PathParamNames []string
+	GetPath        func(params ...string) string
 }
 
 func createDeleteVisitorDataDefinition() requestDefinition {
 	return requestDefinition{
+		PathParamNames: []string{"visitorId"},
 		GetPath: func(args ...string) string {
 			pathParams := []string{"visitor_id"}
 
 			path := "/visitors/{visitor_id}"
 
 			for i, arg := range args {
-				path = strings.Replace(path, "{"+pathParams[i]+"}", arg, -1)
+				path = strings.Replace(path, "{"+pathParams[i]+"}", url.PathEscape(arg), -1)
 			}
 
 			return path
@@ -146,13 +156,14 @@ func createDeleteVisitorDataDefinition() requestDefinition {
 
 func createGetEventDefinition() requestDefinition {
 	return requestDefinition{
+		PathParamNames: []string{"requestId"},
 		GetPath: func(args ...string) string {
 			pathParams := []string{"request_id"}
 
 			path := "/events/{request_id}"
 
 			for i, arg := range args {
-				path = strings.Replace(path, "{"+pathParams[i]+"}", arg, -1)
+				path = strings.Replace(path, "{"+pathParams[i]+"}", url.PathEscape(arg), -1)
 			}
 
 			return path
@@ -169,13 +180,14 @@ func createGetEventDefinition() requestDefinition {
 
 func createGetRelatedVisitorsDefinition() requestDefinition {
 	return requestDefinition{
+		PathParamNames: []string{},
 		GetPath: func(args ...string) string {
 			pathParams := []string{}
 
 			path := "/related-visitors"
 
 			for i, arg := range args {
-				path = strings.Replace(path, "{"+pathParams[i]+"}", arg, -1)
+				path = strings.Replace(path, "{"+pathParams[i]+"}", url.PathEscape(arg), -1)
 			}
 
 			return path
@@ -192,13 +204,14 @@ func createGetRelatedVisitorsDefinition() requestDefinition {
 
 func createGetVisitsDefinition() requestDefinition {
 	return requestDefinition{
+		PathParamNames: []string{"visitorId"},
 		GetPath: func(args ...string) string {
 			pathParams := []string{"visitor_id"}
 
 			path := "/visitors/{visitor_id}"
 
 			for i, arg := range args {
-				path = strings.Replace(path, "{"+pathParams[i]+"}", arg, -1)
+				path = strings.Replace(path, "{"+pathParams[i]+"}", url.PathEscape(arg), -1)
 			}
 
 			return path
@@ -240,13 +253,14 @@ func (o *FingerprintApiGetVisitsOpts) ToQueryParams() map[string]any {
 
 func createSearchEventsDefinition() requestDefinition {
 	return requestDefinition{
+		PathParamNames: []string{},
 		GetPath: func(args ...string) string {
 			pathParams := []string{}
 
 			path := "/events/search"
 
 			for i, arg := range args {
-				path = strings.Replace(path, "{"+pathParams[i]+"}", arg, -1)
+				path = strings.Replace(path, "{"+pathParams[i]+"}", url.PathEscape(arg), -1)
 			}
 
 			return path
@@ -352,13 +366,14 @@ func (o *FingerprintApiSearchEventsOpts) ToQueryParams() map[string]any {
 
 func createUpdateEventDefinition() requestDefinition {
 	return requestDefinition{
+		PathParamNames: []string{"requestId"},
 		GetPath: func(args ...string) string {
 			pathParams := []string{"request_id"}
 
 			path := "/events/{request_id}"
 
 			for i, arg := range args {
-				path = strings.Replace(path, "{"+pathParams[i]+"}", arg, -1)
+				path = strings.Replace(path, "{"+pathParams[i]+"}", url.PathEscape(arg), -1)
 			}
 
 			return path

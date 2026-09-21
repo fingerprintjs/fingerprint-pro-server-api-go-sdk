@@ -6,6 +6,7 @@ package {{packageName}}
 import (
     "context"
     "net/http"
+    "net/url"
     "strings"
 )
 
@@ -21,7 +22,8 @@ type {{classname}}ServiceInterface interface {
     {{/required}}{{/allParams}}{{#hasOptionalParams}} * @param opts nil or *{{{classname}}}{{{nickname}}}Opts - Optional Parameters:
     {{#allParams}}{{^required}}     * @param "{{vendorExtensions.x-exportParamName}}" ({{#isPrimitiveType}}{{dataType}}{{/isPrimitiveType}}{{^isPrimitiveType}}Interface of {{dataType}}{{/isPrimitiveType}}) - {{#description}} {{{.}}}{{/description}}
     {{/required}}{{/allParams}}{{/hasOptionalParams}}
-    {{#returnType}}@return {{{returnType}}}{{/returnType}}
+    {{#pathParams}} * Returns *InvalidArgumentError without sending a request when {{paramName}} is "." or "..", as those values are not valid identifiers.
+    {{/pathParams}}{{#returnType}}@return {{{returnType}}}{{/returnType}}
     */
     {{{nickname}}}(ctx context.Context{{#hasParams}}, {{/hasParams}}{{#allParams}}{{#required}}{{paramName}} {{{dataType}}}{{#hasMore}}, {{/hasMore}}{{/required}}{{/allParams}}{{#hasOptionalParams}}opts *{{{classname}}}{{{nickname}}}Opts{{/hasOptionalParams}}) ({{#returnType}}{{{returnType}}}, {{/returnType}}*http.Response, Error)
 
@@ -30,19 +32,24 @@ type {{classname}}ServiceInterface interface {
 
 type requestDefinition struct {
     StatusCodeResultsFactoryMap map[int]func() any
+    // PathParamNames holds the Go parameter names, positionally matching the values passed to
+    // GetPath. It exists to name a parameter in errors, so it deliberately differs from the
+    // snake_case path template tokens GetPath substitutes on and cannot be merged with them.
+    PathParamNames      []string
     GetPath             func(params ...string) string
 }
 
 {{#operation}}
 func create{{nickname}}Definition() requestDefinition {
     return requestDefinition{
+        PathParamNames: []string{ {{#pathParams}}"{{paramName}}",{{/pathParams}} },
         GetPath: func(args ...string) string {
             pathParams := []string{ {{#pathParams}}"{{baseName}}",{{/pathParams}} }
 
             path := "{{{path}}}"
 
             for i, arg := range args {
-                path = strings.Replace(path, "{"+pathParams[i]+"}", arg, -1)
+                path = strings.Replace(path, "{"+pathParams[i]+"}", url.PathEscape(arg), -1)
             }
 
             return path

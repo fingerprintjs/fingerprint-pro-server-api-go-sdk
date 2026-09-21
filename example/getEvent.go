@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"log"
 	"os"
@@ -39,7 +40,13 @@ func main() {
 	fmt.Printf("%+v\n", httpRes)
 
 	if err != nil {
-		log.Fatalf("Error: %s, %s", err.Code(), err.Error())
+		var invalidArgumentError *sdk.InvalidArgumentError
+
+		if errors.As(err, &invalidArgumentError) {
+			log.Fatalf("Invalid %s: %q", invalidArgumentError.Parameter(), invalidArgumentError.Value())
+		} else {
+			log.Fatalf("Error: %s, %s", err.Code(), err.Error())
+		}
 	}
 
 	if response.Products.Botd != nil {

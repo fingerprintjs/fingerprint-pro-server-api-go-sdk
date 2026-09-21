@@ -24,6 +24,10 @@ Name | Type | Description  | Notes
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **visitorId** | **string**| The [visitor ID](https://dev.fingerprint.com/reference/get-function#visitorid) you want to delete. | 
 
+### Invalid argument values
+
+`visitorId` must not be `.` or `..`. Those values are not valid identifiers, so the call returns an `*InvalidArgumentError` without sending a request.
+
 ### Return type
 
  (empty response body)
@@ -51,6 +55,10 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **requestId** | **string**| The unique [identifier](https://dev.fingerprint.com/reference/get-function#requestid) of each identification request. | 
+
+### Invalid argument values
+
+`requestId` must not be `.` or `..`. Those values are not valid identifiers, so the call returns an `*InvalidArgumentError` without sending a request.
 
 ### Return type
 
@@ -119,6 +127,10 @@ Name | Type | Description  | Notes
  **limit** | **int32**| Limit scanned results.  `GET /visitors/{visitor_id}` currently returns at most one visit. Use `GET /events/search` for paginated multi-event queries.  | 
  **paginationKey** | **string**| Deprecated pagination parameter retained for backward compatibility.  `GET /visitors/{visitor_id}` currently returns at most one visit, so pagination is not expected. Use `GET /events/search` for paginated results.  | 
  **before** | **int64**| ⚠️ Deprecated pagination method, please use `paginationKey` instead. Timestamp (in milliseconds since epoch) used to paginate results. `GET /visitors/{visitor_id}` currently returns at most one visit, so pagination is not expected.  | 
+
+### Invalid argument values
+
+`visitorId` must not be `.` or `..`. Those values are not valid identifiers, so the call returns an `*InvalidArgumentError` without sending a request.
 
 ### Return type
 
@@ -219,6 +231,10 @@ Name | Type | Description  | Notes
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **body** | [**EventsUpdateRequest**](EventsUpdateRequest.md)|  | 
   **requestId** | **string**| The unique event [identifier](https://dev.fingerprint.com/reference/get-function#requestid). | 
+
+### Invalid argument values
+
+`requestId` must not be `.` or `..`. Those values are not valid identifiers, so the call returns an `*InvalidArgumentError` without sending a request.
 
 ### Return type
 
