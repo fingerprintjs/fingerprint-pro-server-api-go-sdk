@@ -78,6 +78,18 @@ func addIntegrationInfoToQuery(query *url.Values) {
 	query.Add("ii", IntegrationInfo)
 }
 
+// validatePathParams rejects values that cannot be sent as a path segment addressing a resource.
+// Values are positional, matching the order of names in requestDefinition.PathParamNames.
+func validatePathParams(names []string, values []string) Error {
+	for i, value := range values {
+		if value == "." || value == ".." {
+			return newInvalidArgumentError(names[i], value, `"." and ".." are not valid identifiers`)
+		}
+	}
+
+	return nil
+}
+
 func handleErrorResponse(body []byte, httpResponse *http.Response, definition requestDefinition) *ApiError {
 	apiError := ApiError{
 		body:  body,

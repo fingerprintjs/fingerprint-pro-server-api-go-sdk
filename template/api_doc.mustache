@@ -34,6 +34,12 @@ Name | Type | Description  | Notes
 **opts** | ***{{{classname}}}{{{nickname}}}Opts** | optional parameters | nil if no parameters
 {{^required}} **{{paramName}}** | {{#isFile}}**Interface of {{dataType}}**{{/isFile}}{{#isPrimitiveType}}**{{dataType}}**{{/isPrimitiveType}}{{^isPrimitiveType}}{{^isFile}}[**Interface of {{dataType}}**]({{baseType}}.md){{/isFile}}{{/isPrimitiveType}}| {{{description}}} | {{#defaultValue}}[default to {{defaultValue}}]{{/defaultValue}}{{/required}}{{/allParams}}{{/hasOptionalParams}}
 
+{{#pathParams}}
+### Invalid argument values
+
+`{{paramName}}` must not be `.` or `..`. Those values are not valid identifiers, so the call returns an `*InvalidArgumentError` without sending a request.
+
+{{/pathParams}}
 ### Return type
 
 {{#returnType}}{{#returnTypeIsPrimitive}}**{{{returnType}}}**{{/returnTypeIsPrimitive}}{{^returnTypeIsPrimitive}}[**{{{returnType}}}**]({{returnBaseType}}.md){{/returnTypeIsPrimitive}}{{/returnType}}{{^returnType}} (empty response body){{/returnType}}

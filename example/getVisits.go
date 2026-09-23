@@ -43,9 +43,12 @@ func main() {
 
 	if err != nil {
 		var tooManyRequestsError *sdk.TooManyRequestsError
+		var invalidArgumentError *sdk.InvalidArgumentError
 
 		if errors.As(err, &tooManyRequestsError) {
 			log.Printf("Too many requests, retry after %d seconds", tooManyRequestsError.RetryAfter())
+		} else if errors.As(err, &invalidArgumentError) {
+			log.Fatalf("Invalid %s: %q", invalidArgumentError.Parameter(), invalidArgumentError.Value())
 		} else {
 			log.Fatalf("Error: %s, %s", err.Code(), err.Error())
 		}

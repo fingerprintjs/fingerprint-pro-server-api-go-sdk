@@ -135,6 +135,10 @@ func (f *FingerprintApiService) getPath(definition requestDefinition, params ...
 }
 
 func (f *FingerprintApiService) doRequest(ctx context.Context, apiRequest apiRequest, result any) (*http.Response, Error) {
+	if err := validatePathParams(apiRequest.definition.PathParamNames, apiRequest.pathParams); err != nil {
+		return nil, err
+	}
+
 	path := f.getPath(apiRequest.definition, apiRequest.pathParams...)
 	requestUrl, err := url.Parse(path)
 	if err != nil {
