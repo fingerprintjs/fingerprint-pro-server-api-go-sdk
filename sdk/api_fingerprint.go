@@ -16,7 +16,7 @@ import (
 	"strings"
 )
 
-const IntegrationInfo = "fingerprint-pro-server-go-sdk/7.12.1"
+const IntegrationInfo = "fingerprint-pro-server-go-sdk/7.12.2"
 
 type FingerprintApiServiceInterface interface {
 	/*
