@@ -1,5 +1,13 @@
 # Fingerprint Pro Server Go SDK
 
+## 7.12.2
+
+### Patch Changes
+
+- Percent-encode path parameter values so they remain within a single URL path segment.
+
+  `GetEvent`, `UpdateEvent`, `GetVisits`, and `DeleteVisitorData` now return the new `InvalidArgumentError` without sending a request when their identifier argument is `.` or `..`. Those values are not valid identifiers. The error exposes the rejected `Parameter()` and `Value()`. ([49d2a57](https://github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/commit/49d2a576665f5177787c48b76f4f5eac8986bd00))
+
 ## 7.12.1
 
 ### Patch Changes
